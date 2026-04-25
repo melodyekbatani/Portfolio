@@ -51,7 +51,7 @@
 
         <div class="hero-thumb">
           <button type="button" class="hero-thumb-trigger t-small" data-open-work>A glimpse of my work</button>
-          <button type="button" class="hero-thumb-media" data-open-work aria-label="Open work page preview">
+          <button type="button" class="hero-thumb-media" data-open-work data-project-hover="View Full Projects" aria-label="Open work page preview">
             <video autoplay muted loop playsinline>
               <source src="Header reel.mp4" type="video/mp4">
             </video>
@@ -294,7 +294,6 @@
     const projectCursor = document.querySelector(".project-cursor");
     const projectCursorLabel = projectCursor?.querySelector(".project-cursor-label");
     const hoverProjects = document.querySelectorAll("[data-project-hover]");
-    const hoverLinks = document.querySelectorAll('a[href]:not([data-project-hover])');
 
     function setActiveNav(link) {
       if (!navIndicator || !homeLink || !workLink) return;
@@ -356,15 +355,6 @@
       });
     });
 
-    hoverLinks.forEach((link) => {
-      link.addEventListener("mouseenter", () => {
-        if (!projectCursor) return;
-        projectCursor.classList.add("is-link-only", "is-visible");
-      });
-      link.addEventListener("mouseleave", () => {
-        projectCursor?.classList.remove("is-link-only", "is-visible");
-      });
-    });
   </script>
 
 </body>

@@ -620,10 +620,6 @@
         highlightsLabel.textContent = card.dataset.label;
         highlightsDesc.textContent = card.dataset.desc;
         highlightsInfo.classList.add("is-visible");
-        cursor?.classList.add("is-link-only", "is-visible");
-      });
-      card.addEventListener("mouseleave", () => {
-        cursor?.classList.remove("is-link-only", "is-visible");
       });
     });
 
@@ -635,10 +631,6 @@
     if (cursor) {
       document.addEventListener("mousemove", (e) => {
         cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-      });
-      document.querySelectorAll("a[href]").forEach(link => {
-        link.addEventListener("mouseenter", () => cursor.classList.add("is-link-only", "is-visible"));
-        link.addEventListener("mouseleave", () => cursor.classList.remove("is-visible", "is-link-only"));
       });
     }
   </script>
