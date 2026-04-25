@@ -7,6 +7,7 @@
   --rule:         #DFDFDF;
   --dash:         #CFCFCF;
   --accent:       #E8001D;
+  --dot-size:     10px;
   --sidebar-w:    200px;
   --nav-h:        72px;
   --section-pad:  clamp(60px, 8vw, 120px);
@@ -57,9 +58,14 @@ body {
   opacity: 1;
 }
 
+.project-cursor.is-link-only {
+  gap: 0;
+  padding: 10px;
+}
+
 .project-cursor-dot {
-  width: 16px;
-  height: 16px;
+  width: var(--dot-size);
+  height: var(--dot-size);
   border-radius: 50%;
   background: var(--ink);
   flex: 0 0 auto;
@@ -71,6 +77,11 @@ body {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.project-cursor.is-link-only .project-cursor-label,
+.project-cursor.is-link-only .project-cursor-dot {
+  display: none;
 }
 
 .project-cursor-icon {
@@ -161,8 +172,8 @@ nav {
   position: absolute;
   top: 0;
   left: 0;
-  width: 10px;
-  height: 10px;
+  width: var(--dot-size);
+  height: var(--dot-size);
   border-radius: 50%;
   background: var(--ink);
   pointer-events: none;
@@ -241,8 +252,8 @@ nav a.active {
   position: absolute;
   top: 0;
   left: -22px;
-  width: 10px;
-  height: 10px;
+  width: var(--dot-size);
+  height: var(--dot-size);
   border-radius: 50%;
   background: var(--dash);
   opacity: 0;
@@ -799,13 +810,13 @@ footer {
   }
 
   .nav-indicator {
-    width: 8px;
-    height: 8px;
+    width: var(--dot-size);
+    height: var(--dot-size);
   }
 
   .hero-links-indicator {
-    width: 8px;
-    height: 8px;
+    width: var(--dot-size);
+    height: var(--dot-size);
   }
 
   .hero-links a {

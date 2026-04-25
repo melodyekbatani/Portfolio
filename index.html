@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Melody Ekbatani</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css?v=12">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 </head>
@@ -134,7 +135,7 @@
 
         <article class="project-secondary">
           <div class="project-secondary-meta">
-            <h3 class="project-secondary-title">Project Four.</h3>
+            <h3 class="project-secondary-title">Google Gemini.</h3>
             <p class="t-body project-secondary-copy">Placeholder copy for the fourth project. Replace this with the final project description when you’re ready.</p>
             <div class="tags project-secondary-tags">
               <span class="tag">Discipline</span>
@@ -144,9 +145,9 @@
           </div>
 
           <div class="project-secondary-visual">
-            <div class="project-secondary-image" data-project-hover="View Project Four">
+            <div class="project-secondary-image" data-project-hover="View Google Gemini">
               <video autoplay muted loop playsinline>
-                <source src="Home Page/Parameter.mp4" type="video/mp4">
+                <source src="Home Page/Google Gemini.mp4" type="video/mp4">
               </video>
             </div>
           </div>
@@ -293,6 +294,7 @@
     const projectCursor = document.querySelector(".project-cursor");
     const projectCursorLabel = projectCursor?.querySelector(".project-cursor-label");
     const hoverProjects = document.querySelectorAll("[data-project-hover]");
+    const hoverLinks = document.querySelectorAll('a[href]:not([data-project-hover])');
 
     function setActiveNav(link) {
       if (!navIndicator || !homeLink || !workLink) return;
@@ -338,6 +340,7 @@
     hoverProjects.forEach((project) => {
       project.addEventListener("mouseenter", () => {
         if (!projectCursor || !projectCursorLabel) return;
+        projectCursor.classList.remove("is-link-only");
         projectCursorLabel.textContent = project.getAttribute("data-project-hover") || "View Project";
         projectCursor.classList.add("is-visible");
       });
@@ -347,6 +350,24 @@
       });
 
       project.addEventListener("mousemove", (event) => {
+        if (!projectCursor) return;
+        projectCursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
+      });
+    });
+
+    hoverLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => {
+        if (!projectCursor || !projectCursorLabel) return;
+        projectCursor.classList.add("is-link-only");
+        projectCursor.classList.add("is-visible");
+      });
+
+      link.addEventListener("mouseleave", () => {
+        projectCursor?.classList.remove("is-visible");
+        projectCursor?.classList.remove("is-link-only");
+      });
+
+      link.addEventListener("mousemove", (event) => {
         if (!projectCursor) return;
         projectCursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
       });
