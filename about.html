@@ -160,14 +160,14 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
-      align-items: start;
+      align-items: stretch;
       padding: 80px 0 120px;
     }
 
     .about-approach-left {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      justify-content: space-between;
     }
 
     .about-approach-heading {
@@ -175,54 +175,22 @@
       font-weight: 500;
       letter-spacing: -0.03em;
       line-height: 0.94;
+      margin-top: 16px;
     }
 
     .about-approach-copy {
       font-size: 18px;
       font-weight: 500;
       line-height: 1.5;
-      max-width: 38ch;
+      max-width: 34ch;
     }
 
-    .about-tools-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      padding-top: 8px;
-    }
-
-    .about-tools-arrow {
-      font-size: 20px;
-      color: var(--ink);
-      line-height: 1;
-    }
-
-    .about-tools-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .tool-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      object-fit: cover;
+    .about-process-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center top;
       display: block;
-      background: #111111;
-      padding: 4px;
-    }
-
-    .about-tools-copy {
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.55;
-      max-width: 32ch;
-      text-align: center;
-      color: var(--muted);
-      margin-top: 8px;
     }
 
     /* ─── Divider row ────────────────────────────────────────── */
@@ -443,24 +411,13 @@
       <!-- Approach -->
       <section class="about-approach">
         <div class="about-approach-left">
-          <p class="t-small">Approach</p>
-          <h2 class="about-approach-heading">Creative Process</h2>
-        </div>
-        <div class="about-tools-col">
-          <i class="ph ph-arrow-up about-tools-arrow"></i>
-          <div class="about-tools-list">
-            <img class="tool-icon" src="About Section /Tools/Claude.webp" alt="Claude">
-            <img class="tool-icon" src="About Section /Tools/Figma.avif" alt="Figma">
-            <img class="tool-icon" src="About Section /Tools/Gemini.avif" alt="Gemini">
-            <img class="tool-icon" src="About Section /Tools/OpenAI.avif" alt="OpenAI">
-            <img class="tool-icon" src="About Section /Tools/Midjourney.avif" alt="Midjourney">
-            <img class="tool-icon" src="About Section /Tools/Lovable.avif" alt="Lovable">
-            <img class="tool-icon" src="About Section /Tools/aftereffects.avif" alt="After Effects">
-            <img class="tool-icon" src="About Section /Tools/Perplexity .avif" alt="Perplexity">
+          <div>
+            <p class="t-small">Approach</p>
+            <h2 class="about-approach-heading">Creative Process</h2>
           </div>
-          <i class="ph ph-arrow-down about-tools-arrow"></i>
-          <p class="about-tools-copy">I approach product design through systems thinking, aligning strategy, UX, and strong craft to deliver intuitive experiences. I explore ideas through sketches, prototypes, and prompting, leveraging experimentation to refine concepts into clear direction.</p>
+          <p class="about-approach-copy">I approach product design through systems thinking, aligning strategy, UX, and strong craft to deliver intuitive experiences. I explore ideas through sketches, prototypes, and prompting, leveraging experimentation to refine concepts into clear direction.</p>
         </div>
+        <img class="about-process-image" src="About Section /Process.png" alt="Creative process">
       </section>
 
       <!-- Experience -->
