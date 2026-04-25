@@ -37,10 +37,15 @@
 
     .about-hero {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 56px;
+      grid-template-columns: 3fr 2fr;
+      gap: 80px;
       align-items: start;
       padding-bottom: 120px;
+    }
+
+    .about-hero-left {
+      display: flex;
+      flex-direction: column;
     }
 
     .about-hero-title {
@@ -48,21 +53,34 @@
       font-weight: 500;
       letter-spacing: -0.04em;
       line-height: 0.92;
+      margin-bottom: 48px;
     }
 
     .about-hero-bio {
-      grid-column: 2 / 4;
       display: flex;
       flex-direction: column;
       gap: 20px;
-      padding-top: 12px;
     }
 
     .about-hero-bio p {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 400;
-      line-height: 1.55;
-      max-width: 52ch;
+      line-height: 1.6;
+      max-width: 48ch;
+    }
+
+    .about-hero-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #e8e8e8;
+    }
+
+    .about-hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
     }
 
     /* ─── Divider row ────────────────────────────────────────── */
@@ -177,9 +195,7 @@
     @media (max-width: 1024px) {
       .about-hero {
         grid-template-columns: 1fr 1fr;
-      }
-      .about-hero-bio {
-        grid-column: 2;
+        gap: 48px;
       }
     }
 
@@ -189,11 +205,12 @@
       }
       .about-hero {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 40px;
         padding-bottom: 72px;
       }
-      .about-hero-bio {
-        grid-column: 1;
+      .about-hero-photo {
+        aspect-ratio: 4 / 3;
+        order: -1;
       }
       .about-hero-bio p {
         font-size: 17px;
@@ -242,11 +259,15 @@
 
       <!-- Hero -->
       <section class="about-hero">
-        <h1 class="about-hero-title">About<br>Me.</h1>
-        <div class="about-hero-bio">
-          <p>I'm a product designer creating intuitive, scalable interfaces for AI-first systems. With a background in architecture, innovation, and business development, I take a structured approach, aligning user needs with business goals.</p>
-          <p>Driven by curiosity and an interest in emerging interaction models, I build products that reduce friction, feel considered in the details, and deliver moments of delight.</p>
-          <p>When I'm not designing, I'm usually wandering farmers markets, getting covered in clay, or shuffling a deck for yet another round of Uno. Always down to swap dinner recommendations.</p>
+        <div class="about-hero-left">
+          <h1 class="about-hero-title">About</h1>
+          <div class="about-hero-bio">
+            <p>I'm a product designer creating intuitive, scalable interfaces for AI-first systems. With a background in architecture, innovation, and business development, I take a structured approach, aligning user needs with business goals. Driven by curiosity and an interest in emerging interaction models, I build products that reduce friction, feel considered in the details, and deliver moments of delight.</p>
+            <p>When I'm not designing, I'm usually wandering farmers markets, getting my hands (and everything else) covered in clay, or shuffling a deck for yet another round of Uno. I'm also a big foodie, check out my girl dinner generator here!</p>
+          </div>
+        </div>
+        <div class="about-hero-photo">
+          <img src="about-photo.png" alt="Melody Ekbatani">
         </div>
       </section>
 
