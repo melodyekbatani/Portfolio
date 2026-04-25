@@ -1,7 +1,7 @@
 /* ─── Tokens ─────────────────────────────────────────────── */
 
 :root {
-  --bg:           #F8F7F4;
+  --bg:           #ffffff;
   --ink:          #111111;
   --muted:        #AAAAAA;
   --rule:         #DFDFDF;
@@ -40,8 +40,8 @@ a {
 /* ─── Typography ─────────────────────────────────────────── */
 
 .t-display {
-  font-size: clamp(72px, 12vw, 160px);
-  font-weight: 300;
+  font-size: clamp(56px, 9vw, 130px);
+  font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 0.92;
 }
@@ -128,8 +128,8 @@ nav a.active {
 
 .hero-name {
   display: flex;
-  align-items: center;
-  padding: 0 40px;
+  align-items: flex-end;
+  padding: 80px 40px 40px;
   opacity: 0;
   animation: fadeIn 0.9s ease forwards 0.2s;
 }
