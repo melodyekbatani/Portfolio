@@ -83,6 +83,76 @@
       object-position: center top;
     }
 
+    /* ─── Highlights ─────────────────────────────────────────── */
+
+    .about-highlights {
+      padding: 80px 0 120px;
+      border-top: 0.5px solid var(--rule);
+      text-align: center;
+    }
+
+    .about-highlights-label {
+      margin-bottom: 16px;
+    }
+
+    .about-highlights-heading {
+      font-size: clamp(28px, 5vw, 64px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 56px;
+    }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+
+    .highlight-card {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #d8d8d8;
+      cursor: none;
+    }
+
+    .highlight-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .highlight-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .highlights-info {
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .highlights-info.is-visible {
+      opacity: 1;
+    }
+
+    .highlights-info-label {
+      color: var(--muted);
+    }
+
+    .highlights-info-desc {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.4;
+      max-width: 52ch;
+    }
+
     /* ─── Divider row ────────────────────────────────────────── */
 
     .about-section {
@@ -263,11 +333,50 @@
           <h1 class="about-hero-title">About</h1>
           <div class="about-hero-bio">
             <p>I'm a product designer creating intuitive, scalable interfaces for AI-first systems. I'm driven by curiosity and an interest in emerging interaction models, building products that reduce friction, feel considered in the details, and create moments of delight.</p>
-            <p>When I'm not designing, I'm usually wandering farmers markets, attempting ceramics, or perfecting snack plates, which led me to code a <a href="https://melodyekbatani.github.io/functions/" target="_blank" rel="noreferrer">girl dinner generator <span style="white-space:nowrap">here <i class="ph ph-arrow-up-right"></i></span></a>.</p>
+            <p>When I'm not designing, I'm usually wandering farmers markets, attempting ceramics, or perfecting snack plates, which led me to code a <a href="https://melodyekbatani.github.io/functions/" target="_blank" rel="noreferrer">girl dinner generator <span style="white-space:nowrap">here <i class="ph ph-arrow-up-right"></i></span></a></p>
           </div>
         </div>
         <div class="about-hero-photo">
           <img src="About Section /Final Headshot.png" alt="Melody Ekbatani">
+        </div>
+      </section>
+
+      <!-- Career Highlights -->
+      <section class="about-highlights">
+        <p class="t-small about-highlights-label">Career Highlights</p>
+        <h2 class="about-highlights-heading">A few moments that shape my approach</h2>
+
+        <div class="highlights-grid">
+          <div class="highlight-card"
+            data-label="Product &amp; Brand Designer"
+            data-desc="Loam — November 2024, Ongoing">
+            <img src="About Section /Highlights/Highlights imagery.png" alt="">
+          </div>
+          <div class="highlight-card"
+            data-label="Digital Designer"
+            data-desc="Giannone Petricone Associates — July 2023 – June 2025">
+            <img src="About Section /Highlights/Highlights imagery-1.png" alt="">
+          </div>
+          <div class="highlight-card"
+            data-label="Product Designer"
+            data-desc="WZMH Architects / Sparkbird Labs — January 2022 – June 2023">
+            <img src="About Section /Highlights/IMG_5267.jpg" alt="">
+          </div>
+          <div class="highlight-card"
+            data-label="Speedstac Module Design"
+            data-desc="Construction product design — Winner, BLT Design Awards 2024">
+            <img src="About Section /Highlights/Speedstac module design.jpg" alt="">
+          </div>
+          <div class="highlight-card"
+            data-label="Cambridge Innovation Center Grant"
+            data-desc="Advised biotech entrepreneurs, CIC Japan Desk × Parsons — 2026">
+            <img src="About Section /Highlights/Highlights imagery-5.png" alt="">
+          </div>
+        </div>
+
+        <div class="highlights-info" id="highlights-info">
+          <p class="t-small highlights-info-label" id="highlights-info-label"></p>
+          <p class="highlights-info-desc" id="highlights-info-desc"></p>
         </div>
       </section>
 
@@ -455,6 +564,24 @@
     }
 
     bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", "a.active");
+
+    // Highlights hover
+    const highlightCards = document.querySelectorAll(".highlight-card");
+    const highlightsInfo = document.getElementById("highlights-info");
+    const highlightsLabel = document.getElementById("highlights-info-label");
+    const highlightsDesc = document.getElementById("highlights-info-desc");
+
+    highlightCards.forEach(card => {
+      card.addEventListener("mouseenter", () => {
+        highlightsLabel.textContent = card.dataset.label;
+        highlightsDesc.textContent = card.dataset.desc;
+        highlightsInfo.classList.add("is-visible");
+      });
+    });
+
+    document.querySelector(".highlights-grid")?.addEventListener("mouseleave", () => {
+      highlightsInfo.classList.remove("is-visible");
+    });
 
     const cursor = document.querySelector(".project-cursor");
     document.querySelectorAll("a[href]").forEach(link => {
