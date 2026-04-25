@@ -4,15 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Melody Ekbatani</title>
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=12">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 </head>
 <body>
 
+  <div class="project-cursor" aria-hidden="true">
+    <span class="project-cursor-dot"></span>
+    <span class="project-cursor-label">View Project</span>
+  </div>
+
   <nav>
     <span class="nav-indicator" aria-hidden="true"></span>
-    <a href="/" class="t-small active">Home</a>
-    <a href="#work" class="t-small">Work</a>
+    <a href="/" class="t-small active" data-nav="home">Home</a>
+    <a href="#work" class="t-small" data-nav="work" data-open-work>Work</a>
     <a href="about.html" class="t-small">About</a>
     <a href="explore.html" class="t-small">Explore</a>
     <a href="#" class="t-small" target="_blank">Resume <i class="ph ph-arrow-up-right"></i></a>
@@ -32,65 +37,226 @@
           <p class="t-small">Get to know me</p>
           <p class="t-body">Product designer interested in emerging interaction models and ai systems, with a background in architecture and innovation.</p>
           <div class="hero-links">
-            <a href="https://linkedin.com/in/melodyekbatani" target="_blank" class="t-body">
+            <span class="hero-links-indicator" aria-hidden="true"></span>
+            <a href="https://linkedin.com/in/melodyekbatani" target="_blank" class="t-small">
               Connect on linkedin <i class="ph ph-arrow-up-right"></i>
             </a>
-            <a href="mailto:melodyekbatani@gmail.com" class="t-body">
+            <a href="mailto:melodyekbatani@gmail.com" class="t-small">
               melodyekbatani@gmail.com <i class="ph ph-arrow-square-out"></i>
             </a>
           </div>
         </div>
 
         <div class="hero-thumb">
-          <p class="t-small">A glimpse of my work</p>
-          <div class="hero-thumb-media">
+          <button type="button" class="hero-thumb-trigger t-small" data-open-work>A glimpse of my work</button>
+          <button type="button" class="hero-thumb-media" data-open-work aria-label="Open work page preview">
             <video autoplay muted loop playsinline>
               <source src="Header reel.mp4" type="video/mp4">
             </video>
-          </div>
+          </button>
         </div>
 
+      </div>
+    </section>
+
+    <section class="work-panel" id="work" aria-hidden="true">
+      <div class="work-panel-inner">
+        <div class="work-intro">
+          <div class="work-intro-title">
+            <h1 class="work-heading">Work</h1>
+          </div>
+          <div class="work-intro-copy">
+            <p class="t-body work-description">A selection of projects spanning UX/UI, branding, and AI-driven system design. Each explores how to build intuitive experiences around everyday interactions.</p>
+          </div>
+          <div class="work-intro-spacer" aria-hidden="true"></div>
+        </div>
+
+        <article class="project-featured" data-project-hover="View Aeri">
+          <div class="project-featured-image">
+            <img src="Home Page/Aeri.png" alt="Aeri project preview">
+          </div>
+
+          <div class="project-featured-footer">
+            <div class="project-featured-meta">
+              <h2 class="project-title">Aeri.</h2>
+              <div class="tags">
+                <span class="tag">AR Wearable</span>
+                <span class="tag">AI Startup Hackathon</span>
+              </div>
+            </div>
+
+            <div class="project-featured-copy">
+              <p class="t-body">AI-powered preventative diabetes care with AR integration exploring a more proactive alternative to today’s reactive diabetes management tools.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-secondary" data-project-hover="View Parameter">
+          <div class="project-secondary-meta">
+            <h3 class="project-secondary-title">Parameter.</h3>
+            <p class="t-body project-secondary-copy">Reflective e-commerce tool helping users collect, organize and revisit fashion inspiration.</p>
+            <div class="tags project-secondary-tags">
+              <span class="tag">Midjourney Workshop Presenter</span>
+              <span class="tag">E-Commerce</span>
+              <span class="tag">AI Native Product</span>
+            </div>
+          </div>
+
+          <div class="project-secondary-visual">
+            <div class="project-secondary-image">
+              <video autoplay muted loop playsinline>
+                <source src="Home Page/Parameter.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
   </main>
 
   <script>
-    const nav = document.querySelector("nav");
-    const indicator = nav?.querySelector(".nav-indicator");
-    const navLinks = nav ? [...nav.querySelectorAll("a")] : [];
-    const activeLink = nav?.querySelector("a.active");
+    function bindIndicator(container, indicatorSelector, itemSelector, activeSelector) {
+      if (!container) return;
 
-    function placeIndicator(link, isHover = false) {
-      if (!nav || !indicator || !link) return;
+      const indicator = container.querySelector(indicatorSelector);
+      const items = [...container.querySelectorAll(itemSelector)];
 
-      const navBox = nav.getBoundingClientRect();
-      const linkBox = link.getBoundingClientRect();
-      const x = linkBox.left - navBox.left + 4;
-      const y = linkBox.top - navBox.top + linkBox.height / 2;
+      if (!indicator || items.length === 0) return;
 
-      indicator.style.transform = `translate(${x}px, ${y}px) translateY(-50%)`;
-      indicator.style.backgroundColor = isHover ? "#CFCFCF" : "#111111";
-    }
+      let activeItem = activeSelector ? container.querySelector(activeSelector) : null;
 
-    if (activeLink) {
-      placeIndicator(activeLink);
-      requestAnimationFrame(() => indicator?.classList.add("is-ready"));
-    }
+      function placeIndicator(item, color = "#111111") {
+        if (!item) return;
 
-    navLinks.forEach((link) => {
-      link.addEventListener("mouseenter", () => placeIndicator(link, true));
-      link.addEventListener("focus", () => placeIndicator(link, true));
-    });
+        const containerBox = container.getBoundingClientRect();
+        const itemBox = item.getBoundingClientRect();
+        const x = itemBox.left - containerBox.left + 4;
+        const y = itemBox.top - containerBox.top + itemBox.height / 2;
 
-    nav?.addEventListener("mouseleave", () => placeIndicator(activeLink));
-    nav?.addEventListener("focusout", (event) => {
-      if (!nav.contains(event.relatedTarget)) {
-        placeIndicator(activeLink);
+        indicator.style.transform = `translate(${x}px, ${y}px) translateY(-50%)`;
+        indicator.style.backgroundColor = color;
       }
+
+      function setActiveItem(item) {
+        activeItem = item;
+      }
+
+      if (activeItem) {
+        placeIndicator(activeItem);
+      }
+
+      requestAnimationFrame(() => indicator.classList.add("is-ready"));
+
+      items.forEach((item) => {
+        item.addEventListener("mouseenter", () => placeIndicator(item, "#CFCFCF"));
+        item.addEventListener("focus", () => placeIndicator(item, "#CFCFCF"));
+      });
+
+      container.addEventListener("mouseleave", () => {
+        if (activeItem) {
+          placeIndicator(activeItem);
+        } else {
+          indicator.style.opacity = "0";
+        }
+      });
+
+      container.addEventListener("mouseenter", () => {
+        indicator.style.opacity = "1";
+      });
+
+      container.addEventListener("focusout", (event) => {
+        if (!container.contains(event.relatedTarget)) {
+          if (activeItem) {
+            placeIndicator(activeItem);
+          } else {
+            indicator.style.opacity = "0";
+          }
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (activeItem) {
+          placeIndicator(activeItem);
+        }
+      });
+
+      return {
+        setActiveItem,
+        placeIndicator,
+      };
+    }
+
+    const navIndicator = bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", "a.active");
+    bindIndicator(document.querySelector(".hero-links"), ".hero-links-indicator", "a");
+
+    const body = document.body;
+    const workPanel = document.querySelector(".work-panel");
+    const openWorkTriggers = document.querySelectorAll("[data-open-work]");
+    const homeLink = document.querySelector('[data-nav="home"]');
+    const workLink = document.querySelector('[data-nav="work"]');
+    const workStateKey = "portfolio-active-panel";
+    const projectCursor = document.querySelector(".project-cursor");
+    const projectCursorLabel = projectCursor?.querySelector(".project-cursor-label");
+    const hoverProjects = document.querySelectorAll("[data-project-hover]");
+
+    function setActiveNav(link) {
+      if (!navIndicator || !homeLink || !workLink) return;
+
+      [homeLink, workLink].forEach((item) => item.classList.remove("active"));
+      link.classList.add("active");
+      navIndicator.setActiveItem(link);
+      navIndicator.placeIndicator(link);
+    }
+
+    function openWorkPanel() {
+      body.classList.add("work-open");
+      workPanel?.setAttribute("aria-hidden", "false");
+      window.localStorage.setItem(workStateKey, "work");
+      setActiveNav(workLink);
+    }
+
+    function closeWorkPanel() {
+      body.classList.remove("work-open");
+      workPanel?.setAttribute("aria-hidden", "true");
+      window.localStorage.setItem(workStateKey, "home");
+      setActiveNav(homeLink);
+    }
+
+    openWorkTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        openWorkPanel();
+      });
     });
 
-    window.addEventListener("resize", () => placeIndicator(activeLink));
+    homeLink?.addEventListener("click", (event) => {
+      event.preventDefault();
+      closeWorkPanel();
+    });
+
+    if (window.localStorage.getItem(workStateKey) === "work") {
+      openWorkPanel();
+    } else {
+      closeWorkPanel();
+    }
+
+    hoverProjects.forEach((project) => {
+      project.addEventListener("mouseenter", () => {
+        if (!projectCursor || !projectCursorLabel) return;
+        projectCursorLabel.textContent = project.getAttribute("data-project-hover") || "View Project";
+        projectCursor.classList.add("is-visible");
+      });
+
+      project.addEventListener("mouseleave", () => {
+        projectCursor?.classList.remove("is-visible");
+      });
+
+      project.addEventListener("mousemove", (event) => {
+        if (!projectCursor) return;
+        projectCursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
+      });
+    });
   </script>
 
 </body>
