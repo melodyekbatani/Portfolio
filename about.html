@@ -30,7 +30,7 @@
     /* ─── Shell ──────────────────────────────────────────────── */
 
     .about-inner {
-      padding: 40px 40px 0;
+      padding: 0;
     }
 
     /* ─── Hero ───────────────────────────────────────────────── */
@@ -40,8 +40,8 @@
       grid-template-columns: 3fr 1.6fr;
       gap: 64px;
       align-items: stretch;
-      min-height: calc(100vh - var(--nav-h) - 40px);
-      padding-bottom: 60px;
+      min-height: calc(100vh - var(--nav-h));
+      padding: 40px 40px 60px;
     }
 
     .about-hero-left {
@@ -87,7 +87,7 @@
     /* ─── Highlights ─────────────────────────────────────────── */
 
     .about-highlights {
-      padding: 80px 0 120px;
+      padding: 80px 40px 120px;
       text-align: center;
     }
 
@@ -161,7 +161,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: stretch;
-      padding: 80px 0 120px;
+      padding: 80px 40px 120px;
     }
 
     .about-approach-left {
@@ -196,7 +196,7 @@
     /* ─── Divider row ────────────────────────────────────────── */
 
     .about-section {
-      padding: 80px 0;
+      padding: 80px 40px;
     }
 
     .about-section-grid {
@@ -298,13 +298,10 @@
     }
 
     @media (max-width: 768px) {
-      .about-inner {
-        padding: 48px 20px 0;
-      }
       .about-hero {
         grid-template-columns: 1fr;
         gap: 40px;
-        padding-bottom: 72px;
+        padding: 32px 20px 56px;
       }
       .about-hero-photo {
         aspect-ratio: 4 / 3;
@@ -314,7 +311,12 @@
         font-size: 17px;
       }
       .about-section {
-        padding: 56px 0;
+        padding: 56px 20px;
+      }
+      .about-highlights,
+      .about-approach {
+        padding-left: 20px;
+        padding-right: 20px;
       }
       .about-section-grid {
         grid-template-columns: 1fr;
