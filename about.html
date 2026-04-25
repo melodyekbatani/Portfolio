@@ -42,8 +42,19 @@
 
     /* ─── Shell ──────────────────────────────────────────────── */
 
+    :root { --page-x: 40px; }
+
     .about-inner {
       padding: 0;
+    }
+
+    .about-hero,
+    .about-highlights,
+    .about-approach,
+    .about-section,
+    .page-footer-about {
+      padding-left: var(--page-x);
+      padding-right: var(--page-x);
     }
 
     /* ─── Hero ───────────────────────────────────────────────── */
@@ -54,7 +65,8 @@
       gap: 64px;
       align-items: stretch;
       min-height: calc(100vh - var(--nav-h));
-      padding: 40px 40px 60px;
+      padding-top: 40px;
+      padding-bottom: 60px;
     }
 
     .about-hero-left {
@@ -100,7 +112,8 @@
     /* ─── Highlights ─────────────────────────────────────────── */
 
     .about-highlights {
-      padding: 80px 40px 120px;
+      padding-top: 80px;
+      padding-bottom: 120px;
       text-align: center;
     }
 
@@ -174,7 +187,8 @@
       grid-template-columns: 1fr 1fr;
       gap: 56px;
       align-items: stretch;
-      padding: 60px 40px 80px;
+      padding-top: 60px;
+      padding-bottom: 80px;
     }
 
     .about-approach-left {
@@ -211,7 +225,8 @@
     /* ─── Divider row ────────────────────────────────────────── */
 
     .about-section {
-      padding: 80px 40px;
+      padding-top: 80px;
+      padding-bottom: 80px;
     }
 
     .about-section-grid {
@@ -251,24 +266,25 @@
 
     .about-item-title {
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 700;
       line-height: 1.35;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+      color: var(--ink);
     }
 
     .about-item-sub {
       font-size: 15px;
       font-weight: 400;
-      color: var(--muted);
-      line-height: 1.4;
+      color: var(--ink);
+      line-height: 1.5;
     }
 
     .about-item-date {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 400;
-      color: var(--muted);
+      color: var(--ink);
       white-space: nowrap;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
@@ -290,14 +306,15 @@
 
     .about-award-title {
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 700;
       line-height: 1.3;
+      color: var(--ink);
     }
 
     .about-award-detail {
       font-size: 14px;
       font-weight: 400;
-      color: var(--muted);
+      color: var(--ink);
       text-align: right;
       max-width: 36ch;
       line-height: 1.4;
@@ -313,10 +330,13 @@
     }
 
     @media (max-width: 768px) {
+      :root { --page-x: 20px; }
+
       .about-hero {
         grid-template-columns: 1fr;
         gap: 40px;
-        padding: 32px 20px 56px;
+        padding-top: 32px;
+        padding-bottom: 56px;
       }
       .about-hero-photo {
         aspect-ratio: 4 / 3;
@@ -326,12 +346,8 @@
         font-size: 17px;
       }
       .about-section {
-        padding: 56px 20px;
-      }
-      .about-highlights,
-      .about-approach {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-top: 56px;
+        padding-bottom: 56px;
       }
       .about-section-grid {
         grid-template-columns: 1fr;
@@ -446,7 +462,7 @@
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">Product &amp; Brand Designer</p>
-                <p class="about-item-sub">LOAM Marketplace — Contract</p>
+                <p class="about-item-sub">LOAM Marketplace, Contract</p>
               </div>
               <span class="about-item-date">Nov 2024 – Aug 2025</span>
             </div>
@@ -454,7 +470,7 @@
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">Digital Marketing Designer</p>
-                <p class="about-item-sub">Giannone Petricone Associates — Full-time</p>
+                <p class="about-item-sub">Giannone Petricone Associates, Full-time</p>
               </div>
               <span class="about-item-date">Jul 2023 – Jun 2025</span>
             </div>
@@ -462,7 +478,7 @@
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">Product Designer</p>
-                <p class="about-item-sub">WZMH Architects / Sparkbird Labs — Full-time</p>
+                <p class="about-item-sub">WZMH Architects / Sparkbird Labs, Full-time</p>
               </div>
               <span class="about-item-date">Jan 2022 – Jul 2023</span>
             </div>
@@ -480,8 +496,8 @@
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">Master's of Digital Product Design</p>
-                <p class="about-item-sub">Parsons School of Design, The New School — MPS, STEM Designated</p>
-                <p class="about-item-sub">Merit Scholarship · Dean's List Scholar</p>
+                <p class="about-item-sub">Parsons School of Design, The New School</p>
+                <p class="about-item-sub">MPS, STEM Designated, Merit Scholarship, Dean's List</p>
               </div>
               <span class="about-item-date">2024 – 2026</span>
             </div>
@@ -490,7 +506,7 @@
               <div>
                 <p class="about-item-title">Honors B.A. in Architectural Design</p>
                 <p class="about-item-sub">University of Toronto</p>
-                <p class="about-item-sub">Merit Award · Dean's List · Thesis Award · Halton Learning Award</p>
+                <p class="about-item-sub">Merit Award, Dean's List, Thesis Award, Halton Learning Award</p>
               </div>
               <span class="about-item-date">2018 – 2022</span>
             </div>
@@ -508,21 +524,21 @@
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">Design</p>
-                <p class="about-item-sub">UI/UX · Motion · 3D — Figma, Adobe Creative Suite, Paper</p>
+                <p class="about-item-sub">UI/UX, Motion, 3D, Figma, Adobe Creative Suite, Paper</p>
               </div>
             </div>
 
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">Development</p>
-                <p class="about-item-sub">HTML · CSS · JavaScript</p>
+                <p class="about-item-sub">HTML, CSS, JavaScript</p>
               </div>
             </div>
 
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">AI &amp; Emerging Tools</p>
-                <p class="about-item-sub">Generative AI workflows — Claude, Codex, Lovable, Image &amp; Video Generation</p>
+                <p class="about-item-sub">Generative AI workflows, Claude, Codex, Lovable, Image and Video Generation</p>
               </div>
             </div>
 
@@ -539,7 +555,7 @@
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">Cambridge Innovation Center Grant</p>
-                <p class="about-item-sub">CIC Japan Desk × Parsons</p>
+                <p class="about-item-sub">CIC Japan Desk, Parsons</p>
               </div>
               <span class="about-item-date">2026</span>
             </div>
@@ -547,7 +563,7 @@
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">Digital Expressions Fellow</p>
-                <p class="about-item-sub">Adaptive Research — Google Gemini</p>
+                <p class="about-item-sub">Adaptive Research, Google Gemini</p>
               </div>
               <span class="about-item-date">2026</span>
             </div>
@@ -555,7 +571,7 @@
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">Winner, Construction Product Design</p>
-                <p class="about-item-sub">Speedstac at Sparkbird Labs — BLT Design Awards</p>
+                <p class="about-item-sub">Speedstac at Sparkbird Labs, BLT Design Awards</p>
               </div>
               <span class="about-item-date">2024</span>
             </div>
@@ -565,7 +581,7 @@
                 <p class="about-item-title">Merit Scholarship &amp; Dean's List</p>
                 <p class="about-item-sub">Parsons School of Design, The New School</p>
               </div>
-              <span class="about-item-date">2025–26</span>
+              <span class="about-item-date">2025–2026</span>
             </div>
 
           </div>
