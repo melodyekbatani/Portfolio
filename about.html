@@ -618,6 +618,10 @@
         highlightsLabel.textContent = card.dataset.label;
         highlightsDesc.textContent = card.dataset.desc;
         highlightsInfo.classList.add("is-visible");
+        cursor?.classList.add("is-link-only", "is-visible");
+      });
+      card.addEventListener("mouseleave", () => {
+        cursor?.classList.remove("is-link-only", "is-visible");
       });
     });
 
