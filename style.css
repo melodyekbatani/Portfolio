@@ -105,9 +105,9 @@ nav {
 }
 
 nav a {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 400;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink);
   transition: color 0.15s ease;
@@ -115,10 +115,6 @@ nav a {
 
 nav a:hover {
   color: var(--accent);
-}
-
-nav a.active {
-  color: var(--ink);
 }
 
 /* ─── Hero ───────────────────────────────────────────────── */
@@ -180,7 +176,7 @@ nav a.active {
 }
 
 .hero-thumb-media {
-  width: 100%;
+  width: 50%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background-color: var(--ink);
