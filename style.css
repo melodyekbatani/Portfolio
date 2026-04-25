@@ -111,10 +111,25 @@ nav a {
   text-transform: uppercase;
   color: var(--ink);
   transition: color 0.15s ease;
+  position: relative;
 }
 
 nav a:hover {
   color: var(--accent);
+}
+
+nav a.active {
+  color: var(--ink);
+}
+
+nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent);
 }
 
 /* ─── Hero ───────────────────────────────────────────────── */
