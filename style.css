@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Switzer:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Switzer:wght@400;500;700&display=swap');
 
 /* ─── Tokens ─────────────────────────────────────────────── */
 
@@ -42,7 +42,7 @@ a {
 
 .t-display {
   font-size: clamp(72px, 12vw, 160px);
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 0.92;
 }
@@ -112,17 +112,6 @@ nav {
   z-index: 9;
 }
 
-.nav-left,
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-}
-
-.nav-divider {
-  flex: 1;
-}
-
 nav a {
   font-size: 10px;
   font-weight: 400;
@@ -156,9 +145,9 @@ nav a.active {
 
 .hero-bottom {
   display: grid;
-  grid-template-columns: var(--sidebar-w) 1fr auto;
-  gap: 0 32px;
-  padding: 32px 24px 48px 12px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  padding: 40px 40px 64px;
   border-top: 0.5px solid var(--rule);
 }
 
@@ -188,11 +177,10 @@ nav a.active {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-width: 180px;
 }
 
 .hero-thumb-img {
-  width: 200px;
+  width: 100%;
   aspect-ratio: 4 / 3;
   background-color: var(--ink);
 }
