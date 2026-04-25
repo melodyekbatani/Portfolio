@@ -24,6 +24,8 @@
       padding-top: calc(var(--nav-h) * 2);
       z-index: 8;
       will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     @keyframes aboutSlideUp {
@@ -676,9 +678,12 @@
 
     bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", "a.active");
 
-    // Slide down when navigating away from about page
+    // Slide down on all internal navigation away from about page
     const aboutPanel = document.querySelector(".about-panel");
-    document.querySelectorAll("a[href='/'], a[href='index.html'], a[href='./']").forEach(link => {
+    document.querySelectorAll("a[href]").forEach(link => {
+      const href = link.getAttribute("href");
+      // Skip external links and mailto
+      if (!href || href.startsWith("http") || href.startsWith("mailto") || href.startsWith("#")) return;
       link.addEventListener("click", (e) => {
         e.preventDefault();
         const dest = link.href;
