@@ -10,6 +10,7 @@
 <body>
 
   <nav>
+    <span class="nav-indicator" aria-hidden="true"></span>
     <a href="/" class="t-small active">Home</a>
     <a href="#work" class="t-small">Work</a>
     <a href="about.html" class="t-small">About</a>
@@ -29,7 +30,7 @@
 
         <div class="hero-bio">
           <p class="t-small">Get to know me</p>
-          <p class="t-body">Product designer interested in emerging interaction models and ai systems. Background in architecture and innovation.</p>
+          <p class="t-body">Product designer interested in emerging interaction models and ai systems, with a background in architecture and innovation.</p>
           <div class="hero-links">
             <a href="https://linkedin.com/in/melodyekbatani" target="_blank" class="t-body">
               Connect on linkedin <i class="ph ph-arrow-up-right"></i>
@@ -53,6 +54,44 @@
     </section>
 
   </main>
+
+  <script>
+    const nav = document.querySelector("nav");
+    const indicator = nav?.querySelector(".nav-indicator");
+    const navLinks = nav ? [...nav.querySelectorAll("a")] : [];
+    const activeLink = nav?.querySelector("a.active");
+
+    function placeIndicator(link, isHover = false) {
+      if (!nav || !indicator || !link) return;
+
+      const navBox = nav.getBoundingClientRect();
+      const linkBox = link.getBoundingClientRect();
+      const x = linkBox.left - navBox.left + 4;
+      const y = linkBox.top - navBox.top + linkBox.height / 2;
+
+      indicator.style.transform = `translate(${x}px, ${y}px) translateY(-50%)`;
+      indicator.style.backgroundColor = isHover ? "#CFCFCF" : "#111111";
+    }
+
+    if (activeLink) {
+      placeIndicator(activeLink);
+      requestAnimationFrame(() => indicator?.classList.add("is-ready"));
+    }
+
+    navLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => placeIndicator(link, true));
+      link.addEventListener("focus", () => placeIndicator(link, true));
+    });
+
+    nav?.addEventListener("mouseleave", () => placeIndicator(activeLink));
+    nav?.addEventListener("focusout", (event) => {
+      if (!nav.contains(event.relatedTarget)) {
+        placeIndicator(activeLink);
+      }
+    });
+
+    window.addEventListener("resize", () => placeIndicator(activeLink));
+  </script>
 
 </body>
 </html>
