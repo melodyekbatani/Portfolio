@@ -51,10 +51,10 @@
     }
 
     .about-hero-title {
-      font-size: clamp(28px, 3.6vw, 40px);
+      font-size: clamp(36px, 6vw, 64px);
       font-weight: 500;
-      letter-spacing: 0.01em;
-      line-height: 1;
+      letter-spacing: -0.02em;
+      line-height: 0.96;
     }
 
     .about-hero-bio {
@@ -159,9 +159,9 @@
     .about-approach {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: stretch;
-      padding: 80px 40px 120px;
+      gap: 56px;
+      align-items: start;
+      padding: 60px 40px 80px;
     }
 
     .about-approach-left {
@@ -189,7 +189,7 @@
       width: 100%;
       max-height: calc(100vh - var(--nav-h) - 80px);
       object-fit: contain;
-      object-position: center top;
+      object-position: left top;
       display: block;
     }
 
@@ -626,11 +626,15 @@
     });
 
     const cursor = document.querySelector(".project-cursor");
-    document.querySelectorAll("a[href]").forEach(link => {
-      link.addEventListener("mouseenter", () => { cursor?.classList.add("is-link-only", "is-visible"); });
-      link.addEventListener("mouseleave", () => { cursor?.classList.remove("is-visible", "is-link-only"); });
-      link.addEventListener("mousemove",  e => { if (cursor) cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`; });
-    });
+    if (cursor) {
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+      });
+      document.querySelectorAll("a[href]").forEach(link => {
+        link.addEventListener("mouseenter", () => cursor.classList.add("is-link-only", "is-visible"));
+        link.addEventListener("mouseleave", () => cursor.classList.remove("is-visible", "is-link-only"));
+      });
+    }
   </script>
 
 </body>
