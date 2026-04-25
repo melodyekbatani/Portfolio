@@ -30,7 +30,7 @@
     /* ─── Shell ──────────────────────────────────────────────── */
 
     .about-inner {
-      padding: 80px 40px 0;
+      padding: 40px 40px 0;
     }
 
     /* ─── Hero ───────────────────────────────────────────────── */
@@ -40,7 +40,8 @@
       grid-template-columns: 3fr 1.6fr;
       gap: 64px;
       align-items: stretch;
-      padding-bottom: 120px;
+      min-height: calc(100vh - var(--nav-h) - 40px);
+      padding-bottom: 60px;
     }
 
     .about-hero-left {
@@ -95,10 +96,10 @@
     }
 
     .about-highlights-heading {
-      font-size: clamp(32px, 5vw, 64px);
+      font-size: clamp(18px, 2.4vw, 28px);
       font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 1;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
       margin-bottom: 56px;
     }
 
@@ -149,7 +150,7 @@
       font-size: 15px;
       font-weight: 400;
       line-height: 1.5;
-      max-width: 30ch;
+      max-width: 44ch;
       text-align: center;
     }
 
@@ -166,7 +167,7 @@
     .about-approach-left {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 24px;
     }
 
     .about-approach-heading {
@@ -187,7 +188,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0;
+      gap: 16px;
       padding-top: 8px;
     }
 
@@ -195,13 +196,12 @@
       font-size: 20px;
       color: var(--ink);
       line-height: 1;
-      padding: 8px 0;
     }
 
     .about-tools-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
     }
 
@@ -210,8 +210,19 @@
       height: 56px;
       border-radius: 50%;
       object-fit: cover;
-      overflow: hidden;
       display: block;
+      background: #111111;
+      padding: 4px;
+    }
+
+    .about-tools-copy {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.55;
+      max-width: 32ch;
+      text-align: center;
+      color: var(--muted);
+      margin-top: 8px;
     }
 
     /* ─── Divider row ────────────────────────────────────────── */
@@ -434,7 +445,6 @@
         <div class="about-approach-left">
           <p class="t-small">Approach</p>
           <h2 class="about-approach-heading">Creative Process</h2>
-          <p class="about-approach-copy">I approach product design through systems thinking, aligning strategy, UX, and strong craft to deliver intuitive experiences. I explore ideas through sketches, prototypes, and prompting, leveraging experimentation to refine concepts into clear direction.</p>
         </div>
         <div class="about-tools-col">
           <i class="ph ph-arrow-up about-tools-arrow"></i>
@@ -449,6 +459,7 @@
             <img class="tool-icon" src="About Section /Tools/Perplexity .avif" alt="Perplexity">
           </div>
           <i class="ph ph-arrow-down about-tools-arrow"></i>
+          <p class="about-tools-copy">I approach product design through systems thinking, aligning strategy, UX, and strong craft to deliver intuitive experiences. I explore ideas through sketches, prototypes, and prompting, leveraging experimentation to refine concepts into clear direction.</p>
         </div>
       </section>
 
