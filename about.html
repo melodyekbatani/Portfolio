@@ -13,15 +13,15 @@
 
     .about-panel {
       position: fixed;
-      top: -4px;
+      top: calc(var(--nav-h) * -1);
       left: 0;
       right: 0;
       bottom: 0;
-      background: var(--bg);
+      background: #ffffff;
       transform: translateY(100%);
       animation: aboutSlideUp 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
       overflow-y: auto;
-      padding-top: calc(var(--nav-h) + 4px);
+      padding-top: calc(var(--nav-h) * 2);
       z-index: 8;
       will-change: transform;
     }
@@ -441,42 +441,32 @@
       <section class="about-section">
         <div class="about-section-grid">
           <p class="t-small about-section-label">Experience</p>
-          <div>
-            <div class="about-list">
+          <div class="about-list">
 
-              <div class="about-list-item">
-                <div>
-                  <p class="about-item-title">Product &amp; Brand Designer</p>
-                  <p class="about-item-sub">Loam</p>
-                </div>
-                <span class="about-item-date">Nov 2024 – Ongoing</span>
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Product &amp; Brand Designer</p>
+                <p class="about-item-sub">LOAM Marketplace — Contract</p>
               </div>
-
-              <div class="about-list-item">
-                <div>
-                  <p class="about-item-title">Digital Designer</p>
-                  <p class="about-item-sub">Giannone Petricone Associates</p>
-                </div>
-                <span class="about-item-date">Jul 2023 – Jun 2025</span>
-              </div>
-
-              <div class="about-list-item">
-                <div>
-                  <p class="about-item-title">Product Designer</p>
-                  <p class="about-item-sub">WZMH Architects — Sparkbird Labs</p>
-                </div>
-                <span class="about-item-date">Jan 2022 – Jun 2023</span>
-              </div>
-
-              <div class="about-list-item">
-                <div>
-                  <p class="about-item-title">Business Development Specialist</p>
-                  <p class="about-item-sub">David Weeks Studio</p>
-                </div>
-                <span class="about-item-date">Apr 2023 – Jun 2025</span>
-              </div>
-
+              <span class="about-item-date">Nov 2024 – Aug 2025</span>
             </div>
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Digital Marketing Designer</p>
+                <p class="about-item-sub">Giannone Petricone Associates — Full-time</p>
+              </div>
+              <span class="about-item-date">Jul 2023 – Jun 2025</span>
+            </div>
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Product Designer</p>
+                <p class="about-item-sub">WZMH Architects / Sparkbird Labs — Full-time</p>
+              </div>
+              <span class="about-item-date">Jan 2022 – Jul 2023</span>
+            </div>
+
           </div>
         </div>
       </section>
@@ -485,26 +475,57 @@
       <section class="about-section">
         <div class="about-section-grid">
           <p class="t-small about-section-label">Education</p>
-          <div>
-            <div class="about-list">
+          <div class="about-list">
 
-              <div class="about-list-item">
-                <div>
-                  <p class="about-item-title">Masters of Communication Design</p>
-                  <p class="about-item-sub">Specialization in Digital Product Design — Parsons School of Design, The New School</p>
-                </div>
-                <span class="about-item-date">2024 – 2026</span>
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Master's of Digital Product Design</p>
+                <p class="about-item-sub">Parsons School of Design, The New School — MPS, STEM Designated</p>
+                <p class="about-item-sub">Merit Scholarship · Dean's List Scholar</p>
               </div>
-
-              <div class="about-list-item">
-                <div>
-                  <p class="about-item-title">Bachelor of Arts in Architectural Design</p>
-                  <p class="about-item-sub">University of Toronto</p>
-                </div>
-                <span class="about-item-date">2018 – 2022</span>
-              </div>
-
+              <span class="about-item-date">2024 – 2026</span>
             </div>
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Honors B.A. in Architectural Design</p>
+                <p class="about-item-sub">University of Toronto</p>
+                <p class="about-item-sub">Merit Award · Dean's List · Thesis Award · Halton Learning Award</p>
+              </div>
+              <span class="about-item-date">2018 – 2022</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="about-section">
+        <div class="about-section-grid">
+          <p class="t-small about-section-label">Skills</p>
+          <div class="about-list">
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Design</p>
+                <p class="about-item-sub">UI/UX · Motion · 3D — Figma, Adobe Creative Suite, Paper</p>
+              </div>
+            </div>
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Development</p>
+                <p class="about-item-sub">HTML · CSS · JavaScript</p>
+              </div>
+            </div>
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">AI &amp; Emerging Tools</p>
+                <p class="about-item-sub">Generative AI workflows — Claude, Codex, Lovable, Image &amp; Video Generation</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -513,50 +534,66 @@
       <section class="about-section">
         <div class="about-section-grid">
           <p class="t-small about-section-label">Awards</p>
-          <div>
-            <div class="about-awards-list">
+          <div class="about-list">
 
-              <div class="about-award-item">
-                <p class="about-award-title">Cambridge Innovation Center Grant</p>
-                <p class="about-award-detail">Advised biotech entrepreneurs from Japan, CIC Japan Desk &times; Parsons — 2026</p>
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Cambridge Innovation Center Grant</p>
+                <p class="about-item-sub">CIC Japan Desk × Parsons</p>
               </div>
-
-              <div class="about-award-item">
-                <p class="about-award-title">Digital Expressions Fellow</p>
-                <p class="about-award-detail">Adaptive Research Google Gemini project — 2026</p>
-              </div>
-
-              <div class="about-award-item">
-                <p class="about-award-title">Merit Scholarship</p>
-                <p class="about-award-detail">Parsons School of Design, The New School — 2025–2026</p>
-              </div>
-
-              <div class="about-award-item">
-                <p class="about-award-title">Dean's List Scholar</p>
-                <p class="about-award-detail">Parsons School of Design, The New School — 2025–2026</p>
-              </div>
-
-              <div class="about-award-item">
-                <p class="about-award-title">Winner in Construction Product Design</p>
-                <p class="about-award-detail">BLT Design Awards — 2024</p>
-              </div>
-
-              <div class="about-award-item">
-                <p class="about-award-title">Honorary Mention</p>
-                <p class="about-award-detail">Ad-imagination Design Challenge — 2023</p>
-              </div>
-
-              <div class="about-award-item">
-                <p class="about-award-title">Undergraduate Merit Award &amp; Dean's List</p>
-                <p class="about-award-detail">University of Toronto — 2018–2022</p>
-              </div>
-
-              <div class="about-award-item">
-                <p class="about-award-title">Halton Learning Award</p>
-                <p class="about-award-detail">University of Toronto — 2018–2022</p>
-              </div>
-
+              <span class="about-item-date">2026</span>
             </div>
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Digital Expressions Fellow</p>
+                <p class="about-item-sub">Adaptive Research — Google Gemini</p>
+              </div>
+              <span class="about-item-date">2026</span>
+            </div>
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Winner, Construction Product Design</p>
+                <p class="about-item-sub">Speedstac at Sparkbird Labs — BLT Design Awards</p>
+              </div>
+              <span class="about-item-date">2024</span>
+            </div>
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Merit Scholarship &amp; Dean's List</p>
+                <p class="about-item-sub">Parsons School of Design, The New School</p>
+              </div>
+              <span class="about-item-date">2025–26</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Certifications -->
+      <section class="about-section">
+        <div class="about-section-grid">
+          <p class="t-small about-section-label">Certifications</p>
+          <div class="about-list">
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Sustainable UX Design</p>
+                <p class="about-item-sub">IBM</p>
+              </div>
+              <span class="about-item-date">2026</span>
+            </div>
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Auditing Design Systems for Accessibility</p>
+                <p class="about-item-sub">LinkedIn Learning</p>
+              </div>
+              <span class="about-item-date">2025</span>
+            </div>
+
           </div>
         </div>
       </section>
