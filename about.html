@@ -18,7 +18,7 @@
       right: 0;
       bottom: 0;
       background: #ffffff;
-      transform: translateY(100%);
+      transform: translate3d(0, 100%, 0);
       animation: aboutSlideUp 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
       overflow-y: auto;
       padding-top: calc(var(--nav-h) * 2);
@@ -26,16 +26,17 @@
       will-change: transform;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
+      isolation: isolate;
     }
 
     @keyframes aboutSlideUp {
-      from { transform: translateY(100%); }
-      to   { transform: translateY(0); }
+      from { transform: translate3d(0, 100%, 0); }
+      to   { transform: translate3d(0, 0, 0); }
     }
 
     @keyframes aboutSlideDown {
-      from { transform: translateY(0); }
-      to   { transform: translateY(105%); }
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(0, 105%, 0); }
     }
 
     .about-panel.is-exiting {
