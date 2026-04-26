@@ -52,7 +52,7 @@
 
     .cs-hero-content p {
       font-size: 18px;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.5;
       max-width: 44ch;
       color: rgba(255,255,255,0.8);
@@ -91,11 +91,20 @@
     /* ─── Headings ───────────────────────────────────────────── */
 
     .cs-h2 {
-      font-size: clamp(32px, 5vw, 64px);
+      font-size: clamp(36px, 5vw, 64px);
       font-weight: 500;
       letter-spacing: -0.03em;
       line-height: 0.94;
       margin-bottom: 32px;
+    }
+
+    /* subsection heads: Overview, Design Challenge, etc. */
+    .cs-subheading {
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 16px;
     }
 
     .cs-h3 {
@@ -110,8 +119,8 @@
 
     .cs-body {
       font-size: 18px;
-      font-weight: 400;
-      line-height: 1.6;
+      font-weight: 500;
+      line-height: 1.5;
       color: var(--ink);
     }
 
@@ -153,7 +162,7 @@
     .cs-meta-item p {
       font-size: 14px;
       font-weight: 400;
-      line-height: 1.6;
+      line-height: 1.5;
       color: var(--ink);
     }
 
@@ -211,11 +220,12 @@
     }
 
     .cs-video-wrap figcaption {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 400;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      margin-top: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-top: 16px;
     }
 
     /* ─── Image grid (2×2) ───────────────────────────────────── */
@@ -228,20 +238,13 @@
     }
 
     .cs-image-grid figure {
-      overflow: hidden;
       background: #f0f0f0;
     }
 
     .cs-image-grid img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
-      transition: transform 0.6s ease;
-    }
-
-    .cs-image-grid figure:hover img {
-      transform: scale(1.03);
     }
 
     /* ─── Features (3-col) ───────────────────────────────────── */
@@ -276,7 +279,7 @@
     .cs-features-list li {
       font-size: 14px;
       font-weight: 400;
-      letter-spacing: 0.03em;
+      letter-spacing: 0;
       line-height: 1.5;
       color: var(--ink);
       padding-left: 12px;
@@ -333,14 +336,12 @@
     }
 
     .cs-competitor-row figure {
-      overflow: hidden;
       background: #f0f0f0;
     }
 
     .cs-competitor-row img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
     }
 
@@ -356,15 +357,13 @@
     }
 
     .cs-iterations-grid > li figure {
-      overflow: hidden;
       background: #f0f0f0;
       margin-bottom: 20px;
     }
 
     .cs-iterations-grid > li img {
       width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
+      height: auto;
       display: block;
     }
 
@@ -380,7 +379,7 @@
     .cs-iterations-list li {
       font-size: 14px;
       font-weight: 400;
-      letter-spacing: 0.03em;
+      letter-spacing: 0;
       line-height: 1.5;
       color: var(--ink);
       padding-left: 12px;
@@ -464,9 +463,9 @@
     }
 
     .cs-next-list li {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.6;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.5;
       color: var(--ink);
       padding-left: 20px;
       position: relative;
@@ -567,12 +566,12 @@
 
         <div class="cs-copy-stack">
           <div>
-            <h2 class="cs-h2" style="font-size: clamp(24px, 3vw, 36px); margin-bottom: 16px;">Overview</h2>
+            <h2 class="cs-subheading">Overview</h2>
             <p class="cs-body">Aeri was created for the Parsons x University of Arizona 24-hour AI Hackathon, where teams were assigned. It is an AI-powered preventative care concept designed for people managing Type 2 diabetes.</p>
             <p class="cs-body" style="margin-top: 14px;">The project explores a more proactive alternative to today's reactive health tools by helping users anticipate changes earlier. Aeri combines continuous sensing, predictive AI, and an augmented reality interface to deliver clearer, more actionable guidance throughout the day.</p>
           </div>
           <div style="margin-top: 32px;">
-            <h2 class="cs-h2" style="font-size: clamp(24px, 3vw, 36px); margin-bottom: 16px;">Design Challenge</h2>
+            <h2 class="cs-subheading">Design Challenge</h2>
             <p class="cs-body">What if diabetes care could become more preventative?</p>
           </div>
         </div>
