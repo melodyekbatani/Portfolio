@@ -79,10 +79,10 @@
     }
 
     .about-hero-title {
-      font-size: clamp(36px, 6vw, 64px);
+      font-size: clamp(36px, 5vw, 64px);
       font-weight: 500;
-      letter-spacing: -0.02em;
-      line-height: 0.96;
+      letter-spacing: -0.03em;
+      line-height: 0.94;
     }
 
     .about-hero-bio {
@@ -172,15 +172,17 @@
     }
 
     .highlights-info-label {
-      color: var(--muted);
+      color: var(--ink);
     }
 
     .highlights-info-desc {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 400;
-      line-height: 1.5;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
       max-width: 44ch;
       text-align: center;
+      text-wrap: pretty;
     }
 
     /* ─── Approach ───────────────────────────────────────────── */
@@ -213,7 +215,7 @@
       font-size: 18px;
       font-weight: 500;
       line-height: 1.5;
-      max-width: 46ch;
+      max-width: 38ch;
     }
 
     .about-process-image {
@@ -228,19 +230,29 @@
     /* ─── Divider row ────────────────────────────────────────── */
 
     .about-section {
-      padding-top: 80px;
-      padding-bottom: 80px;
+      padding-top: 40px;
+      padding-bottom: 40px;
     }
 
     .about-section-grid {
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 3fr 4fr;
       gap: 56px;
       align-items: start;
     }
 
     .about-section-label {
       padding-top: 6px;
+    }
+
+    .nav-style-label {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      line-height: 1.2;
+      display: block;
     }
 
     .about-section-heading {
@@ -256,7 +268,7 @@
     .about-list {
       display: flex;
       flex-direction: column;
-      gap: 36px;
+      gap: 16px;
     }
 
     .about-list-item {
@@ -264,20 +276,22 @@
       grid-template-columns: 1fr auto;
       gap: 24px;
       align-items: baseline;
-      padding-bottom: 36px;
+      padding-bottom: 12px;
     }
 
     .about-item-title {
       font-size: 18px;
-      font-weight: 700;
+      font-weight: 500;
       line-height: 1.35;
       margin-bottom: 6px;
       color: var(--ink);
     }
 
     .about-item-sub {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       color: var(--ink);
       line-height: 1.5;
     }
@@ -330,7 +344,7 @@
       height: calc(100vh - var(--nav-h));
       display: flex;
       flex-direction: column;
-      padding: 40px var(--page-x) 40px;
+      padding: 100px var(--page-x) 40px;
       box-sizing: border-box;
     }
 
@@ -387,7 +401,7 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
       margin-top: 3px;
-      color: var(--muted);
+      color: var(--ink);
     }
 
     .life-item:nth-child(1)  { grid-column: 1; grid-row: 1; }
@@ -403,9 +417,9 @@
 
     .life-footer {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 3fr 4fr;
       gap: 40px;
-      align-items: start;
+      align-items: end;
       flex-shrink: 0;
       margin-bottom: 32px;
     }
@@ -509,28 +523,28 @@
 
         <div class="highlights-grid">
           <div class="highlight-card"
-            data-label="Product &amp; Brand Designer"
-            data-desc="Loam — November 2024, Ongoing">
-            <img src="About Section /Highlights/Highlights imagery.png" alt="">
+            data-label="Hackathon Whiteboarding Sessions"
+            data-desc="Led rapid ideation and design sprints at Loam, turning ambiguous product problems into structured flows, wireframes, and testable concepts under pressure.">
+            <img src="About Section /Highlights/Highlights imagery.png" alt="" style="transform: scale(1.4); transform-origin: center 25%; transition: transform 0.6s ease;">
           </div>
           <div class="highlight-card"
-            data-label="Digital Designer"
-            data-desc="Giannone Petricone Associates — July 2023 – June 2025">
-            <img src="About Section /Highlights/Highlights imagery-1.png" alt="">
+            data-label="Designing for Emerging Technology"
+            data-desc="Explored how AI reshapes visual communication, building forward-thinking digital experiences that bridge brand identity with next-generation interaction design.">
+            <img src="About Section /Highlights/Highlights imagery-3.png" alt="">
           </div>
           <div class="highlight-card"
-            data-label="Product Designer"
-            data-desc="WZMH Architects / Sparkbird Labs — January 2022 – June 2023">
+            data-label="Where Loam Began"
+            data-desc="Visited our client on-site in Arizona, where immersion in the agricultural landscape sparked the foundational concept behind the entire Loam product vision.">
             <img src="About Section /Highlights/IMG_5267.jpg" alt="">
           </div>
           <div class="highlight-card"
             data-label="Speedstac Module Design"
-            data-desc="Construction product design — Winner, BLT Design Awards 2024">
+            data-desc="Prototyped the connector unit within the Speedstac housing system at Sparkbird Labs, a construction product design that won the BLT Design Awards 2024.">
             <img src="About Section /Highlights/Speedstac module design.jpg" alt="">
           </div>
           <div class="highlight-card"
             data-label="Cambridge Innovation Center Grant"
-            data-desc="Advised biotech entrepreneurs, CIC Japan Desk × Parsons — 2026">
+            data-desc="Presented design documentation to leadership and PMs, advising biotech entrepreneurs through the CIC Japan Desk x Parsons program to shape strategy for early-stage ventures.">
             <img src="About Section /Highlights/Highlights imagery-5.png" alt="">
           </div>
         </div>
@@ -555,8 +569,12 @@
 
       <!-- Experience -->
       <section class="about-section">
+        <div class="about-section-grid" style="margin-bottom: 12px;">
+          <span class="nav-style-label">Practice</span>
+          <div></div>
+        </div>
         <div class="about-section-grid">
-          <p class="t-small about-section-label">Experience</p>
+          <h2 class="about-section-heading" style="margin-bottom: 0;">Experience</h2>
           <div class="about-list">
 
             <div class="about-list-item">
@@ -717,8 +735,11 @@
       <!-- Life Lately -->
       <section class="about-life">
         <div class="life-footer">
-          <p class="t-small">Life Lately</p>
-          <p class="life-footer-desc">Photos from my life since moving to New York 9 months ago. I've been working hard, eating good and meeting an amazing community.</p>
+          <div>
+            <p class="t-small" style="margin-bottom: 12px;">Life Lately</p>
+            <h2 class="about-section-heading" style="margin-bottom: 0;">Outside of Design</h2>
+          </div>
+          <p class="life-footer-desc">Photos from my life since moving to New York nine months ago. I've been working hard, eating incredibly well, exploring every corner of the city, and building a community of designers, builders, and creatives I now get to call home.</p>
         </div>
 
         <div class="life-grid">
@@ -734,8 +755,8 @@
           </div>
 
           <div class="life-item">
-            <img src="About Section /Life lately/Summit.png" alt="Attending Runway AI Summit">
-            <span class="life-caption">Attending Runway AI Summit</span>
+            <img src="About Section /Life lately/Summit.png" alt="Attending the Runway AI Summit">
+            <span class="life-caption">Attending the Runway AI Summit</span>
           </div>
 
           <div class="life-item">
@@ -769,11 +790,12 @@
           </div>
 
           <div class="life-item">
-            <img src="About Section /Life lately/Taxi.png" alt="Have u ever seen anything more NY">
-            <span class="life-caption">Have u ever seen anything more NY?</span>
+            <img src="About Section /Life lately/Taxi.png" alt="Have you ever seen anything more New York?">
+            <span class="life-caption">Have you ever seen anything more New York?</span>
           </div>
 
         </div>
+
       </section>
 
       <!-- Footer -->
@@ -798,11 +820,10 @@
           </div>
           <div class="page-footer-message">
             <p>Designing through clarity, storytelling, and moments of delight.</p>
+            <a href="mailto:melodyekbatani@gmail.com" style="display: block; margin-top: 16px; font-size: 18px; font-weight: 500;">melodyekbatani@gmail.com</a>
           </div>
         </div>
         <div class="page-footer-meta">
-          <p>Based in New York</p>
-          <a href="mailto:melodyekbatani@gmail.com">melodyekbatani@gmail.com</a>
         </div>
       </footer>
 
@@ -882,5 +903,7 @@
     }
   </script>
 
+  <!-- Agentation: dev-only annotation tool -->
+  <script src="agentation-vanilla.js"></script>
 </body>
 </html>

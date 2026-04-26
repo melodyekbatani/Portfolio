@@ -332,6 +332,16 @@ nav a.active {
   isolation: isolate;
 }
 
+html.work-open-preload .work-panel {
+  transform: translate3d(0, 0, 0);
+  transition: none;
+  pointer-events: auto;
+}
+
+html.work-open-preload body {
+  overflow: hidden;
+}
+
 body.work-open {
   overflow: hidden;
 }
@@ -353,11 +363,18 @@ body.work-open .work-panel {
   padding: 92px 40px 120px;
 }
 
-.work-intro-title,
-.work-intro-copy,
-.work-intro-spacer {
-  flex: 1 1 0;
+.work-intro-title {
+  flex: 3 1 0;
   min-width: 0;
+}
+
+.work-intro-copy {
+  flex: 4 1 0;
+  min-width: 0;
+}
+
+.work-intro-spacer {
+  flex: 0;
 }
 
 .work-heading {
@@ -410,7 +427,7 @@ body.work-open .work-panel {
 
 .project-featured-footer {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 3fr 4fr;
   gap: 32px;
   padding: 30px 0 0;
   align-items: start;
@@ -441,7 +458,6 @@ body.work-open .work-panel {
 
 .project-featured-copy {
   max-width: 38ch;
-  grid-column: 2;
   padding-top: 8px;
   justify-self: start;
 }
