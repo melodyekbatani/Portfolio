@@ -327,16 +327,20 @@
     /* ─── Life Lately ────────────────────────────────────────── */
 
     .about-life {
-      padding-left: var(--page-x);
-      padding-right: var(--page-x);
-      padding-bottom: 100px;
+      height: calc(100vh - var(--nav-h));
+      display: flex;
+      flex-direction: column;
+      padding: 40px var(--page-x) 40px;
+      box-sizing: border-box;
     }
 
     .life-grid {
+      flex: 1;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 210px;
+      grid-template-rows: repeat(3, 1fr);
       gap: 16px;
+      min-height: 0;
     }
 
     .life-item {
@@ -402,7 +406,8 @@
       grid-template-columns: 1fr 1fr;
       gap: 40px;
       align-items: start;
-      margin-bottom: 40px;
+      flex-shrink: 0;
+      margin-bottom: 32px;
     }
 
     .life-footer-desc {
@@ -741,12 +746,12 @@
 
           <div class="life-item">
             <img src="About Section /Life lately/Food.png" alt="Everything about this was perfect">
-            <span class="life-caption">Everything about this was perfect! Do I need to say more</span>
+            <span class="life-caption">Everything about this was perfect! </span>
           </div>
 
           <div class="life-item">
             <img src="About Section /Life lately/Family.png" alt="Getting to host my lovely friends and family">
-            <span class="life-caption">Getting to host my lovely friends and family<span class="life-caption-sub">But Times Square was not my idea</span></span>
+            <span class="life-caption">Getting to host my lovely friends and family</span>
           </div>
 
           <div class="life-item">
