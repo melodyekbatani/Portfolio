@@ -21,41 +21,29 @@
 
     /* ─── Hero ───────────────────────────────────────────────── */
 
-    .cs-hero {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-      background: #000;
+    .cs-hero-full {
+      height: calc(100vh - var(--nav-h));
+      display: flex;
+      flex-direction: column;
     }
 
-    .cs-hero-img {
+    .cs-hero-full .work-intro {
+      flex: 0 0 auto;
+    }
+
+    .cs-hero-media {
+      flex: 1;
+      min-height: 0;
+      padding: 0 40px;
+      overflow: hidden;
+    }
+
+    .cs-hero-media img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.85;
-    }
-
-    .cs-hero-content {
-      position: absolute;
-      bottom: 48px;
-      left: 40px;
-      color: #fff;
-    }
-
-    .cs-hero-content h1 {
-      font-size: clamp(48px, 8vw, 96px);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 0.94;
-      margin-bottom: 16px;
-    }
-
-    .cs-hero-content p {
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 1.5;
-      max-width: 44ch;
-      color: rgba(255,255,255,0.8);
+      object-position: center bottom;
+      display: block;
     }
 
     /* ─── Layout ─────────────────────────────────────────────── */
@@ -91,28 +79,30 @@
     /* ─── Headings ───────────────────────────────────────────── */
 
     .cs-h2 {
-      font-size: clamp(36px, 5vw, 64px);
+      font-size: 40px;
       font-weight: 500;
       letter-spacing: -0.03em;
-      line-height: 0.94;
+      line-height: 1;
       margin-bottom: 32px;
     }
 
     /* subsection heads: Overview, Design Challenge, etc. */
     .cs-subheading {
-      font-size: 18px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
       line-height: 1.2;
+      text-transform: uppercase;
       margin-bottom: 16px;
+      display: block;
     }
 
     .cs-h3 {
-      font-size: 18px;
+      font-size: 40px;
       font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 16px;
     }
 
     /* ─── Body copy ──────────────────────────────────────────── */
@@ -141,7 +131,6 @@
       grid-template-columns: 3fr 4fr;
       gap: 56px;
       padding: 80px 40px;
-      border-bottom: 0.5px solid var(--rule);
     }
 
     .cs-meta-grid {
@@ -160,7 +149,7 @@
     }
 
     .cs-meta-item p {
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 400;
       line-height: 1.5;
       color: var(--ink);
@@ -175,33 +164,45 @@
       margin-top: 4px;
     }
 
+    .cs-tool-grid li {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000000;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
     .cs-tool-grid li img {
-      width: 32px;
-      height: 32px;
-      object-fit: contain;
-      border-radius: 6px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
     }
 
     /* ─── Problem band ───────────────────────────────────────── */
 
     .cs-band {
       padding: 80px 40px;
-      background: var(--ink);
-      color: var(--bg);
+      background: var(--bg);
+      color: var(--ink);
     }
 
     .cs-band .cs-kicker {
-      color: rgba(255,255,255,0.5);
+      color: var(--muted);
     }
 
     .cs-band .cs-h2 {
-      color: var(--bg);
+      color: var(--ink);
       max-width: 20ch;
       margin-bottom: 24px;
     }
 
     .cs-band .cs-body {
-      color: rgba(255,255,255,0.75);
+      color: var(--ink);
       max-width: 52ch;
     }
 
@@ -213,10 +214,9 @@
 
     .cs-video-wrap video {
       width: 100%;
-      height: clamp(320px, 50vw, 640px);
+      aspect-ratio: 16 / 9;
       object-fit: cover;
       display: block;
-      background: #000;
     }
 
     .cs-video-wrap figcaption {
@@ -233,17 +233,19 @@
     .cs-image-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      padding: 0 40px 80px;
+      gap: 16px;
+      padding: 40px;
     }
 
     .cs-image-grid figure {
       background: #f0f0f0;
+      overflow: hidden;
     }
 
     .cs-image-grid img {
       width: 100%;
-      height: auto;
+      height: 320px;
+      object-fit: cover;
       display: block;
     }
 
@@ -260,10 +262,9 @@
 
     .cs-features-grid > li video {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
       display: block;
-      background: #000;
       margin-bottom: 20px;
     }
 
@@ -287,20 +288,26 @@
     }
 
     .cs-features-list li::before {
-      content: "—";
+      content: "•";
       position: absolute;
       left: 0;
-      color: var(--muted);
-      font-size: 12px;
+      color: var(--ink);
+      font-size: 10px;
+      top: 5px;
     }
 
     /* ─── Impacts band ───────────────────────────────────────── */
 
     .cs-impacts {
+      min-height: 90vh;
       padding: 120px 40px;
       background: var(--ink);
       color: var(--bg);
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .cs-impacts .cs-kicker {
@@ -315,6 +322,8 @@
       letter-spacing: -0.04em;
       line-height: 0.92;
       color: var(--bg);
+      width: 90vw;
+      max-width: 90vw;
     }
 
     .cs-impacts-sub {
@@ -324,6 +333,20 @@
       text-transform: uppercase;
       color: rgba(255,255,255,0.4);
       margin-top: 24px;
+    }
+
+    /* ─── Scale-in scroll animation ──────────────────────────── */
+
+    .cs-scale-in {
+      transform: scale(0.08);
+      opacity: 0;
+      transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+      will-change: transform;
+    }
+
+    .cs-scale-in.is-visible {
+      transform: scale(1);
+      opacity: 1;
     }
 
     /* ─── Competitor research row ────────────────────────────── */
@@ -337,11 +360,13 @@
 
     .cs-competitor-row figure {
       background: #f0f0f0;
+      overflow: hidden;
     }
 
     .cs-competitor-row img {
       width: 100%;
-      height: auto;
+      height: 180px;
+      object-fit: cover;
       display: block;
     }
 
@@ -359,11 +384,13 @@
     .cs-iterations-grid > li figure {
       background: #f0f0f0;
       margin-bottom: 20px;
+      overflow: hidden;
     }
 
     .cs-iterations-grid > li img {
       width: 100%;
-      height: auto;
+      height: 260px;
+      object-fit: cover;
       display: block;
     }
 
@@ -387,19 +414,26 @@
     }
 
     .cs-iterations-list li::before {
-      content: "—";
+      content: "•";
       position: absolute;
       left: 0;
-      color: var(--muted);
-      font-size: 12px;
+      color: var(--ink);
+      font-size: 10px;
+      top: 5px;
     }
 
     /* ─── Pitch band ─────────────────────────────────────────── */
 
     .cs-pitch {
+      min-height: 90vh;
       padding: 120px 40px;
       background: var(--ink);
       color: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .cs-pitch .cs-kicker {
@@ -412,7 +446,8 @@
       letter-spacing: -0.04em;
       line-height: 0.92;
       color: var(--bg);
-      max-width: 16ch;
+      width: 90vw;
+      max-width: 90vw;
     }
 
     /* ─── YouTube embed ──────────────────────────────────────── */
@@ -472,22 +507,27 @@
     }
 
     .cs-next-list li::before {
-      content: "—";
+      content: "•";
       position: absolute;
       left: 0;
-      color: var(--muted);
+      color: var(--ink);
+      font-size: 10px;
+      top: 8px;
     }
 
     /* ─── Dividers ───────────────────────────────────────────── */
 
     .cs-ruled {
-      border-top: 0.5px solid var(--rule);
+      border-top: none;
     }
 
     /* ─── Responsive ─────────────────────────────────────────── */
 
     @media (max-width: 768px) {
-      .cs-hero-content { left: 20px; bottom: 32px; }
+      .cs-hero-full { height: auto; }
+      .cs-hero-media { padding: 0 20px; flex: none; }
+      .cs-hero-media img { height: clamp(280px, 46vh, 420px); }
+      .cs-subheading { font-size: 14px; }
       .cs-section, .cs-video-wrap, .cs-image-grid, .cs-embed, .cs-embed { padding-left: 20px; padding-right: 20px; }
       .cs-overview { grid-template-columns: 1fr; padding: 48px 20px; }
       .cs-section-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -520,13 +560,21 @@
     <div class="cs-page">
 
       <!-- Hero -->
-      <section class="cs-hero">
-        <img class="cs-hero-img" src="assets/Aeri hero.avif" alt="Aeri hero" fetchpriority="high">
-        <div class="cs-hero-content">
-          <h1>Aeri</h1>
-          <p>AI-powered preventative care contact lens for diabetes with AR integration.</p>
+      <div class="cs-hero-full">
+        <div class="work-intro">
+          <div class="work-intro-title">
+            <h1 class="work-heading">Aeri</h1>
+          </div>
+          <div class="work-intro-copy">
+            <p class="t-body work-description">AI-powered preventative care contact lens for diabetes with AR integration, exploring a more proactive alternative to today’s reactive management tools.</p>
+          </div>
+          <div class="work-intro-spacer" aria-hidden="true"></div>
         </div>
-      </section>
+
+        <figure class="cs-hero-media">
+          <img src="assets/Aeri hero.avif" alt="Aeri hero" fetchpriority="high">
+        </figure>
+      </div>
 
       <!-- Overview -->
       <section class="cs-overview" id="overview">
@@ -539,7 +587,7 @@
 
           <div class="cs-meta-item">
             <h3>Role</h3>
-            <p><strong>Product Designer</strong> — product strategy, user research, visual design and AI integration</p>
+            <p>Product Designer, product strategy, user research, visual design and AI integration</p>
           </div>
 
           <div class="cs-meta-item">
@@ -580,7 +628,7 @@
       <!-- Problem -->
       <section class="cs-band" id="problem">
         <span class="cs-kicker">Problem</span>
-        <h2 class="cs-h2">Diabetes treatments today are reactive</h2>
+        <h3 class="cs-h2">Diabetes treatments today are reactive</h3>
         <p class="cs-body">Most tools surface glucose and trends, but they still lean on the person to interpret what it means and what to do next.</p>
         <p class="cs-body" style="margin-top: 14px;">Care often stays reactive: responding after numbers shift instead of helping people anticipate what is coming.</p>
       </section>
@@ -592,9 +640,9 @@
       </figure>
 
       <!-- Solution -->
-      <section class="cs-section cs-ruled" id="solution">
+      <section class="cs-section" id="solution">
         <span class="cs-kicker">Solution</span>
-        <h2 class="cs-h2">Shifting toward proactive care</h2>
+        <h3 class="cs-h2">Shifting toward proactive care</h3>
         <div class="cs-copy-stack" style="max-width: 60ch;">
           <p class="cs-body">We set out to design a system that helps people act before issues intensify. We focused on the management of Type 2 diabetes approaching the problem through earlier awareness, clearer guidance, and more confident decision-making.</p>
           <p class="cs-body">Our solution, Aeri, is an AI-powered preventative care concept that utilizes an AR-integrated contact lens to help users anticipate changes earlier throughout the day.</p>
@@ -604,7 +652,7 @@
       <!-- At a glance band -->
       <section class="cs-band" id="at-a-glance">
         <span class="cs-kicker">At a glance</span>
-        <h2 class="cs-h2">A new frontier in diabetes management</h2>
+        <h3 class="cs-h2">A new frontier in diabetes management</h3>
       </section>
 
       <!-- Video 2 -->
@@ -614,9 +662,9 @@
       </figure>
 
       <!-- Approach -->
-      <section class="cs-section cs-ruled" id="approach">
+      <section class="cs-section" id="approach">
         <span class="cs-kicker">Approach</span>
-        <h2 class="cs-h2">A more supportive experience</h2>
+        <h3 class="cs-h2">A more supportive experience</h3>
         <div class="cs-copy-stack" style="max-width: 60ch;">
           <p class="cs-body">Aeri's core experience is built around four connected parts: live interventions, daily overviews, metric breakdowns, and user controls. Together, they make health insights more useful, timely, and actionable.</p>
           <p class="cs-body">User controls also give people more choice over what is surfaced, how prominently it appears, and when they are notified.</p>
@@ -634,7 +682,7 @@
       <!-- Key Features -->
       <section class="cs-section cs-ruled" id="features">
         <span class="cs-kicker">Key Features</span>
-        <h2 class="cs-h2">Aeri is structured across three integrated layers</h2>
+        <h3 class="cs-h2">Aeri is structured across three integrated layers</h3>
         <ul class="cs-features-grid">
           <li>
             <video src="assets/Aeri-Video Grid 1.mp4" playsinline muted loop autoplay preload="metadata"></video>
@@ -669,7 +717,7 @@
       <!-- Impacts -->
       <section class="cs-impacts" id="impacts">
         <span class="cs-kicker">Impacts</span>
-        <p class="cs-impacts-heading">More than 1 in 10 adults worldwide</p>
+        <h2 class="cs-impacts-heading cs-scale-in">More than 1 in 10 adults worldwide</h2>
         <p class="cs-impacts-sub">Stat from International Diabetes Federation</p>
       </section>
 
@@ -678,7 +726,7 @@
         <div class="cs-section-grid">
           <div>
             <span class="cs-kicker">Context</span>
-            <h2 class="cs-h2">A growing global health reality</h2>
+            <h3 class="cs-h2">A growing global health reality</h3>
           </div>
           <div class="cs-copy-stack">
             <p class="cs-body">Its scale reflects a growing need for tools that better support the ongoing decisions, adjustments, and mental effort of daily care. Managing diabetes is not limited to isolated moments of checking a number. It is shaped by repeated choices around food, activity, sleep, stress, and routine, all of which can influence glucose levels throughout the day.</p>
@@ -690,7 +738,7 @@
       <!-- Market Research -->
       <section class="cs-section cs-ruled" id="market-research">
         <span class="cs-kicker">Market Research</span>
-        <h2 class="cs-h2">Revealing the gap</h2>
+        <h3 class="cs-h2">Revealing the gap</h3>
         <p class="cs-body" style="max-width: 64ch;">Conversations and user interviews point to a system that interrupts daily life rather than supporting it: frequent sensor failures, constant replacements, and the need to repeatedly check numbers create frustration and fatigue. Instead of feeling supported, many feel tethered to their devices, managing alerts, troubleshooting issues, and trying to make sense of inconsistent readings.</p>
       </section>
 
@@ -703,7 +751,7 @@
       <!-- Competitor Research -->
       <section class="cs-section cs-ruled" id="competitor-research">
         <span class="cs-kicker">Competitor Research</span>
-        <h2 class="cs-h2">Tracking diabetes data isn't easy</h2>
+        <h3 class="cs-h2">Tracking diabetes data isn't easy</h3>
         <div class="cs-copy-stack" style="max-width: 64ch;">
           <p class="cs-body">Across the category, products have improved in sensing accuracy, connectivity, and real-time display. However, reliability issues, short sensor lifecycles, and fragmented device ecosystems continue to introduce friction.</p>
           <p class="cs-body">As conditions become more complex, the operational overhead increases highlighting an opportunity to reduce system friction and create a more seamless experience that requires less active management from the user.</p>
@@ -720,7 +768,7 @@
       <!-- Iterations -->
       <section class="cs-section cs-ruled" id="iterations">
         <span class="cs-kicker">Iteration</span>
-        <h2 class="cs-h2">Translating ideas into a working vision</h2>
+        <h3 class="cs-h2">Translating ideas into a working vision</h3>
         <ul class="cs-iterations-grid">
           <li>
             <figure><img src="assets/Aeri-Iteration 1.avif" alt="Whiteboarding exploration" loading="lazy"></figure>
@@ -755,7 +803,7 @@
       <!-- Pitch band -->
       <section class="cs-pitch" id="pitch">
         <span class="cs-kicker">The Pitch</span>
-        <p class="cs-pitch-heading">Proactive care, guided in real time</p>
+        <h2 class="cs-pitch-heading cs-scale-in">Proactive care, guided in real time</h2>
       </section>
 
       <!-- YouTube embed -->
@@ -772,7 +820,7 @@
       <!-- Reflection -->
       <section class="cs-section cs-ruled" id="reflection">
         <span class="cs-kicker">Reflection</span>
-        <h2 class="cs-h2">Our takeaways</h2>
+        <h3 class="cs-h2">Our takeaways</h3>
         <div class="cs-takeaways">
           <div class="cs-takeaway">
             <h3>Working through a 24-hour sprint</h3>
@@ -794,7 +842,7 @@
         <div class="cs-section-grid">
           <div>
             <span class="cs-kicker">Future Development</span>
-            <h2 class="cs-h2">Next Steps</h2>
+            <h3 class="cs-h2">Next Steps</h3>
           </div>
           <ul class="cs-next-list">
             <li>Further evaluate the biomedical feasibility of the sensing approach and underlying hardware.</li>
@@ -869,6 +917,13 @@
         cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
       });
     }
+
+    // Scale-in animation on scroll
+    document.querySelectorAll('.cs-scale-in').forEach(el => {
+      new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) el.classList.add('is-visible');
+      }, { threshold: 0.15 }).observe(el);
+    });
 
     // Agentation dev tool
     const s = document.createElement("script");
