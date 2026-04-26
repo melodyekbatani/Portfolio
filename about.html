@@ -359,25 +359,32 @@
 
     .life-caption {
       position: absolute;
-      bottom: 10px;
-      left: 10px;
+      bottom: 12px;
+      left: 12px;
       background: rgba(255,255,255,0.92);
-      padding: 5px 10px;
-      font-size: 12px;
+      padding: 6px 12px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
       font-weight: 400;
       line-height: 1.4;
-      color: #111111;
+      color: var(--ink);
       max-width: 85%;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .life-item:hover .life-caption {
+      opacity: 1;
     }
 
     .life-caption-sub {
       display: block;
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 400;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       margin-top: 3px;
-      opacity: 0.6;
+      color: var(--muted);
     }
 
     .life-item:nth-child(1)  { grid-column: 1; grid-row: 1; }
