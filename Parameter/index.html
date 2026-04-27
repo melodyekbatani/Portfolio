@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parameter — Melody Ekbatani</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+  <style>
+
+    body { background: var(--bg); }
+
+    .cs-panel { padding-top: var(--nav-h); }
+
+    /* ─── Hero ───────────────────────────────────────────────── */
+
+    .cs-hero-full {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cs-hero-full .work-intro { flex: 0 0 auto; }
+
+    .cs-hero-media {
+      flex: none;
+      height: 110vh;
+      padding: 0 40px;
+      overflow: hidden;
+    }
+
+    .cs-hero-media video,
+    .cs-hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+      display: block;
+    }
+
+    /* ─── Layout ─────────────────────────────────────────────── */
+
+    .cs-page { max-width: 1512px; margin: 0 auto; }
+
+    .cs-section { padding: 80px 40px; }
+
+    .cs-section-grid {
+      display: grid;
+      grid-template-columns: 3fr 4fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* ─── Kickers ────────────────────────────────────────────── */
+
+    .cs-kicker {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    /* ─── Headings ───────────────────────────────────────────── */
+
+    .cs-h2 {
+      font-size: 40px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 32px;
+    }
+
+    .cs-subheading {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .cs-h3 {
+      font-size: 40px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    /* ─── Body copy ──────────────────────────────────────────── */
+
+    .cs-body {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .cs-copy-stack { display: flex; flex-direction: column; gap: 16px; }
+
+    /* ─── Overview ───────────────────────────────────────────── */
+
+    .cs-overview {
+      display: grid;
+      grid-template-columns: 3fr 4fr;
+      gap: 56px;
+      padding: 80px 40px;
+    }
+
+    .cs-meta-grid { display: flex; flex-direction: column; gap: 32px; }
+
+    .cs-meta-item h3 {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .cs-meta-item p {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .cs-tool-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      list-style: none;
+      padding: 0;
+      margin-top: 4px;
+    }
+
+    .cs-tool-grid li {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .cs-tool-grid li img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+    }
+
+    /* ─── Problem / band ─────────────────────────────────────── */
+
+    .cs-band {
+      padding: 80px 40px;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .cs-band .cs-kicker { color: var(--muted); }
+
+    .cs-band .cs-h2 {
+      color: var(--ink);
+      max-width: 20ch;
+      margin-bottom: 24px;
+    }
+
+    .cs-band .cs-body { color: var(--ink); max-width: 52ch; }
+
+    /* ─── Video / image wraps ────────────────────────────────── */
+
+    .cs-video-wrap { padding: 0 40px 80px; }
+
+    .cs-video-wrap video,
+    .cs-video-wrap img {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cs-video-wrap video { aspect-ratio: 16 / 9; }
+
+    .cs-video-wrap img { height: auto; }
+
+    .cs-video-wrap figcaption {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    /* ─── Feature split (image + text 2-col) ────────────────── */
+
+    .cs-feature-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+      padding: 80px 40px;
+    }
+
+    .cs-feature-split-media img,
+    .cs-feature-split-media video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .cs-feature-split-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 8px;
+    }
+
+    .cs-feature-split.cs-feature-reverse .cs-feature-split-media { order: 2; }
+    .cs-feature-split.cs-feature-reverse .cs-feature-split-copy { order: 1; }
+
+    /* ─── Impacts band ───────────────────────────────────────── */
+
+    .cs-impacts {
+      min-height: 90vh;
+      padding: 120px 40px;
+      background: var(--ink);
+      color: var(--bg);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cs-impacts .cs-kicker {
+      color: rgba(255,255,255,0.5);
+      display: block;
+      margin-bottom: 24px;
+    }
+
+    .cs-impacts-heading {
+      font-size: clamp(48px, 9vw, 120px);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      color: var(--bg);
+      width: 90vw;
+      max-width: 90vw;
+    }
+
+    /* ─── Pitch band ─────────────────────────────────────────── */
+
+    .cs-pitch {
+      min-height: 90vh;
+      padding: 120px 40px;
+      background: var(--ink);
+      color: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .cs-pitch .cs-kicker { color: rgba(255,255,255,0.5); }
+
+    .cs-pitch-heading {
+      font-size: clamp(48px, 9vw, 120px);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      color: var(--bg);
+      width: 90vw;
+      max-width: 90vw;
+    }
+
+    /* ─── Scale-in animation ─────────────────────────────────── */
+
+    .cs-scale-in {
+      transform: scale(0.08);
+      opacity: 0;
+      transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+      will-change: transform;
+    }
+
+    .cs-scale-in.is-visible { transform: scale(1); opacity: 1; }
+
+    /* ─── Key takeaways ──────────────────────────────────────── */
+
+    .cs-takeaways {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 48px;
+    }
+
+    .cs-takeaway h3 {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .cs-takeaway p {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    /* ─── User quotes ────────────────────────────────────────── */
+
+    .cs-quotes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .cs-quote {
+      background: #f0f0f8;
+      padding: 32px;
+    }
+
+    .cs-quote-mark {
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .cs-quote p {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .cs-quote cite {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    /* ─── Competitor audit image ─────────────────────────────── */
+
+    .cs-audit-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-top: 48px;
+    }
+
+    /* ─── Next steps ─────────────────────────────────────────── */
+
+    .cs-next-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cs-next-list li {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--ink);
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .cs-next-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--ink);
+      font-size: 10px;
+      top: 8px;
+    }
+
+    /* ─── Ruled ──────────────────────────────────────────────── */
+
+    .cs-ruled { border-top: none; }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+
+    @media (max-width: 768px) {
+      .cs-hero-media { height: clamp(280px, 60vh, 500px); padding: 0 20px; }
+      .cs-overview { grid-template-columns: 1fr; padding: 48px 20px; }
+      .cs-section { padding: 56px 20px; }
+      .cs-section-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cs-feature-split { grid-template-columns: 1fr; padding: 56px 20px; }
+      .cs-feature-split.cs-feature-reverse .cs-feature-split-media,
+      .cs-feature-split.cs-feature-reverse .cs-feature-split-copy { order: initial; }
+      .cs-takeaways, .cs-quotes { grid-template-columns: 1fr; }
+      .cs-video-wrap { padding: 0 20px 56px; }
+      .cs-band, .cs-impacts, .cs-pitch { padding: 64px 20px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="project-cursor" aria-hidden="true">
+    <span class="project-cursor-dot"></span>
+    <span class="project-cursor-label">Open Link</span>
+    <i class="ph ph-arrow-up-right project-cursor-icon"></i>
+  </div>
+
+  <nav>
+    <span class="nav-indicator" aria-hidden="true"></span>
+    <a href="/" class="t-small" data-nav="home">Home</a>
+    <a href="/index.html" class="t-small" data-nav="work" data-open-work-link>Work</a>
+    <a href="/about.html" class="t-small">About</a>
+    <a href="/explore.html" class="t-small">Explore</a>
+    <a href="#" class="t-small" target="_blank">Resume <i class="ph ph-arrow-up-right"></i></a>
+  </nav>
+
+  <div class="cs-panel">
+    <div class="cs-page">
+
+      <!-- Hero -->
+      <div class="cs-hero-full">
+        <div class="work-intro">
+          <div class="work-intro-title">
+            <h1 class="work-heading">Parameter</h1>
+          </div>
+          <div class="work-intro-copy">
+            <p class="t-body work-description">Secure AI health app that transforms complex personal health data into clear insights.</p>
+          </div>
+          <div class="work-intro-spacer" aria-hidden="true"></div>
+        </div>
+        <figure class="cs-hero-media">
+          <video autoplay muted loop playsinline>
+            <source src="1 - Header video.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
+
+      <!-- Overview -->
+      <section class="cs-overview" id="overview">
+        <div class="cs-meta-grid">
+
+          <div class="cs-meta-item">
+            <h3>Timeline</h3>
+            <p>6 weeks<br>Parsons Major Studio</p>
+          </div>
+
+          <div class="cs-meta-item">
+            <h3>Role</h3>
+            <p>Product Designer focused on product strategy, interaction design, motion systems, and AI-driven interfaces</p>
+          </div>
+
+          <div class="cs-meta-item">
+            <h3>Team</h3>
+            <p>Melody Ekbatani (Product, Motion Design)</p>
+            <p>Michael French (Product Design)</p>
+          </div>
+
+          <div class="cs-meta-item">
+            <h3>Tools</h3>
+            <ul class="cs-tool-grid">
+              <li><img src="Tools/Figma.avif" alt="Figma"></li>
+              <li><img src="../aeri/assets/Tools/Gemini.avif" alt="Gemini"></li>
+              <li><img src="../aeri/assets/Tools/Lovable.avif" alt="Lovable"></li>
+              <li><img src="../aeri/assets/Tools/OpenAI.avif" alt="ChatGPT"></li>
+              <li><img src="../aeri/assets/Tools/Perplexity .avif" alt="Perplexity"></li>
+              <li><img src="../aeri/assets/Tools/Claude.webp" alt="Claude"></li>
+              <li><img src="../aeri/assets/Tools/aftereffects.avif" alt="After Effects"></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="cs-copy-stack">
+          <div>
+            <span class="cs-subheading">Overview</span>
+            <p class="cs-body">Parameter explores how personal health data could become easier to interpret and use for preventative care. The project focuses on organizing lab results, genetic information, and clinical records into a single system that highlights patterns, signals, and actions.</p>
+            <p class="cs-body" style="margin-top: 14px;">The goal was not to replace medical professionals, but to help people better understand their own health data so they can ask better questions and make more informed decisions.</p>
+          </div>
+          <div style="margin-top: 32px;">
+            <span class="cs-subheading">Design Challenge</span>
+            <p class="cs-body">How might health data become easier to interpret and act on?</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Problem -->
+      <section class="cs-band" id="problem">
+        <span class="cs-kicker">Problem</span>
+        <h3 class="cs-h2">Easy to access, hard to understand</h3>
+        <p class="cs-body">Personal health information is scattered across many systems. While data is increasingly accessible, most tools fail to identify which signals matter, explain how metrics relate to one another, or help people understand what actions support preventative health.</p>
+      </section>
+
+      <!-- Brand design video -->
+      <figure class="cs-video-wrap">
+        <video src="3-Brand design.mp4" playsinline muted autoplay loop preload="metadata"></video>
+        <figcaption>Building a visual system supporting clarity and interaction.</figcaption>
+      </figure>
+
+      <!-- Solution -->
+      <section class="cs-section" id="solution">
+        <span class="cs-kicker">Solution</span>
+        <h3 class="cs-h2">Turning health data into clear signals</h3>
+        <div class="cs-copy-stack" style="max-width: 60ch;">
+          <p class="cs-body">Parameter organizes health information around signals, trends, and insights instead of dense dashboards. Data from wearables, lab reports, and medical history is consolidated into one interface and revealed progressively as users explore.</p>
+          <p class="cs-body">AI summaries highlight patterns and relationships between metrics so users can quickly understand what matters and take action on their health.</p>
+        </div>
+      </section>
+
+      <!-- Pitch -->
+      <section class="cs-pitch" id="pitch">
+        <span class="cs-kicker">The Pitch</span>
+        <h2 class="cs-pitch-heading cs-scale-in">One interface for all personal health records</h2>
+      </section>
+
+      <!-- Key screens video -->
+      <figure class="cs-video-wrap">
+        <video src="2-Key Screens.mp4" playsinline muted autoplay loop preload="metadata"></video>
+        <figcaption>Key interaction flows across the health interface.</figcaption>
+      </figure>
+
+      <!-- Approach: Navigating complex systems -->
+      <section class="cs-section cs-ruled" id="approach-1">
+        <span class="cs-kicker">Approach</span>
+        <h3 class="cs-h2">Navigating complex systems</h3>
+        <div class="cs-copy-stack" style="max-width: 60ch;">
+          <p class="cs-body">The project began by examining how people currently encounter their health information across clinical portals, lab reports, and consumer apps.</p>
+        </div>
+      </section>
+
+      <!-- Map image -->
+      <figure class="cs-video-wrap">
+        <img src="5-Map.png" alt="Mapping the physical network of clinics, labs, and related care services">
+        <figcaption>Mapping the physical network of clinics, labs, and related care services.</figcaption>
+      </figure>
+
+      <!-- Approach: Fragmented clinical workflows -->
+      <section class="cs-section cs-ruled" id="approach-2">
+        <span class="cs-kicker">Approach</span>
+        <h3 class="cs-h2">Fragmented clinical workflows</h3>
+        <div class="cs-copy-stack" style="max-width: 60ch;">
+          <p class="cs-body">Clinical environments rely on legacy machines, fixed terminals, paper documents, and isolated databases. As a result, information moves through manual transfers and disconnected systems, requiring both patients and providers to piece together records across multiple tools.</p>
+        </div>
+      </section>
+
+      <!-- Clinics image -->
+      <figure class="cs-video-wrap">
+        <img src="4-clinics.webp" alt="Tracing the flow of health data across clinical systems">
+        <figcaption>Tracing the flow of health data.</figcaption>
+      </figure>
+
+      <!-- User Research -->
+      <section class="cs-section cs-ruled" id="user-research">
+        <span class="cs-kicker">User Research</span>
+        <h3 class="cs-h2">Studying how people currently manage health data</h3>
+        <div class="cs-copy-stack" style="max-width: 60ch;">
+          <p class="cs-body">To understand the current landscape, we looked at how health information is collected, stored, and experienced across clinical and consumer systems.</p>
+          <p class="cs-body">Patients often receive lab results, reports, and summaries without clear explanation of how metrics relate to one another or what they mean in the context of their lives. The challenge is turning medical records into information people can actually use.</p>
+        </div>
+        <div class="cs-quotes">
+          <div class="cs-quote">
+            <span class="cs-quote-mark">"</span>
+            <p>Every time I go to the doctor, they type notes and I never see them. I'm curious how that information actually gets recorded.</p>
+            <cite>User Interview</cite>
+          </div>
+          <div class="cs-quote">
+            <span class="cs-quote-mark">"</span>
+            <p>The symptom app I use to manage my chronic condition is difficult, and it doesn't connect any patterns or data. I could use an all-in-one tool.</p>
+            <cite>User Interview</cite>
+          </div>
+        </div>
+      </section>
+
+      <!-- User notes video -->
+      <figure class="cs-video-wrap">
+        <video src="6 - user notes.mp4" playsinline muted autoplay loop preload="metadata"></video>
+        <figcaption>User research highlights.</figcaption>
+      </figure>
+
+      <!-- Research session image -->
+      <figure class="cs-video-wrap">
+        <img src="7 - iterations.webp" alt="Testing concepts through collaborative user feedback">
+        <figcaption>Testing concepts through collaborative user feedback.</figcaption>
+      </figure>
+
+      <!-- Ideation -->
+      <section class="cs-section cs-ruled" id="ideation">
+        <span class="cs-kicker">Ideation</span>
+        <h3 class="cs-h2">Validating early concepts</h3>
+        <div class="cs-copy-stack" style="max-width: 60ch;">
+          <p class="cs-body">Following the interviews, we began exploring potential interface directions through rapid sketching and concept development. Multiple ideas were generated to test different ways health information could be organized, visualized, and navigated.</p>
+          <p class="cs-body">These early explorations focused on how signals, timelines, and contextual explanations might appear within the interface. Iterating quickly on these concepts helped surface which approaches felt clearer and more intuitive for presenting complex health information.</p>
+        </div>
+      </section>
+
+      <!-- Industry Audit -->
+      <section class="cs-section cs-ruled" id="industry-audit">
+        <span class="cs-kicker">Industry Audit</span>
+        <h3 class="cs-h2">Health data lives in separate tools</h3>
+        <div class="cs-copy-stack" style="max-width: 64ch;">
+          <p class="cs-body">We found that most digital health tools are designed around a single type of information rather than a focus on comprehensive care. Genetic testing platforms focus on DNA insights, fitness apps track activity and biometrics, medical portals store clinical records, and telehealth services handle appointments and consultations.</p>
+          <p class="cs-body">Each system works well within its own category, but they rarely communicate with one another. As a result, people must navigate multiple platforms to understand their health, manually piecing together information that could be far more meaningful if it were connected.</p>
+        </div>
+        <img src="8 - competitior audit .png" alt="Competitor audit comparing health data products" class="cs-audit-image">
+      </section>
+
+      <!-- Insights dark band -->
+      <section class="cs-impacts" id="insights">
+        <span class="cs-kicker">Insights</span>
+        <h2 class="cs-impacts-heading cs-scale-in">Access to records is not understanding</h2>
+      </section>
+
+      <!-- Key Takeaway -->
+      <section class="cs-section cs-ruled" id="key-takeaway">
+        <span class="cs-kicker">Key Takeaway</span>
+        <h3 class="cs-h2">Simplifying how people understand their health</h3>
+        <div class="cs-takeaways">
+          <div class="cs-takeaway">
+            <h3>Scattered</h3>
+            <p>Health information lives across disconnected systems.</p>
+          </div>
+          <div class="cs-takeaway">
+            <h3>Hard to understand</h3>
+            <p>Results lack context and meaningful explanation.</p>
+          </div>
+          <div class="cs-takeaway">
+            <h3>High friction</h3>
+            <p>Understanding your health requires navigating multiple tools.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature: Viewing health metrics in context -->
+      <div class="cs-feature-split cs-ruled">
+        <div class="cs-feature-split-media">
+          <img src="9 - mockup 1.webp" alt="Health metrics in context — lab results with timeline">
+        </div>
+        <div class="cs-feature-split-copy">
+          <span class="cs-kicker">Health Data Interface</span>
+          <h3 class="cs-h3">Viewing health metrics in context</h3>
+          <p class="cs-body">These screens explore how lab results could be presented in a clearer and more contextual way. Instead of showing isolated numbers, the interface places each metric within a timeline so users can see how values change over time.</p>
+          <p class="cs-body">Additional explanations help translate medical terminology into plain language, giving users a better understanding of what each result represents and why it may matter.</p>
+        </div>
+      </div>
+
+      <!-- Feature: Bringing multiple lab results into one view -->
+      <div class="cs-feature-split cs-ruled cs-feature-reverse">
+        <div class="cs-feature-split-media">
+          <img src="10 - mockup 2.webp" alt="Multiple lab results consolidated into one view">
+        </div>
+        <div class="cs-feature-split-copy">
+          <span class="cs-kicker">Data Visualization</span>
+          <h3 class="cs-h3">Bringing multiple lab results into one view</h3>
+          <p class="cs-body">The interface organizes multiple health metrics into a single view so users can quickly scan key indicators such as cholesterol, inflammation markers, and cardiac signals.</p>
+          <p class="cs-body">Each metric includes a clear status indicator, historical data points, and supporting context. This structure helps people understand not just individual test results, but how different indicators relate to one another within their overall health profile.</p>
+        </div>
+      </div>
+
+      <!-- Design decisions dark band -->
+      <section class="cs-pitch" id="design-decisions">
+        <span class="cs-kicker">Design Decisions</span>
+        <h2 class="cs-pitch-heading cs-scale-in">An interface that responds to changing needs</h2>
+      </section>
+
+      <!-- Discovery: Adaptive interface -->
+      <section class="cs-section cs-ruled" id="adaptive">
+        <span class="cs-kicker">Discovery</span>
+        <h3 class="cs-h2">Adaptive interface</h3>
+        <div class="cs-copy-stack" style="max-width: 60ch;">
+          <p class="cs-body">Health information is not static, and the interface should not be either. As new data is added, the system adjusts what it surfaces and how information is organized. Instead of presenting the same dashboard at all times, the interface prioritizes what is most relevant in the moment, helping users focus on changes, emerging patterns, and questions worth exploring.</p>
+          <p class="cs-body">This creates a more flexible environment where the experience evolves alongside a person's health journey.</p>
+        </div>
+      </section>
+
+      <!-- Feature: Document import -->
+      <div class="cs-feature-split cs-ruled">
+        <div class="cs-feature-split-media">
+          <video src="11 - Document scanner .mp4" autoplay muted loop playsinline></video>
+        </div>
+        <div class="cs-feature-split-copy">
+          <span class="cs-kicker">Product Feature</span>
+          <h3 class="cs-h3">Document import</h3>
+          <p class="cs-body">Health information often arrives as PDFs, lab reports, or scanned documents that are difficult to search or interpret. The document scanner allows users to capture these records directly within the system.</p>
+          <p class="cs-body">Once uploaded, key information can be extracted and organized alongside existing health data. This helps transform static reports into structured inputs that contribute to a clearer view of a person's health history.</p>
+        </div>
+      </div>
+
+      <!-- Feature: AI health assistant -->
+      <div class="cs-feature-split cs-ruled cs-feature-reverse">
+        <div class="cs-feature-split-media">
+          <video src="12 - Health assistant.mp4" autoplay muted loop playsinline></video>
+        </div>
+        <div class="cs-feature-split-copy">
+          <span class="cs-kicker">Product Feature</span>
+          <h3 class="cs-h3">AI health assistant</h3>
+          <p class="cs-body">The AI assistant provides a conversational way to interact with personal health information. Instead of searching through reports or navigating multiple screens, users can ask questions about symptoms, lab results, or health topics directly within the interface.</p>
+          <p class="cs-body">The assistant helps surface relevant information, provide explanations, and guide users toward deeper insights within their data. This creates a more natural way to explore and understand complex health information.</p>
+        </div>
+      </div>
+
+      <!-- AI Guidance video -->
+      <figure class="cs-video-wrap">
+        <video src="13 - AI Guidance .mp4" playsinline muted autoplay loop preload="metadata"></video>
+        <figcaption>AI guidance, lab interpretation, and goal tracking in one place.</figcaption>
+      </figure>
+
+      <!-- Connected system -->
+      <section class="cs-section cs-ruled" id="connected">
+        <div class="cs-section-grid">
+          <div>
+            <span class="cs-kicker">Connected System</span>
+            <h3 class="cs-h2">Connecting conversation, results, and progress</h3>
+          </div>
+          <div class="cs-copy-stack">
+            <p class="cs-body">The interface brings together multiple ways of interacting with personal health information. A conversational assistant helps users ask questions and explore their data, lab results are visualized as signals and trends over time, and goal tracking supports everyday health decisions.</p>
+            <p class="cs-body">Rather than presenting isolated records, the system connects these elements into a single environment where people can review results, ask questions, and track progress as their health evolves.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Design is essential band -->
+      <section class="cs-impacts" id="design-essential">
+        <span class="cs-kicker">Design</span>
+        <h2 class="cs-impacts-heading cs-scale-in">Design is essential in understanding complex experiences</h2>
+      </section>
+
+      <!-- Reflection -->
+      <section class="cs-section cs-ruled" id="reflection">
+        <span class="cs-kicker">Reflection</span>
+        <h3 class="cs-h2">Our takeaways</h3>
+        <div class="cs-takeaways">
+          <div class="cs-takeaway">
+            <h3>Working through a 24-hour sprint</h3>
+            <p>Working in a collaborative sprint setting reinforced the importance of aligning early, defining roles quickly, and a shared understanding of the concept.</p>
+          </div>
+          <div class="cs-takeaway">
+            <h3>Working with AI</h3>
+            <p>I learned to use AI as a tool to accelerate exploration and production, while staying intentional in directing and refining outputs. Strong results came from guiding, editing, and curating rather than relying on it passively.</p>
+          </div>
+          <div class="cs-takeaway">
+            <h3>&nbsp;</h3>
+            <p>&nbsp;</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Next Steps -->
+      <section class="cs-section cs-ruled" id="next-steps">
+        <div class="cs-section-grid">
+          <div>
+            <span class="cs-kicker">Future Development</span>
+            <h3 class="cs-h2">Next Steps</h3>
+          </div>
+          <ul class="cs-next-list">
+            <li>Test the interface with individuals managing ongoing health conditions to better understand how the system supports real decision-making.</li>
+            <li>Expand data integration to include wearable devices, lab providers, and electronic medical records.</li>
+            <li>Refine the conversational assistant to provide clearer explanations and stronger connections between related health signals.</li>
+            <li>Explore additional ways the interface could surface early patterns or changes that may prompt preventative care discussions with providers.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="page-footer">
+        <h2 class="page-footer-title">Let's Work</h2>
+        <div class="page-footer-grid">
+          <div class="page-footer-column">
+            <p class="page-footer-heading">Find me</p>
+            <div class="page-footer-links">
+              <a href="https://linkedin.com/in/melodyekbatani" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github</a>
+              <a href="#" target="_blank" rel="noreferrer">Resume</a>
+            </div>
+          </div>
+          <div class="page-footer-column">
+            <p class="page-footer-heading">Focus</p>
+            <div class="page-footer-links">
+              <p>Product Design</p>
+              <p>Creating AI Systems</p>
+              <p>Storytelling</p>
+            </div>
+          </div>
+          <div class="page-footer-message">
+            <p>Designing through clarity, storytelling, and moments of delight.</p>
+            <a href="https://cal.com/melodyekbatani" target="_blank" rel="noreferrer" style="display:block;margin-top:16px;font-size:18px;font-weight:500;">Book a call →</a>
+          </div>
+        </div>
+        <div class="page-footer-meta"></div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    function bindIndicator(container, indicatorSelector, itemSelector) {
+      if (!container) return;
+      const indicator = container.querySelector(indicatorSelector);
+      const items = [...container.querySelectorAll(itemSelector)];
+      if (!indicator || !items.length) return;
+      function place(item, color = "#111111") {
+        const cb = container.getBoundingClientRect(), ib = item.getBoundingClientRect();
+        indicator.style.transform = `translate(${ib.left - cb.left + 4}px, ${ib.top - cb.top + ib.height / 2}px) translateY(-50%)`;
+        indicator.style.backgroundColor = color;
+      }
+      requestAnimationFrame(() => indicator.classList.add("is-ready"));
+      items.forEach(item => {
+        item.addEventListener("mouseenter", () => place(item, "#CFCFCF"));
+        item.addEventListener("focus", () => place(item, "#CFCFCF"));
+      });
+      container.addEventListener("mouseleave", () => {});
+      window.addEventListener("resize", () => {});
+    }
+    bindIndicator(document.querySelector("nav"), ".nav-indicator", "a");
+
+    const cursor = document.querySelector(".project-cursor");
+    if (cursor) {
+      document.addEventListener("mousemove", e => {
+        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+      });
+    }
+
+    document.querySelectorAll('.cs-scale-in').forEach(el => {
+      new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) el.classList.add('is-visible');
+      }, { threshold: 0.15 }).observe(el);
+    });
+
+    const s = document.createElement("script");
+    s.src = "../agentation-vanilla.js";
+    document.body.appendChild(s);
+  </script>
+
+</body>
+</html>
