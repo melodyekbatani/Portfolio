@@ -84,6 +84,7 @@
       letter-spacing: -0.03em;
       line-height: 1;
       margin-bottom: 32px;
+      text-wrap: balance;
     }
 
     /* subsection heads: Overview, Design Challenge, etc. */
@@ -112,6 +113,7 @@
       font-weight: 500;
       line-height: 1.5;
       color: var(--ink);
+      text-wrap: pretty;
     }
 
     .cs-body + .cs-body {
@@ -122,6 +124,10 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+    }
+
+    .cs-copy-stack.compact {
+      gap: 0;
     }
 
     /* ─── Overview ───────────────────────────────────────────── */
@@ -150,9 +156,10 @@
 
     .cs-meta-item p {
       font-size: 18px;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.5;
       color: var(--ink);
+      text-wrap: pretty;
     }
 
     .cs-tool-grid {
@@ -181,6 +188,19 @@
       object-fit: cover;
       display: block;
       border-radius: 0;
+    }
+
+    .cs-tool-grid li.cs-tool-flat {
+      background: transparent;
+    }
+
+    .cs-tool-grid li.cs-tool-flat img {
+      object-fit: contain;
+    }
+
+    .cs-tool-grid li.cs-tool-zoom-out img {
+      transform: scale(0.84);
+      transform-origin: center;
     }
 
     /* ─── Problem band ───────────────────────────────────────── */
@@ -268,6 +288,14 @@
       margin-bottom: 20px;
     }
 
+    .cs-features-grid .cs-h3,
+    .cs-iterations-grid .cs-h3 {
+      font-size: clamp(28px, 2.4vw, 34px);
+      line-height: 1.05;
+      text-wrap: balance;
+      max-width: 12ch;
+    }
+
     .cs-features-list {
       list-style: none;
       padding: 0;
@@ -299,10 +327,17 @@
     /* ─── Impacts band ───────────────────────────────────────── */
 
     .cs-impacts {
-      min-height: 90vh;
-      padding: 120px 40px;
-      background: var(--ink);
-      color: var(--bg);
+      width: min(calc(100% - 80px), 1040px);
+      min-height: auto;
+      margin: 80px auto;
+      padding: 88px 48px;
+      background:
+        radial-gradient(circle at top left, rgba(232, 0, 29, 0.08), transparent 32%),
+        linear-gradient(180deg, #fcfaf8 0%, #f6f2ed 100%);
+      color: var(--ink);
+      border: 1px solid rgba(17, 17, 17, 0.08);
+      border-radius: 32px;
+      box-shadow: 0 20px 60px rgba(17, 17, 17, 0.08);
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -311,19 +346,20 @@
     }
 
     .cs-impacts .cs-kicker {
-      color: rgba(255,255,255,0.5);
+      color: rgba(17, 17, 17, 0.48);
       display: block;
       margin-bottom: 24px;
     }
 
     .cs-impacts-heading {
-      font-size: clamp(48px, 9vw, 120px);
+      font-size: clamp(42px, 7vw, 92px);
       font-weight: 500;
       letter-spacing: -0.04em;
       line-height: 0.92;
-      color: var(--bg);
-      width: 90vw;
-      max-width: 90vw;
+      color: var(--ink);
+      width: 100%;
+      max-width: 14ch;
+      text-wrap: balance;
     }
 
     .cs-impacts-sub {
@@ -331,7 +367,7 @@
       font-weight: 400;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(17, 17, 17, 0.44);
       margin-top: 24px;
     }
 
@@ -356,6 +392,9 @@
       grid-template-columns: repeat(5, 1fr);
       gap: 8px;
       margin-top: 40px;
+      max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .cs-competitor-row figure {
@@ -366,7 +405,8 @@
     .cs-competitor-row img {
       width: 100%;
       height: 180px;
-      object-fit: cover;
+      object-fit: contain;
+      background: #f7f7f7;
       display: block;
     }
 
@@ -385,12 +425,15 @@
       background: #f0f0f0;
       margin-bottom: 20px;
       overflow: hidden;
+      padding: 12px;
     }
 
     .cs-iterations-grid > li img {
       width: 100%;
       height: 260px;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
+      background: #f8f8f8;
       display: block;
     }
 
@@ -425,10 +468,17 @@
     /* ─── Pitch band ─────────────────────────────────────────── */
 
     .cs-pitch {
-      min-height: 90vh;
-      padding: 120px 40px;
-      background: var(--ink);
-      color: var(--bg);
+      width: min(calc(100% - 80px), 1040px);
+      min-height: auto;
+      margin: 80px auto;
+      padding: 88px 48px;
+      background:
+        radial-gradient(circle at bottom right, rgba(232, 0, 29, 0.1), transparent 34%),
+        linear-gradient(180deg, #f7f3ef 0%, #f2ede7 100%);
+      color: var(--ink);
+      border: 1px solid rgba(17, 17, 17, 0.08);
+      border-radius: 32px;
+      box-shadow: 0 20px 60px rgba(17, 17, 17, 0.08);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -437,23 +487,24 @@
     }
 
     .cs-pitch .cs-kicker {
-      color: rgba(255,255,255,0.5);
+      color: rgba(17, 17, 17, 0.48);
     }
 
     .cs-pitch-heading {
-      font-size: clamp(48px, 9vw, 120px);
+      font-size: clamp(42px, 7vw, 92px);
       font-weight: 500;
       letter-spacing: -0.04em;
       line-height: 0.92;
-      color: var(--bg);
-      width: 90vw;
-      max-width: 90vw;
+      color: var(--ink);
+      width: 100%;
+      max-width: 12ch;
+      text-wrap: balance;
     }
 
     /* ─── YouTube embed ──────────────────────────────────────── */
 
     .cs-embed {
-      padding: 0 40px 80px;
+      padding: 56px 40px 80px;
     }
 
     .cs-embed iframe {
@@ -484,6 +535,8 @@
       font-weight: 400;
       line-height: 1.7;
       color: var(--ink);
+      text-wrap: pretty;
+      max-width: 34ch;
     }
 
     /* ─── Next steps ─────────────────────────────────────────── */
@@ -515,6 +568,66 @@
       top: 8px;
     }
 
+    .cs-next-steps-layout {
+      display: grid;
+      grid-template-columns: 3fr 4fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .cs-next-steps-main {
+      max-width: 34rem;
+    }
+
+    .cs-next-project {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 24px;
+      align-items: center;
+      color: inherit;
+    }
+
+    .cs-next-project-media {
+      background: #f0f0f0;
+      overflow: hidden;
+    }
+
+    .cs-next-project-media video {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cs-next-project-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cs-next-project-label {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .cs-next-project-title {
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 0.98;
+      text-wrap: balance;
+    }
+
+    .cs-next-project-link {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
     /* ─── Dividers ───────────────────────────────────────────── */
 
     .cs-ruled {
@@ -531,10 +644,17 @@
       .cs-section, .cs-video-wrap, .cs-image-grid, .cs-embed, .cs-embed { padding-left: 20px; padding-right: 20px; }
       .cs-overview { grid-template-columns: 1fr; padding: 48px 20px; }
       .cs-section-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cs-next-steps-layout, .cs-next-project { grid-template-columns: 1fr; gap: 24px; }
       .cs-image-grid { grid-template-columns: 1fr; }
       .cs-features-grid, .cs-iterations-grid, .cs-takeaways { grid-template-columns: 1fr; gap: 24px; }
       .cs-competitor-row { grid-template-columns: repeat(3, 1fr); }
-      .cs-band, .cs-impacts, .cs-pitch { padding: 64px 20px; }
+      .cs-band { padding: 64px 20px; }
+      .cs-impacts, .cs-pitch {
+        width: calc(100% - 40px);
+        margin: 64px auto;
+        padding: 64px 24px;
+      }
+      .cs-embed { padding-top: 40px; }
     }
 
   </style>
@@ -600,13 +720,13 @@
             <h3>Tools</h3>
             <ul class="cs-tool-grid">
               <li><img src="assets/Tools/Figma.avif" alt="Figma"></li>
-              <li><img src="assets/Tools/Gemini.avif" alt="Gemini"></li>
-              <li><img src="assets/Tools/Lovable.avif" alt="Lovable"></li>
+              <li class="cs-tool-zoom-out"><img src="assets/Tools/Gemini.avif" alt="Gemini"></li>
+              <li class="cs-tool-zoom-out"><img src="assets/Tools/Lovable.avif" alt="Lovable"></li>
               <li><img src="assets/Tools/OpenAI.avif" alt="OpenAI"></li>
-              <li><img src="assets/Tools/Midjourney.avif" alt="Midjourney"></li>
-              <li><img src="assets/Tools/Claude.webp" alt="Claude"></li>
+              <li class="cs-tool-zoom-out"><img src="assets/Tools/Midjourney.avif" alt="Midjourney"></li>
+              <li class="cs-tool-flat"><img src="assets/Tools/Claude.webp" alt="Claude"></li>
               <li><img src="assets/Tools/Perplexity .avif" alt="Perplexity"></li>
-              <li><img src="assets/Tools/aftereffects.avif" alt="After Effects"></li>
+              <li class="cs-tool-flat"><img src="assets/Tools/aftereffects.avif" alt="After Effects"></li>
             </ul>
           </div>
 
@@ -629,8 +749,8 @@
       <section class="cs-band" id="problem">
         <span class="cs-kicker">Problem</span>
         <h3 class="cs-h2">Diabetes treatments today are reactive</h3>
-        <p class="cs-body">Most tools surface glucose and trends, but they still lean on the person to interpret what it means and what to do next.</p>
-        <p class="cs-body" style="margin-top: 14px;">Care often stays reactive: responding after numbers shift instead of helping people anticipate what is coming.</p>
+        <p class="cs-body">Health tools provide constant data, but diabetes management still depends heavily on the individual. Users must interpret readings, track patterns, and repeatedly check devices throughout the day.</p>
+        <p class="cs-body">With sensors that require routine replacement, care becomes a cycle of monitoring, maintenance, and reaction. This revealed an opportunity for a more preventative and supportive experience.</p>
       </section>
 
       <!-- Video 1 -->
@@ -647,12 +767,6 @@
           <p class="cs-body">We set out to design a system that helps people act before issues intensify. We focused on the management of Type 2 diabetes approaching the problem through earlier awareness, clearer guidance, and more confident decision-making.</p>
           <p class="cs-body">Our solution, Aeri, is an AI-powered preventative care concept that utilizes an AR-integrated contact lens to help users anticipate changes earlier throughout the day.</p>
         </div>
-      </section>
-
-      <!-- At a glance band -->
-      <section class="cs-band" id="at-a-glance">
-        <span class="cs-kicker">At a glance</span>
-        <h3 class="cs-h2">A new frontier in diabetes management</h3>
       </section>
 
       <!-- Video 2 -->
@@ -724,14 +838,13 @@
       <!-- Context -->
       <section class="cs-section cs-ruled" id="context">
         <div class="cs-section-grid">
-          <div>
+          <div class="cs-copy-stack compact">
             <span class="cs-kicker">Context</span>
             <h3 class="cs-h2">A growing global health reality</h3>
-          </div>
-          <div class="cs-copy-stack">
             <p class="cs-body">Its scale reflects a growing need for tools that better support the ongoing decisions, adjustments, and mental effort of daily care. Managing diabetes is not limited to isolated moments of checking a number. It is shaped by repeated choices around food, activity, sleep, stress, and routine, all of which can influence glucose levels throughout the day.</p>
             <p class="cs-body">As a result, care often becomes a continuous process of monitoring, interpreting, and responding. This creates an opportunity to design tools that do more than report data by offering guidance that feels more supportive, timely, and easier to live with.</p>
           </div>
+          <div aria-hidden="true"></div>
         </div>
       </section>
 
@@ -839,17 +952,28 @@
 
       <!-- Next Steps -->
       <section class="cs-section cs-ruled" id="next-steps">
-        <div class="cs-section-grid">
-          <div>
+        <div class="cs-next-steps-layout">
+          <div class="cs-next-steps-main">
             <span class="cs-kicker">Future Development</span>
             <h3 class="cs-h2">Next Steps</h3>
+            <ul class="cs-next-list">
+              <li>Further evaluate the biomedical feasibility of the sensing approach and underlying hardware.</li>
+              <li>Refine predictive modeling with clinical datasets to improve accuracy and reliability.</li>
+              <li>Test AR guidance interactions in real-world contexts to validate usability and behavior.</li>
+              <li>Expand user research with individuals managing Type 2 diabetes to ground the system in lived experience.</li>
+            </ul>
           </div>
-          <ul class="cs-next-list">
-            <li>Further evaluate the biomedical feasibility of the sensing approach and underlying hardware.</li>
-            <li>Refine predictive modeling with clinical datasets to improve accuracy and reliability.</li>
-            <li>Test AR guidance interactions in real-world contexts to validate usability and behavior.</li>
-            <li>Expand user research with individuals managing Type 2 diabetes to ground the system in lived experience.</li>
-          </ul>
+          <a class="cs-next-project" href="/gemini/index.html" data-project-hover="View Adaptive Research">
+            <div class="cs-next-project-media">
+              <video src="../Home Page/Google Gemini.mp4" playsinline muted autoplay loop preload="metadata"></video>
+            </div>
+            <div class="cs-next-project-copy">
+              <span class="cs-next-project-label">Next Project</span>
+              <h4 class="cs-next-project-title">Adaptive Research</h4>
+              <p class="cs-body">Search-first system for improving memory and energy efficiency through more adaptive research workflows.</p>
+              <span class="cs-next-project-link">View project <i class="ph ph-arrow-up-right"></i></span>
+            </div>
+          </a>
         </div>
       </section>
 
