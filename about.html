@@ -79,10 +79,10 @@
     }
 
     .about-hero-title {
-      font-size: clamp(36px, 5vw, 64px);
+      font-size: clamp(36px, 6vw, 64px);
       font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 0.94;
+      letter-spacing: -0.02em;
+      line-height: 0.96;
     }
 
     .about-hero-bio {
@@ -172,23 +172,16 @@
     }
 
     .highlights-info-label {
-      font-size: 18px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      text-transform: none;
-      color: var(--ink);
+      color: var(--muted);
     }
 
     .highlights-info-desc {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 400;
-      letter-spacing: 0.03em;
-      line-height: 1.7;
-      max-width: 64ch;
+      line-height: 1.5;
+      max-width: 44ch;
       text-align: center;
       text-wrap: pretty;
-      color: var(--ink);
     }
 
     /* ─── Approach ───────────────────────────────────────────── */
@@ -199,7 +192,7 @@
       gap: 56px;
       align-items: stretch;
       padding-top: 80px;
-      padding-bottom: 160px;
+      padding-bottom: 80px;
     }
 
     .about-approach-left {
@@ -221,7 +214,7 @@
       font-size: 18px;
       font-weight: 500;
       line-height: 1.5;
-      max-width: 38ch;
+      max-width: 46ch;
     }
 
     .about-process-image {
@@ -236,8 +229,8 @@
     /* ─── Divider row ────────────────────────────────────────── */
 
     .about-section {
-      padding-top: 40px;
-      padding-bottom: 40px;
+      padding-top: 48px;
+      padding-bottom: 48px;
     }
 
     .about-section-grid {
@@ -249,16 +242,6 @@
 
     .about-section-label {
       padding-top: 6px;
-    }
-
-    .nav-style-label {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--ink);
-      line-height: 1.2;
-      display: block;
     }
 
     .about-section-heading {
@@ -274,7 +257,7 @@
     .about-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 36px;
     }
 
     .about-list-item {
@@ -282,19 +265,19 @@
       grid-template-columns: 1fr auto;
       gap: 24px;
       align-items: baseline;
-      padding-bottom: 12px;
+      padding-bottom: 36px;
     }
 
     .about-item-title {
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 700;
       line-height: 1.35;
       margin-bottom: 6px;
       color: var(--ink);
     }
 
     .about-item-sub {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 400;
       color: var(--ink);
       line-height: 1.5;
@@ -348,7 +331,7 @@
       height: calc(100vh - var(--nav-h));
       display: flex;
       flex-direction: column;
-      padding: 100px var(--page-x) 40px;
+      padding: 40px var(--page-x) 40px;
       box-sizing: border-box;
     }
 
@@ -405,7 +388,7 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
       margin-top: 3px;
-      color: var(--ink);
+      color: var(--muted);
     }
 
     .life-item:nth-child(1)  { grid-column: 1; grid-row: 1; }
@@ -528,27 +511,27 @@
         <div class="highlights-grid">
           <div class="highlight-card"
             data-label="Hackathon Whiteboarding Sessions"
-            data-desc="Led rapid ideation and design sprints at Loam, turning ambiguous product problems into structured flows, wireframes, and testable concepts under pressure.">
+            data-desc="Rapid ideation and design sprints turning real world problems into structured flows and testable concepts.">
             <img src="About Section /Highlights/Highlights imagery.png" alt="" style="transform: scale(1.4); transform-origin: center 25%; transition: transform 0.6s ease;">
           </div>
           <div class="highlight-card"
             data-label="Designing for Emerging Technology"
-            data-desc="Explored how AI reshapes visual communication, building forward-thinking digital experiences that bridge brand identity with next-generation interaction design.">
+            data-desc="Explored how AR reshapes visual communication, bridging the next-generation interaction and product design.">
             <img src="About Section /Highlights/Highlights imagery-3.png" alt="">
           </div>
           <div class="highlight-card"
             data-label="Where Loam Began"
-            data-desc="Visited our client on-site in Arizona, where immersion in the agricultural landscape sparked the foundational concept behind the entire Loam product vision.">
+            data-desc="Visited clients on-site in Arizona, where immersion in the scenic landscape sparked the product direction for Loam.">
             <img src="About Section /Highlights/IMG_5267.jpg" alt="">
           </div>
           <div class="highlight-card"
             data-label="Speedstac Module Design"
-            data-desc="Prototyped the connector unit within the Speedstac housing system at Sparkbird Labs, a construction product design that won the BLT Design Awards 2024.">
+            data-desc="Prototyped the connector unit within the Speedstac housing system at Sparkbird Labs, Winner of Construction Product category at the 2024 BLT Design Awards.">
             <img src="About Section /Highlights/Speedstac module design.jpg" alt="">
           </div>
           <div class="highlight-card"
             data-label="Cambridge Innovation Center Grant"
-            data-desc="Presented design documentation to leadership and PMs, advising biotech entrepreneurs through the CIC Japan Desk x Parsons program to shape strategy for early-stage ventures.">
+            data-desc="Presented design documentation to leadership and PMs, advising biotech entrepreneurs through the CIC Japan Desk x Parsons program and shaping strategy for early-stage ventures.">
             <img src="About Section /Highlights/Highlights imagery-5.png" alt="">
           </div>
         </div>
@@ -573,12 +556,11 @@
 
       <!-- Experience -->
       <section class="about-section">
-        <div class="about-section-grid" style="margin-bottom: 12px;">
-          <span class="nav-style-label">Practice</span>
-          <div></div>
-        </div>
         <div class="about-section-grid">
-          <h2 class="about-section-heading" style="margin-bottom: 0;">Experience</h2>
+          <div>
+            <span class="t-small" style="display: block; margin-bottom: 16px;">Practice</span>
+            <h2 class="about-section-heading" style="margin-bottom: 0;">Experience</h2>
+          </div>
           <div class="about-list">
 
             <div class="about-list-item">
@@ -711,7 +693,7 @@
       </section>
 
       <!-- Certifications -->
-      <section class="about-section" style="padding-bottom: 160px;">
+      <section class="about-section">
         <div class="about-section-grid">
           <p class="t-small about-section-label">Certifications</p>
           <div class="about-list">
@@ -743,7 +725,7 @@
             <p class="t-small" style="margin-bottom: 12px;">Life Lately</p>
             <h2 class="about-section-heading" style="margin-bottom: 0;">Outside of Design</h2>
           </div>
-          <p class="life-footer-desc">Photos from my life since moving to New York nine months ago. I've been working hard, eating incredibly well, exploring every corner of the city, and building a community of designers, builders, and creatives I now get to call home.</p>
+          <p class="life-footer-desc">Recent moments from my first nine months in New York, working hard, discovering incredible food, exploring the city, and meeting amazing friends.</p>
         </div>
 
         <div class="life-grid">
@@ -779,7 +761,7 @@
           </div>
 
           <div class="life-item">
-            <img src="About Section /Life lately/Family.png" alt="Getting to host my lovely friends and family" style="object-position: center top;">
+            <img src="About Section /Life lately/Family.png" alt="Getting to host my lovely friends and family">
             <span class="life-caption">Getting to host my friends and family</span>
           </div>
 
@@ -824,10 +806,11 @@
           </div>
           <div class="page-footer-message">
             <p>Designing through clarity, storytelling, and moments of delight.</p>
-            <a href="mailto:melodyekbatani@gmail.com" style="display: block; margin-top: 16px; font-size: 18px; font-weight: 500;">melodyekbatani@gmail.com</a>
+            <a href="https://cal.com/melodyekbatani" target="_blank" rel="noreferrer" style="display: block; margin-top: 16px; font-size: 18px; font-weight: 500;">Book a call →</a>
           </div>
         </div>
         <div class="page-footer-meta">
+          <p>Based in New York</p>
         </div>
       </footer>
 
