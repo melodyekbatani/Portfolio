@@ -243,6 +243,11 @@
       display: block;
     }
 
+    /* 3-col image grid variant */
+    .cs-image-grid.cs-image-grid--3col {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
     /* ─── Features (3-col) ───────────────────────────────────── */
 
     .cs-features-grid {
@@ -515,6 +520,17 @@
       top: 8px;
     }
 
+    /* ─── Next project card ──────────────────────────────────── */
+
+    .cs-next-steps-layout { display: flex; flex-direction: column; gap: clamp(40px, 5vw, 64px); align-items: stretch; }
+    .cs-next-project { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; color: inherit; text-decoration: none; }
+    .cs-next-project-media { background: #f0f0f0; overflow: hidden; }
+    .cs-next-project-media video, .cs-next-project-media img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+    .cs-next-project-copy { display: flex; flex-direction: column; gap: 14px; }
+    .cs-next-project-label { font-size: 14px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+    .cs-next-project-title { font-size: clamp(28px, 3vw, 40px); font-weight: 500; letter-spacing: -0.03em; line-height: 0.98; text-wrap: balance; }
+    .cs-next-project-link { font-size: 14px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+
     /* ─── Dividers ───────────────────────────────────────────── */
 
     .cs-ruled {
@@ -534,6 +550,7 @@
       .cs-overview { grid-template-columns: 1fr; padding: 48px 20px; }
       .cs-section-grid { grid-template-columns: 1fr; gap: 32px; }
       .cs-image-grid { grid-template-columns: 1fr; }
+      .cs-image-grid.cs-image-grid--3col { grid-template-columns: 1fr; }
       .cs-features-grid, .cs-iterations-grid, .cs-takeaways { grid-template-columns: 1fr; gap: 24px; }
       .cs-competitor-row { grid-template-columns: repeat(3, 1fr); }
       .cs-band, .cs-impacts, .cs-pitch { padding: 64px 20px; }
@@ -667,12 +684,12 @@
 
         <div class="cs-copy-stack">
           <div>
-            <span class="cs-subheading">Description</span>
-            <p class="cs-body">Explores how interaction design in Gemini can reduce unnecessary AI computation by surfacing relevant past conversations before generating new responses.</p>
+            <span class="cs-subheading">Overview</span>
+            <p class="cs-body">Most users default to starting a new chat rather than revisiting previous conversations. At Google scale, this creates billions of similar conversations with overlapping intent — repeated AI generation without added user value. This project explores how interaction design in Gemini can reduce that waste by surfacing relevant past conversations before generating new responses.</p>
           </div>
           <div style="margin-top: 32px;">
             <span class="cs-subheading">Design Challenge</span>
-            <p class="cs-body">How can design influence user behavior to reduce unnecessary LLM computation?</p>
+            <p class="cs-body">How can the use of LLM be optimized through user behavior?</p>
           </div>
         </div>
       </section>
@@ -680,49 +697,71 @@
       <!-- Problem -->
       <section class="cs-band" id="problem">
         <span class="cs-kicker">Problem</span>
-        <h3 class="cs-h2">Placeholder — problem statement</h3>
-        <p class="cs-body">Add problem copy here.</p>
+        <h3 class="cs-h2">Users restart instead of rediscovering</h3>
+        <p class="cs-body">Many users default to starting a new chat rather than revisiting previous conversations. This creates many similar conversations with overlapping intent — and at Google scale, small inefficiencies repeat billions of times.</p>
+        <p class="cs-body">Repeated AI generation without added user value is a sustainability and efficiency problem hiding in plain sight. Improving how users rediscover existing conversations aligns directly with Google's strength and mission.</p>
       </section>
+
+      <!-- Video 1: 1.mp4 -->
+      <figure class="cs-video-wrap">
+        <video src="1.mp4" playsinline muted autoplay loop preload="metadata"></video>
+        <figcaption>Most users start a new chat rather than finding an old one.</figcaption>
+      </figure>
 
       <!-- Solution -->
       <section class="cs-section" id="solution">
         <span class="cs-kicker">Solution</span>
-        <h3 class="cs-h2">Placeholder — solution headline</h3>
+        <h3 class="cs-h2">Re-discovery before generation</h3>
         <div class="cs-copy-stack" style="max-width: 80ch;">
-          <p class="cs-body">Add solution copy here.</p>
+          <p class="cs-body">A search-first layer inside Gemini that routes simple, factual, and repeatable queries to keyword-based retrieval before invoking full chat intelligence. Before generating a new response, Gemini checks the user's previous chats for similar prompts using keyword-based matching and surfaces them to the user.</p>
+          <p class="cs-body">A standard Gemini query costs 0.24 Wh. Indexed keyword matching over existing chats costs 0.001–0.01 kWh — orders of magnitude less. By routing familiar queries to retrieval first, the intervention reduces redundant generation and respects the user's time by surfacing answers they already have.</p>
         </div>
       </section>
+
+      <!-- Video 2: 4.mp4 -->
+      <figure class="cs-video-wrap">
+        <video src="4.mp4" playsinline muted autoplay loop preload="metadata"></video>
+        <figcaption>A search-first intervention routes familiar queries to retrieval before generation.</figcaption>
+      </figure>
+
+      <!-- Image grid 1: 2.png, 3.png, 5.png, 6.png — research + ecosystem -->
+      <div class="cs-image-grid">
+        <figure><img src="2.png" alt="Research insights — user behavior patterns" loading="lazy"></figure>
+        <figure><img src="3.png" alt="Research insights — interview findings" loading="lazy"></figure>
+        <figure><img src="5.png" alt="Gemini ecosystem overview" loading="lazy"></figure>
+        <figure><img src="6.png" alt="Gemini ecosystem — Foundation, Application, Interface layers" loading="lazy"></figure>
+      </div>
 
       <!-- Key Features -->
       <section class="cs-section cs-ruled" id="features">
         <span class="cs-kicker">Key Features</span>
-        <h3 class="cs-h2">Placeholder — features headline</h3>
+        <h3 class="cs-h2">Three moments that change the habit</h3>
         <ul class="cs-features-grid">
           <li>
-            <div style="width:100%;aspect-ratio:3/4;background:#f0f0f0;margin-bottom:20px;"></div>
-            <h3 class="cs-h3">Feature 1</h3>
+            <img src="9a.gif" alt="Find Related Chats feature animation" loading="lazy">
+            <h3 class="cs-h3">Find Related Chats</h3>
             <ul class="cs-features-list">
-              <li>Detail one</li>
-              <li>Detail two</li>
-              <li>Detail three</li>
+              <li>Encourages reviewing past chats before starting a new conversation</li>
+              <li>Surfaces a prompt — "If this feels familiar, you may already have something similar saved"</li>
+              <li>Reduces the reflex to start from scratch</li>
             </ul>
           </li>
           <li>
-            <div style="width:100%;aspect-ratio:3/4;background:#f0f0f0;margin-bottom:20px;"></div>
-            <h3 class="cs-h3">Feature 2</h3>
+            <img src="9b.gif" alt="Surface Past Answers feature animation" loading="lazy">
+            <h3 class="cs-h3">Surface Past Answers</h3>
             <ul class="cs-features-list">
-              <li>Detail one</li>
-              <li>Detail two</li>
-              <li>Detail three</li>
+              <li>Shows a ranked list of relevant past conversations with dates</li>
+              <li>Checks whether similar questions were recently asked</li>
+              <li>Offers those conversations as a starting point before generating</li>
             </ul>
           </li>
           <li>
-            <div style="width:100%;aspect-ratio:3/4;background:#f0f0f0;margin-bottom:20px;"></div>
-            <h3 class="cs-h3">Feature 3</h3>
+            <img src="9c.gif" alt="Continue Don't Repeat feature animation" loading="lazy">
+            <h3 class="cs-h3">Continue, Don't Repeat</h3>
             <ul class="cs-features-list">
-              <li>Detail one</li>
-              <li>Detail two</li>
-              <li>Detail three</li>
+              <li>Lets users continue work instead of starting over</li>
+              <li>Surfaces past answers so context is preserved</li>
+              <li>Reducing repeated AI generation improves efficiency and sustainability at scale</li>
             </ul>
           </li>
         </ul>
@@ -731,8 +770,8 @@
       <!-- Impacts -->
       <section class="cs-impacts" id="impacts">
         <span class="cs-kicker">Impacts</span>
-        <h2 class="cs-impacts-heading cs-scale-in">Placeholder — impact stat</h2>
-        <p class="cs-impacts-sub">Source</p>
+        <h2 class="cs-impacts-heading cs-scale-in">2B+ Gemini queries processed daily</h2>
+        <p class="cs-impacts-sub">Based on Google's 2025 Environmental Report</p>
       </section>
 
       <!-- Context -->
@@ -740,51 +779,75 @@
         <div class="cs-section-grid">
           <div>
             <span class="cs-kicker">Context</span>
-            <h3 class="cs-h2">Placeholder — context headline</h3>
+            <h3 class="cs-h2">The energy cost of repeated queries</h3>
+            <p class="cs-body">A single standard Gemini query consumes 0.24 Wh — roughly 10x the energy of a Google Search. Across 2B+ daily queries, that adds up quickly. 100 Gemini queries consume approximately 24 Wh: enough to drive 450 feet, toast 2 slices of bread, or stream Netflix for 15 minutes.</p>
+            <p class="cs-body">A large portion of Gemini usage comes from repeated, everyday tasks. Redundant prompts asking the same or similar questions multiple times consume unnecessary compute and energy. Repeated tasks are an opportunity for smarter reuse — and a well-placed design intervention can shift that behavior at scale.</p>
           </div>
-          <div class="cs-copy-stack">
-            <p class="cs-body">Add context copy here.</p>
-          </div>
+          <div aria-hidden="true"></div>
         </div>
       </section>
+
+      <!-- Image grid 2: 7.png, 8.png, 10a.png, 10b.png -->
+      <div class="cs-image-grid">
+        <figure><img src="7.png" alt="Energy usage data visualization" loading="lazy"></figure>
+        <figure><img src="8.png" alt="Sustainability research findings" loading="lazy"></figure>
+        <figure><img src="10a.png" alt="Existing Gemini chat flow — entry screen" loading="lazy"></figure>
+        <figure><img src="10b.png" alt="Existing Gemini chat flow — response delivery" loading="lazy"></figure>
+      </div>
 
       <!-- Iterations -->
       <section class="cs-section cs-ruled" id="iterations">
         <span class="cs-kicker">Iteration</span>
-        <h3 class="cs-h2">Placeholder — iteration headline</h3>
+        <h3 class="cs-h2">From research to intervention</h3>
         <ul class="cs-iterations-grid">
           <li>
-            <figure><div style="width:100%;height:260px;background:#f0f0f0;"></div></figure>
-            <h3 class="cs-h3">Step 1</h3>
+            <figure><img src="10c.png" alt="User interview synthesis" loading="lazy"></figure>
+            <h3 class="cs-h3">User Interviews</h3>
             <ul class="cs-iterations-list">
-              <li>Detail one</li>
-              <li>Detail two</li>
+              <li>Daniel: "I don't need the full explanation most of the time"</li>
+              <li>Carolyn: "I know I've gotten this answer before, but I can't find it"</li>
+              <li>Liam: "I usually just start a new chat, even if I asked something similar earlier"</li>
             </ul>
           </li>
           <li>
-            <figure><div style="width:100%;height:260px;background:#f0f0f0;"></div></figure>
-            <h3 class="cs-h3">Step 2</h3>
+            <figure><img src="11.png" alt="Key behavior insights synthesis" loading="lazy"></figure>
+            <h3 class="cs-h3">Key Insights</h3>
             <ul class="cs-iterations-list">
-              <li>Detail one</li>
-              <li>Detail two</li>
+              <li>Repeat: Users return for the same tasks daily</li>
+              <li>Restart: Instead of continuing past conversations, users start new prompts</li>
+              <li>Forget: Past answers are rarely revisited even when still relevant</li>
             </ul>
           </li>
           <li>
-            <figure><div style="width:100%;height:260px;background:#f0f0f0;"></div></figure>
-            <h3 class="cs-h3">Step 3</h3>
+            <figure><img src="12.png" alt="Gemini ecosystem analysis" loading="lazy"></figure>
+            <h3 class="cs-h3">Ecosystem Analysis</h3>
             <ul class="cs-iterations-list">
-              <li>Detail one</li>
-              <li>Detail two</li>
+              <li>Foundation: Gemini 2.0 Pro, Flash, Thinking, Imagen 3, Veo 3, Lyria</li>
+              <li>Application: NotebookLM, Whisk, Gemini agent, AI Studio, Vertex AI</li>
+              <li>Interface: Workspace, Standalone chat, Embedded in Search, Photos, Maps</li>
             </ul>
           </li>
         </ul>
       </section>
 
+      <!-- Image grid 3: 13.png, 14a.png, 14b.png — 3-col -->
+      <div class="cs-image-grid cs-image-grid--3col">
+        <figure><img src="13.png" alt="Prototype flow overview" loading="lazy"></figure>
+        <figure><img src="14a.png" alt="Intervention design — before state" loading="lazy"></figure>
+        <figure><img src="14b.png" alt="Intervention design — after state" loading="lazy"></figure>
+      </div>
+
       <!-- Pitch band -->
       <section class="cs-pitch" id="pitch">
         <span class="cs-kicker">The Work</span>
-        <h2 class="cs-pitch-heading cs-scale-in">Placeholder — pitch headline</h2>
+        <h2 class="cs-pitch-heading cs-scale-in">Reducing AI generation through smarter rediscovery</h2>
       </section>
+
+      <!-- Video 3: 15.mp4 -->
+      <figure class="cs-video-wrap">
+        <video src="15.mp4" playsinline muted autoplay loop preload="metadata"></video>
+        <figcaption>Search-first retrieval surfaces past answers before generating new responses.</figcaption>
+      </figure>
 
       <!-- Reflection -->
       <section class="cs-section cs-ruled" id="reflection">
@@ -792,32 +855,43 @@
         <h3 class="cs-h2">Takeaways</h3>
         <div class="cs-takeaways">
           <div class="cs-takeaway">
-            <h3>Takeaway 1</h3>
-            <p>Add reflection copy here.</p>
+            <h3>Interaction decisions have sustainability impact</h3>
+            <p>This project highlighted how individual design choices — where a button lives, what a prompt says — can influence behavior at a scale that translates into measurable energy savings. Sustainability in AI is not just an infrastructure problem; it is a design problem.</p>
           </div>
           <div class="cs-takeaway">
-            <h3>Takeaway 2</h3>
-            <p>Add reflection copy here.</p>
+            <h3>Behavior change starts with meeting users where they are</h3>
+            <p>Users restart conversations not out of laziness but because rediscovery is harder than restarting. The right intervention does not ask users to change their habit — it makes the better option feel easier and more obvious than the default.</p>
           </div>
           <div class="cs-takeaway">
-            <h3>Takeaway 3</h3>
-            <p>Add reflection copy here.</p>
+            <h3>Efficiency and experience are not in conflict</h3>
+            <p>A search-first layer does not degrade the experience — it improves it by surfacing what users already found useful. Efficiency and helpfulness point in the same direction when the design is grounded in how people actually use the product.</p>
           </div>
         </div>
       </section>
 
       <!-- Next Steps -->
       <section class="cs-section cs-ruled" id="next-steps">
-        <div class="cs-section-grid">
+        <div class="cs-next-steps-layout">
           <div>
             <span class="cs-kicker">Future Development</span>
             <h3 class="cs-h2">Next Steps</h3>
+            <ul class="cs-next-list">
+              <li>Test with real usage data to better measure the impact of search-first retrieval on redundant query reduction.</li>
+              <li>Expand keyword-matching to semantic similarity so the intervention catches conceptually related prompts, not just exact repeats.</li>
+              <li>Evaluate adoption patterns across different Gemini surfaces — standalone chat, Workspace, and embedded contexts — to understand where the intervention has the greatest effect.</li>
+            </ul>
           </div>
-          <ul class="cs-next-list">
-            <li>Placeholder next step one.</li>
-            <li>Placeholder next step two.</li>
-            <li>Placeholder next step three.</li>
-          </ul>
+          <a class="cs-next-project" href="/Parameter/index.html" data-project-hover="View Parameter">
+            <div class="cs-next-project-media">
+              <video src="../Home Page/Parameter.mp4" playsinline muted autoplay loop preload="metadata"></video>
+            </div>
+            <div class="cs-next-project-copy">
+              <span class="cs-next-project-label">Next Project</span>
+              <h4 class="cs-next-project-title">Parameter</h4>
+              <p class="cs-body">Secure AI health app that transforms complex personal health data into clear insights.</p>
+              <span class="cs-next-project-link">View project <i class="ph ph-arrow-up-right"></i></span>
+            </div>
+          </a>
         </div>
       </section>
 
