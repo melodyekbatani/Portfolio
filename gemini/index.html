@@ -53,7 +53,7 @@
       display: flex;
       flex-direction: column;
       gap: var(--cs-rhythm);
-      padding-top: var(--cs-rhythm);
+      padding-top: 56px;
     }
 
     .cs-section {
@@ -155,9 +155,10 @@
 
     .cs-meta-item p {
       font-size: 18px;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.5;
       color: var(--ink);
+      text-wrap: pretty;
     }
 
     .cs-tool-grid {
@@ -209,6 +210,19 @@
     .cs-band .cs-body {
       color: var(--ink);
       max-width: 72ch;
+    }
+
+    .cs-problem-media-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cs-problem-media-stack img {
+      width: 100%;
+      max-height: 540px;
+      object-fit: contain;
+      display: block;
     }
 
     /* ─── Video ──────────────────────────────────────────────── */
@@ -292,12 +306,14 @@
       margin-bottom: 20px;
     }
 
-    .cs-features-grid .cs-h3 {
-      font-size: clamp(28px, 2.4vw, 34px);
-      line-height: 1.05;
-      text-wrap: balance;
-      max-width: 12ch;
+    .cs-features-grid .cs-h3,
+    .cs-iterations-grid .cs-h3 {
+      font-size: 30px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.02em !important;
+      line-height: 1 !important;
       margin-bottom: 12px;
+      text-wrap: balance;
     }
 
     .cs-features-list {
@@ -306,15 +322,17 @@
       margin-top: 8px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
     }
 
     .cs-features-list li {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0;
       line-height: 1.5;
       color: var(--ink);
-      padding-left: 12px;
+      text-wrap: pretty;
+      padding-left: 16px;
       position: relative;
     }
 
@@ -323,8 +341,9 @@
       position: absolute;
       left: 0;
       color: var(--ink);
-      font-size: 10px;
-      top: 5px;
+      font-size: 12px;
+      top: 0.42em;
+      line-height: 1;
     }
 
     /* ─── Impacts band ───────────────────────────────────────── */
@@ -332,11 +351,9 @@
     .cs-impacts {
       width: 100%;
       margin: 0 auto;
-      padding: calc(var(--cs-rhythm, 104px) * 1.5) 40px;
-      background: #ffffff;
+      padding: calc(var(--cs-rhythm) * 2.6) 40px;
+      background: var(--bg);
       color: var(--ink);
-      border: none;
-      box-shadow: none;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -386,21 +403,36 @@
 
     /* ─── Competitor research row ────────────────────────────── */
 
+    .cs-competitor-lede {
+      max-width: 80ch;
+    }
+
+    .cs-competitor-lede .cs-copy-stack {
+      max-width: none;
+    }
+
     .cs-competitor-row {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      margin-top: 40px;
+      gap: 10px;
+      margin-top: 48px;
+      width: 100%;
     }
 
     .cs-competitor-row figure {
       background: #f0f0f0;
       overflow: hidden;
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .cs-competitor-row img {
       width: 100%;
-      height: auto;
+      height: 160px;
+      object-fit: contain;
+      background: #f7f7f7;
       display: block;
     }
 
@@ -425,7 +457,29 @@
     .cs-iterations-grid > li img {
       width: 100%;
       height: auto;
+      object-fit: contain;
+      object-position: center;
+      background: none;
       display: block;
+    }
+
+    .cs-iterations-grid > li.cs-iteration-split {
+      grid-column: 1 / -1;
+    }
+
+    .cs-iteration-split-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .cs-iteration-split-copy {
+      min-width: 0;
+    }
+
+    .cs-iteration-split-media figure {
+      margin-bottom: 0;
     }
 
     .cs-iterations-list {
@@ -434,15 +488,17 @@
       margin-top: 8px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
     }
 
     .cs-iterations-list li {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0;
       line-height: 1.5;
       color: var(--ink);
-      padding-left: 12px;
+      text-wrap: pretty;
+      padding-left: 16px;
       position: relative;
     }
 
@@ -451,8 +507,9 @@
       position: absolute;
       left: 0;
       color: var(--ink);
-      font-size: 10px;
-      top: 5px;
+      font-size: 12px;
+      top: 0.42em;
+      line-height: 1;
     }
 
     /* ─── Pitch band ─────────────────────────────────────────── */
@@ -460,11 +517,9 @@
     .cs-pitch {
       width: 100%;
       margin: 0 auto;
-      padding: calc(var(--cs-rhythm, 104px) * 1.5) 40px;
-      background: #ffffff;
+      padding: calc(var(--cs-rhythm) * 2.6) 40px;
+      background: var(--bg);
       color: var(--ink);
-      border: none;
-      box-shadow: none;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -484,7 +539,7 @@
       line-height: 1;
       color: var(--ink);
       width: 100%;
-      max-width: 20ch;
+      max-width: 18ch;
       text-wrap: balance;
     }
 
@@ -523,6 +578,7 @@
       line-height: 1.5;
       color: var(--ink);
       text-wrap: pretty;
+      max-width: 48ch;
     }
 
     /* ─── Next steps ─────────────────────────────────────────── */
@@ -541,6 +597,7 @@
       font-weight: 500;
       line-height: 1.5;
       color: var(--ink);
+      text-wrap: pretty;
       padding-left: 20px;
       position: relative;
     }
@@ -567,19 +624,19 @@
     .cs-next-project-link { font-size: 14px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
 
     /* ─── You might also like ────────────────────────────── */
-    .cs-also { padding: 0 40px; }
+    .cs-also { padding: 0 40px 56px; margin-top: 40px; }
     .cs-also-header { display: flex; align-items: center; gap: 20px; margin-bottom: 0; }
-    .cs-also-label { font-size: 40px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; color: var(--ink); white-space: nowrap; }
-    .cs-also-rule { flex: 1; height: 1px; background: var(--ink); opacity: 0.12; }
-    .cs-also-list { list-style: none; padding: 0; margin: 0; }
-    .cs-also-item { display: grid; grid-template-columns: 260px 1fr auto; align-items: center; gap: 40px; text-decoration: none; color: var(--ink); border-top: 1px solid rgba(0,0,0,0.08); transition: opacity 0.2s ease; }
+    .cs-also-label { font-size: clamp(28px, 3vw, 36px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; color: var(--ink); white-space: nowrap; }
+    .cs-also-rule { display: none; }
+    .cs-also-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 18px; }
+    .cs-also-item { display: grid; grid-template-columns: 260px 1fr auto; align-items: center; gap: 40px; text-decoration: none; color: var(--ink); border-top: none; transition: opacity 0.2s ease; padding: 6px 0; }
     .cs-also-item:hover { opacity: 0.7; }
-    .cs-also-thumb { height: 120px; overflow: hidden; }
-    .cs-also-thumb img, .cs-also-thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-also-thumb { height: 140px; overflow: hidden; background: transparent; }
+    .cs-also-thumb img, .cs-also-thumb video { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; background: transparent; }
     .cs-also-info { display: flex; flex-direction: column; gap: 6px; }
-    .cs-also-category { font-size: 14px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-    .cs-also-title { font-size: clamp(28px, 3vw, 40px); font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
-    .cs-also-arrow { font-size: 22px; color: var(--muted); }
+    .cs-also-category { font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); line-height: 1.25; }
+    .cs-also-title { font-size: clamp(36px, 4.2vw, 56px); font-weight: 500; letter-spacing: -0.03em; line-height: 0.96; text-wrap: balance; }
+    .cs-also-arrow { font-size: 18px; color: var(--muted); opacity: 0.85; }
 
     /* ─── Dividers ───────────────────────────────────────────── */
 
@@ -590,20 +647,38 @@
     /* ─── Responsive ─────────────────────────────────────────── */
 
     @media (max-width: 768px) {
+      :root {
+        --cs-rhythm: 80px;
+      }
+
+      .cs-page {
+        padding-top: 40px;
+      }
+
       .cs-hero-work-featured .project-featured-image {
         aspect-ratio: unset;
         position: static;
       }
 
       .cs-subheading { font-size: 14px; }
+      .cs-hero-work-featured.project-featured {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
       .cs-section, .cs-band, .cs-video-wrap, .cs-image-grid, .cs-embed { padding-left: 20px; padding-right: 20px; }
       .cs-overview { grid-template-columns: 1fr; padding-left: 20px; padding-right: 20px; }
       .cs-section-grid { grid-template-columns: 1fr; gap: 32px; }
       .cs-image-grid { grid-template-columns: 1fr; }
       .cs-image-grid.cs-image-grid--3col { grid-template-columns: 1fr; }
       .cs-features-grid, .cs-iterations-grid, .cs-takeaways { grid-template-columns: 1fr; gap: 24px; }
+      .cs-iteration-split-inner { grid-template-columns: 1fr; gap: 20px; }
       .cs-competitor-row { grid-template-columns: repeat(3, 1fr); }
-      .cs-band, .cs-impacts, .cs-pitch { padding: 64px 20px; }
+      .cs-impacts, .cs-pitch {
+        width: calc(100% - 40px);
+        margin-left: auto;
+        margin-right: auto;
+        padding: calc(var(--cs-rhythm) * 1.5) 24px;
+      }
     }
 
     /* ─── Hide indicators until JS places them ──────────────── */
@@ -686,7 +761,7 @@
     <a href="/index.html" class="t-small" data-nav="work" data-open-work-link>Work</a>
     <a href="/about.html" class="t-small">About</a>
     <a href="/explore.html" class="t-small">Explore</a>
-    <a href="#" class="t-small" target="_blank">Resume <i class="ph ph-arrow-up-right"></i></a>
+    <a href="../Melody Ekbatani_2026 Resume .pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
   </nav>
 
   <div class="cs-panel">
@@ -773,16 +848,16 @@
           <p class="cs-body">Many users default to starting a new chat rather than revisiting previous conversations. This creates many similar conversations with overlapping intent. At Google scale, small inefficiencies repeat billions of times.</p>
           <p class="cs-body">Repeated AI generation without added user value is a sustainability and efficiency problem hiding in plain sight. Improving how users rediscover existing conversations aligns directly with Google's strength and mission.</p>
         </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <img src="2.png" alt="User behavior patterns" style="width:100%;height:auto;display:block;" loading="lazy">
-          <img src="8.png" alt="Research findings" style="width:100%;height:auto;display:block;" loading="lazy">
-          <img src="12.png" alt="Gemini ecosystem overview" style="width:100%;height:auto;display:block;" loading="lazy">
-        </div>
+        <video src="4.mp4" playsinline muted autoplay loop preload="metadata" style="width:100%;display:block;border-radius:0;"></video>
       </section>
 
       <!-- Solution: text left, video right -->
       <section class="cs-section" id="solution">
         <div class="cs-section-grid" style="align-items: center;">
+          <div class="cs-problem-media-stack">
+            <img src="2.png" alt="User behavior patterns" loading="lazy">
+            <img src="12.png" alt="Gemini ecosystem overview" loading="lazy">
+          </div>
           <div>
             <span class="cs-kicker">Solution</span>
             <h3 class="cs-h2">Re-discovery before generation</h3>
@@ -791,7 +866,6 @@
               <p class="cs-body">A standard Gemini query costs 0.24 Wh. Indexed keyword matching over existing chats costs 0.001–0.01 kWh, orders of magnitude less. By routing familiar queries to retrieval first, the intervention reduces redundant generation and surfaces answers the user already has.</p>
             </div>
           </div>
-          <video src="4.mp4" playsinline muted autoplay loop preload="metadata" style="width:100%;display:block;border-radius:0;"></video>
         </div>
       </section>
 
@@ -853,7 +927,7 @@
       <section class="cs-section cs-ruled">
         <div style="text-align: center; margin-bottom: 72px;">
           <p style="font-size: 18px; font-weight: 400; color: var(--ink); margin-bottom: 12px;">Sustainability and Business</p>
-          <h2 style="font-size: clamp(56px, 8vw, 96px); font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: var(--ink);">Research Insights</h2>
+          <h2 style="font-size: clamp(56px, 8vw, 96px); font-weight: 500; letter-spacing: -0.03em; line-height: 1; color: var(--ink);">Research Insights</h2>
         </div>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px;">
           <div>
@@ -885,23 +959,32 @@
         <span class="cs-kicker">Iteration</span>
         <h3 class="cs-h2">From research to intervention</h3>
         <ul class="cs-iterations-grid">
-          <li>
-            <figure><img src="10c.png" alt="User interview synthesis" loading="lazy"></figure>
-            <h3 class="cs-h3">User Interviews</h3>
-            <ul class="cs-iterations-list">
-              <li>Daniel: "I don't need the full explanation most of the time"</li>
-              <li>Carolyn: "I know I've gotten this answer before, but I can't find it"</li>
-              <li>Liam: "I usually just start a new chat, even if I asked something similar earlier"</li>
-            </ul>
+          <li class="cs-iteration-split">
+            <div class="cs-iteration-split-inner">
+              <div class="cs-iteration-split-copy">
+                <h3 class="cs-h3">User Interviews</h3>
+                <ul class="cs-iterations-list">
+                  <li>Daniel: "I don't need the full explanation most of the time"</li>
+                  <li>Carolyn: "I know I've gotten this answer before, but I can't find it"</li>
+                  <li>Liam: "I usually just start a new chat, even if I asked something similar earlier"</li>
+                </ul>
+              </div>
+            </div>
           </li>
-          <li>
-            <figure><img src="11.png" alt="Key behavior insights synthesis" loading="lazy"></figure>
-            <h3 class="cs-h3">Key Insights</h3>
-            <ul class="cs-iterations-list">
-              <li>Repeat: Users return for the same tasks daily</li>
-              <li>Restart: Instead of continuing past conversations, users start new prompts</li>
-              <li>Forget: Past answers are rarely revisited even when still relevant</li>
-            </ul>
+          <li class="cs-iteration-split">
+            <div class="cs-iteration-split-inner">
+              <div class="cs-iteration-split-copy">
+                <h3 class="cs-h3">Key Insights</h3>
+                <ul class="cs-iterations-list">
+                  <li>Repeat: Users return for the same tasks daily</li>
+                  <li>Restart: Instead of continuing past conversations, users start new prompts</li>
+                  <li>Forget: Past answers are rarely revisited even when still relevant</li>
+                </ul>
+              </div>
+              <div class="cs-iteration-split-media">
+                <figure><img src="11.png" alt="Key behavior insights synthesis" loading="lazy"></figure>
+              </div>
+            </div>
           </li>
         </ul>
       </section>

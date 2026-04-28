@@ -544,19 +544,19 @@
 
     /* ─── You might also like ────────────────────────────── */
 
-    .cs-also { padding: 0 40px; }
+    .cs-also { padding: 0 40px 56px; margin-top: 40px; }
     .cs-also-header { display: flex; align-items: center; gap: 20px; margin-bottom: 0; }
-    .cs-also-label { font-size: 40px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; color: var(--ink); white-space: nowrap; }
-    .cs-also-rule { flex: 1; height: 1px; background: var(--ink); opacity: 0.12; }
-    .cs-also-list { list-style: none; padding: 0; margin: 0; }
-    .cs-also-item { display: grid; grid-template-columns: 260px 1fr auto; align-items: center; gap: 40px; text-decoration: none; color: var(--ink); border-top: 1px solid rgba(0,0,0,0.08); transition: opacity 0.2s ease; }
+    .cs-also-label { font-size: clamp(28px, 3vw, 36px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; color: var(--ink); white-space: nowrap; }
+    .cs-also-rule { display: none; }
+    .cs-also-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 18px; }
+    .cs-also-item { display: grid; grid-template-columns: 260px 1fr auto; align-items: center; gap: 40px; text-decoration: none; color: var(--ink); border-top: none; transition: opacity 0.2s ease; padding: 6px 0; }
     .cs-also-item:hover { opacity: 0.7; }
-    .cs-also-thumb { height: 120px; overflow: hidden; }
-    .cs-also-thumb img, .cs-also-thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-also-thumb { height: 140px; overflow: hidden; background: transparent; }
+    .cs-also-thumb img, .cs-also-thumb video { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; background: transparent; }
     .cs-also-info { display: flex; flex-direction: column; gap: 6px; }
-    .cs-also-category { font-size: 14px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-    .cs-also-title { font-size: clamp(28px, 3vw, 40px); font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
-    .cs-also-arrow { font-size: 22px; color: var(--muted); }
+    .cs-also-category { font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); line-height: 1.25; }
+    .cs-also-title { font-size: clamp(36px, 4.2vw, 56px); font-weight: 500; letter-spacing: -0.03em; line-height: 0.96; text-wrap: balance; }
+    .cs-also-arrow { font-size: 18px; color: var(--muted); opacity: 0.85; }
 
     /* ─── Dividers ───────────────────────────────────────────── */
 
@@ -705,7 +705,7 @@
     <a href="/index.html" class="t-small" data-nav="work" data-open-work-link>Work</a>
     <a href="/about.html" class="t-small">About</a>
     <a href="/explore.html" class="t-small">Explore</a>
-    <a href="#" class="t-small" target="_blank">Resume <i class="ph ph-arrow-up-right"></i></a>
+    <a href="../Melody Ekbatani_2026 Resume .pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
   </nav>
 
   <div class="cs-panel">
