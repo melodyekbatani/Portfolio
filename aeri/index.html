@@ -11,6 +11,10 @@
 
     /* ─── Page shell ─────────────────────────────────────────── */
 
+    :root {
+      --cs-rhythm: 104px;
+    }
+
     body {
       background: var(--bg);
     }
@@ -19,31 +23,19 @@
       padding-top: var(--nav-h);
     }
 
-    /* ─── Hero ───────────────────────────────────────────────── */
-
-    .cs-hero-full {
-      height: calc(100vh - var(--nav-h));
-      display: flex;
-      flex-direction: column;
+    /* Hero matches Work panel: work-intro + project-featured-image (global style.css) */
+    .cs-hero-work-featured.project-featured {
+      cursor: default;
+      padding: 0 40px 0;
     }
 
-    .cs-hero-full .work-intro {
-      flex: 0 0 auto;
+    .cs-hero-work-featured .project-featured-image {
+      cursor: default;
     }
 
-    .cs-hero-media {
-      flex: 1;
-      min-height: 0;
-      padding: 0 40px;
-      overflow: hidden;
-    }
-
-    .cs-hero-media img {
-      width: 100%;
-      height: 100%;
+    .cs-hero-work-featured .project-featured-image img {
       object-fit: cover;
       object-position: center bottom;
-      display: block;
     }
 
     /* ─── Layout ─────────────────────────────────────────────── */
@@ -51,10 +43,14 @@
     .cs-page {
       max-width: 1512px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--cs-rhythm);
+      padding-top: var(--cs-rhythm);
     }
 
     .cs-section {
-      padding: 80px 40px;
+      padding: 0 40px;
     }
 
     .cs-section-grid {
@@ -136,7 +132,7 @@
       display: grid;
       grid-template-columns: 3fr 4fr;
       gap: 56px;
-      padding: 80px 40px;
+      padding: 0 40px;
     }
 
     .cs-meta-grid {
@@ -206,7 +202,7 @@
     /* ─── Problem band ───────────────────────────────────────── */
 
     .cs-band {
-      padding: 80px 40px;
+      padding: 0 40px;
       background: var(--bg);
       color: var(--ink);
     }
@@ -229,7 +225,8 @@
     /* ─── Video ──────────────────────────────────────────────── */
 
     .cs-video-wrap {
-      padding: 0 40px 80px;
+      padding: 0 40px;
+      margin: 0;
     }
 
     .cs-video-wrap video {
@@ -254,7 +251,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      padding: 40px;
+      padding: 0 40px;
     }
 
     .cs-image-grid figure {
@@ -302,16 +299,17 @@
       margin-top: 8px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
     }
 
     .cs-features-list li {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 18px;
+      font-weight: 500;
       letter-spacing: 0;
       line-height: 1.5;
       color: var(--ink);
-      padding-left: 12px;
+      text-wrap: pretty;
+      padding-left: 16px;
       position: relative;
     }
 
@@ -320,8 +318,9 @@
       position: absolute;
       left: 0;
       color: var(--ink);
-      font-size: 10px;
-      top: 5px;
+      font-size: 12px;
+      top: 0.42em;
+      line-height: 1;
     }
 
     /* ─── Impacts band ───────────────────────────────────────── */
@@ -329,15 +328,13 @@
     .cs-impacts {
       width: min(calc(100% - 80px), 1040px);
       min-height: auto;
-      margin: 80px auto;
-      padding: 88px 48px;
-      background:
-        radial-gradient(circle at top left, rgba(232, 0, 29, 0.08), transparent 32%),
-        linear-gradient(180deg, #fcfaf8 0%, #f6f2ed 100%);
+      margin: 0 auto;
+      padding: var(--cs-rhythm) 48px;
+      background: var(--bg);
       color: var(--ink);
-      border: 1px solid rgba(17, 17, 17, 0.08);
-      border-radius: 32px;
-      box-shadow: 0 20px 60px rgba(17, 17, 17, 0.08);
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -387,24 +384,34 @@
 
     /* ─── Competitor research row ────────────────────────────── */
 
+    .cs-competitor-lede {
+      max-width: 64ch;
+    }
+
+    .cs-competitor-lede .cs-copy-stack {
+      max-width: none;
+    }
+
     .cs-competitor-row {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      margin-top: 40px;
-      max-width: 1280px;
-      margin-left: auto;
-      margin-right: auto;
+      gap: 10px;
+      margin-top: 48px;
+      width: 100%;
     }
 
     .cs-competitor-row figure {
       background: #f0f0f0;
       overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .cs-competitor-row img {
       width: 100%;
-      height: 180px;
+      height: 220px;
       object-fit: contain;
       background: #f7f7f7;
       display: block;
@@ -443,16 +450,17 @@
       margin-top: 8px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
     }
 
     .cs-iterations-list li {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 18px;
+      font-weight: 500;
       letter-spacing: 0;
       line-height: 1.5;
       color: var(--ink);
-      padding-left: 12px;
+      text-wrap: pretty;
+      padding-left: 16px;
       position: relative;
     }
 
@@ -461,8 +469,9 @@
       position: absolute;
       left: 0;
       color: var(--ink);
-      font-size: 10px;
-      top: 5px;
+      font-size: 12px;
+      top: 0.42em;
+      line-height: 1;
     }
 
     /* ─── Pitch band ─────────────────────────────────────────── */
@@ -470,15 +479,13 @@
     .cs-pitch {
       width: min(calc(100% - 80px), 1040px);
       min-height: auto;
-      margin: 80px auto;
-      padding: 88px 48px;
-      background:
-        radial-gradient(circle at bottom right, rgba(232, 0, 29, 0.1), transparent 34%),
-        linear-gradient(180deg, #f7f3ef 0%, #f2ede7 100%);
+      margin: 0 auto;
+      padding: var(--cs-rhythm) 48px;
+      background: var(--bg);
       color: var(--ink);
-      border: 1px solid rgba(17, 17, 17, 0.08);
-      border-radius: 32px;
-      box-shadow: 0 20px 60px rgba(17, 17, 17, 0.08);
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -504,7 +511,7 @@
     /* ─── YouTube embed ──────────────────────────────────────── */
 
     .cs-embed {
-      padding: 56px 40px 80px;
+      padding: 0 40px;
     }
 
     .cs-embed iframe {
@@ -531,9 +538,9 @@
     }
 
     .cs-takeaway p {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.7;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.5;
       color: var(--ink);
       text-wrap: pretty;
       max-width: 34ch;
@@ -555,6 +562,7 @@
       font-weight: 500;
       line-height: 1.5;
       color: var(--ink);
+      text-wrap: pretty;
       padding-left: 20px;
       position: relative;
     }
@@ -564,26 +572,27 @@
       position: absolute;
       left: 0;
       color: var(--ink);
-      font-size: 10px;
-      top: 8px;
+      font-size: 12px;
+      top: 0.42em;
+      line-height: 1;
     }
 
     .cs-next-steps-layout {
-      display: grid;
-      grid-template-columns: 3fr 4fr;
-      gap: 56px;
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(40px, 5vw, 64px);
+      align-items: stretch;
     }
 
     .cs-next-steps-main {
-      max-width: 34rem;
+      max-width: none;
     }
 
     .cs-next-project {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      grid-template-columns: 1fr;
       gap: 24px;
-      align-items: center;
+      align-items: start;
       color: inherit;
     }
 
@@ -637,24 +646,42 @@
     /* ─── Responsive ─────────────────────────────────────────── */
 
     @media (max-width: 768px) {
-      .cs-hero-full { height: auto; }
-      .cs-hero-media { padding: 0 20px; flex: none; }
-      .cs-hero-media img { height: clamp(280px, 46vh, 420px); }
+      :root {
+        --cs-rhythm: 80px;
+      }
+
       .cs-subheading { font-size: 14px; }
-      .cs-section, .cs-video-wrap, .cs-image-grid, .cs-embed, .cs-embed { padding-left: 20px; padding-right: 20px; }
-      .cs-overview { grid-template-columns: 1fr; padding: 48px 20px; }
+      .cs-hero-work-featured.project-featured {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .cs-section,
+      .cs-overview,
+      .cs-band,
+      .cs-video-wrap,
+      .cs-image-grid,
+      .cs-embed {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .cs-overview { grid-template-columns: 1fr; }
       .cs-section-grid { grid-template-columns: 1fr; gap: 32px; }
-      .cs-next-steps-layout, .cs-next-project { grid-template-columns: 1fr; gap: 24px; }
+      .cs-next-project { gap: 20px; }
       .cs-image-grid { grid-template-columns: 1fr; }
       .cs-features-grid, .cs-iterations-grid, .cs-takeaways { grid-template-columns: 1fr; gap: 24px; }
       .cs-competitor-row { grid-template-columns: repeat(3, 1fr); }
-      .cs-band { padding: 64px 20px; }
+      .cs-competitor-row img {
+        height: 170px;
+      }
+      .cs-competitor-row figure {
+        min-height: 170px;
+      }
       .cs-impacts, .cs-pitch {
         width: calc(100% - 40px);
-        margin: 64px auto;
-        padding: 64px 24px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: var(--cs-rhythm) 24px;
       }
-      .cs-embed { padding-top: 40px; }
     }
 
   </style>
@@ -677,10 +704,9 @@
   </nav>
 
   <div class="cs-panel">
-    <div class="cs-page">
 
-      <!-- Hero -->
-      <div class="cs-hero-full">
+      <!-- Same header rhythm as Work panel: work-intro + featured image strip -->
+      <div class="cs-hero-work">
         <div class="work-intro">
           <div class="work-intro-title">
             <h1 class="work-heading">Aeri</h1>
@@ -691,10 +717,14 @@
           <div class="work-intro-spacer" aria-hidden="true"></div>
         </div>
 
-        <figure class="cs-hero-media">
-          <img src="assets/Aeri hero.avif" alt="Aeri hero" fetchpriority="high">
-        </figure>
+        <div class="project-featured cs-hero-work-featured">
+          <div class="project-featured-image">
+            <img src="assets/Aeri hero.avif" alt="Aeri hero" fetchpriority="high">
+          </div>
+        </div>
       </div>
+
+    <div class="cs-page">
 
       <!-- Overview -->
       <section class="cs-overview" id="overview">
@@ -865,16 +895,18 @@
       <section class="cs-section cs-ruled" id="competitor-research">
         <span class="cs-kicker">Competitor Research</span>
         <h3 class="cs-h2">Tracking diabetes data isn't easy</h3>
-        <div class="cs-copy-stack" style="max-width: 64ch;">
-          <p class="cs-body">Across the category, products have improved in sensing accuracy, connectivity, and real-time display. However, reliability issues, short sensor lifecycles, and fragmented device ecosystems continue to introduce friction.</p>
-          <p class="cs-body">As conditions become more complex, the operational overhead increases highlighting an opportunity to reduce system friction and create a more seamless experience that requires less active management from the user.</p>
-        </div>
-        <div class="cs-competitor-row" style="margin-top: 48px;">
-          <figure><img src="assets/Aeri-Competitor Research 1.avif" alt="Competitor product 1" loading="lazy"></figure>
-          <figure><img src="assets/Aeri-Competitor Research 2.avif" alt="Competitor product 2" loading="lazy"></figure>
-          <figure><img src="assets/Aeri-Competitor Research 3.avif" alt="Competitor product 3" loading="lazy"></figure>
-          <figure><img src="assets/Aeri-Competitor Research 4.avif" alt="Competitor product 4" loading="lazy"></figure>
-          <figure><img src="assets/Aeri-Competitor Research 5.avif" alt="Competitor product 5" loading="lazy"></figure>
+        <div class="cs-competitor-lede">
+          <div class="cs-copy-stack">
+            <p class="cs-body">Across the category, products have improved in sensing accuracy, connectivity, and real-time display. However, reliability issues, short sensor lifecycles, and fragmented device ecosystems continue to introduce friction.</p>
+            <p class="cs-body">As conditions become more complex, the operational overhead increases highlighting an opportunity to reduce system friction and create a more seamless experience that requires less active management from the user.</p>
+          </div>
+          <div class="cs-competitor-row">
+            <figure><img src="assets/Aeri-Competitor Research 1.avif" alt="Competitor product 1" loading="lazy"></figure>
+            <figure><img src="assets/Aeri-Competitor Research 2.avif" alt="Competitor product 2" loading="lazy"></figure>
+            <figure><img src="assets/Aeri-Competitor Research 3.avif" alt="Competitor product 3" loading="lazy"></figure>
+            <figure><img src="assets/Aeri-Competitor Research 4.avif" alt="Competitor product 4" loading="lazy"></figure>
+            <figure><img src="assets/Aeri-Competitor Research 5.avif" alt="Competitor product 5" loading="lazy"></figure>
+          </div>
         </div>
       </section>
 

@@ -19,31 +19,26 @@
       padding-top: var(--nav-h);
     }
 
-    /* ─── Hero ───────────────────────────────────────────────── */
-
-    .cs-hero-full {
-      display: flex;
-      flex-direction: column;
+    /* Hero matches Work panel + Aeri: work-intro + project-featured-image */
+    .cs-hero-work-featured.project-featured {
+      cursor: default;
     }
 
-    .cs-hero-full .work-intro {
-      flex: 0 0 auto;
+    .cs-hero-work-featured .project-featured-image {
+      cursor: default;
+      height: auto;
+      min-height: 0;
+      overflow: visible;
     }
 
-    .cs-hero-media {
-      flex: none;
-      height: 110vh;
-      padding: 0 40px;
-      overflow: hidden;
-    }
-
-    .cs-hero-media img,
-    .cs-hero-media video {
+    /* Full frame visible; height follows media (can exceed viewport) */
+    .cs-hero-work-featured .project-featured-image img,
+    .cs-hero-work-featured .project-featured-image video {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
       object-position: center bottom;
-      display: block;
     }
 
     /* ─── Layout ─────────────────────────────────────────────── */
@@ -529,9 +524,11 @@
     /* ─── Responsive ─────────────────────────────────────────── */
 
     @media (max-width: 768px) {
-      .cs-hero-full { height: auto; }
-      .cs-hero-media { padding: 0 20px; flex: none; }
-      .cs-hero-media img { height: clamp(280px, 46vh, 420px); }
+      .cs-hero-work-featured .project-featured-image {
+        aspect-ratio: unset;
+        position: static;
+      }
+
       .cs-subheading { font-size: 14px; }
       .cs-section, .cs-video-wrap, .cs-image-grid, .cs-embed { padding-left: 20px; padding-right: 20px; }
       .cs-overview { grid-template-columns: 1fr; padding: 48px 20px; }
@@ -562,10 +559,9 @@
   </nav>
 
   <div class="cs-panel">
-    <div class="cs-page">
 
-      <!-- Hero -->
-      <div class="cs-hero-full">
+      <!-- Same header rhythm as Work / Aeri: work-intro + featured media strip -->
+      <div class="cs-hero-work">
         <div class="work-intro">
           <div class="work-intro-title">
             <h1 class="work-heading">Adaptive Research</h1>
@@ -576,12 +572,16 @@
           <div class="work-intro-spacer" aria-hidden="true"></div>
         </div>
 
-        <figure class="cs-hero-media">
-          <video autoplay muted loop playsinline>
-            <source src="../Home Page/Google Gemini.mp4" type="video/mp4">
-          </video>
-        </figure>
+        <div class="project-featured cs-hero-work-featured">
+          <div class="project-featured-image">
+            <video autoplay muted loop playsinline>
+              <source src="../Home Page/Google Gemini.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
       </div>
+
+    <div class="cs-page">
 
       <!-- Overview -->
       <section class="cs-overview" id="overview">
