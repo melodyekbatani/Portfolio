@@ -8,31 +8,40 @@
   <link rel="stylesheet" href="../style.css">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
+
+    /* ─── Page shell ─────────────────────────────────────────── */
+
+    :root {
+      --cs-rhythm: 104px;
+    }
+
     body {
       background: var(--bg);
     }
 
-    .nav-indicator { transform: translate(-200px, -200px); }
-
-    .loam-page {
-      padding-top: calc(var(--nav-h) + 40px);
-      padding-left: 40px;
-      padding-right: 40px;
-      padding-bottom: 80px;
+    .cs-panel {
+      padding-top: var(--nav-h);
     }
 
-    .loam-media-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+    /* ─── Hide indicator until JS places it ─────────────────── */
+
+    .nav-indicator { transform: translate(-200px, -200px); }
+
+    /* ─── Media stack ────────────────────────────────────────── */
+
+    .loam-page {
       max-width: 1512px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: var(--cs-rhythm) 40px 80px;
     }
 
     .loam-media-stack figure {
       margin: 0;
-      background: #f7f7f7;
       overflow: hidden;
+      background: #f0f0f0;
     }
 
     .loam-media-stack img,
@@ -41,19 +50,19 @@
       height: auto;
       display: block;
       object-fit: contain;
+      pointer-events: none;
     }
 
     @media (max-width: 768px) {
       .loam-page {
-        padding-top: calc(var(--nav-h) + 24px);
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom: 48px;
+        padding: calc(var(--nav-h) + 24px) 20px 48px;
       }
     }
+
   </style>
 </head>
 <body>
+
   <nav>
     <span class="nav-indicator" aria-hidden="true"></span>
     <a href="/" class="t-small" data-nav="home">Home</a>
@@ -63,25 +72,43 @@
     <a href="#" class="t-small" target="_blank">Resume <i class="ph ph-arrow-up-right"></i></a>
   </nav>
 
-  <main class="loam-page">
-    <section class="loam-media-stack" aria-label="Loam media">
-      <figure>
-        <video src="1 - Hero video.mp4" playsinline muted autoplay loop preload="metadata"></video>
-      </figure>
-      <figure>
-        <video src="2 - Key Screens.mp4" playsinline muted autoplay loop preload="metadata"></video>
-      </figure>
-      <figure>
-        <img src="3 - Intro graphic .webp" alt="Loam media 3" loading="lazy">
-      </figure>
-      <figure>
-        <video src="4 - brand design graphic .mp4" playsinline muted autoplay loop preload="metadata"></video>
-      </figure>
-      <figure>
-        <video src="5 - Reddit research .mp4" playsinline muted autoplay loop preload="metadata"></video>
-      </figure>
-    </section>
-  </main>
+  <div class="cs-panel">
+
+    <!-- Hero -->
+    <div class="cs-hero-work">
+      <div class="work-intro">
+        <div class="work-intro-title">
+          <h1 class="work-heading">Loam</h1>
+        </div>
+        <div class="work-intro-copy">
+          <p class="t-body work-description">Bringing sustainable and local vendors into one platform, helping users discover and shop responsible products.</p>
+        </div>
+        <div class="work-intro-spacer" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Media -->
+    <main class="loam-page">
+      <section class="loam-media-stack" aria-label="Loam media">
+        <figure>
+          <video src="1 - Hero video.mp4" playsinline muted autoplay loop preload="metadata"></video>
+        </figure>
+        <figure>
+          <video src="2 - Key Screens.mp4" playsinline muted autoplay loop preload="metadata"></video>
+        </figure>
+        <figure>
+          <img src="3 - Intro graphic .webp" alt="Loam brand and intro" loading="lazy">
+        </figure>
+        <figure>
+          <video src="4 - brand design graphic .mp4" playsinline muted autoplay loop preload="metadata"></video>
+        </figure>
+        <figure>
+          <video src="5 - Reddit research .mp4" playsinline muted autoplay loop preload="metadata"></video>
+        </figure>
+      </section>
+    </main>
+
+  </div>
 
   <script>
     function bindIndicator(container, indicatorSelector, itemSelector, activeSelector) {
@@ -106,8 +133,8 @@
       container.addEventListener("mouseleave", () => { if (activeItem) placeIndicator(activeItem); });
       window.addEventListener("resize", () => { if (activeItem) placeIndicator(activeItem); });
     }
-
     bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", null);
   </script>
+
 </body>
 </html>
