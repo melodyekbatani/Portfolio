@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loam — Melody Ekbatani</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+  <style>
+    body {
+      background: var(--bg);
+    }
+
+    .loam-page {
+      padding-top: calc(var(--nav-h) + 40px);
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-bottom: 80px;
+    }
+
+    .loam-media-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 1512px;
+      margin: 0 auto;
+    }
+
+    .loam-media-stack figure {
+      margin: 0;
+      background: #f7f7f7;
+      overflow: hidden;
+    }
+
+    .loam-media-stack img,
+    .loam-media-stack video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      .loam-page {
+        padding-top: calc(var(--nav-h) + 24px);
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="nav-indicator" aria-hidden="true"></span>
+    <a href="/" class="t-small" data-nav="home">Home</a>
+    <a href="/index.html" class="t-small" data-nav="work">Work</a>
+    <a href="/about.html" class="t-small">About</a>
+    <a href="/explore.html" class="t-small">Explore</a>
+    <a href="#" class="t-small" target="_blank">Resume <i class="ph ph-arrow-up-right"></i></a>
+  </nav>
+
+  <main class="loam-page">
+    <section class="loam-media-stack" aria-label="Loam media">
+      <figure>
+        <video src="1 - Hero video.mp4" playsinline muted autoplay loop preload="metadata"></video>
+      </figure>
+      <figure>
+        <video src="2 - Key Screens.mp4" playsinline muted autoplay loop preload="metadata"></video>
+      </figure>
+      <figure>
+        <img src="3 - Intro graphic .webp" alt="Loam media 3" loading="lazy">
+      </figure>
+      <figure>
+        <video src="4 - brand design graphic .mp4" playsinline muted autoplay loop preload="metadata"></video>
+      </figure>
+      <figure>
+        <video src="5 - Reddit research .mp4" playsinline muted autoplay loop preload="metadata"></video>
+      </figure>
+    </section>
+  </main>
+
+  <script>
+    function bindIndicator(container, indicatorSelector, itemSelector, activeSelector) {
+      if (!container) return;
+      const indicator = container.querySelector(indicatorSelector);
+      const items = [...container.querySelectorAll(itemSelector)];
+      if (!indicator || items.length === 0) return;
+      let activeItem = activeSelector ? container.querySelector(activeSelector) : null;
+      function placeIndicator(item, color = "#111111") {
+        if (!item) return;
+        const containerBox = container.getBoundingClientRect();
+        const itemBox = item.getBoundingClientRect();
+        indicator.style.transform = `translate(${itemBox.left - containerBox.left + 4}px, ${itemBox.top - containerBox.top + itemBox.height / 2}px) translateY(-50%)`;
+        indicator.style.backgroundColor = color;
+      }
+      if (activeItem) placeIndicator(activeItem);
+      requestAnimationFrame(() => indicator.classList.add("is-ready"));
+      items.forEach(item => {
+        item.addEventListener("mouseenter", () => placeIndicator(item, "#CFCFCF"));
+        item.addEventListener("focus", () => placeIndicator(item, "#CFCFCF"));
+      });
+      container.addEventListener("mouseleave", () => { if (activeItem) placeIndicator(activeItem); });
+      window.addEventListener("resize", () => { if (activeItem) placeIndicator(activeItem); });
+    }
+
+    bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", null);
+  </script>
+</body>
+</html>

@@ -71,6 +71,7 @@
       letter-spacing: -0.03em;
       line-height: 1;
       margin-bottom: 32px;
+      text-wrap: balance;
     }
 
     .cs-subheading {
@@ -98,7 +99,10 @@
       font-weight: 500;
       line-height: 1.5;
       color: var(--ink);
+      text-wrap: pretty;
     }
+
+    .cs-body + .cs-body { margin-top: 16px; }
 
     .cs-copy-stack { display: flex; flex-direction: column; gap: 16px; }
 
@@ -124,9 +128,10 @@
 
     .cs-meta-item p {
       font-size: 18px;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.5;
       color: var(--ink);
+      text-wrap: pretty;
     }
 
     .cs-tool-grid {
@@ -230,10 +235,12 @@
     /* ─── Impacts band ───────────────────────────────────────── */
 
     .cs-impacts {
-      min-height: 90vh;
-      padding: 120px 40px;
-      background: var(--ink);
-      color: var(--bg);
+      width: min(calc(100% - 80px), 1040px);
+      min-height: auto;
+      margin: 80px auto;
+      padding: 88px 48px;
+      background: transparent;
+      color: var(--ink);
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -242,28 +249,31 @@
     }
 
     .cs-impacts .cs-kicker {
-      color: rgba(255,255,255,0.5);
+      color: rgba(17, 17, 17, 0.48);
       display: block;
       margin-bottom: 24px;
     }
 
     .cs-impacts-heading {
-      font-size: clamp(48px, 9vw, 120px);
+      font-size: clamp(42px, 7vw, 92px);
       font-weight: 500;
       letter-spacing: -0.04em;
       line-height: 0.92;
-      color: var(--bg);
-      width: 90vw;
-      max-width: 90vw;
+      color: var(--ink);
+      width: 100%;
+      max-width: 14ch;
+      text-wrap: balance;
     }
 
     /* ─── Pitch band ─────────────────────────────────────────── */
 
     .cs-pitch {
-      min-height: 90vh;
-      padding: 120px 40px;
-      background: var(--ink);
-      color: var(--bg);
+      width: min(calc(100% - 80px), 1040px);
+      min-height: auto;
+      margin: 80px auto;
+      padding: 88px 48px;
+      background: transparent;
+      color: var(--ink);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -271,16 +281,17 @@
       text-align: center;
     }
 
-    .cs-pitch .cs-kicker { color: rgba(255,255,255,0.5); }
+    .cs-pitch .cs-kicker { color: rgba(17, 17, 17, 0.48); }
 
     .cs-pitch-heading {
-      font-size: clamp(48px, 9vw, 120px);
+      font-size: clamp(42px, 7vw, 92px);
       font-weight: 500;
       letter-spacing: -0.04em;
       line-height: 0.92;
-      color: var(--bg);
-      width: 90vw;
-      max-width: 90vw;
+      color: var(--ink);
+      width: 100%;
+      max-width: 12ch;
+      text-wrap: balance;
     }
 
     /* ─── Scale-in animation ─────────────────────────────────── */
@@ -303,6 +314,21 @@
       margin-top: 48px;
     }
 
+    #key-takeaway {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    #key-takeaway .cs-h2 {
+      margin-bottom: 20px;
+      max-width: 14ch;
+    }
+
+    #key-takeaway .cs-takeaways {
+      margin-top: 24px;
+      gap: 32px;
+    }
+
     .cs-takeaway h3 {
       font-size: 16px;
       font-weight: 700;
@@ -315,6 +341,8 @@
       font-weight: 400;
       line-height: 1.7;
       color: var(--ink);
+      text-wrap: pretty;
+      max-width: 34ch;
     }
 
     /* ─── User quotes ────────────────────────────────────────── */
@@ -327,28 +355,26 @@
     }
 
     .cs-quote {
-      background: #f0f0f8;
-      padding: 32px;
-    }
-
-    .cs-quote-mark {
-      font-size: 24px;
-      font-weight: 400;
-      color: var(--muted);
-      margin-bottom: 12px;
-      display: block;
+      background: #f6f7fb;
+      padding: 28px 28px 30px;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .cs-quote p {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.6;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.45;
       color: var(--ink);
-      margin-bottom: 16px;
+      margin-bottom: 24px;
+      max-width: 28ch;
+      text-wrap: pretty;
     }
 
     .cs-quote cite {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 400;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -359,10 +385,12 @@
     /* ─── Competitor audit image ─────────────────────────────── */
 
     .cs-audit-image {
-      width: 100%;
+      width: min(100%, 1180px);
       height: auto;
       display: block;
       margin-top: 48px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* ─── Next steps ─────────────────────────────────────────── */
@@ -394,6 +422,67 @@
       top: 8px;
     }
 
+    .cs-next-steps-layout {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(40px, 5vw, 64px);
+      align-items: stretch;
+    }
+
+    .cs-next-steps-main {
+      max-width: none;
+    }
+
+    .cs-next-project {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+      color: inherit;
+    }
+
+    .cs-next-project-media {
+      background: #f0f0f0;
+      overflow: hidden;
+    }
+
+    .cs-next-project-media video,
+    .cs-next-project-media img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cs-next-project-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cs-next-project-label {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .cs-next-project-title {
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 0.98;
+      text-wrap: balance;
+    }
+
+    .cs-next-project-link {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
     /* ─── Ruled ──────────────────────────────────────────────── */
 
     .cs-ruled { border-top: none; }
@@ -410,7 +499,13 @@
       .cs-feature-split.cs-feature-reverse .cs-feature-split-copy { order: initial; }
       .cs-takeaways, .cs-quotes { grid-template-columns: 1fr; }
       .cs-video-wrap { padding: 0 20px 56px; }
-      .cs-band, .cs-impacts, .cs-pitch { padding: 64px 20px; }
+      .cs-band { padding: 64px 20px; }
+      .cs-impacts, .cs-pitch {
+        width: calc(100% - 40px);
+        margin: 64px auto;
+        padding: 64px 24px;
+      }
+      .cs-next-project { gap: 24px; }
     }
 
   </style>
@@ -576,12 +671,10 @@
         </div>
         <div class="cs-quotes">
           <div class="cs-quote">
-            <span class="cs-quote-mark">"</span>
             <p>Every time I go to the doctor, they type notes and I never see them. I'm curious how that information actually gets recorded.</p>
             <cite>User Interview</cite>
           </div>
           <div class="cs-quote">
-            <span class="cs-quote-mark">"</span>
             <p>The symptom app I use to manage my chronic condition is difficult, and it doesn't connect any patterns or data. I could use an all-in-one tool.</p>
             <cite>User Interview</cite>
           </div>
@@ -747,33 +840,44 @@
         <h3 class="cs-h2">Our takeaways</h3>
         <div class="cs-takeaways">
           <div class="cs-takeaway">
-            <h3>Working through a 24-hour sprint</h3>
-            <p>Working in a collaborative sprint setting reinforced the importance of aligning early, defining roles quickly, and a shared understanding of the concept.</p>
+            <h3>Designing for complexity</h3>
+            <p>Working on Parameter reinforced how much careful structure matters when translating medical records, lab results, and health signals into something a person can actually understand.</p>
           </div>
           <div class="cs-takeaway">
-            <h3>Working with AI</h3>
-            <p>I learned to use AI as a tool to accelerate exploration and production, while staying intentional in directing and refining outputs. Strong results came from guiding, editing, and curating rather than relying on it passively.</p>
+            <h3>Designing for trust</h3>
+            <p>Health interfaces need more than clean visuals. They need to communicate clearly, reduce ambiguity, and help users feel confident about what they are seeing and what questions to ask next.</p>
           </div>
           <div class="cs-takeaway">
-            <h3>&nbsp;</h3>
-            <p>&nbsp;</p>
+            <h3>Connecting fragmented systems</h3>
+            <p>The most valuable opportunity was not creating another isolated tool, but imagining how different records, conversations, and metrics could come together into one more coherent experience.</p>
           </div>
         </div>
       </section>
 
       <!-- Next Steps -->
       <section class="cs-section cs-ruled" id="next-steps">
-        <div class="cs-section-grid">
-          <div>
+        <div class="cs-next-steps-layout">
+          <div class="cs-next-steps-main">
             <span class="cs-kicker">Future Development</span>
             <h3 class="cs-h2">Next Steps</h3>
+            <ul class="cs-next-list">
+              <li>Test the interface with individuals managing ongoing health conditions to better understand how the system supports real decision-making.</li>
+              <li>Expand data integration to include wearable devices, lab providers, and electronic medical records.</li>
+              <li>Refine the conversational assistant to provide clearer explanations and stronger connections between related health signals.</li>
+              <li>Explore additional ways the interface could surface early patterns or changes that may prompt preventative care discussions with providers.</li>
+            </ul>
           </div>
-          <ul class="cs-next-list">
-            <li>Test the interface with individuals managing ongoing health conditions to better understand how the system supports real decision-making.</li>
-            <li>Expand data integration to include wearable devices, lab providers, and electronic medical records.</li>
-            <li>Refine the conversational assistant to provide clearer explanations and stronger connections between related health signals.</li>
-            <li>Explore additional ways the interface could surface early patterns or changes that may prompt preventative care discussions with providers.</li>
-          </ul>
+          <a class="cs-next-project" href="/aeri/index.html" data-project-hover="View Aeri">
+            <div class="cs-next-project-media">
+              <img src="../Home Page/Aeri.png" alt="Aeri project preview">
+            </div>
+            <div class="cs-next-project-copy">
+              <span class="cs-next-project-label">Next Project</span>
+              <h4 class="cs-next-project-title">Aeri</h4>
+              <p class="cs-body">AI-powered preventative diabetes care with AR integration exploring a more proactive alternative to today’s reactive management tools.</p>
+              <span class="cs-next-project-link">View project <i class="ph ph-arrow-up-right"></i></span>
+            </div>
+          </a>
         </div>
       </section>
 
