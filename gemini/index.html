@@ -274,9 +274,18 @@
     .cs-features-grid > li img {
       width: 100%;
       height: auto;
-      max-width: 320px;
+      max-height: 280px;
+      object-fit: contain;
       display: block;
       margin-bottom: 20px;
+    }
+
+    .cs-features-grid .cs-h3 {
+      font-size: clamp(28px, 2.4vw, 34px);
+      line-height: 1.05;
+      text-wrap: balance;
+      max-width: 12ch;
+      margin-bottom: 12px;
     }
 
     .cs-features-list {
@@ -703,38 +712,41 @@
       <section class="cs-band" id="problem">
         <span class="cs-kicker">Problem</span>
         <h3 class="cs-h2">Users restart instead of rediscovering</h3>
-        <p class="cs-body">Many users default to starting a new chat rather than revisiting previous conversations. This creates many similar conversations with overlapping intent — and at Google scale, small inefficiencies repeat billions of times.</p>
+        <p class="cs-body">Many users default to starting a new chat rather than revisiting previous conversations. This creates many similar conversations with overlapping intent. At Google scale, small inefficiencies repeat billions of times.</p>
         <p class="cs-body">Repeated AI generation without added user value is a sustainability and efficiency problem hiding in plain sight. Improving how users rediscover existing conversations aligns directly with Google's strength and mission.</p>
       </section>
 
-      <!-- Video 1: 1.mp4 -->
-      <figure class="cs-video-wrap">
-        <video src="1.mp4" playsinline muted autoplay loop preload="metadata"></video>
-        <figcaption>Most users start a new chat rather than finding an old one.</figcaption>
+      <!-- Images under problem: 2.png, 8.png, 12.png (ecosystem) -->
+      <figure style="padding: 0 40px;">
+        <img src="2.png" alt="User behavior patterns" style="width:100%;height:auto;display:block;" loading="lazy">
+      </figure>
+      <figure style="padding: 0 40px; margin-top: 16px;">
+        <img src="8.png" alt="Research findings" style="width:100%;height:auto;display:block;" loading="lazy">
+      </figure>
+      <figure style="padding: 0 40px; margin-top: 16px;">
+        <img src="12.png" alt="Gemini ecosystem overview" style="width:100%;height:auto;display:block;" loading="lazy">
       </figure>
 
-      <!-- Solution -->
+      <!-- Solution: text left, video right -->
       <section class="cs-section" id="solution">
-        <span class="cs-kicker">Solution</span>
-        <h3 class="cs-h2">Re-discovery before generation</h3>
-        <div class="cs-copy-stack" style="max-width: 80ch;">
-          <p class="cs-body">A search-first layer inside Gemini that routes simple, factual, and repeatable queries to keyword-based retrieval before invoking full chat intelligence. Before generating a new response, Gemini checks the user's previous chats for similar prompts using keyword-based matching and surfaces them to the user.</p>
-          <p class="cs-body">A standard Gemini query costs 0.24 Wh. Indexed keyword matching over existing chats costs 0.001–0.01 kWh — orders of magnitude less. By routing familiar queries to retrieval first, the intervention reduces redundant generation and respects the user's time by surfacing answers they already have.</p>
+        <div class="cs-section-grid" style="align-items: center;">
+          <div>
+            <span class="cs-kicker">Solution</span>
+            <h3 class="cs-h2">Re-discovery before generation</h3>
+            <div class="cs-copy-stack">
+              <p class="cs-body">A search-first layer inside Gemini that routes simple, factual, and repeatable queries to keyword-based retrieval before invoking full chat intelligence. Before generating a new response, Gemini checks previous chats for similar prompts and surfaces them to the user.</p>
+              <p class="cs-body">A standard Gemini query costs 0.24 Wh. Indexed keyword matching over existing chats costs 0.001–0.01 kWh, orders of magnitude less. By routing familiar queries to retrieval first, the intervention reduces redundant generation and surfaces answers the user already has.</p>
+            </div>
+          </div>
+          <video src="4.mp4" playsinline muted autoplay loop preload="metadata" style="width:100%;display:block;border-radius:0;"></video>
         </div>
       </section>
 
-      <!-- Video 2: 4.mp4 -->
-      <figure class="cs-video-wrap">
-        <video src="4.mp4" playsinline muted autoplay loop preload="metadata"></video>
-        <figcaption>A search-first intervention routes familiar queries to retrieval before generation.</figcaption>
-      </figure>
-
-      <!-- Image grid 1: 2.png, 3.png, 5.png, 6.png — research + ecosystem -->
-      <div class="cs-image-grid">
-        <figure><img src="2.png" alt="Research insights — user behavior patterns" loading="lazy"></figure>
-        <figure><img src="3.png" alt="Research insights — interview findings" loading="lazy"></figure>
+      <!-- 3-col image row: 3.png, 5.png, 6.png -->
+      <div class="cs-image-grid cs-image-grid--3col">
+        <figure><img src="3.png" alt="Research insights" loading="lazy"></figure>
         <figure><img src="5.png" alt="Gemini ecosystem overview" loading="lazy"></figure>
-        <figure><img src="6.png" alt="Gemini ecosystem — Foundation, Application, Interface layers" loading="lazy"></figure>
+        <figure><img src="6.png" alt="Gemini ecosystem layers" loading="lazy"></figure>
       </div>
 
       <!-- Key Features -->
@@ -792,12 +804,15 @@
         </div>
       </section>
 
-      <!-- Image grid 2: 7.png, 8.png, 10a.png, 10b.png -->
+      <!-- 7.png: standalone full-width -->
+      <figure style="padding: 0 40px;">
+        <img src="7.png" alt="Energy usage data" style="width:100%;height:auto;display:block;" loading="lazy">
+      </figure>
+
+      <!-- 10a.png, 10b.png: business context 2-col -->
       <div class="cs-image-grid">
-        <figure><img src="7.png" alt="Energy usage data visualization" loading="lazy"></figure>
-        <figure><img src="8.png" alt="Sustainability research findings" loading="lazy"></figure>
-        <figure><img src="10a.png" alt="Existing Gemini chat flow — entry screen" loading="lazy"></figure>
-        <figure><img src="10b.png" alt="Existing Gemini chat flow — response delivery" loading="lazy"></figure>
+        <figure><img src="10a.png" alt="Business context — existing Gemini flow" loading="lazy"></figure>
+        <figure><img src="10b.png" alt="Business context — intervention flow" loading="lazy"></figure>
       </div>
 
       <!-- Iterations -->
@@ -821,15 +836,6 @@
               <li>Repeat: Users return for the same tasks daily</li>
               <li>Restart: Instead of continuing past conversations, users start new prompts</li>
               <li>Forget: Past answers are rarely revisited even when still relevant</li>
-            </ul>
-          </li>
-          <li>
-            <figure><img src="12.png" alt="Gemini ecosystem analysis" loading="lazy"></figure>
-            <h3 class="cs-h3">Ecosystem Analysis</h3>
-            <ul class="cs-iterations-list">
-              <li>Foundation: Gemini 2.0 Pro, Flash, Thinking, Imagen 3, Veo 3, Lyria</li>
-              <li>Application: NotebookLM, Whisk, Gemini agent, AI Studio, Vertex AI</li>
-              <li>Interface: Workspace, Standalone chat, Embedded in Search, Photos, Maps</li>
             </ul>
           </li>
         </ul>
