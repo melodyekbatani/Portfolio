@@ -508,6 +508,59 @@
       .cs-next-project { gap: 24px; }
     }
 
+    /* ─── Hide indicators until JS places them ──────────────── */
+    .nav-indicator,
+    .cs-sidenav-indicator { transform: translate(-200px, -200px); }
+
+    /* ─── Anchor scroll offset ───────────────────────────────── */
+    [id] { scroll-margin-top: calc(var(--nav-h) + 24px); }
+
+    /* ─── Bottom Navigation ──────────────────────────────────── */
+    .cs-sidenav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 90;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 0 80px;
+      height: var(--nav-h);
+      background-color: #ffffff;
+      box-shadow: 0 -8px 0 0 #ffffff;
+      transform: translateZ(0);
+    }
+    .cs-sidenav-indicator {
+      position: absolute;
+      top: 0; left: 0;
+      width: var(--dot-size);
+      height: var(--dot-size);
+      border-radius: 50%;
+      background: var(--ink);
+      pointer-events: none;
+      transition: none;
+    }
+    .cs-sidenav-indicator.is-ready {
+      transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms ease;
+    }
+    .cs-sidenav-link {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1;
+      text-decoration: none;
+      color: var(--muted);
+      transition: none;
+      white-space: nowrap;
+      padding: 4px 40px 4px 24px;
+    }
+    .cs-sidenav-link:hover,
+    .cs-sidenav-link.is-active { color: var(--ink); }
+    .cs-page { padding-bottom: 80px; }
+    @media (max-width: 768px) { .cs-sidenav { display: none; } }
+
   </style>
 </head>
 <body>
@@ -613,7 +666,7 @@
       <section class="cs-section" id="solution">
         <span class="cs-kicker">Solution</span>
         <h3 class="cs-h2">Turning health data into clear signals</h3>
-        <div class="cs-copy-stack" style="max-width: 60ch;">
+        <div class="cs-copy-stack" style="max-width: 80ch;">
           <p class="cs-body">Parameter organizes health information around signals, trends, and insights instead of dense dashboards. Data from wearables, lab reports, and medical history is consolidated into one interface and revealed progressively as users explore.</p>
           <p class="cs-body">AI summaries highlight patterns and relationships between metrics so users can quickly understand what matters and take action on their health.</p>
         </div>
@@ -635,7 +688,7 @@
       <section class="cs-section cs-ruled" id="approach-1">
         <span class="cs-kicker">Approach</span>
         <h3 class="cs-h2">Navigating complex systems</h3>
-        <div class="cs-copy-stack" style="max-width: 60ch;">
+        <div class="cs-copy-stack" style="max-width: 80ch;">
           <p class="cs-body">The project began by examining how people currently encounter their health information across clinical portals, lab reports, and consumer apps.</p>
         </div>
       </section>
@@ -650,7 +703,7 @@
       <section class="cs-section cs-ruled" id="approach-2">
         <span class="cs-kicker">Approach</span>
         <h3 class="cs-h2">Fragmented clinical workflows</h3>
-        <div class="cs-copy-stack" style="max-width: 60ch;">
+        <div class="cs-copy-stack" style="max-width: 80ch;">
           <p class="cs-body">Clinical environments rely on legacy machines, fixed terminals, paper documents, and isolated databases. As a result, information moves through manual transfers and disconnected systems, requiring both patients and providers to piece together records across multiple tools.</p>
         </div>
       </section>
@@ -665,7 +718,7 @@
       <section class="cs-section cs-ruled" id="user-research">
         <span class="cs-kicker">User Research</span>
         <h3 class="cs-h2">Studying how people currently manage health data</h3>
-        <div class="cs-copy-stack" style="max-width: 60ch;">
+        <div class="cs-copy-stack" style="max-width: 80ch;">
           <p class="cs-body">To understand the current landscape, we looked at how health information is collected, stored, and experienced across clinical and consumer systems.</p>
           <p class="cs-body">Patients often receive lab results, reports, and summaries without clear explanation of how metrics relate to one another or what they mean in the context of their lives. The challenge is turning medical records into information people can actually use.</p>
         </div>
@@ -697,7 +750,7 @@
       <section class="cs-section cs-ruled" id="ideation">
         <span class="cs-kicker">Ideation</span>
         <h3 class="cs-h2">Validating early concepts</h3>
-        <div class="cs-copy-stack" style="max-width: 60ch;">
+        <div class="cs-copy-stack" style="max-width: 80ch;">
           <p class="cs-body">Following the interviews, we began exploring potential interface directions through rapid sketching and concept development. Multiple ideas were generated to test different ways health information could be organized, visualized, and navigated.</p>
           <p class="cs-body">These early explorations focused on how signals, timelines, and contextual explanations might appear within the interface. Iterating quickly on these concepts helped surface which approaches felt clearer and more intuitive for presenting complex health information.</p>
         </div>
@@ -707,7 +760,7 @@
       <section class="cs-section cs-ruled" id="industry-audit">
         <span class="cs-kicker">Industry Audit</span>
         <h3 class="cs-h2">Health data lives in separate tools</h3>
-        <div class="cs-copy-stack" style="max-width: 64ch;">
+        <div class="cs-copy-stack" style="max-width: 80ch;">
           <p class="cs-body">We found that most digital health tools are designed around a single type of information rather than a focus on comprehensive care. Genetic testing platforms focus on DNA insights, fitness apps track activity and biometrics, medical portals store clinical records, and telehealth services handle appointments and consultations.</p>
           <p class="cs-body">Each system works well within its own category, but they rarely communicate with one another. As a result, people must navigate multiple platforms to understand their health, manually piecing together information that could be far more meaningful if it were connected.</p>
         </div>
@@ -776,7 +829,7 @@
       <section class="cs-section cs-ruled" id="adaptive">
         <span class="cs-kicker">Discovery</span>
         <h3 class="cs-h2">Adaptive interface</h3>
-        <div class="cs-copy-stack" style="max-width: 60ch;">
+        <div class="cs-copy-stack" style="max-width: 80ch;">
           <p class="cs-body">Health information is not static, and the interface should not be either. As new data is added, the system adjusts what it surfaces and how information is organized. Instead of presenting the same dashboard at all times, the interface prioritizes what is most relevant in the moment, helping users focus on changes, emerging patterns, and questions worth exploring.</p>
           <p class="cs-body">This creates a more flexible environment where the experience evolves alongside a person's health journey.</p>
         </div>
@@ -912,6 +965,15 @@
     </div>
   </div>
 
+  <div class="cs-sidenav" role="navigation" aria-label="Page sections">
+    <span class="cs-sidenav-indicator" aria-hidden="true"></span>
+    <a href="#overview" class="cs-sidenav-link">Overview</a>
+    <a href="#problem" class="cs-sidenav-link">Problem</a>
+    <a href="#solution" class="cs-sidenav-link">Solution</a>
+    <a href="#user-research" class="cs-sidenav-link">Research</a>
+    <a href="#reflection" class="cs-sidenav-link">Reflection</a>
+  </div>
+
   <script>
     function bindIndicator(container, indicatorSelector, itemSelector) {
       if (!container) return;
@@ -932,6 +994,43 @@
       window.addEventListener("resize", () => {});
     }
     bindIndicator(document.querySelector("nav"), ".nav-indicator", "a");
+
+    // Side nav: ball indicator + scroll-based active tracking
+    const sideNav = document.querySelector('.cs-sidenav');
+    if (sideNav) {
+      const sideNavBall = sideNav.querySelector('.cs-sidenav-indicator');
+      const sideNavLinks = [...sideNav.querySelectorAll('.cs-sidenav-link')];
+      const sideNavSections = sideNavLinks.map(link => document.querySelector(link.getAttribute('href')));
+      let activeSideNavLink = null;
+      function placeSideNavBall(link, color = '#111111') {
+        if (!link || !sideNavBall) return;
+        const cBox = sideNav.getBoundingClientRect(), lBox = link.getBoundingClientRect();
+        sideNavBall.style.transform = `translate(${lBox.left - cBox.left + 4}px, ${lBox.top - cBox.top + lBox.height / 2}px) translateY(-50%)`;
+        sideNavBall.style.backgroundColor = color;
+      }
+      sideNavLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => placeSideNavBall(link, '#CFCFCF'));
+        link.addEventListener('focus', () => placeSideNavBall(link, '#CFCFCF'));
+      });
+      sideNav.addEventListener('mouseleave', () => { if (activeSideNavLink) placeSideNavBall(activeSideNavLink, '#111111'); });
+      function updateSideNav() {
+        let currentId = null;
+        sideNavSections.forEach(section => {
+          if (!section) return;
+          if (window.scrollY + 100 >= section.getBoundingClientRect().top + window.scrollY - 10) currentId = section.id;
+        });
+        const newActive = sideNavLinks.find(link => link.getAttribute('href') === '#' + currentId) || null;
+        if (newActive !== activeSideNavLink) {
+          activeSideNavLink = newActive;
+          sideNavLinks.forEach(link => link.classList.toggle('is-active', link === activeSideNavLink));
+          if (activeSideNavLink) placeSideNavBall(activeSideNavLink, '#111111');
+        }
+      }
+      window.addEventListener('scroll', updateSideNav, { passive: true });
+      window.addEventListener('resize', () => { if (activeSideNavLink) placeSideNavBall(activeSideNavLink); });
+      updateSideNav();
+      requestAnimationFrame(() => sideNavBall && sideNavBall.classList.add('is-ready'));
+    }
 
     const cursor = document.querySelector(".project-cursor");
     if (cursor) {

@@ -197,7 +197,7 @@
 
     .cs-band .cs-body {
       color: var(--ink);
-      max-width: 52ch;
+      max-width: 72ch;
     }
 
     /* ─── Video ──────────────────────────────────────────────── */
@@ -539,6 +539,60 @@
       .cs-band, .cs-impacts, .cs-pitch { padding: 64px 20px; }
     }
 
+    /* ─── Hide indicators until JS places them ──────────────── */
+    .nav-indicator,
+    .cs-sidenav-indicator { transform: translate(-200px, -200px); }
+
+    /* ─── Anchor scroll offset ───────────────────────────────── */
+    [id] { scroll-margin-top: calc(var(--nav-h) + 24px); }
+
+    /* ─── Bottom Navigation ──────────────────────────────────── */
+    .cs-sidenav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 90;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 0 80px;
+      height: var(--nav-h);
+      background-color: #ffffff;
+      box-shadow: 0 -8px 0 0 #ffffff;
+      transform: translateZ(0);
+    }
+    .cs-sidenav-indicator {
+      position: absolute;
+      top: 0; left: 0;
+      width: var(--dot-size);
+      height: var(--dot-size);
+      border-radius: 50%;
+      background: var(--ink);
+      pointer-events: none;
+      transition: none;
+    }
+    .cs-sidenav-indicator.is-ready {
+      transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms ease;
+    }
+    .cs-sidenav-link {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1;
+      text-decoration: none;
+      color: var(--muted);
+      transition: none;
+      white-space: nowrap;
+      padding: 4px 40px 4px 24px;
+    }
+    .cs-sidenav-link:hover,
+    .cs-sidenav-link.is-active { color: var(--ink); }
+    .cs-page { padding-bottom: 80px; }
+    @media (max-width: 768px) { .cs-sidenav { display: none; } }
+
+
   </style>
 </head>
 <body>
@@ -634,7 +688,7 @@
       <section class="cs-section" id="solution">
         <span class="cs-kicker">Solution</span>
         <h3 class="cs-h2">Placeholder — solution headline</h3>
-        <div class="cs-copy-stack" style="max-width: 60ch;">
+        <div class="cs-copy-stack" style="max-width: 80ch;">
           <p class="cs-body">Add solution copy here.</p>
         </div>
       </section>
@@ -798,6 +852,15 @@
     </div>
   </div>
 
+  <div class="cs-sidenav" role="navigation" aria-label="Page sections">
+    <span class="cs-sidenav-indicator" aria-hidden="true"></span>
+    <a href="#overview" class="cs-sidenav-link">Overview</a>
+    <a href="#problem" class="cs-sidenav-link">Problem</a>
+    <a href="#solution" class="cs-sidenav-link">Solution</a>
+    <a href="#iterations" class="cs-sidenav-link">Iteration</a>
+    <a href="#reflection" class="cs-sidenav-link">Reflection</a>
+  </div>
+
   <script>
     // Nav indicator
     function bindIndicator(container, indicatorSelector, itemSelector, activeSelector) {
@@ -823,6 +886,43 @@
       window.addEventListener("resize", () => { if (activeItem) placeIndicator(activeItem); });
     }
     bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", null);
+
+    // Side nav: ball indicator + scroll-based active tracking
+    const sideNav = document.querySelector('.cs-sidenav');
+    if (sideNav) {
+      const sideNavBall = sideNav.querySelector('.cs-sidenav-indicator');
+      const sideNavLinks = [...sideNav.querySelectorAll('.cs-sidenav-link')];
+      const sideNavSections = sideNavLinks.map(link => document.querySelector(link.getAttribute('href')));
+      let activeSideNavLink = null;
+      function placeSideNavBall(link, color = '#111111') {
+        if (!link || !sideNavBall) return;
+        const cBox = sideNav.getBoundingClientRect(), lBox = link.getBoundingClientRect();
+        sideNavBall.style.transform = `translate(${lBox.left - cBox.left + 4}px, ${lBox.top - cBox.top + lBox.height / 2}px) translateY(-50%)`;
+        sideNavBall.style.backgroundColor = color;
+      }
+      sideNavLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => placeSideNavBall(link, '#CFCFCF'));
+        link.addEventListener('focus', () => placeSideNavBall(link, '#CFCFCF'));
+      });
+      sideNav.addEventListener('mouseleave', () => { if (activeSideNavLink) placeSideNavBall(activeSideNavLink, '#111111'); });
+      function updateSideNav() {
+        let currentId = null;
+        sideNavSections.forEach(section => {
+          if (!section) return;
+          if (window.scrollY + 100 >= section.getBoundingClientRect().top + window.scrollY - 10) currentId = section.id;
+        });
+        const newActive = sideNavLinks.find(link => link.getAttribute('href') === '#' + currentId) || null;
+        if (newActive !== activeSideNavLink) {
+          activeSideNavLink = newActive;
+          sideNavLinks.forEach(link => link.classList.toggle('is-active', link === activeSideNavLink));
+          if (activeSideNavLink) placeSideNavBall(activeSideNavLink, '#111111');
+        }
+      }
+      window.addEventListener('scroll', updateSideNav, { passive: true });
+      window.addEventListener('resize', () => { if (activeSideNavLink) placeSideNavBall(activeSideNavLink); });
+      updateSideNav();
+      requestAnimationFrame(() => sideNavBall && sideNavBall.classList.add('is-ready'));
+    }
 
     // Custom cursor
     const cursor = document.querySelector(".project-cursor");
