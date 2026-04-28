@@ -319,9 +319,12 @@
 
     .cs-impacts {
       width: 100%;
+      margin: 0 auto;
       padding: calc(var(--cs-rhythm, 104px) * 1.5) 40px;
-      background: var(--bg);
+      background: #ffffff;
       color: var(--ink);
+      border: none;
+      box-shadow: none;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -748,36 +751,23 @@
       <!-- Key Features -->
       <section class="cs-section cs-ruled" id="features">
         <span class="cs-kicker">Key Features</span>
-        <h3 class="cs-h2">Three moments that change the habit</h3>
+        <span class="cs-kicker">100 Gemini queries ≈ ~24 Wh of electricity</span>
+        <h3 class="cs-h2" style="max-width: 20ch;">100 Gemini Queries consumes the same amount of energy as</h3>
         <ul class="cs-features-grid">
           <li>
-            <img src="9a.gif" alt="Find Related Chats feature animation" loading="lazy">
-            <h3 class="cs-h3">Find Related Chats</h3>
-            <ul class="cs-features-list">
-              <li>Encourages reviewing past chats before starting a new conversation</li>
-              <li>Surfaces a prompt — "If this feels familiar, you may already have something similar saved"</li>
-              <li>Reduces the reflex to start from scratch</li>
-            </ul>
+            <img src="9a.gif" alt="Driving 450 feet" loading="lazy">
+            <h3 style="font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; margin-top: 4px;">Driving 450 feet</h3>
           </li>
           <li>
-            <img src="9b.gif" alt="Surface Past Answers feature animation" loading="lazy">
-            <h3 class="cs-h3">Surface Past Answers</h3>
-            <ul class="cs-features-list">
-              <li>Shows a ranked list of relevant past conversations with dates</li>
-              <li>Checks whether similar questions were recently asked</li>
-              <li>Offers those conversations as a starting point before generating</li>
-            </ul>
+            <img src="9b.gif" alt="Toasting 2 slices of bread" loading="lazy">
+            <h3 style="font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; margin-top: 4px;">Toasting 2 slices of bread</h3>
           </li>
           <li>
-            <img src="9c.gif" alt="Continue Don't Repeat feature animation" loading="lazy">
-            <h3 class="cs-h3">Continue, Don't Repeat</h3>
-            <ul class="cs-features-list">
-              <li>Lets users continue work instead of starting over</li>
-              <li>Surfaces past answers so context is preserved</li>
-              <li>Reducing repeated AI generation improves efficiency and sustainability at scale</li>
-            </ul>
+            <img src="9c.gif" alt="Watching Netflix for 15 minutes" loading="lazy">
+            <h3 style="font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; margin-top: 4px;">Watching Netflix for 15 minutes</h3>
           </li>
         </ul>
+        <p style="margin-top: 40px; font-size: 13px; font-weight: 400; color: var(--muted); max-width: 80ch;">Source: Just Enough Thinking: Efficient Reasoning with Adaptive Length Penalties, Stanford University & SynthLabs, June 2025.</p>
       </section>
 
       <!-- Impacts -->
@@ -805,11 +795,36 @@
         <img src="7.png" alt="Energy usage data" style="width:100%;height:auto;display:block;" loading="lazy">
       </figure>
 
-      <!-- 10a.png, 10b.png: business context 2-col -->
-      <div class="cs-image-grid">
-        <figure><img src="10a.png" alt="Business context — existing Gemini flow" loading="lazy"></figure>
-        <figure><img src="10b.png" alt="Business context — intervention flow" loading="lazy"></figure>
-      </div>
+      <!-- Research Insights: 3-col icon section -->
+      <section class="cs-section cs-ruled">
+        <div style="text-align: center; margin-bottom: 72px;">
+          <p style="font-size: 18px; font-weight: 400; color: var(--ink); margin-bottom: 12px;">Sustainability and Business</p>
+          <h2 style="font-size: clamp(56px, 8vw, 96px); font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: var(--ink);">Research Insights</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px;">
+          <div>
+            <div style="width: 48px; height: 48px; border: 1.5px solid var(--ink); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+              <i class="ph ph-chart-pie" style="font-size: 22px;"></i>
+            </div>
+            <h4 style="font-size: 16px; font-weight: 700; line-height: 1.3; margin-bottom: 12px;">Business Needs</h4>
+            <p style="font-size: 16px; font-weight: 400; line-height: 1.6; color: var(--ink);">A large portion of Gemini usage comes from repeated, everyday tasks.</p>
+          </div>
+          <div>
+            <div style="width: 48px; height: 48px; border: 1.5px solid var(--ink); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+              <i class="ph ph-globe" style="font-size: 22px;"></i>
+            </div>
+            <h4 style="font-size: 16px; font-weight: 700; line-height: 1.3; margin-bottom: 12px;">Sustainability Pressure</h4>
+            <p style="font-size: 16px; font-weight: 400; line-height: 1.6; color: var(--ink);">Redundant prompts asking the same or similar questions multiple times consume unnecessary compute and energy.</p>
+          </div>
+          <div>
+            <div style="width: 48px; height: 48px; border: 1.5px solid var(--ink); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+              <i class="ph ph-arrow-up-right" style="font-size: 22px;"></i>
+            </div>
+            <h4 style="font-size: 16px; font-weight: 700; line-height: 1.3; margin-bottom: 12px;">Design Opportunity</h4>
+            <p style="font-size: 16px; font-weight: 400; line-height: 1.6; color: var(--ink);">Repeated tasks are an opportunity for smarter reuse.</p>
+          </div>
+        </div>
+      </section>
 
       <!-- Iterations -->
       <section class="cs-section cs-ruled" id="iterations">
