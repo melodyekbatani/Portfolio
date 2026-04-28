@@ -925,7 +925,7 @@
       navigator.clipboard.writeText(md).then(() => {
         showToast(`Copied ${annotations.length} annotation${annotations.length !== 1 ? 's' : ''}`);
       }).catch(() => {
-        showToast('Copy failed — check permissions');
+        showToast('Copy failed  check permissions');
       });
     } else if (action === 'clear') {
       for (const a of annotations) {
@@ -1020,7 +1020,7 @@
       mark.appendChild(fragment);
       range.insertNode(mark);
       marks.push(mark);
-    } catch (_) { /* complex selections — skip highlighting */ }
+    } catch (_) { /* complex selections  skip highlighting */ }
 
     const ann = {
       index: annotations.length + 1,
@@ -1066,5 +1066,5 @@
   loadAnnotations();
   if (annotations.length) renderMarkers();
 
-  console.log('%c[agentation-vanilla]%c loaded — press I to inspect, A to annotate', 'color:#60a5fa;font-weight:bold', 'color:inherit');
+  console.log('%c[agentation-vanilla]%c loaded  press I to inspect, A to annotate', 'color:#60a5fa;font-weight:bold', 'color:inherit');
 })();

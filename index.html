@@ -370,7 +370,7 @@
 
     document.documentElement.classList.remove("work-open-preload");
 
-    // Single global position tracker — cursor is always at real mouse coords
+    // Single global position tracker  cursor is always at real mouse coords
     if (projectCursor) {
       document.addEventListener("mousemove", (e) => {
         projectCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
