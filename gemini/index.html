@@ -26,6 +26,7 @@
     /* Hero matches Work panel + Aeri: work-intro + project-featured-image */
     .cs-hero-work-featured.project-featured {
       cursor: default;
+      padding: 0 40px 24px;
     }
 
     .cs-hero-work-featured .project-featured-image {
@@ -311,6 +312,51 @@
       list-style: none;
       padding: 0;
       margin-top: 48px;
+    }
+
+    .cs-energy-lede {
+      margin-bottom: 18px;
+    }
+
+    .cs-energy-title {
+      font-size: clamp(40px, 5vw, 56px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 0.98;
+      margin-bottom: 48px;
+      text-wrap: balance;
+    }
+
+    .cs-energy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 36px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .cs-energy-card img {
+      width: 100%;
+      aspect-ratio: 1.45 / 1;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .cs-energy-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .cs-source-note {
+      margin-top: 40px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      max-width: 80ch;
     }
 
     .cs-features-grid > li video {
@@ -768,15 +814,14 @@
 
       .cs-subheading { font-size: 14px; }
       .cs-hero-work-featured.project-featured {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding: 0 20px 16px;
       }
       .cs-section, .cs-band, .cs-video-wrap, .cs-image-grid, .cs-embed { padding-left: 20px; padding-right: 20px; }
       .cs-overview { grid-template-columns: 1fr; padding-left: 20px; padding-right: 20px; }
       .cs-section-grid { grid-template-columns: 1fr; gap: 32px; }
       .cs-image-grid { grid-template-columns: 1fr; }
       .cs-image-grid.cs-image-grid--3col { grid-template-columns: 1fr; }
-      .cs-features-grid, .cs-iterations-grid, .cs-takeaways { grid-template-columns: 1fr; gap: 24px; }
+      .cs-features-grid, .cs-energy-grid, .cs-iterations-grid, .cs-takeaways { grid-template-columns: 1fr; gap: 24px; }
       .cs-iteration-split-inner { grid-template-columns: 1fr; gap: 20px; }
       .cs-solution-image-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
       .cs-competitor-row { grid-template-columns: repeat(3, 1fr); }
@@ -887,9 +932,7 @@
 
         <div class="project-featured cs-hero-work-featured">
           <div class="project-featured-image">
-            <video autoplay muted loop playsinline>
-              <source src="../Home Page/Google Gemini.mp4" type="video/mp4">
-            </video>
+            <img src="New Hero .png" alt="Adaptive Research hero" fetchpriority="high">
           </div>
         </div>
       </div>
@@ -975,24 +1018,23 @@
 
       <!-- Key Features -->
       <section class="cs-section cs-ruled" id="features">
-        <span class="cs-kicker">Key Features</span>
-        <span class="cs-kicker">100 Gemini queries ≈ ~24 Wh of electricity</span>
-        <h3 class="cs-h2" style="max-width: 20ch;">100 Gemini Queries consumes the same amount of energy as</h3>
-        <ul class="cs-features-grid">
-          <li>
+        <span class="cs-kicker cs-energy-lede">100 GEMINI QUERIES ≈ ~24 WH OF ELECTRICITY</span>
+        <h3 class="cs-energy-title">Energy equivalence</h3>
+        <ul class="cs-energy-grid">
+          <li class="cs-energy-card">
             <img src="9a.gif" alt="Driving 450 feet" loading="lazy">
-            <h3 style="font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; margin-top: 4px;">Driving 450 feet</h3>
+            <h3 class="cs-energy-card-title">Driving 450 feet</h3>
           </li>
-          <li>
+          <li class="cs-energy-card">
             <img src="9b.gif" alt="Toasting 2 slices of bread" loading="lazy">
-            <h3 style="font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; margin-top: 4px;">Toasting 2 slices of bread</h3>
+            <h3 class="cs-energy-card-title">Toasting 2 slices of bread</h3>
           </li>
-          <li>
+          <li class="cs-energy-card">
             <img src="9c.gif" alt="Watching Netflix for 15 minutes" loading="lazy">
-            <h3 style="font-size: 18px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; margin-top: 4px;">Watching Netflix for 15 minutes</h3>
+            <h3 class="cs-energy-card-title">Watching Netflix for 15 minutes</h3>
           </li>
         </ul>
-        <p style="margin-top: 40px; font-size: 13px; font-weight: 400; color: var(--muted); max-width: 80ch;">Source: Just Enough Thinking: Efficient Reasoning with Adaptive Length Penalties, Stanford University & SynthLabs, June 2025.</p>
+        <p class="cs-source-note">Source: Just Enough Thinking: Efficient Reasoning with Adaptive Length Penalties, Stanford University & SynthLabs, June 2025.</p>
       </section>
 
       <!-- Impacts -->
