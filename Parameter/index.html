@@ -113,6 +113,7 @@
       line-height: 1.5;
       color: var(--ink);
       text-wrap: pretty;
+      max-width: 72ch;
     }
 
     .cs-body + .cs-body {
@@ -258,8 +259,8 @@
 
     .cs-image-grid img {
       width: 100%;
-      height: 320px;
-      object-fit: cover;
+      height: auto;
+      object-fit: contain;
       display: block;
     }
 
@@ -312,10 +313,10 @@
     }
 
     .cs-impacts-heading {
-      font-size: clamp(64px, 10vw, 140px);
-      font-weight: 700;
+      font-size: clamp(56px, 8vw, 120px);
+      font-weight: 500;
       letter-spacing: -0.03em;
-      line-height: 0.95;
+      line-height: 1;
       color: var(--ink);
       width: 100%;
       max-width: 22ch;
@@ -366,10 +367,10 @@
     }
 
     .cs-pitch-heading {
-      font-size: clamp(64px, 10vw, 140px);
-      font-weight: 700;
+      font-size: clamp(56px, 8vw, 120px);
+      font-weight: 500;
       letter-spacing: -0.03em;
-      line-height: 0.95;
+      line-height: 1;
       color: var(--ink);
       width: 100%;
       max-width: 20ch;
@@ -541,6 +542,22 @@
       text-transform: uppercase;
     }
 
+    /* ─── You might also like ────────────────────────────── */
+
+    .cs-also { padding: 0 40px; }
+    .cs-also-header { display: flex; align-items: center; gap: 20px; margin-bottom: 0; }
+    .cs-also-label { font-size: 40px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; color: var(--ink); white-space: nowrap; }
+    .cs-also-rule { flex: 1; height: 1px; background: var(--ink); opacity: 0.12; }
+    .cs-also-list { list-style: none; padding: 0; margin: 0; }
+    .cs-also-item { display: grid; grid-template-columns: 260px 1fr auto; align-items: center; gap: 40px; text-decoration: none; color: var(--ink); border-top: 1px solid rgba(0,0,0,0.08); transition: opacity 0.2s ease; }
+    .cs-also-item:hover { opacity: 0.7; }
+    .cs-also-thumb { height: 120px; overflow: hidden; }
+    .cs-also-thumb img, .cs-also-thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-also-info { display: flex; flex-direction: column; gap: 6px; }
+    .cs-also-category { font-size: 14px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+    .cs-also-title { font-size: clamp(28px, 3vw, 40px); font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
+    .cs-also-arrow { font-size: 22px; color: var(--muted); }
+
     /* ─── Dividers ───────────────────────────────────────────── */
 
     .cs-ruled {
@@ -585,9 +602,9 @@
       justify-content: center;
       gap: 0;
       padding: 0 80px;
-      height: 48px;
+      height: 28px;
       background-color: #ffffff;
-      box-shadow: 0 -8px 0 0 #ffffff;
+      box-shadow: 0 -4px 0 0 #ffffff;
       transform: translateZ(0);
     }
 
@@ -790,7 +807,7 @@
       <section class="cs-section" id="solution">
         <span class="cs-kicker">Solution</span>
         <h3 class="cs-h2">Turning health data into clear signals</h3>
-        <div class="cs-copy-stack" style="max-width: 80ch;">
+        <div class="cs-copy-stack">
           <p class="cs-body">Parameter organizes health information around signals, trends, and insights instead of dense dashboards. Data from wearables, lab reports, and medical history is consolidated into one interface and revealed progressively as users explore.</p>
           <p class="cs-body">AI summaries highlight patterns and relationships between metrics so users can quickly understand what matters and take action on their health.</p>
         </div>
@@ -812,7 +829,7 @@
       <section class="cs-section cs-ruled" id="approach-1">
         <span class="cs-kicker">Approach</span>
         <h3 class="cs-h2">Navigating complex systems</h3>
-        <div class="cs-copy-stack" style="max-width: 80ch;">
+        <div class="cs-copy-stack">
           <p class="cs-body">The project began by examining how people currently encounter their health information across clinical portals, lab reports, and consumer apps.</p>
         </div>
       </section>
@@ -827,7 +844,7 @@
       <section class="cs-section cs-ruled" id="approach-2">
         <span class="cs-kicker">Approach</span>
         <h3 class="cs-h2">Fragmented clinical workflows</h3>
-        <div class="cs-copy-stack" style="max-width: 80ch;">
+        <div class="cs-copy-stack">
           <p class="cs-body">Clinical environments rely on legacy machines, fixed terminals, paper documents, and isolated databases. As a result, information moves through manual transfers and disconnected systems, requiring both patients and providers to piece together records across multiple tools.</p>
         </div>
       </section>
@@ -842,7 +859,7 @@
       <section class="cs-section cs-ruled" id="user-research">
         <span class="cs-kicker">User Research</span>
         <h3 class="cs-h2">Studying how people currently manage health data</h3>
-        <div class="cs-copy-stack" style="max-width: 80ch;">
+        <div class="cs-copy-stack">
           <p class="cs-body">To understand the current landscape, we looked at how health information is collected, stored, and experienced across clinical and consumer systems.</p>
           <p class="cs-body">Patients often receive lab results, reports, and summaries without clear explanation of how metrics relate to one another or what they mean in the context of their lives. The challenge is turning medical records into information people can actually use.</p>
         </div>
@@ -864,7 +881,7 @@
       <section class="cs-section cs-ruled" id="ideation">
         <span class="cs-kicker">Ideation</span>
         <h3 class="cs-h2">Validating early concepts</h3>
-        <div class="cs-copy-stack" style="max-width: 80ch;">
+        <div class="cs-copy-stack">
           <p class="cs-body">Following the interviews, we began exploring potential interface directions through rapid sketching and concept development. Multiple ideas were generated to test different ways health information could be organized, visualized, and navigated.</p>
           <p class="cs-body">These early explorations focused on how signals, timelines, and contextual explanations might appear within the interface. Iterating quickly on these concepts helped surface which approaches felt clearer and more intuitive for presenting complex health information.</p>
         </div>
@@ -874,7 +891,7 @@
       <section class="cs-section cs-ruled" id="industry-audit">
         <span class="cs-kicker">Industry Audit</span>
         <h3 class="cs-h2">Health data lives in separate tools</h3>
-        <div class="cs-copy-stack" style="max-width: 80ch;">
+        <div class="cs-copy-stack">
           <p class="cs-body">We found that most digital health tools are designed around a single type of information rather than a focus on comprehensive care. Genetic testing platforms focus on DNA insights, fitness apps track activity and biometrics, medical portals store clinical records, and telehealth services handle appointments and consultations.</p>
           <p class="cs-body">Each system works well within its own category, but they rarely communicate with one another. As a result, people must navigate multiple platforms to understand their health, manually piecing together information that could be far more meaningful if it were connected.</p>
         </div>
@@ -943,7 +960,7 @@
       <section class="cs-section cs-ruled" id="adaptive">
         <span class="cs-kicker">Discovery</span>
         <h3 class="cs-h2">Adaptive interface</h3>
-        <div class="cs-copy-stack" style="max-width: 80ch;">
+        <div class="cs-copy-stack">
           <p class="cs-body">Health information is not static, and the interface should not be either. As new data is added, the system adjusts what it surfaces and how information is organized. Instead of presenting the same dashboard at all times, the interface prioritizes what is most relevant in the moment, helping users focus on changes, emerging patterns, and questions worth exploring.</p>
           <p class="cs-body">This creates a more flexible environment where the experience evolves alongside a person's health journey.</p>
         </div>
@@ -1034,18 +1051,53 @@
               <li>Explore additional ways the interface could surface early patterns or changes that may prompt preventative care discussions with providers.</li>
             </ul>
           </div>
-          <a class="cs-next-project" href="/Loam/index.html" data-project-hover="View Loam">
-            <div class="cs-next-project-media">
-              <video src="../Home Page/loam.mp4" playsinline muted autoplay loop preload="metadata"></video>
-            </div>
-            <div class="cs-next-project-copy">
-              <span class="cs-next-project-label">Next Project</span>
-              <h4 class="cs-next-project-title">Loam</h4>
-              <p class="cs-body">Bringing sustainable and local vendors into one platform and helping users discover and shop responsible products.</p>
-              <span class="cs-next-project-link">View project <i class="ph ph-arrow-up-right"></i></span>
-            </div>
-          </a>
         </div>
+      </section>
+
+      <!-- You might also like -->
+      <section class="cs-also">
+        <div class="cs-also-header">
+          <span class="cs-also-label">You might also like</span>
+          <div class="cs-also-rule"></div>
+        </div>
+        <ul class="cs-also-list">
+          <li>
+            <a href="/aeri/index.html" class="cs-also-item">
+              <div class="cs-also-thumb">
+                <img src="../Home Page/Aeri.png" alt="Aeri">
+              </div>
+              <div class="cs-also-info">
+                <span class="cs-also-category">UX · Health AI</span>
+                <h4 class="cs-also-title">Aeri</h4>
+              </div>
+              <i class="ph ph-arrow-up-right cs-also-arrow"></i>
+            </a>
+          </li>
+          <li>
+            <a href="/gemini/index.html" class="cs-also-item">
+              <div class="cs-also-thumb">
+                <video src="../Home Page/Google Gemini.mp4" playsinline muted autoplay loop preload="metadata"></video>
+              </div>
+              <div class="cs-also-info">
+                <span class="cs-also-category">UX · AI</span>
+                <h4 class="cs-also-title">Adaptive Research</h4>
+              </div>
+              <i class="ph ph-arrow-up-right cs-also-arrow"></i>
+            </a>
+          </li>
+          <li>
+            <a href="/Loam/index.html" class="cs-also-item">
+              <div class="cs-also-thumb">
+                <video src="../Home Page/loam.mp4" playsinline muted autoplay loop preload="metadata"></video>
+              </div>
+              <div class="cs-also-info">
+                <span class="cs-also-category">Product Design</span>
+                <h4 class="cs-also-title">Loam</h4>
+              </div>
+              <i class="ph ph-arrow-up-right cs-also-arrow"></i>
+            </a>
+          </li>
+        </ul>
       </section>
 
       <!-- Footer -->
