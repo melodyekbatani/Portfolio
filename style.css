@@ -551,6 +551,7 @@ body.work-open .work-panel {
   height: auto;
   object-fit: contain;
   background: transparent;
+  pointer-events: none;
 }
 
 /* ─── Mini Project Grid ──────────────────────────────────── */
