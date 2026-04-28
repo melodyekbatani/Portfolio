@@ -11,6 +11,10 @@
 
     /* ─── Page shell ─────────────────────────────────────────── */
 
+    :root {
+      --cs-rhythm: 104px;
+    }
+
     body {
       background: var(--bg);
     }
@@ -46,10 +50,14 @@
     .cs-page {
       max-width: 1512px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--cs-rhythm);
+      padding-top: var(--cs-rhythm);
     }
 
     .cs-section {
-      padding: 80px 40px;
+      padding: 0 40px;
     }
 
     .cs-section-grid {
@@ -79,6 +87,7 @@
       letter-spacing: -0.03em;
       line-height: 1;
       margin-bottom: 32px;
+      text-wrap: balance;
     }
 
     .cs-subheading {
@@ -106,6 +115,7 @@
       font-weight: 500;
       line-height: 1.5;
       color: var(--ink);
+      text-wrap: pretty;
     }
 
     .cs-body + .cs-body {
@@ -124,7 +134,7 @@
       display: grid;
       grid-template-columns: 3fr 4fr;
       gap: 56px;
-      padding: 80px 40px;
+      padding: 0 40px;
     }
 
     .cs-meta-grid {
@@ -180,7 +190,7 @@
     /* ─── Problem band ───────────────────────────────────────── */
 
     .cs-band {
-      padding: 80px 40px;
+      padding: 0 40px;
       background: var(--bg);
       color: var(--ink);
     }
@@ -203,7 +213,8 @@
     /* ─── Video ──────────────────────────────────────────────── */
 
     .cs-video-wrap {
-      padding: 0 40px 80px;
+      padding: 0 40px;
+      margin: 0;
     }
 
     .cs-video-wrap video {
@@ -228,7 +239,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      padding: 40px;
+      padding: 0 40px;
     }
 
     .cs-image-grid figure {
@@ -446,9 +457,12 @@
 
     .cs-pitch {
       width: 100%;
+      margin: 0 auto;
       padding: calc(var(--cs-rhythm, 104px) * 1.5) 40px;
-      background: var(--bg);
+      background: #ffffff;
       color: var(--ink);
+      border: none;
+      box-shadow: none;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -475,7 +489,7 @@
     /* ─── YouTube embed ──────────────────────────────────────── */
 
     .cs-embed {
-      padding: 0 40px 80px;
+      padding: 0 40px;
     }
 
     .cs-embed iframe {
@@ -502,10 +516,11 @@
     }
 
     .cs-takeaway p {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.7;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.5;
       color: var(--ink);
+      text-wrap: pretty;
     }
 
     /* ─── Next steps ─────────────────────────────────────────── */
@@ -533,8 +548,9 @@
       position: absolute;
       left: 0;
       color: var(--ink);
-      font-size: 10px;
-      top: 8px;
+      font-size: 12px;
+      top: 0.42em;
+      line-height: 1;
     }
 
     /* ─── Next project card ──────────────────────────────────── */
@@ -563,8 +579,8 @@
       }
 
       .cs-subheading { font-size: 14px; }
-      .cs-section, .cs-video-wrap, .cs-image-grid, .cs-embed { padding-left: 20px; padding-right: 20px; }
-      .cs-overview { grid-template-columns: 1fr; padding: 48px 20px; }
+      .cs-section, .cs-band, .cs-video-wrap, .cs-image-grid, .cs-embed { padding-left: 20px; padding-right: 20px; }
+      .cs-overview { grid-template-columns: 1fr; padding-left: 20px; padding-right: 20px; }
       .cs-section-grid { grid-template-columns: 1fr; gap: 32px; }
       .cs-image-grid { grid-template-columns: 1fr; }
       .cs-image-grid.cs-image-grid--3col { grid-template-columns: 1fr; }
@@ -626,6 +642,16 @@
     .cs-page { padding-bottom: 80px; }
     @media (max-width: 768px) { .cs-sidenav { display: none; } }
 
+    /* ─── Layout (passthrough — sidenav is now fixed bottom) ─── */
+
+    .cs-layout {
+      display: block;
+    }
+
+    .cs-layout > .cs-page {
+      max-width: 1512px;
+      margin: 0 auto;
+    }
 
   </style>
 </head>
@@ -669,7 +695,18 @@
         </div>
       </div>
 
-    <div class="cs-page">
+    <div class="cs-layout">
+
+      <div class="cs-sidenav" role="navigation" aria-label="Page sections">
+        <span class="cs-sidenav-indicator" aria-hidden="true"></span>
+        <a href="#overview" class="cs-sidenav-link">Overview</a>
+        <a href="#problem" class="cs-sidenav-link">Problem</a>
+        <a href="#solution" class="cs-sidenav-link">Solution</a>
+        <a href="#iterations" class="cs-sidenav-link">Iteration</a>
+        <a href="#reflection" class="cs-sidenav-link">Reflection</a>
+      </div>
+
+      <div class="cs-page">
 
       <!-- Overview -->
       <section class="cs-overview" id="overview">
@@ -894,7 +931,7 @@
       <!-- Next Steps -->
       <section class="cs-section cs-ruled" id="next-steps">
         <div class="cs-next-steps-layout">
-          <div>
+          <div class="cs-next-steps-main">
             <span class="cs-kicker">Future Development</span>
             <h3 class="cs-h2">Next Steps</h3>
             <ul class="cs-next-list">
@@ -945,17 +982,9 @@
         <div class="page-footer-meta"></div>
       </footer>
 
-    </div>
-  </div>
-
-  <div class="cs-sidenav" role="navigation" aria-label="Page sections">
-    <span class="cs-sidenav-indicator" aria-hidden="true"></span>
-    <a href="#overview" class="cs-sidenav-link">Overview</a>
-    <a href="#problem" class="cs-sidenav-link">Problem</a>
-    <a href="#solution" class="cs-sidenav-link">Solution</a>
-    <a href="#iterations" class="cs-sidenav-link">Iteration</a>
-    <a href="#reflection" class="cs-sidenav-link">Reflection</a>
-  </div>
+    </div><!-- end cs-page -->
+    </div><!-- end cs-layout -->
+  </div><!-- end cs-panel -->
 
   <script>
     // Nav indicator
