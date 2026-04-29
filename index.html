@@ -314,6 +314,7 @@
     function closeWorkPanel() {
       body.classList.remove("work-open");
       workPanel?.setAttribute("aria-hidden", "true");
+      window.scrollTo({ top: 0 });
       setActiveNav(homeLink);
     }
 
