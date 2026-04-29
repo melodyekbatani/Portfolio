@@ -4,37 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Melody Ekbatani</title>
-  <script>
-    try {
-      if (window.localStorage.getItem("portfolio-active-panel") === "work") {
-        document.documentElement.classList.add("work-open-preload");
-      }
-    } catch (error) {}
-  </script>
-  <style>
-    html.work-open-preload body {
-      overflow: hidden;
-    }
-
-    html.work-open-preload .hero {
-      visibility: hidden;
-    }
-
-    html.work-open-preload .work-panel {
-      position: fixed;
-      top: calc(72px * -1);
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #ffffff;
-      transform: translate3d(0, 0, 0) !important;
-      transition: none !important;
-      pointer-events: auto !important;
-      overflow-y: auto;
-      padding-top: calc(72px * 2);
-      z-index: 8;
-    }
-  </style>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css?v=12">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
@@ -322,7 +291,6 @@
     const openWorkTriggers = document.querySelectorAll("[data-open-work]");
     const homeLink = document.querySelector('[data-nav="home"]');
     const workLink = document.querySelector('[data-nav="work"]');
-    const workStateKey = "portfolio-active-panel";
     const projectCursor = document.querySelector(".project-cursor");
     const projectCursorLabel = projectCursor?.querySelector(".project-cursor-label");
     const hoverProjects = document.querySelectorAll("[data-project-hover]");
@@ -339,14 +307,13 @@
     function openWorkPanel() {
       body.classList.add("work-open");
       workPanel?.setAttribute("aria-hidden", "false");
-      window.localStorage.setItem(workStateKey, "work");
+      workPanel?.scrollTo({ top: 0 });
       setActiveNav(workLink);
     }
 
     function closeWorkPanel() {
       body.classList.remove("work-open");
       workPanel?.setAttribute("aria-hidden", "true");
-      window.localStorage.setItem(workStateKey, "home");
       setActiveNav(homeLink);
     }
 
@@ -362,13 +329,9 @@
       closeWorkPanel();
     });
 
-    if (window.localStorage.getItem(workStateKey) === "work") {
-      openWorkPanel();
-    } else {
-      closeWorkPanel();
-    }
+    // Always start on home when visiting the URL
+    closeWorkPanel();
 
-    document.documentElement.classList.remove("work-open-preload");
 
     // Single global position tracker  cursor is always at real mouse coords
     if (projectCursor) {
