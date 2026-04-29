@@ -319,10 +319,10 @@
     }
 
     .cs-energy-title {
-      font-size: clamp(40px, 5vw, 56px);
+      font-size: 40px;
       font-weight: 500;
       letter-spacing: -0.03em;
-      line-height: 0.98;
+      line-height: 1;
       margin-bottom: 48px;
       text-wrap: balance;
     }
@@ -421,40 +421,74 @@
     .cs-impacts {
       width: 100%;
       margin: 0 auto;
-      padding: calc(var(--cs-rhythm) * 2.6) 40px;
+      padding: 0 40px;
       background: var(--bg);
       color: var(--ink);
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
     }
 
-    .cs-impacts .cs-kicker {
-      color: rgba(17, 17, 17, 0.48);
-      display: block;
-      margin-bottom: 32px;
+    .cs-impacts-top {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 20px;
+      align-items: stretch;
+      margin-bottom: 20px;
     }
 
-    .cs-impacts-heading {
-      font-size: clamp(56px, 8vw, 120px);
+    .cs-impacts-intro {
+      max-width: 40ch;
+      min-width: 0;
+    }
+
+    .cs-impacts-intro .cs-kicker {
+      margin-bottom: 12px;
+    }
+
+    .cs-impacts-title {
+      font-size: 40px;
       font-weight: 500;
       letter-spacing: -0.03em;
       line-height: 1;
-      color: var(--ink);
-      width: 100%;
-      max-width: 18ch;
-      text-wrap: balance;
+      margin-bottom: 10px;
+      text-wrap: nowrap;
+      max-width: none;
     }
 
-    .cs-impacts-sub {
-      font-size: 14px;
+    .cs-impacts-copy {
+      font-size: 18px;
       font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(17, 17, 17, 0.44);
-      margin-top: 32px;
+      line-height: 1.35;
+      max-width: none;
+      text-wrap: nowrap;
+    }
+
+    .cs-stat-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr;
+      gap: 20px;
+    }
+
+    .cs-stat-card {
+      min-height: 288px;
+      overflow: hidden;
+    }
+
+    .cs-stat-card--hero {
+      min-height: 292px;
+    }
+
+    .cs-stat-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    .cs-stat-card--hero img {
+      width: 126%;
+      max-width: none;
+      padding-left: 0;
+      object-position: left center;
     }
 
     /* ─── Scale-in scroll animation ──────────────────────────── */
@@ -829,7 +863,27 @@
         width: calc(100% - 40px);
         margin-left: auto;
         margin-right: auto;
-        padding: calc(var(--cs-rhythm) * 1.5) 24px;
+      }
+      .cs-impacts { padding: 0 20px; }
+      .cs-impacts-top,
+      .cs-stat-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .cs-stat-card,
+      .cs-stat-card--hero {
+        min-height: 220px;
+      }
+      .cs-energy-title,
+      .cs-impacts-title {
+        font-size: 40px;
+      }
+      .cs-impacts-title {
+        text-wrap: balance;
+      }
+      .cs-impacts-copy {
+        max-width: 22ch;
+        text-wrap: balance;
       }
     }
 
@@ -1011,38 +1065,13 @@
             <p class="cs-body">A standard Gemini query costs 0.24 Wh. Indexed keyword matching over existing chats costs 0.001–0.01 kWh, orders of magnitude less. By routing familiar queries to retrieval first, the intervention reduces redundant generation and surfaces answers the user already has.</p>
           </div>
         </div>
-        <div class="cs-solution-image-row">
-          <img src="12.png" alt="Gemini ecosystem overview" loading="lazy">
-        </div>
       </section>
 
-      <!-- Key Features -->
-      <section class="cs-section cs-ruled" id="features">
-        <span class="cs-kicker cs-energy-lede">100 GEMINI QUERIES ≈ ~24 WH OF ELECTRICITY</span>
-        <h3 class="cs-energy-title">Energy equivalence</h3>
-        <ul class="cs-energy-grid">
-          <li class="cs-energy-card">
-            <img src="9a.gif" alt="Driving 450 feet" loading="lazy">
-            <h3 class="cs-energy-card-title">Driving 450 feet</h3>
-          </li>
-          <li class="cs-energy-card">
-            <img src="9b.gif" alt="Toasting 2 slices of bread" loading="lazy">
-            <h3 class="cs-energy-card-title">Toasting 2 slices of bread</h3>
-          </li>
-          <li class="cs-energy-card">
-            <img src="9c.gif" alt="Watching Netflix for 15 minutes" loading="lazy">
-            <h3 class="cs-energy-card-title">Watching Netflix for 15 minutes</h3>
-          </li>
-        </ul>
-        <p class="cs-source-note">Source: Just Enough Thinking: Efficient Reasoning with Adaptive Length Penalties, Stanford University & SynthLabs, June 2025.</p>
-      </section>
-
-      <!-- Impacts -->
-      <section class="cs-impacts" id="impacts">
-        <span class="cs-kicker">Impacts</span>
-        <h2 class="cs-impacts-heading cs-scale-in">2B+ Gemini queries processed daily</h2>
-        <p class="cs-impacts-sub">Based on Google's 2025 Environmental Report</p>
-      </section>
+      <!-- Final Edit video -->
+      <figure class="cs-video-wrap">
+        <video src="15.mp4" playsinline muted autoplay loop preload="metadata"></video>
+        <figcaption>Search-first retrieval surfaces past answers before generating new responses.</figcaption>
+      </figure>
 
       <!-- Context -->
       <section class="cs-section cs-ruled" id="context">
@@ -1057,10 +1086,64 @@
         </div>
       </section>
 
-      <!-- 7.png: standalone full-width -->
+      <!-- 12.png: standalone full-width -->
       <figure style="padding: 0 40px;">
-        <img src="7.png" alt="Energy usage data" style="width:100%;height:auto;display:block;" loading="lazy">
+        <img src="12.png" alt="Gemini ecosystem overview" style="width:100%;height:auto;display:block;" loading="lazy">
       </figure>
+
+      <!-- Energy equivalence -->
+      <section class="cs-section cs-ruled" id="features">
+        <span class="cs-kicker cs-energy-lede">100 GEMINI QUERIES ≈ ~24 WH OF ELECTRICITY</span>
+        <h3 class="cs-energy-title">Energy equivalence</h3>
+        <div class="cs-copy-stack compact" style="max-width: 58ch;">
+          <p class="cs-body">A large portion of Gemini usage comes from repeated, everyday tasks. Redundant prompts asking the same or similar questions multiple times consume unnecessary compute and energy.</p>
+          <p class="cs-body">Repeated tasks are an opportunity for smarter reuse, and a well-placed design intervention can shift that behavior at scale.</p>
+        </div>
+        <p class="cs-source-note">Source: Just Enough Thinking: Efficient Reasoning with Adaptive Length Penalties, Stanford University &amp; SynthLabs, June 2025.</p>
+      </section>
+
+      <!-- Energy comparison gifs -->
+      <section class="cs-section">
+        <ul class="cs-energy-grid">
+          <li class="cs-energy-card">
+            <img src="9a.gif" alt="Driving 450 feet" loading="lazy">
+            <h3 class="cs-energy-card-title">Driving 450 feet</h3>
+          </li>
+          <li class="cs-energy-card">
+            <img src="9b.gif" alt="Toasting 2 slices of bread" loading="lazy">
+            <h3 class="cs-energy-card-title">Toasting 2 slices of bread</h3>
+          </li>
+          <li class="cs-energy-card">
+            <img src="9c.gif" alt="Watching Netflix for 15 minutes" loading="lazy">
+            <h3 class="cs-energy-card-title">Watching Netflix for 15 minutes</h3>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Impacts -->
+      <section class="cs-impacts" id="impacts">
+        <div class="cs-impacts-top">
+          <div class="cs-impacts-intro">
+            <span class="cs-kicker">Context</span>
+            <h2 class="cs-impacts-title">Energy Stats</h2>
+            <p class="cs-impacts-copy">Based on Google’s 2025 environmental report.</p>
+          </div>
+          <div class="cs-stat-card cs-stat-card--hero">
+            <img src="Stats 1.png" alt="Gemini energy stat: approximate energy consumed per query" loading="lazy">
+          </div>
+        </div>
+        <div class="cs-stat-grid">
+          <div class="cs-stat-card">
+            <img src="Stats 2.png" alt="Gemini energy stat: estimated energy for indexed keyword matching over existing chats" loading="lazy">
+          </div>
+          <div class="cs-stat-card">
+            <img src="Stats 3.png" alt="Gemini energy stat: energy of a search" loading="lazy">
+          </div>
+          <div class="cs-stat-card">
+            <img src="Stats 4.png" alt="Gemini energy stat: Gemini queries daily" loading="lazy">
+          </div>
+        </div>
+      </section>
 
       <!-- Research Insights: 3-col icon section -->
       <section class="cs-section cs-ruled">
@@ -1140,12 +1223,6 @@
         <span class="cs-kicker">The Work</span>
         <h2 class="cs-pitch-heading cs-scale-in">Reducing AI generation through smarter rediscovery</h2>
       </section>
-
-      <!-- Video 3: 15.mp4 -->
-      <figure class="cs-video-wrap">
-        <video src="15.mp4" playsinline muted autoplay loop preload="metadata"></video>
-        <figcaption>Search-first retrieval surfaces past answers before generating new responses.</figcaption>
-      </figure>
 
       <!-- Reflection -->
       <section class="cs-section cs-ruled" id="reflection">
