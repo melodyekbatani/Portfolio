@@ -333,6 +333,39 @@
     // Always start on home when visiting the URL
     closeWorkPanel();
 
+    // Scroll-to-open: a downward scroll on the home view slides Work up.
+    // Threshold avoids accidental triggers from tiny wheel events.
+    let scrollGuard = false;
+    function maybeOpenFromScroll(deltaY) {
+      if (scrollGuard) return;
+      if (body.classList.contains("work-open")) return;
+      if (deltaY < 30) return;
+      scrollGuard = true;
+      openWorkPanel();
+      // unlock after the panel transition completes
+      setTimeout(() => { scrollGuard = false; }, 800);
+    }
+
+    window.addEventListener("wheel", (e) => {
+      maybeOpenFromScroll(e.deltaY);
+    }, { passive: true });
+
+    // Touch support — track swipe-up distance
+    let touchStartY = null;
+    window.addEventListener("touchstart", (e) => {
+      if (body.classList.contains("work-open")) return;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    window.addEventListener("touchmove", (e) => {
+      if (touchStartY === null) return;
+      const dy = touchStartY - e.touches[0].clientY; // positive = swipe up
+      if (dy > 50) {
+        maybeOpenFromScroll(dy);
+        touchStartY = null;
+      }
+    }, { passive: true });
+    window.addEventListener("touchend", () => { touchStartY = null; }, { passive: true });
+
 
     // Single global position tracker  cursor is always at real mouse coords
     if (projectCursor) {
@@ -355,5 +388,6 @@
 
   </script>
 
+  <script src="nav.js" defer></script>
 </body>
 </html>
