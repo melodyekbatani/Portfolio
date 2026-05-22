@@ -107,6 +107,8 @@ All sizes use `clamp()` for responsive scaling. Token shape: `--fs-<role>`.
 | Token | Value | Purpose |
 |---|---|---|
 | `--dot-size` | `10px` | Indicator dots in nav + hero-links + cursor |
+| `--radius` | `4px` | Inner corner radius — applied to all `<img>` and `<video>` elements globally |
+| `--radius-lg` | `8px` | Outer corner radius — applied to containers wrapping media (e.g. the work-grid dark boxes). Follows the nested-radius rule: outer ≥ inner. |
 
 ---
 

@@ -57,6 +57,8 @@
 
   /* Sizing */
   --dot-size:     10px;
+  --radius:       0;     /* inner — applied to media (images, videos) */
+  --radius-lg:    0;     /* outer — applied to containers wrapping media (nested-radius rule) */
 
   /* Motion */
   --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
@@ -117,6 +119,7 @@ body {
   padding: 10px;
 }
 
+
 .project-cursor-dot {
   width: var(--dot-size);
   height: var(--dot-size);
@@ -147,6 +150,7 @@ img, video {
   display: block;
   width: 100%;
   object-fit: cover;
+  border-radius: var(--radius);
 }
 
 a {
@@ -224,21 +228,8 @@ nav {
   box-shadow: 0 8px 0 0 var(--bg);
 }
 
-.nav-indicator {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: var(--dot-size);
-  height: var(--dot-size);
-  border-radius: 50%;
-  background: var(--ink);
-  pointer-events: none;
-  transition: none;
-}
-
-.nav-indicator.is-ready {
-  transition: transform var(--t-slow) var(--ease-out), background-color var(--t-base) ease;
-}
+/* Dot indicator replaced by drawn-in underline (kept for JS compatibility) */
+.nav-indicator { display: none; }
 
 nav a {
   font-size: 30px;
@@ -246,8 +237,24 @@ nav a {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--ink);
-  transition: none;
-  padding: 4px 0 4px 24px;
+  position: relative;
+  padding: 4px 0;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 300ms ease;
+}
+
+nav a:hover::after,
+nav a.active::after {
+  width: 100%;
 }
 
 nav a.active {
@@ -304,22 +311,7 @@ nav a.active {
   padding-left: 0;
 }
 
-.hero-links-indicator {
-  position: absolute;
-  top: 0;
-  left: -22px;
-  width: var(--dot-size);
-  height: var(--dot-size);
-  border-radius: 50%;
-  background: var(--dash);
-  opacity: 0;
-  pointer-events: none;
-  transition: none;
-}
-
-.hero-links-indicator.is-ready {
-  transition: transform var(--t-slow) var(--ease-out), background-color var(--t-base) ease, opacity var(--t-base) ease;
-}
+.hero-links-indicator { display: none; }
 
 .hero-links a {
   font-size: 14px;
@@ -332,6 +324,23 @@ nav a.active {
   align-items: center;
   gap: 6px;
   padding-left: 0;
+  position: relative;
+  width: fit-content;
+}
+
+.hero-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 300ms ease;
+}
+
+.hero-links a:hover::after {
+  width: 100%;
 }
 
 .hero-thumb {
@@ -379,6 +388,7 @@ nav a.active {
   transition: transform var(--t-panel) var(--ease-out);
   pointer-events: none;
   overflow-y: auto;
+  scroll-behavior: smooth;
   padding-top: calc(var(--nav-h) * 2);
   will-change: transform;
   backface-visibility: hidden;
@@ -452,6 +462,172 @@ body.work-open .work-panel {
   justify-content: flex-start;
   gap: 24px;
   padding: 0 var(--pad-page) 12px;
+}
+
+/* ─── Work cards — dark box with hover-revealed content ─── */
+/* Desktop-only treatment. All rules are scoped under .work-grid so they
+   beat the older base .project-* rules later in this file. */
+@media (min-width: 769px) {
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 var(--pad-page);
+    margin-bottom: var(--project-pad-b);
+  }
+  .work-grid .project-featured {
+    grid-column: 1 / -1;
+  }
+
+  .work-grid .project-featured,
+  .work-grid .project-secondary,
+  .work-grid .project-secondary.project-secondary-reverse {
+    background: #111;
+    padding: clamp(24px, 3vw, 48px);
+    margin: 0;
+    position: relative;
+    display: grid;
+    place-items: stretch;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    aspect-ratio: auto;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Wrappers center the media inside the dark box, no cropping */
+  .work-grid .project-featured-image,
+  .work-grid .project-secondary-visual,
+  .work-grid .project-secondary-image {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    background: transparent;
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Media keeps natural aspect, starts at 88% so 1.1x scale still fits */
+  .work-grid .project-featured-image img,
+  .work-grid .project-featured-image video,
+  .work-grid .project-secondary-image img,
+  .work-grid .project-secondary-image video {
+    width: auto;
+    height: auto;
+    max-width: 88%;
+    max-height: 88%;
+    object-fit: contain;
+    transition: transform var(--t-slow) var(--ease-out);
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  /* Hover: scale whole media without cropping (88% × 1.1 ≈ 97%) */
+  .work-grid .project-featured:hover .project-featured-image img,
+  .work-grid .project-featured:hover .project-featured-image video,
+  .work-grid .project-secondary:hover .project-secondary-image img,
+  .work-grid .project-secondary:hover .project-secondary-image video {
+    transform: scale(1.1);
+  }
+
+  /* Text overlay — slides in from the bottom on hover, anchored to bottom */
+  .work-grid .project-featured-footer,
+  .work-grid .project-secondary-meta {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-content: end;
+    column-gap: 32px;
+    row-gap: 8px;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 320ms ease, transform 480ms var(--ease-out);
+    pointer-events: none;
+    background: transparent;
+    padding: 80px 48px 40px;
+    margin: 0;
+    min-height: 0;
+  }
+
+  .work-grid .project-featured:hover .project-featured-footer,
+  .work-grid .project-secondary:hover .project-secondary-meta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Place children: title + copy left column, tags right column */
+  .work-grid .project-featured-meta,
+  .work-grid .project-secondary-title {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+  }
+  .work-grid .project-secondary-copy {
+    grid-column: 1;
+    grid-row: 2;
+    width: 38ch;
+    max-width: 100%;
+    text-wrap: pretty;
+  }
+  .work-grid .project-featured-copy {
+    grid-column: 1;
+    grid-row: 2;
+    width: 64ch;
+    max-width: 100%;
+    text-wrap: pretty;
+  }
+  .work-grid .project-featured-copy .t-body {
+    width: 100%;
+    max-width: 100%;
+  }
+  .work-grid .project-featured .project-title,
+  .work-grid .project-secondary-title {
+    text-wrap: balance;
+  }
+  .work-grid .project-featured-meta .tags,
+  .work-grid .project-secondary-tags {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: end;
+    justify-self: end;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    margin: 0;
+  }
+
+  /* Featured has a nested .project-featured-meta wrapper holding title+tags.
+     Dissolve it so title and tags can live in their own grid cells. */
+  .work-grid .project-featured-meta {
+    display: contents;
+  }
+
+  .work-grid .project-featured .project-title,
+  .work-grid .project-secondary-title {
+    color: #fff;
+  }
+  .work-grid .project-featured-meta .tag,
+  .work-grid .project-secondary-tags .tag {
+    color: #fff;
+  }
+  .work-grid .project-featured-copy .t-body,
+  .work-grid .project-secondary-copy {
+    color: rgba(255,255,255,0.86);
+  }
+
+  .work-grid .project-secondary-visual,
+  .work-grid .project-secondary-reverse .project-secondary-visual { order: 0; }
+  .work-grid .project-secondary-reverse .project-secondary-meta { order: 0; }
 }
 
 /* ─── Featured Project ───────────────────────────────────── */
