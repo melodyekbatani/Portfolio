@@ -454,6 +454,7 @@ body.work-open .work-panel {
   max-width: 56ch;
   width: 100%;
   padding: 4px 0 0;
+  text-wrap: pretty;
 }
 
 .work-header {
