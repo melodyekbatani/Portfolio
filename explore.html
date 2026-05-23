@@ -29,6 +29,10 @@
     }
     body.explore-page nav a { color: #ffffff; }
 
+    /* Mobile burger lives outside <nav>, so the blend-mode doesn't reach
+       it. Paint its lines white on the black explore bg. */
+    body.explore-page .nav-burger span { background: #ffffff; }
+
     /* Full-viewport black surface that slides with the content — body bg
        stays neutral, so the slide-down actually reveals the underlying
        page color instead of snapping at navigation time. */
