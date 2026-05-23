@@ -762,6 +762,39 @@
         gap: 4px;
         padding-bottom: 8px;
       }
+
+      /* Life Lately: 2-col masonry on mobile. Aspect ratios per item so
+         the portrait shots (Parsons, Summit) stay readable and aren't
+         heavily cropped. */
+      .about-life {
+        height: auto;
+        padding-top: 64px;
+        padding-bottom: 32px;
+      }
+      .life-footer {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .life-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: none;
+        gap: 8px;
+      }
+      .life-item {
+        grid-column: auto !important;   /* drop desktop spans */
+        grid-row: auto !important;
+        aspect-ratio: 1 / 1;
+      }
+      /* Mobile: captions always visible on top of the image */
+      .life-caption {
+        opacity: 1;
+        bottom: 8px;
+        left: 8px;
+        padding: 5px 8px;
+        font-size: 11px;
+        max-width: calc(100% - 16px);
+      }
       .about-award-item {
         flex-direction: column;
         gap: 6px;
