@@ -428,12 +428,12 @@ body.work-open .work-panel {
 }
 
 .work-intro-title {
-  flex: 3 1 0;
+  flex: 1 1 0;
   min-width: 0;
 }
 
 .work-intro-copy {
-  flex: 4 1 0;
+  flex: 1 1 0;
   min-width: 0;
 }
 
@@ -465,10 +465,9 @@ body.work-open .work-panel {
   padding: 0 var(--pad-page) 12px;
 }
 
-/* ─── Work cards — dark box with hover-revealed content ─── */
-/* Desktop-only treatment. All rules are scoped under .work-grid so they
-   beat the older base .project-* rules later in this file. */
-@media (min-width: 769px) {
+/* ─── Work cards — dark box, hover-revealed text on desktop ─── */
+/* All rules scoped under .work-grid so they beat the older base
+   .project-* rules later in this file. */
   .work-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -483,7 +482,7 @@ body.work-open .work-panel {
   .work-grid .project-featured,
   .work-grid .project-secondary,
   .work-grid .project-secondary.project-secondary-reverse {
-    background: #111;
+    background-color: #111;
     padding: clamp(24px, 3vw, 48px);
     margin: 0;
     position: relative;
@@ -492,10 +491,31 @@ body.work-open .work-panel {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     aspect-ratio: auto;
-    height: 100vh;
-    min-height: 100vh;
+    height: 90vh;
+    min-height: 90vh;
     overflow: hidden;
     border-radius: var(--radius-lg);
+  }
+
+  /* Background image layer — blurred + dimmed, behind the media/text */
+  .work-grid .project-featured::before,
+  .work-grid .project-secondary::before {
+    content: '';
+    position: absolute;
+    inset: -40px;
+    background-image: var(--card-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(3px);
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .work-grid .project-featured > *,
+  .work-grid .project-secondary > * {
+    position: relative;
+    z-index: 1;
   }
 
   /* Wrappers center the media inside the dark box, no cropping */
@@ -515,16 +535,25 @@ body.work-open .work-panel {
     overflow: hidden;
   }
 
-  /* Media keeps natural aspect, starts at 88% so 1.1x scale still fits */
-  .work-grid .project-featured-image img,
-  .work-grid .project-featured-image video,
+  /* Secondaries: media keeps natural aspect (no crop) */
   .work-grid .project-secondary-image img,
   .work-grid .project-secondary-image video {
     width: auto;
     height: auto;
-    max-width: 88%;
-    max-height: 88%;
+    max-width: 94%;
+    max-height: 94%;
     object-fit: contain;
+    transition: transform var(--t-slow) var(--ease-out);
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  /* Featured (Aeri): slightly bigger, crops top/bottom */
+  .work-grid .project-featured-image img,
+  .work-grid .project-featured-image video {
+    width: 80%;
+    height: 65%;
+    object-fit: cover;
     transition: transform var(--t-slow) var(--ease-out);
     transform-origin: center;
     will-change: transform;
@@ -629,6 +658,44 @@ body.work-open .work-panel {
   .work-grid .project-secondary-visual,
   .work-grid .project-secondary-reverse .project-secondary-visual { order: 0; }
   .work-grid .project-secondary-reverse .project-secondary-meta { order: 0; }
+
+/* Mobile overrides: 1 column, text always visible, no hover scale */
+@media (max-width: 768px) {
+  .work-grid {
+    grid-template-columns: 1fr;
+    padding: 0 var(--pad-page-sm);
+  }
+  .work-grid .project-featured { grid-column: 1; }
+  .work-grid .project-featured,
+  .work-grid .project-secondary,
+  .work-grid .project-secondary.project-secondary-reverse {
+    height: 70vh;
+    min-height: 70vh;
+  }
+  .work-grid .project-featured-image img,
+  .work-grid .project-featured-image video {
+    max-height: 60%;
+  }
+  /* Text overlay: always visible, no slide-in, smaller padding */
+  .work-grid .project-featured-footer,
+  .work-grid .project-secondary-meta {
+    opacity: 1;
+    transform: none;
+    padding: 32px 24px 24px;
+    column-gap: 16px;
+  }
+  .work-grid .project-secondary-copy,
+  .work-grid .project-featured-copy {
+    width: 100%;
+    font-size: 14px;
+  }
+  /* Disable the hover scale entirely on mobile */
+  .work-grid .project-featured:hover .project-featured-image img,
+  .work-grid .project-featured:hover .project-featured-image video,
+  .work-grid .project-secondary:hover .project-secondary-image img,
+  .work-grid .project-secondary:hover .project-secondary-image video {
+    transform: none;
+  }
 }
 
 /* ─── Featured Project ───────────────────────────────────── */

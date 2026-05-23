@@ -75,28 +75,46 @@
 
         <div class="work-grid">
 
-        <article class="project-featured" style="cursor: pointer;" onclick="window.location.href='/aeri/index.html'">
-          <div class="project-featured-image" data-project-hover="View Aeri" data-preview="aeri/assets/Aeri hero.avif">
-            <img src="Home Page/Aeri.png" alt="Aeri project preview">
+        <!-- Aeri: image left, text right (now 1-of-2-cols, no longer featured) -->
+        <article class="project-secondary" style="cursor: pointer; --card-bg: url('Home Page/Background images /Aeri - cover.png');" onclick="window.location.href='/aeri/index.html'">
+          <div class="project-secondary-visual">
+            <div class="project-secondary-image" data-project-hover="View Aeri" data-preview="aeri/assets/Aeri hero.avif">
+              <img src="Home Page/Aeri.png" alt="Aeri project preview">
+            </div>
           </div>
 
-          <div class="project-featured-footer">
-            <div class="project-featured-meta">
-              <h2 class="project-title"><a href="/aeri/index.html" style="text-decoration: none; color: inherit;">Aeri</a></h2>
-              <div class="tags">
-                <span class="tag">AR Wearable</span>
-                <span class="tag">AI Startup Hackathon</span>
-              </div>
+          <div class="project-secondary-meta">
+            <h3 class="project-secondary-title"><a href="/aeri/index.html" style="text-decoration: none; color: inherit;">Aeri</a></h3>
+            <p class="t-body project-secondary-copy">AI-powered preventative diabetes care with AR integration, a proactive alternative to reactive management tools.</p>
+            <div class="tags project-secondary-tags">
+              <span class="tag">AR Wearable</span>
+              <span class="tag">AI Startup Hackathon</span>
             </div>
+          </div>
+        </article>
 
-            <div class="project-featured-copy">
-              <p class="t-body">AI-powered preventative diabetes care with AR integration, a proactive alternative to reactive management tools.</p>
+        <!-- Sembli -->
+        <article class="project-secondary" style="cursor: pointer;" onclick="window.location.href='#'">
+          <div class="project-secondary-visual">
+            <div class="project-secondary-image" data-project-hover="View Sembli">
+              <video autoplay muted loop playsinline data-still-time="29">
+                <source src="Home Page/Sembli.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+
+          <div class="project-secondary-meta">
+            <h3 class="project-secondary-title"><a href="#" style="text-decoration: none; color: inherit;">Sembli</a></h3>
+            <p class="t-body project-secondary-copy">Short description placeholder for Sembli.</p>
+            <div class="tags project-secondary-tags">
+              <span class="tag">Tag One</span>
+              <span class="tag">Tag Two</span>
             </div>
           </div>
         </article>
 
         <!-- Adaptive Research: video left, text right -->
-        <article class="project-secondary project-secondary-reverse" style="cursor: pointer;" onclick="window.location.href='/gemini/index.html'">
+        <article class="project-secondary project-secondary-reverse" style="cursor: pointer; --card-bg: url('Home Page/Background images /Gemini - cover.png');" onclick="window.location.href='/gemini/index.html'">
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Adaptive Research" data-preview="gemini/15.mp4" data-preview-type="video">
               <video autoplay muted loop playsinline data-still-time="3.8" data-play-from-still>
@@ -116,7 +134,7 @@
         </article>
 
         <!-- Parameter: text left, video right -->
-        <article class="project-secondary" style="cursor: pointer;" onclick="window.location.href='/Parameter/index.html'">
+        <article class="project-secondary" style="cursor: pointer; --card-bg: url('Home Page/Background images /Parameter - cover.png');" onclick="window.location.href='/Parameter/index.html'">
           <div class="project-secondary-meta">
             <h3 class="project-secondary-title"><a href="/Parameter/index.html" style="text-decoration:none;color:inherit;">Parameter</a></h3>
             <p class="t-body project-secondary-copy">Secure AI health app that transforms complex personal health data into clear insights.</p>
@@ -136,7 +154,7 @@
         </article>
 
         <!-- Loam: video left, text right -->
-        <article class="project-secondary project-secondary-reverse" style="cursor: pointer;" onclick="window.location.href='/Loam/index.html'">
+        <article class="project-secondary project-secondary-reverse" style="cursor: pointer; --card-bg: url('Home Page/Background images /Loam - cover.png');" onclick="window.location.href='/Loam/index.html'">
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Loam" data-preview="Loam/3 - Intro graphic .webp">
               <video autoplay muted loop playsinline>
@@ -156,7 +174,7 @@
         </article>
 
         <!-- Stash It: text left, video right -->
-        <article class="project-secondary">
+        <article class="project-secondary" style="--card-bg: url('Home Page/Background images /Stashit - cover.png');">
           <div class="project-secondary-meta">
             <h3 class="project-secondary-title">Stash It</h3>
             <p class="t-body project-secondary-copy">Reflective e-commerce tool helping users collect, organize and revisit fashion inspo.</p>
@@ -388,6 +406,28 @@
         if (projectCursorPreview) projectCursorPreview.innerHTML = "";
       });
     });
+
+    // ─── Mobile: play each video when its card enters the viewport ───
+    (function () {
+      const mobile = window.matchMedia("(max-width: 768px)");
+      if (!mobile.matches) return;
+      const cards = document.querySelectorAll(".work-grid .project-featured, .work-grid .project-secondary");
+      if (cards.length === 0) return;
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const v = entry.target.querySelector("video");
+          if (!v) return;
+          if (entry.isIntersecting) {
+            v.play().catch(() => {});
+          } else {
+            v.pause();
+          }
+        });
+      }, { threshold: 0.4 });
+
+      cards.forEach((card) => io.observe(card));
+    })();
 
     // ─── Desktop: pause work-grid videos at a chosen "still" frame
     //     (where the screens are most prominent), play on hover ──────
