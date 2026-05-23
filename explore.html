@@ -16,16 +16,31 @@
     body.explore-page {
       overflow: hidden;
       height: 100vh;
-      background-color: #000000;
+      background-color: var(--bg, #ffffff);  /* matches other pages, revealed during exit slide */
       color: #f4f4f4;
     }
 
     body.explore-page nav {
-      background-color: #000000;
-      box-shadow: 0 8px 0 0 #000000;
+      background-color: transparent;
+      box-shadow: none;
+      /* Nav doesn't move during the slide; its text auto-inverts as the
+         black panel passes under it (mix-blend-mode: difference). */
+      mix-blend-mode: difference;
+    }
+    body.explore-page nav a { color: #ffffff; }
+
+    /* Full-viewport black surface that slides with the content — body bg
+       stays neutral, so the slide-down actually reveals the underlying
+       page color instead of snapping at navigation time. */
+    .explore-bg {
+      position: fixed;
+      inset: 0;
+      background: #000000;
+      z-index: 0;            /* sits above body bg, below content */
+      will-change: transform;
     }
 
-    /* Slide-up entrance — canvas + bottom chrome rise from below */
+    /* Slide-up entrance — black panel + canvas + chrome rise from below */
     @keyframes exploreSlideUp {
       from { transform: translate3d(0, 105%, 0); }
       to   { transform: translate3d(0, 0, 0); }
@@ -34,16 +49,18 @@
       from { transform: translate3d(0, 0, 0); }
       to   { transform: translate3d(0, 105%, 0); }
     }
+    .explore-bg,
     .explore-stage,
     .explore-meta,
     .explore-hint {
-      animation: exploreSlideUp 1900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: exploreSlideUp 1500ms cubic-bezier(0.22, 1, 0.36, 1) both;
       will-change: transform;
     }
+    body.is-exiting .explore-bg,
     body.is-exiting .explore-stage,
     body.is-exiting .explore-meta,
     body.is-exiting .explore-hint {
-      animation: exploreSlideDown 1600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation: exploreSlideDown 1300ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
     body.explore-page nav a { color: #f4f4f4; }
     body.explore-page nav .nav-indicator { background: #f4f4f4; }
@@ -330,6 +347,8 @@
     <a href="explore.html" class="t-small active">Explore</a>
     <a href="Melody Ekbatani_2026 Resume .pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
   </nav>
+
+  <div class="explore-bg" aria-hidden="true"></div>
 
   <div class="explore-stage" id="exploreStage">
     <div class="explore-world" id="exploreWorld"></div>
@@ -654,7 +673,7 @@
           window.localStorage.setItem("portfolio-active-panel", "home");
         }
         document.body.classList.add("is-exiting");
-        setTimeout(() => { window.location.href = dest; }, 1580);
+        setTimeout(() => { window.location.href = dest; }, 1280);
       });
     });
 
