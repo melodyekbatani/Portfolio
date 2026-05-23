@@ -6,6 +6,15 @@
   <title>Melody Ekbatani</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css?v=12">
+  <script>
+    // Arriving from another page with Work intent? Pre-position the
+    // work panel (no slide animation) so users don't see it animate up.
+    try {
+      if (localStorage.getItem("portfolio-active-panel") === "work") {
+        document.documentElement.classList.add("work-open-preload");
+      }
+    } catch (e) {}
+  </script>
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 </head>
 <body>
@@ -79,7 +88,9 @@
         <article class="project-secondary" style="cursor: pointer; --card-bg: url('Home Page/Background images /Aeri - cover.png');" onclick="window.location.href='/aeri/index.html'">
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Aeri" data-preview="aeri/assets/Aeri hero.avif">
-              <img src="Home Page/Aeri.png" alt="Aeri project preview">
+              <video autoplay muted loop playsinline data-still-time="4" data-play-from-still>
+                <source src="Home Page/Aeri Video.mp4" type="video/mp4">
+              </video>
             </div>
           </div>
 
@@ -97,7 +108,7 @@
         <article class="project-secondary" style="cursor: pointer; --card-bg: url('Home Page/Background images /Sembli-Cover.png');" onclick="window.location.href='#'">
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Sembli">
-              <video autoplay muted loop playsinline data-still-time="29">
+              <video autoplay muted loop playsinline data-still-time="23">
                 <source src="Home Page/Sembli.mp4" type="video/mp4">
               </video>
             </div>
@@ -359,6 +370,8 @@
     } else {
       closeWorkPanel();
     }
+    // Release the preload lock so subsequent open/close cycles animate normally
+    document.documentElement.classList.remove("work-open-preload");
 
     // Scroll-to-open: a downward scroll on the home view slides Work up.
     // Threshold avoids accidental triggers from tiny wheel events.

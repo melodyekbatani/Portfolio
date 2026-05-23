@@ -45,8 +45,6 @@
 
     /* ─── Shell ──────────────────────────────────────────────── */
 
-    :root { --page-x: 40px; }
-
     .about-inner {
       padding: 0;
     }
@@ -56,8 +54,8 @@
     .about-approach,
     .about-section,
     .page-footer-about {
-      padding-left: var(--page-x);
-      padding-right: var(--page-x);
+      padding-left: var(--pad-page);
+      padding-right: var(--pad-page);
     }
 
     /* ─── Hero ───────────────────────────────────────────────── */
@@ -66,23 +64,25 @@
       display: grid;
       grid-template-columns: 3fr 1.6fr;
       gap: 64px;
-      align-items: stretch;
-      min-height: calc(100vh - var(--nav-h));
-      padding-top: 40px;
-      padding-bottom: 60px;
+      align-items: start;
+      height: calc(100vh - var(--nav-h));   /* hero fits exactly one viewport */
+      box-sizing: border-box;
+      padding-top: 92px;
+      padding-bottom: 40px;
     }
 
     .about-hero-left {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;   /* About + bio stack at the top */
+      gap: 32px;
     }
 
     .about-hero-title {
-      font-size: clamp(36px, 6vw, 64px);
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      line-height: 0.96;
+      font-size: var(--fs-title-lg);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
     }
 
     .about-hero-bio {
@@ -92,15 +92,47 @@
     }
 
     .about-hero-bio p {
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 1.5;
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
       max-width: 58ch;
     }
 
+    /* Inline CTA link inside the bio — matches .hero-links a:
+       uppercase t-small style + arrow icon + draw-in underline on hover. */
+    .about-hero-bio a.bio-link {
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
+      text-transform: uppercase;
+      line-height: 1.3;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 0;        /* match nav + hero-links underline gap */
+      position: relative;
+      width: fit-content;
+      margin-top: 8px;
+    }
+    .about-hero-bio a.bio-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width 300ms ease;
+    }
+    .about-hero-bio a.bio-link:hover::after { width: 100%; }
+
     .about-hero-photo {
       width: 100%;
-      height: 100%;
+      height: auto;
+      max-height: calc(100vh - var(--nav-h) - 220px);
+      align-self: start;       /* lifts the photo to the top of the row */
       overflow: hidden;
       background: #e8e8e8;
     }
@@ -125,10 +157,10 @@
     }
 
     .about-highlights-heading {
-      font-size: clamp(18px, 2.4vw, 28px);
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.1;
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
       margin-bottom: 56px;
     }
 
@@ -186,9 +218,9 @@
     }
 
     .highlights-info-desc {
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.5;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
       max-width: 44ch;
       text-align: center;
       text-wrap: pretty;
@@ -213,17 +245,17 @@
     }
 
     .about-approach-heading {
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 0.94;
+      font-size: var(--fs-title-lg);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
       margin-top: 16px;
     }
 
     .about-approach-copy {
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 1.5;
+      font-size: var(--fs-body);
+      font-weight: var(--fw-medium);
+      line-height: var(--lh-body);
       max-width: 46ch;
     }
 
@@ -255,10 +287,10 @@
     }
 
     .about-section-heading {
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 0.94;
+      font-size: var(--fs-title-lg);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
       margin-bottom: 48px;
     }
 
@@ -279,26 +311,26 @@
     }
 
     .about-item-title {
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.35;
+      font-size: var(--fs-body);
+      font-weight: var(--fw-bold);
+      line-height: var(--lh-loose);
       margin-bottom: 6px;
       color: var(--ink);
     }
 
     .about-item-sub {
-      font-size: 15px;
-      font-weight: 400;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
       color: var(--ink);
-      line-height: 1.5;
+      line-height: var(--lh-body);
     }
 
     .about-item-date {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
       color: var(--ink);
       white-space: nowrap;
-      letter-spacing: 0.06em;
+      letter-spacing: var(--ls-wider);
       text-transform: uppercase;
       line-height: 1.2;
     }
@@ -320,19 +352,19 @@
     }
 
     .about-award-title {
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.3;
+      font-size: var(--fs-body);
+      font-weight: var(--fw-bold);
+      line-height: var(--lh-loose);
       color: var(--ink);
     }
 
     .about-award-detail {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
       color: var(--ink);
       text-align: right;
       max-width: 36ch;
-      line-height: 1.4;
+      line-height: var(--lh-loose);
     }
 
     /* ─── Life Lately ────────────────────────────────────────── */
@@ -341,7 +373,7 @@
       height: calc(100vh - var(--nav-h));
       display: flex;
       flex-direction: column;
-      padding: 40px var(--page-x) 40px;
+      padding: 40px var(--pad-page) 40px;
       box-sizing: border-box;
     }
 
@@ -377,10 +409,10 @@
       left: 12px;
       background: rgba(255,255,255,0.92);
       padding: 6px 12px;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.4;
+      font-family: var(--font-sans);
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-loose);
       color: var(--ink);
       max-width: 85%;
       opacity: 0;
@@ -393,9 +425,9 @@
 
     .life-caption-sub {
       display: block;
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
+      font-size: var(--fs-nano);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
       text-transform: uppercase;
       margin-top: 3px;
       color: var(--muted);
@@ -422,9 +454,9 @@
     }
 
     .life-footer-desc {
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 1.5;
+      font-size: var(--fs-body);
+      font-weight: var(--fw-medium);
+      line-height: var(--lh-body);
     }
 
     .about-panel .page-footer {
@@ -441,7 +473,18 @@
     }
 
     @media (max-width: 768px) {
-      :root { --page-x: 20px; }
+      .about-hero,
+      .about-highlights,
+      .about-approach,
+      .about-section,
+      .page-footer-about {
+        padding-left: var(--pad-page-sm);
+        padding-right: var(--pad-page-sm);
+      }
+      .about-life {
+        padding-left: var(--pad-page-sm);
+        padding-right: var(--pad-page-sm);
+      }
 
       .about-hero {
         grid-template-columns: 1fr;
@@ -454,7 +497,7 @@
         order: -1;
       }
       .about-hero-bio p {
-        font-size: 17px;
+        font-size: 17px;       /* one-off mobile reduction from --fs-body (18) */
       }
       .about-section {
         padding-top: 56px;
@@ -526,9 +569,9 @@
         color: var(--ink);
       }
       .highlight-card-desc {
-        font-size: 15px;
-        font-weight: 400;
-        line-height: 1.5;
+        font-size: var(--fs-small);
+        font-weight: var(--fw-regular);
+        line-height: var(--lh-body);
         text-wrap: pretty;
       }
 
@@ -564,7 +607,7 @@
           <h1 class="about-hero-title">About</h1>
           <div class="about-hero-bio">
             <p>I'm a product designer creating intuitive, scalable interfaces for AI-first systems. I'm driven by curiosity and an interest in emerging interaction models, building products that reduce friction, feel considered in the details, and create moments of delight.</p>
-            <p>When I'm not designing, I'm usually wandering farmers markets, attempting ceramics, or perfecting snack plates, which led me to code a <a href="https://melodyekbatani.github.io/functions/" target="_blank" rel="noreferrer">girl dinner generator <span style="white-space:nowrap">here <i class="ph ph-arrow-up-right"></i></span></a></p>
+            <p>When I'm not designing, I'm usually wandering farmers markets, attempting ceramics, or perfecting snack plates.</p>
           </div>
         </div>
         <div class="about-hero-photo">
@@ -905,7 +948,7 @@
           </div>
           <div class="page-footer-message">
             <p>Designing through clarity, storytelling, and moments of delight.</p>
-            <a href="mailto:melodyekbatani@gmail.com" rel="noreferrer" style="display: block; margin-top: 16px; font-size: 18px; font-weight: 500;">melodyekbatani@gmail.com</a>
+            <a href="mailto:melodyekbatani@gmail.com" rel="noreferrer" style="display: block; margin-top: 16px; font-size: var(--fs-body); font-weight: var(--fw-medium);">melodyekbatani@gmail.com</a>
           </div>
         </div>
         <div class="page-footer-meta"></div>
