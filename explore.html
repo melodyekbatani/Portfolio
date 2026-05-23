@@ -8,87 +8,137 @@
   <link rel="stylesheet" href="style.css?v=12">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
-    /* ─── Explore: drifting 3D archive ─────────────────────── */
+    /* ─── Explore: scattered constellation canvas ────────── */
+    :root {
+      --explore-meta: #9a9a9a;
+    }
+
     body.explore-page {
       overflow: hidden;
       height: 100vh;
-      background: var(--bg);
+      background-color: #000000;
+      color: #f4f4f4;
     }
+
+    body.explore-page nav {
+      background-color: #000000;
+      box-shadow: 0 8px 0 0 #000000;
+    }
+
+    /* Slide-up entrance — canvas + bottom chrome rise from below */
+    @keyframes exploreSlideUp {
+      from { transform: translate3d(0, 105%, 0); }
+      to   { transform: translate3d(0, 0, 0); }
+    }
+    @keyframes exploreSlideDown {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(0, 105%, 0); }
+    }
+    .explore-stage,
+    .explore-meta,
+    .explore-hint {
+      animation: exploreSlideUp 1900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      will-change: transform;
+    }
+    body.is-exiting .explore-stage,
+    body.is-exiting .explore-meta,
+    body.is-exiting .explore-hint {
+      animation: exploreSlideDown 1600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    body.explore-page nav a { color: #f4f4f4; }
+    body.explore-page nav .nav-indicator { background: #f4f4f4; }
 
     .explore-stage {
       position: fixed;
       inset: 0;
-      perspective: 1400px;
-      perspective-origin: 50% 50%;
-      cursor: grab;
+      cursor: default;
       user-select: none;
       z-index: 0;
+      overflow: hidden;
     }
-    .explore-stage.is-dragging { cursor: grabbing; }
 
     .explore-world {
       position: absolute;
       top: 50%; left: 50%;
       width: 0; height: 0;
-      transform-style: preserve-3d;
       will-change: transform;
     }
 
-    .explore-item {
+    /* Big faded title at the center of the canvas — pans with the world */
+    .explore-title {
       position: absolute;
-      transform-style: preserve-3d;
-      will-change: transform, opacity;
-      transition: filter 200ms ease;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+      color: #f4f4f4;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 5; /* mid-stack — some thumbs go above, some below */
     }
-
-    .explore-item .explore-media {
+    .explore-title .line-1 {
       display: block;
-      background: #f4f4f4;
-      box-shadow:
-        0 1px 2px rgba(40,55,70,0.06),
-        0 8px 24px rgba(40,55,70,0.08);
-      overflow: hidden;
-      transition: transform 260ms cubic-bezier(.2,.7,.2,1), box-shadow 260ms ease;
+      font-size: clamp(36px, 5vw, 56px);
     }
-    .explore-item a { color: inherit; text-decoration: none; display: block; }
-    .explore-item a:hover .explore-media {
-      transform: translateZ(60px) scale(1.04);
-      box-shadow:
-        0 4px 8px rgba(40,55,70,0.10),
-        0 24px 60px rgba(40,55,70,0.18);
+    .explore-title .line-2 {
+      display: block;
+      font-size: clamp(28px, 4vw, 44px);
+      opacity: 0.85;
+      margin-top: 4px;
     }
 
-    .explore-item img,
-    .explore-item video {
+    /* Individual scattered thumbnails */
+    .explore-thumb {
+      position: absolute;
+      cursor: pointer;
+      transform: var(--base-transform);
+      transition: filter 320ms ease;
+      will-change: transform;
+    }
+    .explore-thumb:hover {
+      z-index: 200;
+      filter: drop-shadow(0 12px 36px rgba(0,0,0,0.45));
+    }
+
+    .explore-thumb-media {
+      display: block;
+      overflow: hidden;
+      transform-origin: center;
+      transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+    .explore-thumb:hover .explore-thumb-media {
+      transform: scale(3.2);
+    }
+
+    /* Meta block content swaps smoothly on hover */
+    .explore-meta h1,
+    .explore-meta p,
+    .explore-meta .cta {
+      transition: opacity 220ms ease;
+    }
+    .explore-meta .cta {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f4f4f4;
+      border-bottom: 1px solid #f4f4f4;
+      padding-bottom: 1px;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    .explore-meta .cta:hover { opacity: 0.7; }
+    .explore-thumb-media img,
+    .explore-thumb-media video {
       display: block;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .explore-item .explore-caption {
-      margin-top: 10px;
-      font-size: 11px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #46535f;
-      opacity: 0;
-      transition: opacity 200ms ease;
-    }
-    .explore-item:hover .explore-caption { opacity: 1; }
-
-    /* floating keywords */
-    .explore-word {
-      position: absolute;
-      font-family: 'Times New Roman', Georgia, serif;
-      font-style: italic;
-      font-weight: 400;
-      color: #4f5a66;
-      pointer-events: none;
-      transform-style: preserve-3d;
-      will-change: transform, opacity;
-      white-space: nowrap;
-      letter-spacing: -0.01em;
+      height: auto;        /* keep natural aspect, no crop */
+      object-fit: contain;
     }
 
     /* page chrome */
@@ -105,12 +155,12 @@
       font-weight: 500;
       letter-spacing: -0.02em;
       margin-bottom: 10px;
-      color: #1a232c;
+      color: #f4f4f4;
     }
     .explore-meta p {
       font-size: 13px;
       line-height: 1.55;
-      color: #46535f;
+      color: var(--explore-meta);
     }
 
     .explore-hint {
@@ -120,14 +170,14 @@
       font-size: 10px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #46535f;
+      color: var(--explore-meta);
       z-index: 3;
       pointer-events: none;
       display: flex; align-items: center; gap: 10px;
-      opacity: 0.7;
+      opacity: 0.8;
     }
     .explore-hint .dot {
-      width: 5px; height: 5px; border-radius: 50%; background: #1a232c;
+      width: 5px; height: 5px; border-radius: 50%; background: #f4f4f4;
       animation: pulse 2.4s ease-in-out infinite;
     }
     @keyframes pulse {
@@ -135,22 +185,26 @@
       50%     { opacity: 0.9; transform: scale(1.6); }
     }
 
-    /* nav above scene */
+    /* nav above canvas */
     nav { z-index: 4; }
 
-    /* ─── Modal ───────────────────────────────────────── */
+    /* ─── Modal: shows a full project's images at large size ─── */
     .explore-modal {
       position: fixed;
       inset: 0;
-      z-index: 10;
-      display: none;
-      background: #ffffff;
+      z-index: 1000;          /* above nav + everything else */
+      background: #000000;
+      color: #f4f4f4;
       opacity: 0;
-      transition: opacity 220ms ease;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 220ms ease, visibility 0s linear 220ms;
     }
     .explore-modal.is-open {
-      display: block;
       opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity 220ms ease, visibility 0s linear 0s;
     }
 
     .explore-modal-stage {
@@ -181,7 +235,6 @@
       object-fit: contain;
     }
 
-    /* Top-right close + nav-style links */
     .explore-modal-topnav {
       position: absolute;
       top: 28px;
@@ -190,27 +243,33 @@
       gap: 28px;
       align-items: center;
       font-size: 14px;
-      color: #1a232c;
+      color: #f4f4f4;
+      z-index: 5;          /* above the media stage inside the modal */
     }
-    .explore-modal-topnav button {
-      all: unset;
+    .explore-modal-topnav button,
+    .explore-modal-topnav a {
+      background: transparent;
+      border: 0;
+      padding: 8px 4px;     /* larger hit target */
+      margin: 0;
       cursor: pointer;
+      font: inherit;
       font-size: 14px;
-      color: #1a232c;
+      color: #f4f4f4;
       transition: opacity 160ms ease;
     }
-    .explore-modal-topnav button:hover { opacity: 0.55; }
+    .explore-modal-topnav button:hover,
+    .explore-modal-topnav a:hover { opacity: 0.6; }
 
     .explore-modal-brand {
       position: absolute;
       top: 28px;
       left: clamp(24px, 4vw, 56px);
       font-size: 14px;
-      color: #1a232c;
+      color: #f4f4f4;
       font-weight: 500;
     }
 
-    /* Side arrows */
     .explore-modal-arrow {
       position: absolute;
       top: 50%;
@@ -218,7 +277,7 @@
       background: transparent;
       border: 0;
       cursor: pointer;
-      color: #1a232c;
+      color: #f4f4f4;
       font-size: 32px;
       width: 56px; height: 56px;
       display: grid;
@@ -232,19 +291,18 @@
     .explore-modal-arrow.prev:hover { transform: translateY(-50%) translateX(-3px); }
     .explore-modal-arrow.next:hover { transform: translateY(-50%) translateX(3px); }
 
-    /* Bottom caption + counter */
     .explore-modal-caption {
       position: absolute;
       left: clamp(24px, 4vw, 56px);
       bottom: clamp(24px, 4vh, 48px);
       font-size: 13px;
       line-height: 1.5;
-      color: #1a232c;
+      color: #f4f4f4;
       max-width: 360px;
     }
     .explore-modal-caption .t { font-style: italic; }
     .explore-modal-caption .meta {
-      color: #5a6470;
+      color: var(--explore-meta);
       margin-top: 2px;
     }
 
@@ -254,12 +312,12 @@
       bottom: clamp(24px, 4vh, 48px);
       font-size: 12px;
       letter-spacing: 0.06em;
-      color: #1a232c;
+      color: #f4f4f4;
       display: flex;
       gap: 28px;
       align-items: center;
     }
-    .explore-modal-counter .label { color: #5a6470; }
+    .explore-modal-counter .label { color: var(--explore-meta); }
   </style>
 </head>
 <body class="explore-page">
@@ -278,17 +336,18 @@
   </div>
 
   <div class="explore-meta">
-    <h1>Explore</h1>
-    <p>A drifting archive of experiments, side projects, and pieces in progress. Move your cursor to look around, or drag to push through the space.</p>
+    <h1 id="exploreMetaTitle">Explore</h1>
+    <p id="exploreMetaDesc">An open canvas of projects, side experiments, and pieces in progress. Hover any image for details, click to open.</p>
+    <span id="exploreMetaCta" class="cta" style="display:none;">View project →</span>
   </div>
 
   <div class="explore-hint">
     <span class="dot"></span>
-    Drift · drag to explore
+    Move to explore
   </div>
 
   <div class="explore-modal" id="exploreModal" aria-hidden="true" role="dialog">
-    <div class="explore-modal-brand">Melody Ekbatani</div>
+    <div class="explore-modal-brand" id="exploreModalBrand">Melody Ekbatani</div>
     <div class="explore-modal-topnav">
       <a id="exploreModalCta" href="#" style="display:none;">View project</a>
       <button id="exploreModalClose" type="button" aria-label="Close">Close</button>
@@ -311,277 +370,240 @@
     </div>
 
     <div class="explore-modal-counter">
-      <span class="label">Navigation</span>
+      <span class="label">Image</span>
       <span id="exploreModalCounter">1 of 1</span>
     </div>
   </div>
 
   <script>
-    // ─── Item catalog ──────────────────────────────────
-    // Mix of projects + experiments. Tag bigger pieces with size:"lg".
-    const items = [
-      { src: "Home Page/Aeri.png",          type: "image", title: "Aeri",              href: "/aeri/index.html",      size: "lg" },
-      { src: "Home Page/Google Gemini.mp4", type: "video", title: "Adaptive Research", href: "/gemini/index.html",    size: "lg" },
-      { src: "Home Page/Parameter.mp4",     type: "video", title: "Parameter",         href: "/Parameter/index.html", size: "lg" },
-      { src: "Home Page/loam.mp4",          type: "video", title: "Loam",              href: "/Loam/index.html",      size: "md" },
-      { src: "Home Page/Stashit video.mp4", type: "video", title: "Stash It",          href: "#",                     size: "md" },
-      { src: "Home Page/Aeri.png",          type: "image", title: "Material study",   href: "#", size: "sm" },
-      { src: "Home Page/Google Gemini.mp4", type: "video", title: "Interaction sketch", href: "#", size: "md" },
-      { src: "Home Page/Parameter.mp4",     type: "video", title: "Motion study",     href: "#", size: "sm" },
-      { src: "Home Page/loam.mp4",          type: "video", title: "Side project",     href: "#", size: "md" },
-      { src: "Home Page/Stashit video.mp4", type: "video", title: "Prototype",        href: "#", size: "sm" },
-      { src: "Home Page/Aeri.png",          type: "image", title: "Sketch",           href: "#", size: "sm" },
-      { src: "Home Page/Google Gemini.mp4", type: "video", title: "Workshop",         href: "#", size: "md" },
-      { src: "Home Page/Parameter.mp4",     type: "video", title: "Brand study",     href: "#", size: "sm" },
-      { src: "Home Page/loam.mp4",          type: "video", title: "Side project",     href: "#", size: "md" },
-      { src: "Home Page/Stashit video.mp4", type: "video", title: "Experiment",       href: "#", size: "sm" },
-      { src: "Home Page/Aeri.png",          type: "image", title: "Sketch",           href: "#", size: "sm" },
-      { src: "Home Page/Google Gemini.mp4", type: "video", title: "Process",          href: "#", size: "md" },
-      { src: "Home Page/Parameter.mp4",     type: "video", title: "Concept",          href: "#", size: "sm" },
-      { src: "Home Page/loam.mp4",          type: "video", title: "Side project",     href: "#", size: "sm" },
-      { src: "Home Page/Stashit video.mp4", type: "video", title: "Idea",             href: "#", size: "md" },
-      { src: "Home Page/Aeri.png",          type: "image", title: "AR study",        href: "#", size: "sm" },
-      { src: "Home Page/Google Gemini.mp4", type: "video", title: "Search UX",       href: "#", size: "sm" },
-      { src: "Home Page/Parameter.mp4",     type: "video", title: "Health UI",       href: "#", size: "sm" },
-      { src: "Home Page/loam.mp4",          type: "video", title: "Marketplace",     href: "#", size: "sm" },
+    // ─── Project catalog ──────────────────────────────────
+    // Wired to real assets in /Explore. Subfolders = multi-image projects;
+    // loose files = single-image projects. Each file used only once.
+    // Only `w` is set per item — height comes from the image's natural ratio.
+    const EX = "Explore/";
+
+    const projects = [
+      {
+        name: "Acid League",
+        items: [
+          { src: EX + "Acid League/Acid League 1.mp4",        type: "video", w: 62 },
+          { src: EX + "Acid League/Acid League 2.mp4",        type: "video", w: 55 },
+          { src: EX + "Acid League/acid league progress.MP4", type: "video", w: 52 },
+          { src: EX + "Acid League/Portfolio_11.jpg",         type: "image", w: 58 },
+        ],
+      },
+      {
+        name: "Forage",
+        items: [
+          { src: EX + "Forage/Forage.jpg",                       type: "image", w: 65 },
+          { src: EX + "Forage/Forage - 3D Hardware Design.png",  type: "image", w: 62 },
+          { src: EX + "Forage/Slide 1.png",                      type: "image", w: 55 },
+          { src: EX + "Forage/Slide 2.png",                      type: "image", w: 55 },
+          { src: EX + "Forage/Slide 18.png",                     type: "image", w: 52 },
+          { src: EX + "Forage/Slide 19.png",                     type: "image", w: 52 },
+          { src: EX + "Forage/Slide 20.png",                     type: "image", w: 55 },
+          { src: EX + "Forage/Slide 23.png",                     type: "image", w: 55 },
+          { src: EX + "Forage/Static Ring.png",                  type: "image", w: 55 },
+          { src: EX + "Forage/Final Video.mp4",                  type: "video", w: 62 },
+          { src: EX + "Forage/Final Video 2.mp4",                type: "video", w: 62 },
+        ],
+      },
+      {
+        name: "Anzza",
+        items: [
+          { src: EX + "Anzza/Anzza Brand Illustrations.png",   type: "image", w: 65 },
+          { src: EX + "Anzza/Anzza Brand Illustrations-1.png", type: "image", w: 65 },
+        ],
+      },
+      {
+        name: "Mysun",
+        items: [
+          { src: EX + "Mysun/Mysun - marketing site.png", type: "image", w: 65 },
+          { src: EX + "Mysun/MySun App.png",              type: "image", w: 70 },
+          { src: EX + "Mysun/mySUN.png",                  type: "image", w: 55 },
+          { src: EX + "Mysun/mySUN 2.png",                type: "image", w: 55 },
+          { src: EX + "Mysun/mySUN 3.png",                type: "image", w: 55 },
+          { src: EX + "Mysun/mySUN 6.png",                type: "image", w: 55 },
+          { src: EX + "Mysun/mySUN.mp4",                  type: "video", w: 62 },
+        ],
+      },
+      {
+        name: "Zari zar",
+        items: [
+          { src: EX + "Zari zar /Frame.png",            type: "image", w: 58 },
+          { src: EX + "Zari zar /Frame-1.png",          type: "image", w: 55 },
+          { src: EX + "Zari zar /Frame-2.png",          type: "image", w: 55 },
+          { src: EX + "Zari zar /Frame-3.png",          type: "image", w: 52 },
+          { src: EX + "Zari zar /Frame-4.png",          type: "image", w: 52 },
+          { src: EX + "Zari zar /Frame-5.png",          type: "image", w: 52 },
+          { src: EX + "Zari zar /Frame-6.png",          type: "image", w: 52 },
+          { src: EX + "Zari zar /Frame-7.png",          type: "image", w: 52 },
+          { src: EX + "Zari zar /Frame-8.png",          type: "image", w: 52 },
+          { src: EX + "Zari zar /Frame 1430106214.png", type: "image", w: 62 },
+        ],
+      },
+      { name: "Arc teryx",           items: [{ src: EX + "Arc teryx/Portfolio_16 .jpg",      type: "image", w: 65 }] },
+      { name: "Bochi Lights",        items: [{ src: EX + "Bochi Lights.MP4",                 type: "video", w: 58 }] },
+      { name: "Final Minor Figures", items: [{ src: EX + "Final Minor figures.mp4",          type: "video", w: 70 }] },
+      { name: "Final Mockup",        items: [{ src: EX + "Final Mockup_.png",                type: "image", w: 62 }] },
+      { name: "Hot Girl Pickles",    items: [{ src: EX + "Hot Girl Pickles - Progress.mp4",  type: "video", w: 55 }] },
+      { name: "New York",            items: [{ src: EX + "New York.MP4",                     type: "video", w: 70 }] },
+      { name: "Oli Olive Oil",       items: [{ src: EX + "Oli Olive Oil.MP4",                type: "video", w: 55 }] },
+      { name: "Archi Final",         items: [{ src: EX + "Archi final .mp4",                 type: "video", w: 70 }] },
+      { name: "Coolio",              items: [{ src: EX + "Coolio header.png",                type: "image", w: 70 }] },
+      { name: "Fellowship",          items: [{ src: EX + "Fellowship.mp4",                   type: "video", w: 62 }] },
+      { name: "Final Cellphone",     items: [{ src: EX + "final cellphone.mp4",              type: "video", w: 58 }] },
+      { name: "Portfolio 1",         items: [{ src: EX + "Portfolio_1.mp4",                  type: "video", w: 65 }] },
+      { name: "Portfolio 19",        items: [{ src: EX + "Portfolio_19.jpg",                 type: "image", w: 58 }] },
+      { name: "Portfolio 20",        items: [{ src: EX + "Portfolio_20.jpg",                 type: "image", w: 58 }] },
+      { name: "Frame 207",           items: [{ src: EX + "Frame 1430106207.png",             type: "image", w: 58 }] },
+      { name: "Frame 208",           items: [{ src: EX + "Frame 1430106208.png",             type: "image", w: 58 }] },
+      { name: "Frame 209",           items: [{ src: EX + "Frame 1430106209.png",             type: "image", w: 58 }] },
+      { name: "Frame 210",           items: [{ src: EX + "Frame 1430106210.png",             type: "image", w: 58 }] },
+      { name: "Frame 211",           items: [{ src: EX + "Frame 1430106211.png",             type: "image", w: 58 }] },
+      { name: "Frame 212",           items: [{ src: EX + "Frame 1430106212.png",             type: "image", w: 58 }] },
     ];
 
-    const words = [
-      "transformation", "chance", "ellipse", "movement",
-      "drift", "noticing", "everyday", "system",
-      "ritual", "trace"
-    ];
+    // ─── Build the canvas (scattered constellation) ────────
+    const world = document.getElementById("exploreWorld");
+    const stage = document.getElementById("exploreStage");
 
-    // ─── Seeded pseudo-random for stable layout ────────
+    // Seeded RNG so layout is stable between reloads
     function mulberry32(seed) {
-      return function() {
+      return function () {
         seed |= 0; seed = seed + 0x6D2B79F5 | 0;
         let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
         t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
         return ((t ^ t >>> 14) >>> 0) / 4294967296;
       };
     }
-    const rand = mulberry32(42);
+    const rand = mulberry32(7);
 
-    // ─── Build items into 3D volumetric cloud ─────────
-    const world = document.getElementById("exploreWorld");
-    const stage = document.getElementById("exploreStage");
+    // Scatter region (world units). Sized to viewport so every item fits
+    // on one screen — no panning required to see them all.
+    const NAV_TOP   = 90;
+    const CHROME_B  = 90;
+    const SPREAD_X = Math.max(900, window.innerWidth  - 60);
+    const SPREAD_Y = Math.max(500, window.innerHeight - NAV_TOP - CHROME_B);
+    const PAD     = 10;
+    const placed = []; // { x, y, w, h }
 
-    // Volume dimensions (world units)
-    const VOL = { x: 2200, y: 1200, z: 2200 };
-
-    const sizeMap = {
-      sm: () => 80 + rand() * 60,    // 80–140
-      md: () => 150 + rand() * 80,   // 150–230
-      lg: () => 240 + rand() * 120,  // 240–360
-    };
-
-    const placed = []; // {x,y,z,r}
-    function findSpot(minDist) {
-      for (let i = 0; i < 30; i++) {
-        const x = (rand() - 0.5) * VOL.x;
-        const y = (rand() - 0.5) * VOL.y;
-        const z = (rand() - 0.5) * VOL.z;
-        let ok = true;
-        for (const p of placed) {
-          const d = Math.hypot(x - p.x, y - p.y, z - p.z);
-          if (d < minDist + p.r) { ok = false; break; }
-        }
-        if (ok) return { x, y, z };
-      }
-      // give up — return random anyway
-      return {
-        x: (rand() - 0.5) * VOL.x,
-        y: (rand() - 0.5) * VOL.y,
-        z: (rand() - 0.5) * VOL.z,
-      };
+    function rectsOverlap(a, b, pad) {
+      return !(a.x + a.w + pad <= b.x ||
+               b.x + b.w + pad <= a.x ||
+               a.y + a.h + pad <= b.y ||
+               b.y + b.h + pad <= a.y);
     }
 
-    const itemEls = items.map((item, idx) => {
-      const w = sizeMap[item.size || "md"]();
-      const h = w * (0.75 + rand() * 0.6); // varied aspect ratios
-
-      const spot = findSpot(w * 0.9);
-      placed.push({ ...spot, r: w });
-
-      // Slight 3D rotation per item — most face camera, some tilted
-      const rotY = (rand() - 0.5) * 30;  // ±15°
-      const rotX = (rand() - 0.5) * 14;  // ±7°
-      const rotZ = (rand() - 0.5) * 4;   // ±2°
-
-      const el = document.createElement("div");
-      el.className = "explore-item";
-      el.dataset.x = spot.x;
-      el.dataset.y = spot.y;
-      el.dataset.z = spot.z;
-      el.dataset.rx = rotX;
-      el.dataset.ry = rotY;
-      el.dataset.rz = rotZ;
-      el.dataset.idx = idx;
-
-      const media = item.type === "video"
-        ? `<video autoplay muted loop playsinline preload="metadata"><source src="${item.src}" type="video/mp4"></video>`
-        : `<img src="${item.src}" alt="${item.title}">`;
-
-      el.innerHTML = `
-        <button type="button" class="explore-trigger" style="all:unset;cursor:pointer;display:block;">
-          <div class="explore-media" style="width:${w.toFixed(0)}px;height:${h.toFixed(0)}px;">${media}</div>
-          <div class="explore-caption">${item.title}</div>
-        </button>
-      `;
-      world.appendChild(el);
-      return el;
-    });
-
-    // floating words — scattered, larger, no clustering needed
-    const wordEls = words.map((text) => {
-      const x = (rand() - 0.5) * VOL.x * 1.1;
-      const y = (rand() - 0.5) * VOL.y * 1.1;
-      const z = (rand() - 0.5) * VOL.z * 1.1;
-      const size = 22 + rand() * 30;
-      const el = document.createElement("div");
-      el.className = "explore-word";
-      el.style.fontSize = `${size.toFixed(0)}px`;
-      el.dataset.x = x;
-      el.dataset.y = y;
-      el.dataset.z = z;
-      el.textContent = text;
-      world.appendChild(el);
-      return el;
-    });
-
-    // ─── Camera / drift state ─────────────────────────
-    let camYaw = 0, camPitch = -2;     // rotation of world
-    let camX = 0, camY = 0;            // pan from mouse
-    let velYaw = 0.04, velPitch = 0;   // gentle auto-drift
-    let mouseX = 0, mouseY = 0;        // -1..1
-    let isDragging = false;
-    let dragMoved = false;             // suppress click if user actually dragged
-    let lastX = 0, lastY = 0;
-    let downX = 0, downY = 0;
-
-    stage.addEventListener("pointerdown", (e) => {
-      isDragging = true;
-      dragMoved = false;
-      stage.classList.add("is-dragging");
-      lastX = e.clientX; lastY = e.clientY;
-      downX = e.clientX; downY = e.clientY;
-      velYaw = 0; velPitch = 0;
-    });
-    window.addEventListener("pointermove", (e) => {
-      // parallax look — always tracked, even without drag
-      mouseX = (e.clientX / window.innerWidth)  * 2 - 1;
-      mouseY = (e.clientY / window.innerHeight) * 2 - 1;
-
-      if (!isDragging) return;
-      const dx = e.clientX - lastX;
-      const dy = e.clientY - lastY;
-      if (Math.hypot(e.clientX - downX, e.clientY - downY) > 5) dragMoved = true;
-      if (!dragMoved) { lastX = e.clientX; lastY = e.clientY; return; }
-      camYaw   += dx * 0.18;
-      camPitch -= dy * 0.18;
-      camPitch  = Math.max(-35, Math.min(35, camPitch));
-      velYaw   =  dx * 0.18;
-      velPitch = -dy * 0.18;
-      lastX = e.clientX; lastY = e.clientY;
-    });
-    const endDrag = () => {
-      if (!isDragging) return;
-      isDragging = false;
-      stage.classList.remove("is-dragging");
-    };
-    window.addEventListener("pointerup",     endDrag);
-    window.addEventListener("pointercancel", endDrag);
-
-    // ─── Render loop ──────────────────────────────────
-    const fogColor = [231, 237, 243]; // matches bg start
-
-    function render() {
-      if (!isDragging) {
-        velYaw   = velYaw   * 0.96 + 0.04 * 0.04;  // settle to 0.04
-        velPitch = velPitch * 0.94;
-        camYaw   += velYaw;
-        camPitch += velPitch;
-        camPitch *= 0.997;
-      }
-
-      // mouse parallax: small targeted offset
-      const targetX = -mouseX * 80;
-      const targetY = -mouseY * 60;
-      camX += (targetX - camX) * 0.04;
-      camY += (targetY - camY) * 0.04;
-
-      const yawDeg   = camYaw;
-      const pitchDeg = camPitch + Math.sin(performance.now() * 0.0003) * 1.2; // gentle bob
-
-      world.style.transform =
-        `translate3d(${camX.toFixed(2)}px, ${camY.toFixed(2)}px, 0)` +
-        ` rotateX(${pitchDeg.toFixed(3)}deg) rotateY(${yawDeg.toFixed(3)}deg)`;
-
-      // Precompute world rotation for depth calc
-      const ry = yawDeg   * Math.PI / 180;
-      const rx = pitchDeg * Math.PI / 180;
-      const cY = Math.cos(ry), sY = Math.sin(ry);
-      const cX = Math.cos(rx), sX = Math.sin(rx);
-
-      const updateOne = (el) => {
-        const x = +el.dataset.x;
-        const y = +el.dataset.y;
-        const z = +el.dataset.z;
-
-        // Apply Y then X rotation to find camera-space depth z2
-        const x1 =  x * cY + z * sY;
-        const z1 = -x * sY + z * cY;
-        const z2 =  y * sX + z1 * cX;
-
-        // depth normalized 0..1 (1 = closest)
-        const halfDepth = VOL.z;
-        const depth = Math.max(0, Math.min(1, (z2 + halfDepth) / (halfDepth * 2)));
-
-        el.style.zIndex = Math.round(depth * 2000);
-
-        // place at world coords + per-item rotation (NOT counter-rotated, so they tilt)
-        const rxI = el.dataset.rx, ryI = el.dataset.ry, rzI = el.dataset.rz;
-        if (rxI !== undefined) {
-          el.style.transform =
-            `translate3d(${x}px, ${y}px, ${z}px)` +
-            ` rotateY(${ryI}deg) rotateX(${rxI}deg) rotateZ(${rzI}deg)`;
-        } else {
-          // words — billboarded to face camera for legibility
-          el.style.transform =
-            `translate3d(${x}px, ${y}px, ${z}px)` +
-            ` rotateY(${(-yawDeg).toFixed(2)}deg) rotateX(${(-pitchDeg).toFixed(2)}deg)`;
+    function findSpot(w, h) {
+      // Try multiple padding tiers from generous to zero. At pad=0 we still
+      // refuse any actual intersection — never produce full overlap.
+      for (const pad of [PAD, 6, 3, 1, 0]) {
+        for (let i = 0; i < 250; i++) {
+          const x = (rand() - 0.5) * SPREAD_X - w / 2;
+          const y = (rand() - 0.5) * SPREAD_Y - h / 2;
+          const cand = { x, y, w, h };
+          let ok = true;
+          for (const p of placed) {
+            if (rectsOverlap(cand, p, pad)) { ok = false; break; }
+          }
+          if (ok) return { x, y };
         }
-      };
-
-      itemEls.forEach(updateOne);
-      wordEls.forEach(updateOne);
-
-      requestAnimationFrame(render);
+      }
+      // Grid fallback — walk a fine grid and return the first non-overlapping cell.
+      const stepX = Math.max(8, w / 4);
+      const stepY = Math.max(8, h / 4);
+      for (let y = -SPREAD_Y / 2; y <= SPREAD_Y / 2 - h; y += stepY) {
+        for (let x = -SPREAD_X / 2; x <= SPREAD_X / 2 - w; x += stepX) {
+          const cand = { x, y, w, h };
+          let ok = true;
+          for (const p of placed) {
+            if (rectsOverlap(cand, p, 0)) { ok = false; break; }
+          }
+          if (ok) return { x, y };
+        }
+      }
+      // Truly no room — push outside viewport rather than overlap visibly.
+      return { x: SPREAD_X / 2 + 40, y: 0 };
     }
-    render();
 
-    // ─── Nav indicator (shared) ───────────────────────
+    projects.forEach((proj, pIdx) => {
+      proj.items.forEach((it, iIdx) => {
+        // Over-estimate height for collision detection (portrait media
+        // can be ~1.5x its width) so thumbs don't pile on top of each other.
+        const estH = Math.round(it.w * 1.4);
+        const spot = findSpot(it.w, estH);
+        placed.push({ x: spot.x, y: spot.y, w: it.w, h: estH });
+
+        const zi  = Math.floor(rand() * 10); // 0–9 so title (z:5) is sandwiched
+        const baseTransform = `translate(${spot.x}px, ${spot.y}px)`;
+
+        const thumb = document.createElement("div");
+        thumb.className = "explore-thumb";
+        thumb.dataset.project = pIdx;
+        thumb.dataset.image   = iIdx;
+        thumb.style.zIndex = zi;
+        thumb.style.setProperty("--base-transform", baseTransform);
+
+        const media = it.type === "video"
+          ? `<video autoplay muted loop playsinline preload="metadata"><source src="${it.src}" type="video/mp4"></video>`
+          : `<img src="${it.src}" alt="${proj.name}" loading="lazy">`;
+
+        thumb.innerHTML = `<div class="explore-thumb-media" style="width:${it.w}px;">${media}</div>`;
+
+        thumb.addEventListener("click", () => {
+          if (dragMoved) return;
+          openModal(pIdx, iIdx);
+        });
+        thumb.addEventListener("mouseenter", () => showMeta(pIdx, iIdx));
+        thumb.addEventListener("mouseleave", () => resetMeta());
+
+        world.appendChild(thumb);
+      });
+    });
+
+    // ─── Mouse-driven pan ──────────────────────────────────
+    // Cursor position alone drives the camera: mouse at center → world
+    // centered; mouse toward an edge → world pans the opposite way to
+    // reveal what's on that side. No drag, no scroll — just move.
+    let camX = 0, camY = 0;          // current (smoothed) camera position
+    let targetX = 0, targetY = 0;    // target driven by mouse
+    // dragMoved kept as a no-op for the existing click guard
+    let dragMoved = false;
+
+    // Everything already fits on one screen — pan is now a subtle
+    // parallax "look-around" rather than a way to reveal content.
+    const PAN_X = 50;
+    const PAN_Y = 35;
+
+    function applyTransform() {
+      world.style.transform = `translate3d(${camX.toFixed(2)}px, ${camY.toFixed(2)}px, 0)`;
+    }
+    applyTransform();
+
+    // Cursor pan disabled — canvas is static.
+
+    // ─── Nav indicator (shared) ────────────────────────────
     function bindIndicator(container, indicatorSelector, itemSelector, activeSelector) {
       if (!container) return;
       const indicator = container.querySelector(indicatorSelector);
       const items = [...container.querySelectorAll(itemSelector)];
       if (!indicator || items.length === 0) return;
       let activeItem = activeSelector ? container.querySelector(activeSelector) : null;
-      function placeIndicator(item, color = "#111111") {
+      function placeIndicator(item, color) {
         if (!item) return;
         const cb = container.getBoundingClientRect();
         const ib = item.getBoundingClientRect();
         const x = ib.left - cb.left + 4;
         const y = ib.top - cb.top + ib.height / 2;
         indicator.style.transform = `translate(${x}px, ${y}px) translateY(-50%)`;
-        indicator.style.backgroundColor = color;
+        if (color) indicator.style.backgroundColor = color;
       }
       if (activeItem) placeIndicator(activeItem);
       requestAnimationFrame(() => indicator.classList.add("is-ready"));
       items.forEach((item) => {
-        item.addEventListener("mouseenter", () => placeIndicator(item, "#CFCFCF"));
-        item.addEventListener("focus",      () => placeIndicator(item, "#CFCFCF"));
+        item.addEventListener("mouseenter", () => placeIndicator(item, "#8a8a8a"));
+        item.addEventListener("focus",      () => placeIndicator(item, "#8a8a8a"));
       });
       container.addEventListener("mouseleave", () => {
         if (activeItem) placeIndicator(activeItem); else indicator.style.opacity = "0";
@@ -590,7 +612,53 @@
     }
     bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", "a.active");
 
-    // ─── Modal wiring ─────────────────────────────────
+    // ─── Meta block (swap content on thumb hover) ─────────────
+    const metaTitle = document.getElementById("exploreMetaTitle");
+    const metaDesc  = document.getElementById("exploreMetaDesc");
+    const metaCta   = document.getElementById("exploreMetaCta");
+    const DEFAULT_TITLE = metaTitle.textContent;
+    const DEFAULT_DESC  = metaDesc.textContent;
+    let metaCtaIdx = { p: 0, i: 0 };
+
+    function showMeta(pIdx, iIdx) {
+      const proj = projects[pIdx];
+      const count = proj.items.length;
+      const kind  = proj.items[iIdx].type === "video" ? "Video" : "Image";
+      metaTitle.textContent = proj.name;
+      metaDesc.textContent  = count > 1
+        ? `${count} pieces — click any to view the project.`
+        : `${kind} — click to open.`;
+      metaCta.textContent = (count > 1 ? "View project" : "Open") + " →";
+      metaCta.style.display = "inline-block";
+      metaCtaIdx = { p: pIdx, i: iIdx };
+    }
+    function resetMeta() {
+      metaTitle.textContent = DEFAULT_TITLE;
+      metaDesc.textContent  = DEFAULT_DESC;
+      metaCta.style.display = "none";
+    }
+    metaCta.addEventListener("click", () => openModal(metaCtaIdx.p, metaCtaIdx.i));
+
+    // ─── Slide-down exit on internal navigation ──────────────
+    document.querySelectorAll("a[href]").forEach((link) => {
+      const href = link.getAttribute("href");
+      if (!href || href.startsWith("http") || href.startsWith("mailto") || href.startsWith("#")) return;
+      if (link.getAttribute("target") === "_blank") return;
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const dest = link.href;
+        // mirror about.html signaling so /#work opens the Work panel
+        if (link.getAttribute("data-nav") === "work") {
+          window.localStorage.setItem("portfolio-active-panel", "work");
+        } else if (link.getAttribute("data-nav") === "home") {
+          window.localStorage.setItem("portfolio-active-panel", "home");
+        }
+        document.body.classList.add("is-exiting");
+        setTimeout(() => { window.location.href = dest; }, 1580);
+      });
+    });
+
+    // ─── Modal: scoped to a single project's images ────────
     const modal        = document.getElementById("exploreModal");
     const modalMedia   = document.getElementById("exploreModalMedia");
     const modalTitle   = document.getElementById("exploreModalTitle");
@@ -601,28 +669,30 @@
     const modalNext    = document.getElementById("exploreModalNext");
     const modalCounter = document.getElementById("exploreModalCounter");
 
-    let currentIdx = 0;
+    let curProj = 0;
+    let curImg  = 0;
 
-    function renderModal(idx) {
-      const item = items[idx];
-      currentIdx = idx;
+    function renderModal(pIdx, iIdx) {
+      const proj = projects[pIdx];
+      const item = proj.items[iIdx];
+      curProj = pIdx; curImg = iIdx;
       const media = item.type === "video"
         ? `<video autoplay muted loop playsinline controls><source src="${item.src}" type="video/mp4"></video>`
-        : `<img src="${item.src}" alt="${item.title}">`;
+        : `<img src="${item.src}" alt="${proj.name}">`;
       modalMedia.innerHTML = media;
-      modalTitle.textContent = item.title + ", 2026";
-      modalDesc.textContent = item.desc || "Melody Ekbatani";
-      if (item.href && item.href !== "#") {
-        modalCta.href = item.href;
+      modalTitle.textContent = proj.name;
+      modalDesc.textContent  = item.label || "Melody Ekbatani";
+      if (proj.href) {
+        modalCta.href = proj.href;
         modalCta.style.display = "inline";
       } else {
         modalCta.style.display = "none";
       }
-      modalCounter.textContent = `${idx + 1} of ${items.length}`;
+      modalCounter.textContent = `${iIdx + 1} of ${proj.items.length}`;
     }
 
-    function openModal(idx) {
-      renderModal(idx);
+    function openModal(pIdx, iIdx) {
+      renderModal(pIdx, iIdx);
       modal.classList.add("is-open");
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
@@ -630,20 +700,21 @@
     function closeModal() {
       modal.classList.remove("is-open");
       modal.setAttribute("aria-hidden", "true");
-      modalMedia.innerHTML = "";
+      // Stop any playing video before tearing it down
+      const v = modalMedia.querySelector("video");
+      if (v) { try { v.pause(); } catch (e) {} }
+      // Clear after the fade-out so we don't see a blank flash mid-transition
+      setTimeout(() => { modalMedia.innerHTML = ""; }, 240);
       document.body.style.overflow = "";
     }
-    function nextItem() { renderModal((currentIdx + 1) % items.length); }
-    function prevItem() { renderModal((currentIdx - 1 + items.length) % items.length); }
-
-    itemEls.forEach((el) => {
-      const trigger = el.querySelector(".explore-trigger");
-      trigger.addEventListener("click", (e) => {
-        if (dragMoved) { e.preventDefault(); return; }
-        e.preventDefault();
-        openModal(+el.dataset.idx);
-      });
-    });
+    function nextItem() {
+      const n = projects[curProj].items.length;
+      renderModal(curProj, (curImg + 1) % n);
+    }
+    function prevItem() {
+      const n = projects[curProj].items.length;
+      renderModal(curProj, (curImg - 1 + n) % n);
+    }
 
     modalClose.addEventListener("click", closeModal);
     modalNext.addEventListener("click", nextItem);
