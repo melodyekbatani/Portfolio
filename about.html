@@ -169,15 +169,14 @@
       text-align: left;
     }
 
-    .about-highlights-label {
+    .about-highlights-eyebrow {
       margin-bottom: 16px;
     }
-
     .about-highlights-heading {
-      font-size: var(--fs-title-md);
+      font-size: var(--fs-title-lg);
       font-weight: var(--fw-medium);
       letter-spacing: var(--ls-tight);
-      line-height: var(--lh-snug);
+      line-height: var(--lh-tight);
       margin-bottom: 56px;
     }
 
@@ -185,7 +184,7 @@
        Driven by scroll progress as the section enters the viewport. */
     .highlights-stage {
       position: relative;
-      padding: 180px 0 24px;     /* push cards further down within the section */
+      padding: 40px 0 24px;
       margin: 0 calc(var(--pad-page) * -1);
       /* No overflow:hidden — cards spread freely during the unfold */
     }
@@ -216,7 +215,9 @@
         translateY(calc(var(--unfold-y, 0px) * var(--yf, 0)))
         rotate(calc(var(--unfold-rot, 0deg) * var(--rf, 0)));
       will-change: transform;
-      transition: transform 60ms linear;
+      /* Smooths between scroll samples so quick wheel ticks don't cause
+         visible jumps between transform states. */
+      transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
     }
     .highlight-card:hover,
     .highlight-card.is-demo {
@@ -257,7 +258,7 @@
     .highlight-card-tag-label {
       display: block;
       font-size: var(--fs-small);
-      font-weight: var(--fw-medium);
+      font-weight: var(--fw-regular);
       letter-spacing: -0.01em;
       line-height: 1.25;
       white-space: nowrap;
@@ -328,7 +329,7 @@
 
     .about-approach-copy {
       font-size: var(--fs-body);
-      font-weight: var(--fw-medium);
+      font-weight: var(--fw-regular);   /* matches .about-hero-bio p */
       line-height: var(--lh-body);
       max-width: 46ch;
     }
@@ -345,8 +346,8 @@
     /* ─── Divider row ────────────────────────────────────────── */
 
     .about-section {
-      padding-top: 48px;
-      padding-bottom: 48px;
+      padding-top: 32px;
+      padding-bottom: 32px;
     }
 
     .about-section-grid {
@@ -373,15 +374,22 @@
     .about-list {
       display: flex;
       flex-direction: column;
-      gap: 36px;
+      gap: 18px;
+      padding-top: 60px;
+    }
+    /* Sections with only a small label on the left (Education, Skills,
+       Awards, Certifications) — align the list's first item to the label
+       baseline instead of offsetting it for a missing heading. */
+    .about-section-label + .about-list {
+      padding-top: 0;
     }
 
     .about-list-item {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 24px;
-      align-items: baseline;
-      padding-bottom: 36px;
+      align-items: end;
+      padding-bottom: 18px;
     }
 
     .about-item-title {
@@ -444,10 +452,10 @@
     /* ─── Life Lately ────────────────────────────────────────── */
 
     .about-life {
-      height: calc(100vh - var(--nav-h));
+      height: calc(100vh - var(--nav-h));     /* eyebrow + title + grid fit in 1vh */
       display: flex;
       flex-direction: column;
-      padding: 40px var(--pad-page) 40px;
+      padding: 40px var(--pad-page);
       box-sizing: border-box;
     }
 
@@ -470,7 +478,15 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       transition: transform 0.6s ease;
+    }
+    /* Anchor specific photos to the top so their crop favours head/upper body */
+    .life-item img[src*="Family.png"] {
+      object-position: center top;
+    }
+    .life-item img[src*="Summit.png"] {
+      object-position: center 30%;   /* a touch lower than top */
     }
 
     .life-item:hover img {
@@ -529,8 +545,9 @@
 
     .life-footer-desc {
       font-size: var(--fs-body);
-      font-weight: var(--fw-medium);
+      font-weight: var(--fw-regular);   /* matches About hero bio */
       line-height: var(--lh-body);
+      text-wrap: balance;               /* short copy reads better balanced than pretty */
     }
 
     .about-panel .page-footer {
@@ -654,8 +671,8 @@
 
       <!-- Career Highlights -->
       <section class="about-highlights">
-        <p class="t-small about-highlights-label">Career Highlights</p>
-        <h2 class="about-highlights-heading">A few moments that shape my path</h2>
+        <p class="t-small about-highlights-eyebrow">Moments that shaped my path</p>
+        <h2 class="about-highlights-heading">Career Highlights</h2>
 
         <div class="highlights-stage" id="highlightsStage" aria-label="Career highlights">
           <div class="highlights-track" id="highlightsTrack">
@@ -699,7 +716,7 @@
               <div class="highlight-card-image">
                 <img src="About Section /Highlights/Highlights imagery-5.png" alt="">
                 <div class="highlight-card-tag">
-                  <span class="highlight-card-tag-label">CIC Japan Desk grant</span>
+                  <span class="highlight-card-tag-label">CIC Japan Desk</span>
                   <div class="highlight-card-tag-desc"><span>Design work for biotech founders via the CIC Japan Desk x Parsons program.</span></div>
                 </div>
               </div>
@@ -709,7 +726,7 @@
                 <img src="About Section /Highlights/Highlights imagery-2.png" alt="">
                 <div class="highlight-card-tag">
                   <span class="highlight-card-tag-label">Designing for AR</span>
-                  <div class="highlight-card-tag-desc"><span>How AR reshapes visual communication and interaction design.</span></div>
+                  <div class="highlight-card-tag-desc"><span>Thinking through how AR reshapes visual communication and interaction design.</span></div>
                 </div>
               </div>
             </div>
@@ -717,8 +734,8 @@
               <div class="highlight-card-image">
                 <img src="About Section /Highlights/Highlights imagery-4.png" alt="">
                 <div class="highlight-card-tag">
-                  <span class="highlight-card-tag-label">Field research</span>
-                  <div class="highlight-card-tag-desc"><span>Documenting context and user stories on location.</span></div>
+                  <span class="highlight-card-tag-label">Collaboration</span>
+                  <div class="highlight-card-tag-desc"><span>Working alongside engineers and PMs to align direction and ship features together.</span></div>
                 </div>
               </div>
             </div>
@@ -726,8 +743,8 @@
               <div class="highlight-card-image">
                 <img src="About Section /Highlights/Highlights imagery-6.png" alt="">
                 <div class="highlight-card-tag">
-                  <span class="highlight-card-tag-label">Team working</span>
-                  <div class="highlight-card-tag-desc"><span>Aligning with engineers and PMs to ship features together.</span></div>
+                  <span class="highlight-card-tag-label">Field research</span>
+                  <div class="highlight-card-tag-desc"><span>Running user interviews and on-site research to ground product decisions in real behaviour.</span></div>
                 </div>
               </div>
             </div>
@@ -744,7 +761,7 @@
           </div>
           <p class="about-approach-copy">I approach product design through systems thinking, aligning strategy, UX, and strong craft to deliver intuitive experiences. I explore ideas through sketches, prototypes, and prompting, leveraging experimentation to refine concepts into clear direction.</p>
         </div>
-        <img class="about-process-image" src="About Section /Process.png" alt="Creative process">
+        <img class="about-process-image" src="About Section /process updated.png" alt="Creative process">
       </section>
 
       <!-- Experience -->
@@ -794,9 +811,9 @@
               <div>
                 <p class="about-item-title">Master's of Digital Product Design</p>
                 <p class="about-item-sub">Parsons School of Design, The New School</p>
-                <p class="about-item-sub">MPS, STEM Designated, Merit Scholarship, Dean's List</p>
+                <p class="about-item-sub">MPS, STEM Designated, Merit Entrance Scholarship, Dean's List Scholar, Departmental Honors</p>
               </div>
-              <span class="about-item-date">2024 – 2026</span>
+              <span class="about-item-date">2025 – 2026</span>
             </div>
 
             <div class="about-list-item">
@@ -828,14 +845,14 @@
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">Development</p>
-                <p class="about-item-sub">HTML, CSS, JavaScript</p>
+                <p class="about-item-sub">HTML, CSS, JavaScript, VS Code, Xcode</p>
               </div>
             </div>
 
             <div class="about-list-item">
               <div>
                 <p class="about-item-title">AI &amp; Emerging Tools</p>
-                <p class="about-item-sub">Generative AI workflows, Claude, Codex, Lovable, Image and Video Generation</p>
+                <p class="about-item-sub">Generative AI workflows (Claude, Codex, Lovable, Image and Video Generation)</p>
               </div>
             </div>
 
@@ -851,14 +868,6 @@
 
             <div class="about-list-item">
               <div>
-                <p class="about-item-title">Cambridge Innovation Center Grant</p>
-                <p class="about-item-sub">CIC Japan Desk, Parsons</p>
-              </div>
-              <span class="about-item-date">2026</span>
-            </div>
-
-            <div class="about-list-item">
-              <div>
                 <p class="about-item-title">Digital Expressions Fellow</p>
                 <p class="about-item-sub">Adaptive Research, Google Gemini</p>
               </div>
@@ -867,18 +876,18 @@
 
             <div class="about-list-item">
               <div>
-                <p class="about-item-title">Winner, Construction Product Design</p>
-                <p class="about-item-sub">Speedstac at Sparkbird Labs, BLT Design Awards</p>
+                <p class="about-item-title">Cambridge Innovation Center Grant</p>
+                <p class="about-item-sub">CIC Japan Desk, Parsons</p>
               </div>
-              <span class="about-item-date">2024</span>
+              <span class="about-item-date">2026</span>
             </div>
 
             <div class="about-list-item">
               <div>
-                <p class="about-item-title">Merit Scholarship &amp; Dean's List</p>
-                <p class="about-item-sub">Parsons School of Design, The New School</p>
+                <p class="about-item-title">Winner, Construction Product Design</p>
+                <p class="about-item-sub">Awarded for Speedstac at Sparkbird Labs, BLT Design Awards</p>
               </div>
-              <span class="about-item-date">2025–2026</span>
+              <span class="about-item-date">2024</span>
             </div>
 
           </div>
@@ -907,6 +916,40 @@
               <span class="about-item-date">2025</span>
             </div>
 
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">Artificial Intelligence Fundamentals</p>
+                <p class="about-item-sub">IBM</p>
+              </div>
+              <span class="about-item-date">2025</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Competitions -->
+      <section class="about-section">
+        <div class="about-section-grid">
+          <p class="t-small about-section-label">Competitions</p>
+          <div class="about-list">
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">AI Startup Design Hackathon</p>
+                <p class="about-item-sub">University of Arizona x Parsons</p>
+              </div>
+              <span class="about-item-date">Feb 27 – 28, 2026</span>
+            </div>
+
+            <div class="about-list-item">
+              <div>
+                <p class="about-item-title">AI Figma Hackathon</p>
+                <p class="about-item-sub">Figbuild</p>
+              </div>
+              <span class="about-item-date">Mar 3 – 6, 2026</span>
+            </div>
+
           </div>
         </div>
       </section>
@@ -924,13 +967,13 @@
         <div class="life-grid">
 
           <div class="life-item">
-            <img src="About Section /Life lately/Design Everywhere.png" alt="Seeing design everywhere">
-            <span class="life-caption">Seeing design everywhere</span>
+            <img src="About Section /Life lately/Design Everywhere.png" alt="Finding inspiration everywhere">
+            <span class="life-caption">Finding inspiration everywhere</span>
           </div>
 
           <div class="life-item">
             <img src="About Section /Life lately/Parsons.png" alt="Being a student again">
-            <span class="life-caption">Being a student again</span>
+            <span class="life-caption">A student again</span>
           </div>
 
           <div class="life-item">
@@ -950,7 +993,7 @@
 
           <div class="life-item">
             <img src="About Section /Life lately/Food.png" alt="Everything about this was perfect">
-            <span class="life-caption">Lots and lots of girl dinners! </span>
+            <span class="life-caption">Having lots of girl dinners</span>
           </div>
 
           <div class="life-item">
@@ -965,12 +1008,12 @@
 
           <div class="life-item">
             <img src="About Section /Life lately/Daytrips.png" alt="Day trip to New Haven">
-            <span class="life-caption">Day trips outside the city</span>
+            <span class="life-caption">Day tripping outside the city</span>
           </div>
 
           <div class="life-item">
-            <img src="About Section /Life lately/Taxi.png" alt="Have you ever seen anything more New York?">
-            <span class="life-caption">Have you ever seen anything more New York?</span>
+            <img src="About Section /Life lately/Taxi.png" alt="Living the dream!">
+            <span class="life-caption">Living the dream!</span>
           </div>
 
         </div>
@@ -1091,59 +1134,14 @@
       measure();
       window.addEventListener("resize", measure);
 
-      // Drive --unfold-p (0→1) from the section's distance from the
-      // viewport's vertical middle. Transition happens AROUND the middle
-      // (centered on it) and across a wide-enough range to feel slow.
-      let raf = 0;
-      function update() {
-        raf = 0;
-        const rect = section.getBoundingClientRect();
-        const vh = window.innerHeight;
-        // Monotonic ramp anchored to section middle vs viewport middle —
-        // p stays at 1 once you've scrolled past (no jitter / collapse).
-        const sectionMid = rect.top + rect.height / 2;
-        const viewportMid = vh / 2;
-        const range = vh * 0.10;
-        const d = sectionMid - viewportMid;
-        let p = (range - d) / (2 * range);
-        p = Math.max(0, Math.min(1, p));
-        const eased = 1 - Math.pow(1 - p, 3);
-
-        // X factor: 1 at p=0 (stacked at center), 0 at p=1 (at final flex
-        // position). Mid-overshoot: dips negative so cards spread PAST their
-        // landing spot before settling back.
-        const xf  = (1 - eased) - 0.55 * Math.sin(eased * Math.PI);
-        // Y / rotation factors *don't* collapse to 0 at p=1 — they land at
-        // ~0.3 so the final row keeps its curve + tilt instead of going flat.
-        const yf  = (1 - eased) * 0.7 + 0.3 + 0.35 * Math.sin(eased * Math.PI);
-        const rf  = (1 - eased) * 0.7 + 0.3;
-
-        track.style.setProperty("--unfold-p", eased.toFixed(4));
-        track.style.setProperty("--xf", xf.toFixed(4));
-        track.style.setProperty("--yf", yf.toFixed(4));
-        track.style.setProperty("--rf", rf.toFixed(4));
-
-        // First time we reach full unfold, run a one-shot demo open on the
-        // middle card so the user sees that hover reveals the description.
-        if (eased >= 0.98 && !demoRan) {
-          demoRan = true;
-          const mid = cards[Math.floor(cards.length / 2)];
-          if (mid) {
-            setTimeout(() => mid.classList.add("is-demo"), 450);
-            setTimeout(() => mid.classList.remove("is-demo"), 1900);
-          }
-        }
-      }
-      let demoRan = false;
-      function onScroll() {
-        if (!raf) raf = requestAnimationFrame(update);
-      }
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll);
-      // .about-panel is the scrolling container, not window — listen there too
-      const panel = document.querySelector(".about-panel");
-      panel?.addEventListener("scroll", onScroll, { passive: true });
-      update();
+      // No unfold animation — cards just sit in their final landed
+      // position (slight tilt + arc retained). measure() above set the
+      // per-card --unfold-x/y/rot; we lock the global factors so the CSS
+      // calc resolves to the landed state.
+      track.style.setProperty("--unfold-p", "1");
+      track.style.setProperty("--xf", "0");
+      track.style.setProperty("--yf", "0.3");
+      track.style.setProperty("--rf", "0.3");
     })();
 
     const cursor = document.querySelector(".project-cursor");
