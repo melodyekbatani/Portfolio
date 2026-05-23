@@ -20,6 +20,7 @@
       background: #ffffff;
       transform: translate3d(0, 100%, 0);
       animation: aboutSlideUp 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      overflow-x: hidden;
       overflow-y: auto;
       padding-top: calc(var(--nav-h) * 2);
       z-index: 8;
@@ -226,6 +227,31 @@
     /* Auto-demo open-state styles live next to the :hover rules below
        (grid-template-rows: 1fr + opacity: 1) — nothing extra needed here. */
 
+    /* Mobile-only stack chrome (title/desc/dots) — hidden on desktop. */
+    .highlights-current-title,
+    .highlights-current-desc { display: none; }
+
+    .highlights-dots {
+      display: none;
+      justify-content: center;
+      gap: 8px;
+      padding: 36px 0 0;
+    }
+    .highlights-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rule-medium);
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      transition: background 220ms ease, transform 220ms ease;
+    }
+    .highlights-dot.is-active {
+      background: var(--ink);
+      transform: scale(1.25);
+    }
+
     .highlight-card-image {
       position: relative;
       width: 100%;
@@ -256,14 +282,14 @@
       pointer-events: none;
     }
     .highlight-card-tag-label {
-      display: block;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: -0.01em;
       line-height: 1.25;
-      white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
     }
     /* Description "swipes up" via grid-template-rows trick — animates to the
        content's natural height (no max-height guessing), buttery smooth in
@@ -288,13 +314,15 @@
       transition: transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
     }
     .highlight-card:hover .highlight-card-tag-desc,
-    .highlight-card.is-demo .highlight-card-tag-desc {
+    .highlight-card.is-demo .highlight-card-tag-desc,
+    .highlight-card.is-top .highlight-card-tag-desc {
       grid-template-rows: 1fr;
       margin-top: 6px;
       opacity: 1;
     }
     .highlight-card:hover .highlight-card-tag-desc > span,
-    .highlight-card.is-demo .highlight-card-tag-desc > span {
+    .highlight-card.is-demo .highlight-card-tag-desc > span,
+    .highlight-card.is-top .highlight-card-tag-desc > span {
       transform: translateY(0);
     }
 
@@ -556,10 +584,127 @@
 
     /* ─── Responsive ─────────────────────────────────────────── */
 
+    /* Mid breakpoint: photo column gets wider + highlights switch to a
+       horizontal swipe strip so cards aren't squeezed too skinny. */
+    @media (max-width: 1200px) {
+      .about-hero {
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+      }
+      .highlights-stage {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scroll-padding-inline: var(--pad-page);
+        scrollbar-width: none;
+      }
+      .highlights-stage::-webkit-scrollbar { display: none; width: 0; height: 0; }
+      .highlights-track {
+        justify-content: flex-start;
+        gap: 12px;
+      }
+      .highlight-card {
+        width: clamp(200px, 22vw, 260px);
+        scroll-snap-align: start;
+        --unfold-x: 0px;
+        --unfold-y: 0px;
+        --unfold-rot: 0deg;
+      }
+    }
+
     @media (max-width: 1024px) {
       .about-hero {
         grid-template-columns: 1fr 1.3fr;     /* photo column wider on tablet */
         gap: 48px;
+      }
+      .about-hero-left {
+        padding-top: 60px;
+      }
+
+      /* Approach: stack image below to give copy full width */
+      .about-approach {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding-top: 60px;
+        padding-bottom: 60px;
+      }
+      .about-process-image {
+        width: 100%;
+        max-height: none;
+        margin-left: 0;
+      }
+
+      /* Sections: tighter vertical rhythm */
+      .about-section {
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+      .about-section-grid {
+        grid-template-columns: 1fr 2fr;
+        gap: 24px;
+      }
+      .about-list {
+        padding-top: 32px;
+        gap: 12px;
+      }
+      .about-list-item {
+        gap: 16px;
+        padding-bottom: 12px;
+      }
+
+      /* Highlights: switch to a horizontal swipe strip so cards stay
+         readable instead of being squeezed into the viewport. */
+      .highlights-stage {
+        padding-top: 60px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scroll-padding-inline: var(--pad-page);
+        scrollbar-width: none;
+      }
+      .highlights-stage::-webkit-scrollbar { display: none; width: 0; height: 0; }
+      .highlights-track {
+        justify-content: flex-start;
+        gap: 12px;
+      }
+      .highlight-card {
+        width: clamp(180px, 36vw, 240px);
+        scroll-snap-align: start;
+        --unfold-x: 0px;
+        --unfold-y: 0px;
+        --unfold-rot: 0deg;
+      }
+      .highlight-card-tag-label { font-size: 13px; }
+      .highlight-card-tag-desc > span { font-size: 12px; }
+
+      /* Life grid: drop to 3 columns so each cell breathes */
+      .life-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+      }
+      .life-item:nth-child(1)  { grid-column: 1; grid-row: 1; }
+      .life-item:nth-child(2)  { grid-column: 2; grid-row: 1 / 3; }
+      .life-item:nth-child(3)  { grid-column: 3; grid-row: 1 / 3; }
+      .life-item:nth-child(4)  { grid-column: 1; grid-row: 2; }
+      .life-item:nth-child(5)  { grid-column: 1; grid-row: 3; }
+      .life-item:nth-child(6)  { grid-column: 2; grid-row: 3; }
+      .life-item:nth-child(7)  { grid-column: 3; grid-row: 3; }
+      .life-item:nth-child(8)  { grid-column: 1; grid-row: 4; }
+      .life-item:nth-child(9)  { grid-column: 2; grid-row: 4; }
+      .life-item:nth-child(10) { grid-column: 3; grid-row: 4; }
+      .about-life {
+        height: auto;
+        padding-top: 80px;
+      }
+
+      /* Life footer: stack title above body */
+      .life-footer {
+        grid-template-columns: 1fr;
+        gap: 16px;
       }
     }
 
@@ -578,34 +723,44 @@
       }
 
       .about-hero {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        height: auto;             /* drop desktop's locked 100vh height */
-        padding-top: 32px;
-        padding-bottom: 56px;
-      }
-      .about-hero-left {
-        padding-top: 0;           /* no extra top offset when stacked */
-      }
-      .about-hero-photo {
-        aspect-ratio: 1 / 1;      /* square on mobile */
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
         height: auto;
-        order: -1;
+        padding-top: 12px;       /* pulled up slightly on mobile */
+        padding-bottom: 48px;
       }
+      /* Make the title + bio individually orderable around the photo */
+      .about-hero-left {
+        display: contents;
+        padding-top: 0;
+      }
+      .about-hero-title { order: 1; }
+      .about-hero-photo {
+        order: 2;
+        aspect-ratio: 4 / 5;      /* slightly taller than square */
+        height: auto;
+      }
+      .about-hero-bio  { order: 3; }
       .about-hero-bio p {
         font-size: 17px;       /* one-off mobile reduction from --fs-body (18) */
       }
       .about-section {
-        padding-top: 56px;
-        padding-bottom: 56px;
+        padding-top: 28px;
+        padding-bottom: 28px;
       }
       .about-section-grid {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 16px;
+      }
+      .about-list {
+        padding-top: 0;        /* heading + list flow tight when stacked */
+        gap: 8px;
       }
       .about-list-item {
         grid-template-columns: 1fr;
-        gap: 8px;
+        gap: 4px;
+        padding-bottom: 8px;
       }
       .about-award-item {
         flex-direction: column;
@@ -615,22 +770,134 @@
         text-align: left;
       }
 
-      /* Mobile: cards stay in a single row that fits the viewport — no
-         horizontal scroll. Card sizing formula adapts via --pad-page. */
+      /* Mobile layout: eyebrow + heading at top, then images, current
+         title, description, and dots — all syncing on auto-rotate and
+         sized so the section fits in roughly one viewport. */
+      .about-highlights {
+        padding-top: 32px;
+        padding-bottom: 32px;
+        display: flex;
+        flex-direction: column;
+      }
+      .about-highlights-eyebrow { order: 1; }
+      .about-highlights-heading { order: 2; }
+      .highlights-stage         { order: 3; }
+      .highlights-current-title { order: 4; }
+      .highlights-current-desc  { order: 5; }
+      .highlights-dots          { order: 6; }
+
+      .highlights-stage {
+        position: relative;
+        height: 56vh;
+        padding: 12px 0;
+        overflow: hidden;
+        touch-action: pan-y;
+      }
+      .highlights-dots {
+        display: flex;
+        padding: 20px 0 0;
+      }
+      .highlights-current-title {
+        display: block;
+        font-size: var(--fs-body);
+        font-weight: var(--fw-medium);
+        line-height: 1.2;
+        margin: 20px 0 8px;
+        text-align: center;
+        min-height: 1.4em;
+      }
+      .highlights-current-desc {
+        display: block;
+        font-size: 16px;
+        font-weight: var(--fw-regular);
+        line-height: 1.5;
+        color: var(--ink-soft);
+        text-align: center;
+        margin: 8px auto 0;
+        max-width: 40ch;
+        min-height: 3em;
+        text-wrap: pretty;
+      }
+      /* Hide the in-image tag overlay since the title/desc moved below */
+      .highlight-card-tag { display: none; }
       .highlights-track {
-        gap: 4px;
-        padding: 0 var(--pad-page-sm);
+        position: relative;
+        display: block;
+        height: 100%;
+        gap: 0;
+        padding: 0;
       }
       .highlight-card {
-        width: calc((100vw - 2 * var(--pad-page-sm) - 28px) / 8);
-        gap: 8px;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        /* Size by stage height (with breathing room) so the image fits
+           inside .highlights-stage without overflowing — card width then
+           follows from the 2:3 aspect-ratio set on .highlight-card-image. */
+        width: auto;
+        height: calc(100% - 24px);
+        --unfold-x: 0px;
+        --unfold-y: 0px;
+        --unfold-rot: 0deg;
+        transform: translate(-50%, 24px) scale(0.92) rotate(0deg);
+        transform-origin: center bottom;
+        opacity: 0;
+        transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+                    opacity   700ms ease;
+        z-index: 1;
+        will-change: transform, opacity;
+      }
+      .highlight-card-image {
+        height: 100%;
+        width: auto;
+        aspect-ratio: 4 / 5;     /* wider than the desktop 2:3 */
+      }
+      /* Fixed slots — the position/angle depends on stack slot, not the
+         underlying card, so the deck reads as a coherent shuffle. */
+      .highlight-card.is-top {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1) rotate(0deg);
+        z-index: 10;
+      }
+      .highlight-card.is-2nd {
+        opacity: 1;
+        transform: translate(-50%, 10px) scale(0.97) rotate(-3deg);
+        z-index: 8;
+      }
+      .highlight-card.is-3rd {
+        opacity: 1;
+        transform: translate(-50%, 20px) scale(0.94) rotate(3deg);
+        z-index: 6;
       }
       .highlight-card-tag {
-        left: 4px; right: 4px; bottom: 4px;
-        padding: 5px 6px;
+        left: 8px; right: 8px; bottom: 8px;
+        padding: 10px 12px;
       }
-      .highlight-card-tag-label { font-size: 10px; line-height: 1.2; }
-      .highlight-card-tag-desc > span { font-size: 9px; line-height: 1.3; }
+      .highlight-card-tag-label { font-size: 15px; }
+      .highlight-card-tag-desc > span { font-size: 14px; }
+
+      /* Approach: title → image → body copy order on mobile */
+      .about-approach {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .about-approach-left {
+        display: contents;
+      }
+      .about-approach-left > div { order: 1; }
+      .about-process-image { order: 2; }
+      .about-approach-copy { order: 3; }
+
+      /* Mobile: descriptions are always visible (no hover concept on touch) */
+      .highlight-card-tag-desc {
+        grid-template-rows: 1fr;
+        margin-top: 6px;
+        opacity: 1;
+      }
+      .highlight-card-tag-desc > span {
+        transform: translateY(0);
+      }
     }
 
   </style>
@@ -674,6 +941,7 @@
         <p class="t-small about-highlights-eyebrow">Moments that shaped my path</p>
         <h2 class="about-highlights-heading">Career Highlights</h2>
 
+        <h3 class="highlights-current-title" id="highlightsCurrentTitle" aria-hidden="true"></h3>
         <div class="highlights-stage" id="highlightsStage" aria-label="Career highlights">
           <div class="highlights-track" id="highlightsTrack">
             <div class="highlight-card">
@@ -750,6 +1018,8 @@
             </div>
           </div>
         </div>
+        <div class="highlights-dots" id="highlightsDots" aria-hidden="true"></div>
+        <p class="highlights-current-desc" id="highlightsCurrentDesc" aria-hidden="true"></p>
       </section>
 
       <!-- Approach -->
@@ -1134,14 +1404,100 @@
       measure();
       window.addEventListener("resize", measure);
 
-      // No unfold animation — cards just sit in their final landed
-      // position (slight tilt + arc retained). measure() above set the
-      // per-card --unfold-x/y/rot; we lock the global factors so the CSS
-      // calc resolves to the landed state.
+      // Cards sit in their final landed position on desktop.
       track.style.setProperty("--unfold-p", "1");
       track.style.setProperty("--xf", "0");
       track.style.setProperty("--yf", "0.3");
       track.style.setProperty("--rf", "0.3");
+
+      // Mobile: auto-rotate the stack with swipe + dot navigation.
+      const mobile = window.matchMedia("(max-width: 768px)");
+      const dotsEl = document.getElementById("highlightsDots");
+      const titleEl = document.getElementById("highlightsCurrentTitle");
+      const descEl  = document.getElementById("highlightsCurrentDesc");
+      const cardTexts = cards.map((c) => ({
+        title: c.querySelector(".highlight-card-tag-label")?.textContent.trim() || "",
+        desc:  c.querySelector(".highlight-card-tag-desc")?.textContent.trim() || "",
+      }));
+      let stackIdx = 3;     /* start on Speedstac module */
+      let stackTimer = null;
+      const ROTATE_MS = 5200;
+
+      // Build one dot per card (clickable to jump).
+      if (dotsEl && !dotsEl.children.length) {
+        cards.forEach((_, i) => {
+          const d = document.createElement("button");
+          d.type = "button";
+          d.className = "highlights-dot";
+          d.setAttribute("aria-label", `Show highlight ${i + 1}`);
+          d.addEventListener("click", () => { goTo(i); resetTimer(); });
+          dotsEl.appendChild(d);
+        });
+      }
+
+      function showStack(i) {
+        stackIdx = ((i % cards.length) + cards.length) % cards.length;
+        const second = (stackIdx + 1) % cards.length;
+        const third  = (stackIdx + 2) % cards.length;
+        cards.forEach((c, idx) => {
+          c.classList.toggle("is-top", idx === stackIdx);
+          c.classList.toggle("is-2nd", idx === second);
+          c.classList.toggle("is-3rd", idx === third);
+        });
+        if (dotsEl) {
+          [...dotsEl.children].forEach((d, idx) => {
+            d.classList.toggle("is-active", idx === stackIdx);
+          });
+        }
+        if (titleEl) titleEl.textContent = cardTexts[stackIdx].title;
+        if (descEl)  descEl.textContent  = cardTexts[stackIdx].desc;
+      }
+      function goTo(i)   { showStack(i); }
+      function nextCard() { showStack(stackIdx + 1); }
+      function prevCard() { showStack(stackIdx - 1); }
+
+      function startStack() {
+        if (stackTimer) return;
+        showStack(stackIdx);
+        stackTimer = setInterval(nextCard, ROTATE_MS);
+      }
+      function stopStack() {
+        if (stackTimer) { clearInterval(stackTimer); stackTimer = null; }
+        cards.forEach((c) => c.classList.remove("is-top", "is-2nd", "is-3rd"));
+        if (dotsEl) [...dotsEl.children].forEach((d) => d.classList.remove("is-active"));
+      }
+      function resetTimer() {
+        if (!mobile.matches) return;
+        if (stackTimer) clearInterval(stackTimer);
+        stackTimer = setInterval(nextCard, ROTATE_MS);
+      }
+      function syncStack() {
+        if (mobile.matches) startStack(); else stopStack();
+      }
+      syncStack();
+      mobile.addEventListener("change", syncStack);
+
+      // Swipe support on the stage — pause auto-rotation while the user
+      // is dragging, advance/retreat on swipe-end, then restart the timer.
+      let touchStartX = 0, touchStartY = 0, touching = false;
+      stage.addEventListener("touchstart", (e) => {
+        if (!mobile.matches) return;
+        touching = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        if (stackTimer) { clearInterval(stackTimer); stackTimer = null; }
+      }, { passive: true });
+      stage.addEventListener("touchend", (e) => {
+        if (!mobile.matches || !touching) return;
+        touching = false;
+        const dx = (e.changedTouches[0].clientX || 0) - touchStartX;
+        const dy = (e.changedTouches[0].clientY || 0) - touchStartY;
+        // Only horizontal swipes count; vertical scroll should pass through.
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+          if (dx < 0) nextCard(); else prevCard();
+        }
+        resetTimer();
+      }, { passive: true });
     })();
 
     const cursor = document.querySelector(".project-cursor");
