@@ -49,6 +49,24 @@
       padding: 0;
     }
 
+    /* Orphan/widow control across all about-page typography */
+    .about-hero-title,
+    .about-highlights-heading,
+    .about-approach-heading,
+    .about-section-heading {
+      text-wrap: balance;
+    }
+    .about-hero-bio p,
+    .about-approach-copy,
+    .about-item-sub,
+    .about-award-detail,
+    .life-caption,
+    .life-footer-desc,
+    .highlight-card-tag-label,
+    .highlight-card-tag-desc > span {
+      text-wrap: pretty;
+    }
+
     .about-hero,
     .about-highlights,
     .about-approach,
@@ -64,18 +82,19 @@
       display: grid;
       grid-template-columns: 3fr 1.6fr;
       gap: 64px;
-      align-items: start;
-      height: calc(100vh - var(--nav-h));   /* hero fits exactly one viewport */
+      align-items: stretch;
+      height: calc(100vh - var(--nav-h));
       box-sizing: border-box;
-      padding-top: 92px;
-      padding-bottom: 40px;
+      padding-top: 0;
+      padding-bottom: 20px;
     }
 
     .about-hero-left {
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;   /* About + bio stack at the top */
+      justify-content: space-between;   /* About above the bio; bio aligns to photo bottom */
       gap: 32px;
+      padding-top: 92px;        /* keeps About offset down while photo extends to top */
     }
 
     .about-hero-title {
@@ -130,9 +149,7 @@
 
     .about-hero-photo {
       width: 100%;
-      height: auto;
-      max-height: calc(100vh - var(--nav-h) - 220px);
-      align-self: start;       /* lifts the photo to the top of the row */
+      height: 100%;            /* stretches to fill the hero row */
       overflow: hidden;
       background: #e8e8e8;
     }
@@ -149,7 +166,7 @@
     .about-highlights {
       padding-top: 80px;
       padding-bottom: 80px;
-      text-align: center;
+      text-align: left;
     }
 
     .about-highlights-label {
@@ -164,67 +181,124 @@
       margin-bottom: 56px;
     }
 
-    .highlights-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      margin-bottom: 40px;
+    /* Unfold: a single tilted card → fans out → settles into a row.
+       Driven by scroll progress as the section enters the viewport. */
+    .highlights-stage {
+      position: relative;
+      padding: 180px 0 24px;     /* push cards further down within the section */
+      margin: 0 calc(var(--pad-page) * -1);
+      /* No overflow:hidden — cards spread freely during the unfold */
+    }
+
+    .highlights-track {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 4px;
+      padding: 0 var(--pad-page);
     }
 
     .highlight-card {
-      aspect-ratio: 4 / 5;
-      overflow: hidden;
-      background: #d8d8d8;
-      cursor: none;
+      flex: 0 0 auto;
+      /* Auto-fits: (viewport − page padding − gap totals) / 8 cards.
+         Clamped so cards never get absurdly tiny or oversized. */
+      width: clamp(70px, calc((100vw - 2 * var(--pad-page) - 56px) / 8), 220px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      cursor: pointer;
+      transform-origin: center bottom;
+      /* JS sets per-card --unfold-x / --unfold-y / --unfold-rot, and on the
+         track sets --xf / --yf / --rf (factors per-axis with mid overshoot).
+         Card factors collapse to (1 - p) at end so cards land at natural pos. */
+      transform:
+        translateX(calc(var(--unfold-x, 0px) * var(--xf, 0)))
+        translateY(calc(var(--unfold-y, 0px) * var(--yf, 0)))
+        rotate(calc(var(--unfold-rot, 0deg) * var(--rf, 0)));
+      will-change: transform;
+      transition: transform 60ms linear;
     }
+    .highlight-card:hover,
+    .highlight-card.is-demo {
+      filter: none;
+    }
+    /* Auto-demo open-state styles live next to the :hover rules below
+       (grid-template-rows: 1fr + opacity: 1) — nothing extra needed here. */
 
     .highlight-card-image {
+      position: relative;
       width: 100%;
-      height: 100%;
+      aspect-ratio: 2 / 3;          /* taller than 4:5 */
       overflow: hidden;
+      background: #d8d8d8;
     }
-
-    .highlight-card-text {
-      display: none; /* desktop uses the shared .highlights-info element */
-    }
-
-    .highlight-card img {
+    .highlight-card-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.6s ease;
+      transition: transform 600ms ease;
     }
-
-    .highlight-card:hover img {
+    .highlight-card:hover .highlight-card-image img {
       transform: scale(1.04);
     }
 
-    .highlights-info {
-      min-height: 80px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      opacity: 0;
-      transition: opacity 0.2s ease;
+    /* Tag-style label pinned to the bottom-left of each image */
+    .highlight-card-tag {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      right: 12px;
+      padding: 10px 12px;
+      background: #ffffff;
+      color: var(--ink);
+      opacity: 1;
+      pointer-events: none;
     }
-
-    .highlights-info.is-visible {
+    .highlight-card-tag-label {
+      display: block;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-medium);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    /* Description "swipes up" via grid-template-rows trick — animates to the
+       content's natural height (no max-height guessing), buttery smooth in
+       both directions. */
+    .highlight-card-tag-desc {
+      display: grid;
+      grid-template-rows: 0fr;
+      margin-top: 0;
+      opacity: 0;
+      transition: grid-template-rows 760ms cubic-bezier(0.22, 1, 0.36, 1),
+                  margin-top      760ms cubic-bezier(0.22, 1, 0.36, 1),
+                  opacity         520ms ease;
+    }
+    .highlight-card-tag-desc > span {
+      min-height: 0;
+      overflow: hidden;
+      font-size: 12px;
+      font-weight: var(--fw-regular);
+      line-height: 1.4;
+      color: var(--ink-soft);
+      transform: translateY(6px);
+      transition: transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .highlight-card:hover .highlight-card-tag-desc,
+    .highlight-card.is-demo .highlight-card-tag-desc {
+      grid-template-rows: 1fr;
+      margin-top: 6px;
       opacity: 1;
     }
-
-    .highlights-info-label {
-      color: var(--muted);
+    .highlight-card:hover .highlight-card-tag-desc > span,
+    .highlight-card.is-demo .highlight-card-tag-desc > span {
+      transform: translateY(0);
     }
 
-    .highlights-info-desc {
-      font-size: var(--fs-small);
-      font-weight: var(--fw-regular);
-      line-height: var(--lh-body);
-      max-width: 44ch;
-      text-align: center;
-      text-wrap: pretty;
-    }
+    /* Shared hover-info pattern no longer used — each card carries its own caption now */
+    .highlights-info { display: none; }
 
     /* ─── Approach ───────────────────────────────────────────── */
 
@@ -382,7 +456,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: repeat(3, 1fr);
-      gap: 16px;
+      gap: 8px;            /* matches work-grid */
       min-height: 0;
     }
 
@@ -467,7 +541,7 @@
 
     @media (max-width: 1024px) {
       .about-hero {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1.3fr;     /* photo column wider on tablet */
         gap: 48px;
       }
     }
@@ -489,11 +563,16 @@
       .about-hero {
         grid-template-columns: 1fr;
         gap: 40px;
+        height: auto;             /* drop desktop's locked 100vh height */
         padding-top: 32px;
         padding-bottom: 56px;
       }
+      .about-hero-left {
+        padding-top: 0;           /* no extra top offset when stacked */
+      }
       .about-hero-photo {
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 1 / 1;      /* square on mobile */
+        height: auto;
         order: -1;
       }
       .about-hero-bio p {
@@ -519,64 +598,22 @@
         text-align: left;
       }
 
-      /* Career highlights → horizontal swipe carousel on mobile */
-      .highlights-grid {
-        display: flex;
-        grid-template-columns: none;
-        gap: 16px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding: 0 var(--pad-page-sm) 8px;
-        margin: 0 calc(var(--pad-page-sm) * -1) 24px;
+      /* Mobile: cards stay in a single row that fits the viewport — no
+         horizontal scroll. Card sizing formula adapts via --pad-page. */
+      .highlights-track {
+        gap: 4px;
+        padding: 0 var(--pad-page-sm);
       }
-      .highlights-grid::-webkit-scrollbar { display: none; }
-
       .highlight-card {
-        flex: 0 0 calc(100% - var(--pad-page-sm) * 2);
-        aspect-ratio: auto;
-        background: transparent;
-        overflow: visible;
-        scroll-snap-align: center;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        cursor: default;
-      }
-
-      .highlight-card-image {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 4 / 5;
-        overflow: hidden;
-        background: #d8d8d8;
-      }
-      .highlight-card-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-
-      .highlight-card-text {
-        display: flex;
-        flex-direction: column;
+        width: calc((100vw - 2 * var(--pad-page-sm) - 28px) / 8);
         gap: 8px;
-        text-align: left;
       }
-      .highlight-card-label {
-        color: var(--ink);
+      .highlight-card-tag {
+        left: 4px; right: 4px; bottom: 4px;
+        padding: 5px 6px;
       }
-      .highlight-card-desc {
-        font-size: var(--fs-small);
-        font-weight: var(--fw-regular);
-        line-height: var(--lh-body);
-        text-wrap: pretty;
-      }
-
-      /* Hide the shared hover-info element on mobile (each card carries its own text) */
-      .highlights-info { display: none; }
+      .highlight-card-tag-label { font-size: 10px; line-height: 1.2; }
+      .highlight-card-tag-desc > span { font-size: 9px; line-height: 1.3; }
     }
 
   </style>
@@ -620,67 +657,81 @@
         <p class="t-small about-highlights-label">Career Highlights</p>
         <h2 class="about-highlights-heading">A few moments that shape my path</h2>
 
-        <div class="highlights-grid">
-          <div class="highlight-card"
-            data-label="Hackathon Whiteboarding Sessions"
-            data-desc="Rapid ideation and design sprints turning real world problems into structured flows and testable concepts.">
-            <div class="highlight-card-image">
-              <img src="About Section /Highlights/Highlights imagery.png" alt="">
+        <div class="highlights-stage" id="highlightsStage" aria-label="Career highlights">
+          <div class="highlights-track" id="highlightsTrack">
+            <div class="highlight-card">
+              <div class="highlight-card-image">
+                <img src="About Section /Highlights/Highlights imagery.png" alt="">
+                <div class="highlight-card-tag">
+                  <span class="highlight-card-tag-label">Hackathons</span>
+                  <div class="highlight-card-tag-desc"><span>Rapid design sprints turning real problems into testable flows.</span></div>
+                </div>
+              </div>
             </div>
-            <div class="highlight-card-text">
-              <p class="t-small highlight-card-label">Hackathon Whiteboarding Sessions</p>
-              <p class="highlight-card-desc">Rapid ideation and design sprints turning real world problems into structured flows and testable concepts.</p>
+            <div class="highlight-card">
+              <div class="highlight-card-image">
+                <img src="About Section /Highlights/Highlights imagery-3.png" alt="">
+                <div class="highlight-card-tag">
+                  <span class="highlight-card-tag-label">Sparkbird Labs</span>
+                  <div class="highlight-card-tag-desc"><span>Translating physical product systems into digital tooling.</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-card-image">
+                <img src="About Section /Highlights/IMG_5267.jpg" alt="">
+                <div class="highlight-card-tag">
+                  <span class="highlight-card-tag-label">Where Loam began</span>
+                  <div class="highlight-card-tag-desc"><span>On-site in Arizona, where the landscape shaped Loam.</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-card-image">
+                <img src="About Section /Highlights/Speedstac module design.jpg" alt="">
+                <div class="highlight-card-tag">
+                  <span class="highlight-card-tag-label">Speedstac module</span>
+                  <div class="highlight-card-tag-desc"><span>Winner of the 2024 BLT Construction Product Award at Sparkbird Labs.</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-card-image">
+                <img src="About Section /Highlights/Highlights imagery-5.png" alt="">
+                <div class="highlight-card-tag">
+                  <span class="highlight-card-tag-label">CIC Japan Desk grant</span>
+                  <div class="highlight-card-tag-desc"><span>Design work for biotech founders via the CIC Japan Desk x Parsons program.</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-card-image">
+                <img src="About Section /Highlights/Highlights imagery-2.png" alt="">
+                <div class="highlight-card-tag">
+                  <span class="highlight-card-tag-label">Designing for AR</span>
+                  <div class="highlight-card-tag-desc"><span>How AR reshapes visual communication and interaction design.</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-card-image">
+                <img src="About Section /Highlights/Highlights imagery-4.png" alt="">
+                <div class="highlight-card-tag">
+                  <span class="highlight-card-tag-label">Field research</span>
+                  <div class="highlight-card-tag-desc"><span>Documenting context and user stories on location.</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-card-image">
+                <img src="About Section /Highlights/Highlights imagery-6.png" alt="">
+                <div class="highlight-card-tag">
+                  <span class="highlight-card-tag-label">Team working</span>
+                  <div class="highlight-card-tag-desc"><span>Aligning with engineers and PMs to ship features together.</span></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="highlight-card"
-            data-label="Designing for Emerging Technology"
-            data-desc="Explored how AR reshapes visual communication, bridging the next-generation interaction and product design.">
-            <div class="highlight-card-image">
-              <img src="About Section /Highlights/Highlights imagery-3.png" alt="">
-            </div>
-            <div class="highlight-card-text">
-              <p class="t-small highlight-card-label">Designing for Emerging Technology</p>
-              <p class="highlight-card-desc">Explored how AR reshapes visual communication, bridging the next-generation interaction and product design.</p>
-            </div>
-          </div>
-          <div class="highlight-card"
-            data-label="Where Loam Began"
-            data-desc="Visited clients on-site in Arizona, where immersion in the scenic landscape sparked the product direction for Loam.">
-            <div class="highlight-card-image">
-              <img src="About Section /Highlights/IMG_5267.jpg" alt="">
-            </div>
-            <div class="highlight-card-text">
-              <p class="t-small highlight-card-label">Where Loam Began</p>
-              <p class="highlight-card-desc">Visited clients on-site in Arizona, where immersion in the scenic landscape sparked the product direction for Loam.</p>
-            </div>
-          </div>
-          <div class="highlight-card"
-            data-label="Speedstac Module Design"
-            data-desc="Prototyped the connector unit within the Speedstac housing system at Sparkbird Labs, Winner of Construction Product category at the 2024 BLT Design Awards.">
-            <div class="highlight-card-image">
-              <img src="About Section /Highlights/Speedstac module design.jpg" alt="">
-            </div>
-            <div class="highlight-card-text">
-              <p class="t-small highlight-card-label">Speedstac Module Design</p>
-              <p class="highlight-card-desc">Prototyped the connector unit within the Speedstac housing system at Sparkbird Labs, Winner of Construction Product category at the 2024 BLT Design Awards.</p>
-            </div>
-          </div>
-          <div class="highlight-card"
-            data-label="Cambridge Innovation Center Grant"
-            data-desc="Presented design documentation to leadership and PMs, advising biotech entrepreneurs through the CIC Japan Desk x Parsons program and shaping strategy for early-stage ventures.">
-            <div class="highlight-card-image">
-              <img src="About Section /Highlights/Highlights imagery-5.png" alt="">
-            </div>
-            <div class="highlight-card-text">
-              <p class="t-small highlight-card-label">Cambridge Innovation Center Grant</p>
-              <p class="highlight-card-desc">Presented design documentation to leadership and PMs, advising biotech entrepreneurs through the CIC Japan Desk x Parsons program and shaping strategy for early-stage ventures.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="highlights-info" id="highlights-info">
-          <p class="t-small highlights-info-label" id="highlights-info-label"></p>
-          <p class="highlights-info-desc" id="highlights-info-desc"></p>
         </div>
       </section>
 
@@ -1004,23 +1055,96 @@
       });
     });
 
-    // Highlights hover
-    const highlightCards = document.querySelectorAll(".highlight-card");
-    const highlightsInfo = document.getElementById("highlights-info");
-    const highlightsLabel = document.getElementById("highlights-info-label");
-    const highlightsDesc = document.getElementById("highlights-info-desc");
+    // Highlights unfold: cards start stacked + tilted at center, fan out as
+    // the section scrolls into the viewport, settle into a clean row.
+    (function () {
+      // Reference the whole section (title + images) so the unfold lands
+      // when both the title and the cards are visible together — not just
+      // when the image strip is centered.
+      const section = document.querySelector(".about-highlights");
+      const stage = document.getElementById("highlightsStage");
+      const track = document.getElementById("highlightsTrack");
+      if (!section || !stage || !track) return;
+      const cards = Array.from(track.children);
 
-    highlightCards.forEach(card => {
-      card.addEventListener("mouseenter", () => {
-        highlightsLabel.textContent = card.dataset.label;
-        highlightsDesc.textContent = card.dataset.desc;
-        highlightsInfo.classList.add("is-visible");
-      });
-    });
+      // Measure each card's offset from the row's center, and assign a
+      // deterministic-feeling rotation so the stack reads as a fan.
+      function measure() {
+        // Use offsetLeft/Width (transform-independent) so this works even
+        // when cards already have a transform applied at the time of measure.
+        const trackWidth = track.offsetWidth;
+        const centerX = trackWidth / 2;
+        const n = cards.length;
+        const ARC_RISE = 70;
+        cards.forEach((card, i) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const dx = centerX - cardCenter;              // px to reach track center
+          const t = n > 1 ? (i / (n - 1)) * 2 - 1 : 0;   // -1..1
+          const dy = -ARC_RISE * (1 - t * t);
+          const rot = t * 12;                            // gentler ±12° fan
+          card.style.setProperty("--unfold-x", `${dx.toFixed(1)}px`);
+          card.style.setProperty("--unfold-y", `${dy.toFixed(1)}px`);
+          card.style.setProperty("--unfold-rot", `${rot.toFixed(1)}deg`);
+          card.style.zIndex = String(100 - Math.abs(t * 50));
+        });
+      }
+      measure();
+      window.addEventListener("resize", measure);
 
-    document.querySelector(".highlights-grid")?.addEventListener("mouseleave", () => {
-      highlightsInfo.classList.remove("is-visible");
-    });
+      // Drive --unfold-p (0→1) from the section's distance from the
+      // viewport's vertical middle. Transition happens AROUND the middle
+      // (centered on it) and across a wide-enough range to feel slow.
+      let raf = 0;
+      function update() {
+        raf = 0;
+        const rect = section.getBoundingClientRect();
+        const vh = window.innerHeight;
+        // Monotonic ramp anchored to section middle vs viewport middle —
+        // p stays at 1 once you've scrolled past (no jitter / collapse).
+        const sectionMid = rect.top + rect.height / 2;
+        const viewportMid = vh / 2;
+        const range = vh * 0.10;
+        const d = sectionMid - viewportMid;
+        let p = (range - d) / (2 * range);
+        p = Math.max(0, Math.min(1, p));
+        const eased = 1 - Math.pow(1 - p, 3);
+
+        // X factor: 1 at p=0 (stacked at center), 0 at p=1 (at final flex
+        // position). Mid-overshoot: dips negative so cards spread PAST their
+        // landing spot before settling back.
+        const xf  = (1 - eased) - 0.55 * Math.sin(eased * Math.PI);
+        // Y / rotation factors *don't* collapse to 0 at p=1 — they land at
+        // ~0.3 so the final row keeps its curve + tilt instead of going flat.
+        const yf  = (1 - eased) * 0.7 + 0.3 + 0.35 * Math.sin(eased * Math.PI);
+        const rf  = (1 - eased) * 0.7 + 0.3;
+
+        track.style.setProperty("--unfold-p", eased.toFixed(4));
+        track.style.setProperty("--xf", xf.toFixed(4));
+        track.style.setProperty("--yf", yf.toFixed(4));
+        track.style.setProperty("--rf", rf.toFixed(4));
+
+        // First time we reach full unfold, run a one-shot demo open on the
+        // middle card so the user sees that hover reveals the description.
+        if (eased >= 0.98 && !demoRan) {
+          demoRan = true;
+          const mid = cards[Math.floor(cards.length / 2)];
+          if (mid) {
+            setTimeout(() => mid.classList.add("is-demo"), 450);
+            setTimeout(() => mid.classList.remove("is-demo"), 1900);
+          }
+        }
+      }
+      let demoRan = false;
+      function onScroll() {
+        if (!raf) raf = requestAnimationFrame(update);
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      // .about-panel is the scrolling container, not window — listen there too
+      const panel = document.querySelector(".about-panel");
+      panel?.addEventListener("scroll", onScroll, { passive: true });
+      update();
+    })();
 
     const cursor = document.querySelector(".project-cursor");
     if (cursor) {
