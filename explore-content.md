@@ -75,15 +75,16 @@ I'll parse this file and apply it to explore.html.
 
 
 ---
-## Field/Structure
-**Title:** Field
-**Description:** Hand-coded project reinterprets two abstract artworks using only HTML, CSS, and JavaScript, translating composition, structure, and movement into a responsive web experience.
-**Links:**
-- https://melodyekbatani.github.io/extra-credit/
+## Fauna
+**Title:** Fauna
+**Description:** A motion and spatial design exploration using AI, 3D rendering, and compositing to imagine spatial take overs. 
 
 **Files:**
-- Field-Structure.png | Mobile and Web layout
-
+- Fauna animation.gif | Animated study exploring organic movement through a soft, abstract particle system.
+- Progress Photoshop Image.png | Room takeover concept with organic red and pink forms transforming an interior space.
+- New York 1.mp4 | AI motion study extending the room takeover concept into an urban environment.
+- New York 2.MP4 | AI-generated motion exploration of organic forms moving through city space.
+- Room 1.mp4 | Interior animation exploring how fauna-inspired textures can occupy and transform a room.
 
 ---
 ## Lost — Uber Eats
@@ -113,6 +114,40 @@ I'll parse this file and apply it to explore.html.
 - Zarizar - Web Design 2.mov | Website interaction concept extending the product and storytelling experience.
 - Zarizar-Village Activation.png | Destination concept connecting craft, landscape, and place-based luxury.
 
+## Acid League
+**Title:** Acid League  
+**Description:** A playful brand exploration for Acid League, using AI-assisted interiors, illustration, and motion to imagine a surreal vinegar lab filled with flavor, texture, and experimental energy.
 
+**Files:**
+- Interiors 1.png | Illustrated brand environment combining Acid League products with fruit, liquid, and fermentation-inspired visuals.
+- Interiors raw.png | Base interior render exploring a soft green lab-like space for the brand world.
+- Acid league animation 1.mp4 | Motion concept bringing the illustrated Acid League lab to life through layered products, ingredients, and playful movement.
+- Acid league animation 2.mp4 | Alternate motion concept continuing the same experimental vinegar lab world.
 
+## Anzza
+**Title:** Anzza  
+**Description:** An early-stage client identity project for Anzza, a dried pineapple brand exploring Colombian fruit culture through bold typography, nostalgic illustration, and editorial campaign language.
 
+**Files:**
+- Anzza brand-01.png | Early wordmark exploring a bold tropical identity.
+- Anzza brand-02.png | Product-led illustration focused on texture and form.
+- Anzza brand-03.png | Campaign direction bringing the brand into the street.
+- Anzza brand-04.png | Place-based concept connecting Colombia and Miami.
+- Blue illustration.png | Visual system exploring pattern, labels, and brand assets.
+- Orange illustration.png | Storytelling graphic connecting origin, voice, and identity.
+- Campaign 1.png | Editorial campaign concept with a playful snack-world tone.
+- Campaign 2.png | Street campaign system testing repetition and recognition.
+- Campaign 3.png | Large-scale brand moment for urban visibility.
+- Flavor.png | Flavor system built through color, rhythm, and fruit motifs.
+- Gold illustrations.png | Decorative badges exploring heritage and tropical luxury.
+- Green illustration.png | Logo studies refining the pineapple as a brand symbol.
+- Pineapple Illustration.png | Pattern direction for packaging and brand texture.
+
+## Cave Front — Arc’teryx
+**Title:** Cave Front — Arc’teryx  
+**Description:** An early concept for Arc’teryx exploring how alpine terrain, performance culture, and immersive retail could come together in a sculptural store environment. The project uses AI-assisted rendering to test atmosphere, materiality, and experiential brand storytelling.
+
+**Files:**
+- Arc'teryx Render 1.png | Concept render exploring the broader retail world and spatial language.
+- Arc'teryx Render 2.png | Interior moment focused on immersion, product display, and interaction.
+- Progress.mp4 | Process video showing the development of the concept and environment.
