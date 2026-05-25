@@ -39,6 +39,12 @@
     // Remove phosphor icons so menu reads as plain text
     clone.querySelectorAll("i").forEach((i) => i.remove());
     clone.textContent = clone.textContent.trim();
+    // Force the Work link to always go straight to the home page's Work
+    // section via hash — the home script reads either #work or the
+    // localStorage flag and opens the panel pre-positioned.
+    if (clone.getAttribute("data-nav") === "work") {
+      clone.setAttribute("href", "/#work");
+    }
     list.appendChild(clone);
   });
 
@@ -56,9 +62,19 @@
     setOpen(!document.body.classList.contains("nav-open"));
   });
 
-  // Close when a link is tapped
+  // Close when a link is tapped. Also propagate the Work-panel intent so
+  // the home page knows to open the Work panel pre-positioned (same
+  // mechanism the desktop nav uses on about.html / explore.html).
   overlay.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => setOpen(false));
+    a.addEventListener("click", () => {
+      const navKey = a.getAttribute("data-nav");
+      if (navKey === "work") {
+        try { localStorage.setItem("portfolio-active-panel", "work"); } catch (e) {}
+      } else if (navKey === "home") {
+        try { localStorage.setItem("portfolio-active-panel", "home"); } catch (e) {}
+      }
+      setOpen(false);
+    });
   });
 
   // Escape to close

@@ -417,7 +417,7 @@ body.work-open .work-panel {
 
 .work-panel-inner {
   min-height: calc(100vh - var(--nav-h));
-  padding-bottom: 56px;
+  padding-bottom: 0;
 }
 
 .work-intro {
@@ -663,31 +663,75 @@ body.work-open .work-panel {
 @media (max-width: 768px) {
   .work-grid {
     grid-template-columns: 1fr;
-    padding: 0 var(--pad-page-sm);
+    padding: 0 8px;            /* tighter side padding on mobile */
   }
   .work-grid .project-featured { grid-column: 1; }
   .work-grid .project-featured,
   .work-grid .project-secondary,
   .work-grid .project-secondary.project-secondary-reverse {
-    height: 70vh;
-    min-height: 70vh;
+    height: 60vh;
+    min-height: 60vh;
+    padding: 40px 12px 12px;   /* tag-clear top (matches tag inset+height), 12px elsewhere */
   }
   .work-grid .project-featured-image img,
   .work-grid .project-featured-image video {
     max-height: 60%;
   }
-  /* Text overlay: always visible, no slide-in, smaller padding */
+  /* Bigger media on mobile — fill more of the secondary card */
+  .work-grid .project-secondary-image img,
+  .work-grid .project-secondary-image video {
+    max-width: 100%;
+    max-height: 80%;
+  }
+  /* Text overlay: always visible, no slide-in, smaller padding.
+     Single column on mobile — title, copy, tags stack left-aligned. */
   .work-grid .project-featured-footer,
   .work-grid .project-secondary-meta {
     opacity: 1;
     transform: none;
-    padding: 32px 24px 24px;
-    column-gap: 16px;
+    padding: 12px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    column-gap: 0;
+    row-gap: 0;
+  }
+  .work-grid .project-secondary-title,
+  .work-grid .project-featured .project-title {
+    margin-bottom: 0;
+    line-height: 1.05;
+  }
+  .work-grid .project-secondary-copy,
+  .work-grid .project-featured-copy {
+    padding-top: 4px;
   }
   .work-grid .project-secondary-copy,
   .work-grid .project-featured-copy {
     width: 100%;
     font-size: 14px;
+  }
+  /* Tags pinned to the top edge of the card (above the image).
+     !important is used so this wins over the desktop grid-cell rule
+     even when device-pixel-width quirks make the breakpoint borderline. */
+  .work-grid .project-featured-meta .tags,
+  .work-grid .project-secondary-tags {
+    position: absolute !important;
+    top: 12px !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    z-index: 3 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    align-self: auto !important;
+    justify-self: auto !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    column-gap: 16px !important;
+    row-gap: 4px !important;
   }
   /* Disable the hover scale entirely on mobile */
   .work-grid .project-featured:hover .project-featured-image img,
@@ -1048,7 +1092,7 @@ footer {
 }
 
 .page-footer {
-  padding: 0 var(--pad-page) 1.5rem;
+  padding: 0 var(--pad-page);
 }
 
 .page-footer-title {
@@ -1094,8 +1138,9 @@ footer {
 }
 
 .page-footer-message {
-  max-width: 38ch;
+  max-width: 60ch;
   justify-self: start;
+  align-self: end;              /* whole text block drops to bottom of footer row */
   text-align: left;
 }
 
@@ -1104,6 +1149,7 @@ footer {
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.18;
+  text-wrap: balance;
 }
 
 .page-footer-meta {
@@ -1439,13 +1485,14 @@ footer {
   }
 
   .page-footer-message {
-    max-width: 32ch;
+    max-width: none;          /* let the line run the full footer width */
     justify-self: start;
   }
 
   .page-footer-message p {
     font-size: clamp(22px, 7vw, 30px);
     line-height: 1.16;
+    text-wrap: balance;       /* avoid "delight." sitting on its own line */
   }
 
   .page-footer-meta {

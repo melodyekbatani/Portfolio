@@ -7,10 +7,13 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css?v=12">
   <script>
-    // Arriving from another page with Work intent? Pre-position the
-    // work panel (no slide animation) so users don't see it animate up.
+    // Arriving with Work intent — either the localStorage flag set by
+    // another page, or a #work URL hash. Pre-position the work panel so
+    // it appears instantly without a slide animation.
     try {
-      if (localStorage.getItem("portfolio-active-panel") === "work") {
+      const hasFlag = localStorage.getItem("portfolio-active-panel") === "work";
+      const hasHash = window.location.hash === "#work";
+      if (hasFlag || hasHash) {
         document.documentElement.classList.add("work-open-preload");
       }
     } catch (e) {}
@@ -105,7 +108,7 @@
         </article>
 
         <!-- Sembli -->
-        <article class="project-secondary" style="cursor: pointer; --card-bg: url('Home Page/Background images /Sembli-Cover.png');" onclick="window.location.href='#'">
+        <article class="project-secondary" style="cursor: pointer; --card-bg: url('Home Page/Background images /Sembli-Cover.png');" onclick="window.location.href='/sembli/index.html'">
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Sembli">
               <video autoplay muted loop playsinline data-still-time="23">
@@ -115,7 +118,7 @@
           </div>
 
           <div class="project-secondary-meta">
-            <h3 class="project-secondary-title"><a href="#" style="text-decoration: none; color: inherit;">Sembli</a></h3>
+            <h3 class="project-secondary-title"><a href="/sembli/index.html" style="text-decoration: none; color: inherit;">Sembli</a></h3>
             <p class="t-body project-secondary-copy">Sembli turns scattered AI tools into reusable creative workflows through guided discovery.</p>
             <div class="tags project-secondary-tags">
               <span class="tag">AI-Native Product</span>
@@ -372,6 +375,14 @@
     }
     // Release the preload lock so subsequent open/close cycles animate normally
     document.documentElement.classList.remove("work-open-preload");
+
+    // When the URL hash changes (e.g. user is already on the home page and
+    // taps "Work" in the mobile menu, which just appends #work without a
+    // full navigation), open/close the panel accordingly.
+    window.addEventListener("hashchange", () => {
+      if (window.location.hash === "#work") openWorkPanel();
+      else closeWorkPanel();
+    });
 
     // Scroll-to-open: a downward scroll on the home view slides Work up.
     // Threshold avoids accidental triggers from tiny wheel events.

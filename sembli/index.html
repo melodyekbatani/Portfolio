@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sembli | Melody Ekbatani</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+  <style>
+    /* ─── Sembli case study ──────────────────────────────────
+       Editorial template modeled on the Stadia Bluetooth
+       reference: centered hero title + small meta line, hero
+       media stack, two-col Role / Overview, sticky CONTENTS
+       in the right margin, narrative sections. All tokens
+       pulled from style.css per DESIGN-SYSTEM.md. */
+
+    :root {
+      --cs-rhythm:    120px;
+      --cs-rhythm-sm: 64px;
+      --cs-measure:   880px;     /* centered content column width */
+      --cs-text:      60ch;      /* body paragraph max line length */
+      --cs-toc-w:     160px;
+    }
+
+    .nav-indicator { transform: translate(-200px, -200px); }
+    body { background: var(--bg); }
+
+    .cs-shell { padding-top: var(--nav-h); }
+
+    /* ─── Top bar: Back + PDF ───────────────────────────────── */
+    .cs-topbar {
+      padding: 32px var(--pad-page) 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cs-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      color: var(--ink);
+      text-decoration: none;
+      transition: opacity var(--t-base) var(--ease-out);
+    }
+    .cs-back i { font-size: 18px; }
+    .cs-back:hover { opacity: 0.6; }
+    .cs-pdf {
+      width: 36px; height: 36px;
+      display: grid; place-items: center;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      color: var(--ink);
+      transition: background var(--t-base) var(--ease-out);
+    }
+    .cs-pdf:hover { background: var(--bg-subtle); }
+
+    /* ─── Full-bleed content (page-pad margins) ─────────────── */
+    .cs-page {
+      padding: 0 var(--pad-page);
+      display: flex;
+      flex-direction: column;
+      gap: var(--cs-rhythm);
+    }
+    /* Constrain text blocks to a comfortable measure while media
+       can run full content width. */
+    .cs-prose { max-width: 880px; }
+
+    /* ─── 1. Hero (title left / description right) ──────────── */
+    .cs-hero {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      padding: 48px 0 32px;
+    }
+    /* Tight pairing: hero text → hero figure should sit close,
+       and the figure should fill close to a full viewport. */
+    .cs-hero-figure { margin-top: calc(var(--cs-rhythm) * -1 + 24px); }
+    .cs-hero-figure .cs-figure-media {
+      aspect-ratio: auto;
+      height: min(82vh, 820px);
+    }
+    .cs-hero-title { flex: 1 1 0; min-width: 0; }
+    .cs-hero-copy  { flex: 1 1 0; min-width: 0; }
+    .cs-hero h1 {
+      font-size: var(--fs-title-lg);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
+      margin: 0;
+    }
+    .cs-hero .meta {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-loose);
+      color: var(--ink);
+      max-width: 48ch;
+      margin: 0;
+    }
+
+    /* ─── Figures ───────────────────────────────────────────── */
+    .cs-figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+    .cs-figure-media {
+      background: var(--bg-thumb);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: var(--fs-small);
+    }
+    .cs-figure-media.tall { aspect-ratio: 4 / 5; }
+    .cs-figure-media.square { aspect-ratio: 1 / 1; }
+    .cs-figure-media img,
+    .cs-figure-media video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+    }
+    .cs-figure figcaption {
+      display: flex;
+      gap: 14px;
+      font-size: var(--fs-small);
+      color: var(--muted);
+      max-width: 70ch;
+    }
+    .cs-figure figcaption .num { letter-spacing: var(--ls-widest); }
+
+    .cs-media-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .cs-media-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    /* ─── 2. Overview: 2-col meta grid, narrative below ─────── */
+    .cs-overview {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+    .cs-meta-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 72px;
+      row-gap: 40px;
+    }
+    .cs-meta-block .label {
+      display: block;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .cs-meta-block .value {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-loose);
+      color: var(--ink);
+    }
+    .cs-meta-block ul {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 6px;
+      font-size: var(--fs-body);
+      color: var(--ink);
+    }
+    .cs-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .cs-chips .chip {
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      color: var(--ink);
+      background: var(--bg-subtle);
+      padding: 8px 14px;
+      border-radius: 6px;
+      line-height: 1;
+    }
+    .cs-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .cs-tools .tool {
+      width: 48px; height: 48px;
+      background: var(--bg-subtle);
+      display: grid; place-items: center;
+      color: var(--muted);
+      font-size: var(--fs-micro);
+    }
+    .cs-overview-copy p {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      margin: 0;
+      max-width: var(--cs-text);
+    }
+    .cs-overview-copy p + p { margin-top: 20px; }
+
+    /* ─── Section + kicker + headings ───────────────────────── */
+    .cs-section { scroll-margin-top: calc(var(--nav-h) + 32px); }
+    .cs-kicker {
+      display: block;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .cs-block h2 {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin: 0 0 20px;
+      text-wrap: balance;
+      max-width: 24ch;
+    }
+    .cs-block p {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      max-width: var(--cs-text);
+      margin: 0;
+      text-wrap: pretty;
+    }
+    .cs-block p + p { margin-top: 16px; }
+    /* In-section subheading (denser sections with multiple sub-topics) */
+    .cs-sub {
+      display: block;
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      color: var(--ink);
+      margin: 32px 0 12px;
+      max-width: 28ch;
+    }
+    .cs-block .cs-sub:first-child { margin-top: 0; }
+
+    /* ─── Principles ────────────────────────────────────────── */
+    .cs-principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      counter-reset: prin;
+    }
+    .cs-principles .item {
+      counter-increment: prin;
+      padding-top: 14px;
+    }
+    .cs-principles .item::before {
+      content: counter(prin, decimal-leading-zero);
+      display: block;
+      font-size: var(--fs-micro);
+      letter-spacing: var(--ls-widest);
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .cs-principles h3 {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin: 0 0 8px;
+    }
+    .cs-principles p {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      margin: 0;
+    }
+
+    /* ─── Feature deep-dive ─────────────────────────────────── */
+    .cs-feature { display: flex; flex-direction: column; gap: 28px; }
+    .cs-feature .copy h2 {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin: 0 0 14px;
+      text-wrap: balance;
+      max-width: 24ch;
+    }
+    .cs-feature .copy p {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      margin: 0;
+      max-width: var(--cs-text);
+    }
+
+    /* ─── Impact metrics ────────────────────────────────────── */
+    .cs-impact {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 56px 0;
+    }
+    .cs-impact .item .num {
+      display: block;
+      font-size: clamp(44px, 5.5vw, 80px);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-display);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .cs-impact .item .label {
+      font-size: var(--fs-small);
+      color: var(--muted);
+      max-width: 28ch;
+      line-height: var(--lh-loose);
+    }
+
+    /* ─── Reflections ───────────────────────────────────────── */
+    .cs-reflections {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 56px;
+      counter-reset: refl;
+    }
+    .cs-reflections .item {
+      counter-increment: refl;
+      padding-top: 14px;
+    }
+    .cs-reflections .item::before {
+      content: counter(refl, decimal-leading-zero);
+      display: block;
+      font-size: var(--fs-micro);
+      letter-spacing: var(--ls-widest);
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .cs-reflections h3 {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      margin: 0 0 8px;
+    }
+    .cs-reflections p {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      margin: 0;
+    }
+
+    /* ─── Next project (full-bleed, inspired by work-grid) ──── */
+    .cs-next-wrap {
+      margin-top: var(--cs-rhythm);
+      padding: 0;
+    }
+    .cs-next {
+      position: relative;
+      display: block;
+      height: 70vh;
+      min-height: 480px;
+      background-color: #111;
+      overflow: hidden;
+      text-decoration: none;
+      color: #fff;
+      isolation: isolate;
+    }
+    /* Blurred backdrop image (same trick as work cards) */
+    .cs-next::before {
+      content: '';
+      position: absolute;
+      inset: -40px;
+      background-image: var(--card-bg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: blur(3px);
+      opacity: 0.18;
+      z-index: 0;
+      transition: opacity var(--t-slow) var(--ease-out), transform var(--t-slow) var(--ease-out);
+    }
+    .cs-next:hover::before { opacity: 0.28; transform: scale(1.04); }
+
+    /* Foreground media: centered project preview */
+    .cs-next-media {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      z-index: 1;
+    }
+    .cs-next-media img,
+    .cs-next-media video {
+      width: 70%;
+      height: 60%;
+      object-fit: cover;
+      transition: transform var(--t-slow) var(--ease-out);
+    }
+    .cs-next:hover .cs-next-media img,
+    .cs-next:hover .cs-next-media video { transform: scale(1.05); }
+
+    /* Top-left kicker */
+    .cs-next-kicker {
+      position: absolute;
+      top: clamp(24px, 4vh, 48px);
+      left: var(--pad-page);
+      z-index: 2;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Bottom row: title + description + arrow (matches work-grid typography) */
+    .cs-next-foot {
+      position: absolute;
+      left: var(--pad-page);
+      right: var(--pad-page);
+      bottom: clamp(32px, 5vh, 56px);
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .cs-next-text { max-width: 64ch; }
+    .cs-next-title {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.01em;
+      line-height: 1;
+      color: #fff;
+      margin: 0 0 12px;
+    }
+    .cs-next-desc {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: rgba(255,255,255,0.86);
+      margin: 0;
+    }
+    .cs-next-arrow {
+      width: 64px; height: 64px;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      display: grid; place-items: center;
+      color: #fff;
+      font-size: 22px;
+      transition: transform var(--t-slow) var(--ease-emil), background var(--t-base) var(--ease-out);
+    }
+    .cs-next:hover .cs-next-arrow {
+      transform: translateX(10px);
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ─── Bottom TOC bar (matches top nav styling) ──────────── */
+    .cs-toc {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 0 var(--pad-page);
+      height: var(--nav-h);
+      background: var(--bg);
+      transform: translateY(0);
+      transition: transform var(--t-slow) var(--ease-out), opacity var(--t-base) var(--ease-out);
+    }
+    /* When the footer enters the viewport, slide the bar away so it
+       lands "above" the footer instead of covering it. */
+    .cs-toc.is-hidden {
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .cs-toc a {
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      padding: 4px 0;
+      transition: color var(--t-base) var(--ease-out);
+    }
+    .cs-toc a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width var(--t-slow) var(--ease-out);
+    }
+    .cs-toc a:hover,
+    .cs-toc a.is-active { color: var(--ink); }
+    .cs-toc a:hover::after,
+    .cs-toc a.is-active::after { width: 100%; }
+
+    /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .cs-toc { display: none; }
+    }
+    @media (max-width: 720px) {
+      :root { --cs-rhythm: 80px; --cs-rhythm-sm: 48px; }
+      .cs-page { padding: 0 var(--pad-page-sm); }
+      .cs-topbar { padding: 24px var(--pad-page-sm) 0; }
+      .cs-hero { flex-direction: column; gap: 16px; padding: 24px 0 8px; }
+      .cs-overview { gap: 48px; }
+      .cs-meta-col { grid-template-columns: 1fr; row-gap: 32px; }
+      .cs-principles { grid-template-columns: 1fr; gap: 24px; }
+      .cs-media-grid-2, .cs-media-grid-3 { grid-template-columns: 1fr; }
+      .cs-impact { grid-template-columns: 1fr; gap: 28px; padding: 36px 0; }
+      .cs-reflections { grid-template-columns: 1fr; gap: 24px; }
+      .cs-next-wrap { padding: 0 var(--pad-page-sm); }
+      .cs-next { flex-direction: column; align-items: flex-start; padding: 48px 0; }
+    }
+
+    /* Footer overrides — match home page page-footer pattern */
+    .page-footer { margin-top: var(--cs-rhythm); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-indicator" aria-hidden="true"></span>
+    <a href="/" class="t-small" data-nav="home">Home</a>
+    <a href="/index.html" class="t-small" data-nav="work" data-open-work-link>Work</a>
+    <a href="/about.html" class="t-small">About</a>
+    <a href="/explore.html" class="t-small">Explore</a>
+    <a href="../Melody Ekbatani_2026 Resume .pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
+  </nav>
+
+  <div class="cs-shell">
+
+    <!-- Top bar: Back -->
+    <div class="cs-topbar">
+      <a href="/" class="cs-back"><i class="ph ph-arrow-left"></i> Back</a>
+    </div>
+
+    <!-- Sticky simple TOC -->
+    <aside class="cs-toc" aria-label="Contents">
+      <a href="#overview">Overview</a>
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#research">Research</a>
+      <a href="#next-steps">Next Steps</a>
+      <a href="#learnings">What I learned</a>
+    </aside>
+
+    <article class="cs-page">
+
+      <!-- HERO: title left / description right -->
+      <header class="cs-hero">
+        <div class="cs-hero-title">
+          <h1>Sembli</h1>
+        </div>
+        <div class="cs-hero-copy">
+          <p class="meta">A short two-sentence description of the project that frames what it is and who it's for. Plain language, no jargon.</p>
+        </div>
+      </header>
+
+      <!-- HERO MEDIA STACK -->
+      <figure class="cs-figure cs-hero-figure">
+        <div class="cs-figure-media">Hero image or video</div>
+        <figcaption><span class="num">Fig 1.0</span><span>Caption.</span></figcaption>
+      </figure>
+
+      <div class="cs-media-grid-2">
+        <figure class="cs-figure">
+          <div class="cs-figure-media tall">Supporting still or video</div>
+          <figcaption><span class="num">Fig 1.1</span><span>Caption.</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media tall">Supporting still or video</div>
+          <figcaption><span class="num">Fig 1.2</span><span>Caption.</span></figcaption>
+        </figure>
+      </div>
+
+      <!-- OVERVIEW: role / team / timeline + narrative -->
+      <section id="overview" class="cs-section cs-overview">
+        <div class="cs-meta-col">
+          <div class="cs-meta-block">
+            <span class="label">Timeline</span>
+            <div class="value">8 weeks<br>2025</div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Role</span>
+            <div class="value">Product Designer, research, interaction design, visual design and prototyping</div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Team</span>
+            <ul>
+              <li>Teammate name (Role)</li>
+              <li>Teammate name (Role)</li>
+            </ul>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Skills</span>
+            <div class="cs-chips">
+              <span class="chip">UX/UI</span>
+              <span class="chip">Product Strategy</span>
+              <span class="chip">User Research</span>
+              <span class="chip">Visual Design</span>
+            </div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Tools</span>
+            <div class="cs-tools">
+              <span class="tool">Tool</span>
+              <span class="tool">Tool</span>
+              <span class="tool">Tool</span>
+              <span class="tool">Tool</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-overview-copy">
+          <p>A one-paragraph overview of what Sembli is and who it is for. Set the stage in plain language without jargon.</p>
+          <p>A second paragraph on what I did on the project end-to-end and the decisions I owned.</p>
+          <p>A third paragraph on outcomes worth surfacing up front — launch, sentiment, metrics, or what shipped.</p>
+        </div>
+      </section>
+
+      <!-- PROBLEM -->
+      <section id="problem" class="cs-section cs-block">
+        <span class="cs-kicker">Problem</span>
+        <h2>The specific tension users feel, named in one sentence.</h2>
+        <p>A short, conversational paragraph that grounds the pain in a real moment or behavior.</p>
+        <p>A second paragraph that goes one layer deeper — what users try first, why it stalls, and the workaround they fall back on.</p>
+
+        <span class="cs-sub">Why now</span>
+        <p>Paragraph on the cultural or technological shift that makes this problem worth solving today and not five years ago.</p>
+
+        <span class="cs-sub">Where existing solutions fall short</span>
+        <p>Paragraph naming the dominant alternatives and where each breaks down for this specific user.</p>
+        <p>Optional second paragraph that draws a line between the gap and the opportunity.</p>
+      </section>
+
+      <!-- SOLUTION -->
+      <section id="solution" class="cs-section cs-block">
+        <span class="cs-kicker">Solution</span>
+        <h2>A one-line description of the system, not the feature list.</h2>
+        <p>Paragraph on how the pieces fit together — the spine of the experience and the unit of value each user gets.</p>
+        <p>A second paragraph that previews the three or four moves the rest of this section unpacks in detail.</p>
+      </section>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media">Key screen or system diagram</div>
+        <figcaption><span class="num">Fig 2.0</span><span>What the diagram shows and why it matters.</span></figcaption>
+      </figure>
+
+      <section class="cs-block">
+        <span class="cs-sub">Feature one, in plain language.</span>
+        <p>Paragraph explaining how it works and what it earns the user.</p>
+        <p>A second paragraph on the trade-off or constraint that shaped this feature.</p>
+      </section>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media">Feature 01 media</div>
+        <figcaption><span class="num">Fig 3.0</span><span>Caption.</span></figcaption>
+      </figure>
+
+      <section class="cs-block">
+        <span class="cs-sub">Feature two, in plain language.</span>
+        <p>Paragraph explaining the job this feature does.</p>
+        <p>A second paragraph on how it pairs with feature one to compound the user's payoff.</p>
+      </section>
+
+      <div class="cs-media-grid-3">
+        <figure class="cs-figure"><div class="cs-figure-media square">3-up 1</div></figure>
+        <figure class="cs-figure"><div class="cs-figure-media square">3-up 2</div></figure>
+        <figure class="cs-figure"><div class="cs-figure-media square">3-up 3</div></figure>
+      </div>
+
+      <section class="cs-block">
+        <span class="cs-sub">Feature three, in plain language.</span>
+        <p>Paragraph that ties the system together — the connective tissue users may not notice but rely on.</p>
+      </section>
+
+      <!-- RESEARCH -->
+      <section id="research" class="cs-section cs-block">
+        <span class="cs-kicker">Research</span>
+        <h2>What I learned by listening before designing.</h2>
+        <p>Paragraph framing how I gathered signal — interviews, audits, surveys — and the assumption I was testing going in.</p>
+        <p>Second paragraph on what surprised me and the moment the brief shifted.</p>
+
+        <span class="cs-sub">Method</span>
+        <p>Short paragraph on the specific mix of methods and why each one was the right tool for that question.</p>
+
+        <span class="cs-sub">What I heard</span>
+        <p>Paragraph synthesizing the pattern across conversations. Quote one user verbatim if it earns its place.</p>
+
+        <span class="cs-sub">What it changed</span>
+        <p>Paragraph naming the design decision that flipped because of what I learned — concretely, not abstractly.</p>
+      </section>
+
+      <section>
+        <div class="cs-principles">
+          <div class="item"><h3>Insight one</h3><p>One-sentence takeaway from research.</p></div>
+          <div class="item"><h3>Insight two</h3><p>One-sentence takeaway.</p></div>
+          <div class="item"><h3>Insight three</h3><p>One-sentence takeaway.</p></div>
+        </div>
+      </section>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media">Research artifact, mental model, or moodboard</div>
+        <figcaption><span class="num">Fig 4.0</span><span>Caption.</span></figcaption>
+      </figure>
+
+      <!-- NEXT STEPS -->
+      <section id="next-steps" class="cs-section cs-block">
+        <span class="cs-kicker">Next Steps</span>
+        <h2>What I'd build next if I kept going.</h2>
+        <p>Paragraph on the directions I'd pursue and the experiments I'd run first.</p>
+
+        <span class="cs-sub">Short-term</span>
+        <p>Paragraph on the immediate next move — what would ship within a few weeks and how I'd measure whether it landed.</p>
+
+        <span class="cs-sub">Long-term</span>
+        <p>Paragraph on the version of this product two or three iterations out — what becomes possible when the foundation is in place.</p>
+
+        <span class="cs-sub">Open questions</span>
+        <p>Paragraph naming the questions I haven't resolved yet and what evidence would help me answer them.</p>
+      </section>
+
+      <!-- WHAT I LEARNED -->
+      <section id="learnings" class="cs-section cs-block">
+        <span class="cs-kicker">What I learned</span>
+        <h2>The lessons I'm carrying into the next project.</h2>
+        <p>Opening paragraph framing the broader takeaway — what shifted in how I work, not just what I did.</p>
+        <p>Second paragraph on the moment I most underestimated and what it taught me about scoping.</p>
+      </section>
+
+      <section>
+        <div class="cs-reflections">
+          <div class="item">
+            <h3>Takeaway one</h3>
+            <p>Short paragraph on what I'd repeat next time and the situation it applies to.</p>
+          </div>
+          <div class="item">
+            <h3>Takeaway two</h3>
+            <p>Short paragraph naming a specific habit or check that earned its place in my process.</p>
+          </div>
+          <div class="item">
+            <h3>Takeaway three</h3>
+            <p>Short paragraph on a tool or rule I'd retire if I started over.</p>
+          </div>
+          <div class="item">
+            <h3>Takeaway four</h3>
+            <p>Short paragraph on the conversation I wish I'd started a week earlier.</p>
+          </div>
+        </div>
+      </section>
+
+    </article>
+
+    <!-- NEXT PROJECT -->
+    <div class="cs-next-wrap">
+      <a class="cs-next" href="/aeri/index.html" style="--card-bg: url('../Home Page/Background images /Aeri - cover.png');">
+        <span class="cs-next-kicker">Next project</span>
+        <div class="cs-next-media">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="../Home Page/Aeri Video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="cs-next-foot">
+          <div class="cs-next-text">
+            <h3 class="cs-next-title">Aeri</h3>
+            <p class="cs-next-desc">A short description of the Aeri project — what it is and the problem it tackles. Matches the work-page card copy.</p>
+          </div>
+          <div class="cs-next-arrow"><i class="ph ph-arrow-right"></i></div>
+        </div>
+      </a>
+    </div>
+
+    <!-- FOOTER (matches home / aeri page-footer) -->
+    <footer class="page-footer">
+      <h2 class="page-footer-title">Let's Work</h2>
+      <div class="page-footer-grid">
+        <div class="page-footer-column">
+          <p class="page-footer-heading">Find me</p>
+          <div class="page-footer-links">
+            <a href="https://linkedin.com/in/melodyekbatani" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github</a>
+            <a href="../Melody Ekbatani_2026 Resume .pdf" target="_blank" rel="noreferrer">Resume</a>
+          </div>
+        </div>
+        <div class="page-footer-column">
+          <p class="page-footer-heading">Focus</p>
+          <div class="page-footer-links">
+            <p>Product Design</p>
+            <p>Creating AI Systems</p>
+            <p>Storytelling</p>
+          </div>
+        </div>
+        <div class="page-footer-message">
+          <p>Designing through clarity, storytelling, and moments of delight.</p>
+          <a href="mailto:melodyekbatani@gmail.com" rel="noreferrer" style="display: block; margin-top: 16px; font-size: var(--fs-body); font-weight: var(--fw-medium);">melodyekbatani@gmail.com</a>
+        </div>
+      </div>
+      <div class="page-footer-meta"></div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Nav indicator
+    function bindIndicator(container, indicatorSelector, itemSelector, activeSelector) {
+      if (!container) return;
+      const indicator = container.querySelector(indicatorSelector);
+      const items = [...container.querySelectorAll(itemSelector)];
+      if (!indicator || items.length === 0) return;
+      let activeItem = activeSelector ? container.querySelector(activeSelector) : null;
+      function placeIndicator(item, color = "#111111") {
+        if (!item) return;
+        const cb = container.getBoundingClientRect();
+        const ib = item.getBoundingClientRect();
+        indicator.style.transform = `translate(${ib.left - cb.left + 4}px, ${ib.top - cb.top + ib.height / 2}px) translateY(-50%)`;
+        indicator.style.backgroundColor = color;
+      }
+      if (activeItem) placeIndicator(activeItem);
+      requestAnimationFrame(() => indicator.classList.add("is-ready"));
+      items.forEach(item => {
+        item.addEventListener("mouseenter", () => placeIndicator(item, "#CFCFCF"));
+        item.addEventListener("focus", () => placeIndicator(item, "#CFCFCF"));
+      });
+      container.addEventListener("mouseleave", () => { if (activeItem) placeIndicator(activeItem); });
+    }
+    bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", null);
+
+    // Hide bottom TOC bar when the next-project / footer is in view
+    (function () {
+      const toc = document.querySelector(".cs-toc");
+      const sentinel = document.querySelector(".cs-next-wrap");
+      if (!toc || !sentinel || !("IntersectionObserver" in window)) return;
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          toc.classList.toggle("is-hidden", e.isIntersecting);
+        }
+      }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
+      io.observe(sentinel);
+    })();
+
+    // TOC active-section tracking
+    (function () {
+      const tocLinks = [...document.querySelectorAll(".cs-toc a")];
+      if (!tocLinks.length) return;
+      const sections = tocLinks
+        .map(a => document.querySelector(a.getAttribute("href")))
+        .filter(Boolean);
+
+      function update() {
+        const y = window.scrollY + 140;
+        let activeId = sections[0] && sections[0].id;
+        for (const s of sections) {
+          if (s.offsetTop <= y) activeId = s.id;
+        }
+        tocLinks.forEach(a => {
+          a.classList.toggle("is-active", a.getAttribute("href") === "#" + activeId);
+        });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+  </script>
+  <script src="../nav.js" defer></script>
+</body>
+</html>

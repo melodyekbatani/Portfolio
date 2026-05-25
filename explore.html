@@ -16,7 +16,7 @@
     body.explore-page {
       overflow: hidden;
       height: 100vh;
-      background-color: var(--bg, #ffffff);  /* matches other pages, revealed during exit slide */
+      background-color: var(--bg, #ffffff);
       color: #1a232c;
     }
 
@@ -333,30 +333,18 @@
     .explore-modal-caption {
       position: absolute;
       left: clamp(24px, 4vw, 56px);
+      right: clamp(24px, 4vw, 56px);
       bottom: clamp(24px, 4vh, 48px);
       font-size: 13px;
       line-height: 1.5;
       color: #1a232c;
-      max-width: 360px;
+      max-width: 720px;
     }
-    .explore-modal-caption .t { font-style: italic; }
+    .explore-modal-caption .t { font-weight: 700; }
     .explore-modal-caption .meta {
       color: var(--explore-meta);
       margin-top: 2px;
     }
-
-    .explore-modal-counter {
-      position: absolute;
-      right: clamp(24px, 4vw, 56px);
-      bottom: clamp(24px, 4vh, 48px);
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      color: #1a232c;
-      display: flex;
-      gap: 28px;
-      align-items: center;
-    }
-    .explore-modal-counter .label { color: var(--explore-meta); }
   </style>
 </head>
 <body class="explore-page">
@@ -407,10 +395,6 @@
       <div class="meta" id="exploreModalDesc"></div>
     </div>
 
-    <div class="explore-modal-counter">
-      <span class="label">Image</span>
-      <span id="exploreModalCounter">1 of 1</span>
-    </div>
   </div>
 
   <script>
@@ -442,7 +426,7 @@
         desc: "Hand-coded project exploring typography as an organizing principle to examine how design rules shape visual outcomes using HTML and CSS.",
         href: "https://melodyekbatani.github.io/binding/",
         items: [
-          { src: EX + "Binding.png", type: "image", w: 150 },
+          { src: EX + "Coding/Binding.png", type: "image", w: 150 },
         ],
       },
       {
@@ -475,8 +459,6 @@
         items: [
           { src: EX + "Fauna/Fauna animation.gif",           type: "image", w: 130,  label: "Animated study exploring organic movement through a soft, abstract particle system." },
           { src: EX + "Fauna/Progress Photoshop Image.png",  type: "image", w: 85,  label: "Room takeover concept with organic red and pink forms transforming an interior space." },
-          { src: EX + "Fauna/New York 1.mp4",                type: "video", w: 100, label: "AI motion study extending the room takeover concept into an urban environment." },
-          { src: EX + "Fauna/New York 2.MP4",                type: "video", w: 100, label: "AI-generated motion exploration of organic forms moving through city space." },
           { src: EX + "Fauna/Room 1.mp4",                    type: "video", w: 95,  label: "Interior animation exploring how fauna-inspired textures can occupy and transform a room." },
         ],
       },
@@ -484,11 +466,12 @@
         name: "Lost, Uber Eats",
         desc: "Campaign for the Design Buddies x AdMagination Challenge with Liam Fleming using MidJourney and Adobe Creative Suite. Honourable mention and challenge recognition.",
         items: [
-          { src: EX + "Uber Eats/Lost - Mountain.png",   type: "image", w: 80, label: "Mountain delivery concept pushing food delivery to its limits." },
-          { src: EX + "Uber Eats/Lost - Safari.png",     type: "image", w: 80, label: "Safari delivery concept set in an unexpected landscape." },
-          { src: EX + "Uber Eats/Lost - Underwater.png", type: "image", w: 80, label: "Underwater delivery concept extending the “anywhere” idea." },
-          { src: EX + "Uber Eats/Lost - Mockup 1.png",   type: "image", w: 140, label: "Transit placement showing the campaign in an urban setting." },
-          { src: EX + "Uber Eats/Lost - Mockup 2.png",   type: "image", w: 140, label: "Outdoor campaign series across three extreme environments." },
+          { src: EX + "Uber Eats/Lost - Mountain.png",   type: "image", w: 81, label: "Mountain delivery concept pushing food delivery to its limits." },
+          { src: EX + "Uber Eats/Lost - Safari.png",     type: "image", w: 81, label: "Safari delivery concept set in an unexpected landscape." },
+          { src: EX + "Uber Eats/Lost - Underwater.png", type: "image", w: 81, label: "Underwater delivery concept extending the “anywhere” idea." },
+          { src: EX + "Uber Eats/Lost - Mockup 1.png",   type: "image", w: 141, label: "Transit placement showing the campaign in an urban setting." },
+          { src: EX + "Uber Eats/Lost - Mockup 2.png",   type: "image", w: 141, label: "Outdoor campaign series across three extreme environments." },
+          { src: EX + "Uber Eats/Lost- Mockup 3.png",    type: "image", w: 141, label: "Large-scale city placement for the mountain concept." },
           { src: EX + "Uber Eats/Lost - Mockup 4.png",   type: "image", w: 130, label: "Mobile placement adapting the underwater campaign visual." },
         ],
       },
@@ -496,17 +479,14 @@
         name: "Acid League",
         desc: "A playful brand exploration for Acid League, using AI-assisted interiors, illustration, and motion to imagine a surreal vinegar lab filled with flavor, texture, and experimental energy.",
         items: [
-          { src: EX + "Acid League/Interiors 1.png",              type: "image", w: 150,  label: "Illustrated brand environment combining Acid League products with fruit, liquid, and fermentation-inspired visuals." },
-          { src: EX + "Acid League/Interiors raw.png",            type: "image", w: 150,  label: "Base interior render exploring a soft green lab-like space for the brand world." },
-          { src: EX + "Acid League/Acid league animation 1.mp4",  type: "video", w: 100, label: "Motion concept bringing the illustrated Acid League lab to life through layered products, ingredients, and playful movement." },
-          { src: EX + "Acid League/Acid league animation 2.mp4",  type: "video", w: 100, label: "Alternate motion concept continuing the same experimental vinegar lab world." },
+          { src: EX + "Acid League/Acid league animation 1.mp4",  type: "video", w: 101, label: "Motion concept bringing the illustrated Acid League lab to life through layered products, ingredients, and playful movement." },
+          { src: EX + "Acid League/Acid league animation 2.mp4",  type: "video", w: 101, label: "Alternate motion concept continuing the same experimental vinegar lab world." },
         ],
       },
       {
         name: "Anzza",
         desc: "An early-stage client identity project for Anzza, a dried pineapple brand exploring Colombian fruit culture through bold typography, nostalgic illustration, and editorial campaign language.",
         items: [
-          { src: EX + "Anzza/Anzza brand-01.png",         type: "image", w: 95, label: "Early wordmark exploring a bold tropical identity." },
           { src: EX + "Anzza/Anzza brand-02.png",         type: "image", w: 95, label: "Product-led illustration focused on texture and form." },
           { src: EX + "Anzza/Anzza brand-03.png",         type: "image", w: 95, label: "Campaign direction bringing the brand into the street." },
           { src: EX + "Anzza/Anzza brand-04.png",         type: "image", w: 95, label: "Place-based concept connecting Colombia and Miami." },
@@ -515,18 +495,46 @@
           { src: EX + "Anzza/Campaign 1.png",             type: "image", w: 90, label: "Editorial campaign concept with a playful snack-world tone." },
           { src: EX + "Anzza/Campaign 2.png",             type: "image", w: 90, label: "Street campaign system testing repetition and recognition." },
           { src: EX + "Anzza/Campaign 3.png",             type: "image", w: 90, label: "Large-scale brand moment for urban visibility." },
-          { src: EX + "Anzza/Flavor.png",                 type: "image", w: 130, label: "Flavor system built through color, rhythm, and fruit motifs." },
           { src: EX + "Anzza/Gold illustrations.png",     type: "image", w: 110, label: "Decorative badges exploring heritage and tropical luxury." },
           { src: EX + "Anzza/Green illustration.png",     type: "image", w: 110, label: "Logo studies refining the pineapple as a brand symbol." },
           { src: EX + "Anzza/Pineapple Illustration.png", type: "image", w: 110, label: "Pattern direction for packaging and brand texture." },
         ],
       },
       {
+        name: "GPA",
+        desc: "Marketing and award-winning campaign work for Giannone Petricone Associates across hospitality and residential development.",
+        items: [
+          { src: EX + "GPA/GPA mockup presentation.png",                          type: "image", w: 150, label: "Presentation mockup for a competitive proposal." },
+          { src: EX + "GPA/GPA mockup socials.mp4",                               type: "video", w: 121, label: "Social media animation concept." },
+          { src: EX + "GPA/GPA mockup socials 2.mp4",                             type: "video", w: 121, label: "Alternate social motion direction." },
+          { src: EX + "GPA/Grand Prix International Interior Hospitality Winner.mp4", type: "video", w: 141, label: "Award recognition reel: Grand Prix International Interior Hospitality Winner." },
+          { src: EX + "GPA/IFI Gap_The Royal_Silver Winner.mp4",                  type: "video", w: 141, label: "Award recognition reel: IFI Gap, The Royal, Silver Winner." },
+          { src: EX + "GPA/IFI GAP_STOCK T.C_Bronze Winner .mp4",                 type: "video", w: 141, label: "Award recognition reel: IFI Gap, STOCK T.C, Bronze Winner." },
+        ],
+      },
+      {
+        name: "WZMH Architects",
+        desc: "Smart-technology and modular construction work at WZMH's innovation lab (Sparkbird), spanning MySun, Speedstac, and connector unit design.",
+        items: [
+          { src: EX + "Mysun/MySun App.png",                  type: "image", w: 90,  label: "MySun app interface — gamified sustainability tracking." },
+          { src: EX + "Mysun/MySun Solar Panel 2.png",        type: "image", w: 141, label: "Solar panel exploration." },
+          { src: EX + "Mysun/MySun Solar Panel 3.png",        type: "image", w: 141, label: "Solar panel alternate view." },
+          { src: EX + "Mysun/MySun Solar Panel 4.png",        type: "image", w: 141, label: "Solar panel concept render." },
+          { src: EX + "Mysun/MySun photos .png",              type: "image", w: 150, label: "Documentation of MySun in context." },
+          { src: EX + "Mysun/Mysun marketing video.mp4",      type: "video", w: 141, label: "MySun marketing video." },
+          { src: EX + "Mysun/Biking to power.png",            type: "image", w: 141, label: "Concept exploration: biking to power study." },
+          { src: EX + "Mysun/Collaborative practice.png",     type: "image", w: 141, label: "Studio collaborative practice." },
+          { src: EX + "Mysun/Speedstac apartment design.jpg", type: "image", w: 150, label: "Speedstac apartment massing study." },
+          { src: EX + "Mysun/Connector and unit design.png",  type: "image", w: 150, label: "Modular connector + unit design system." },
+          { src: EX + "Mysun/Model.jpg",                      type: "image", w: 141, label: "Physical model documentation." },
+        ],
+      },
+      {
         name: "Cave Front, Arc'teryx",
         desc: "An early concept for Arc'teryx exploring how alpine terrain, performance culture, and immersive retail could come together in a sculptural store environment. The project uses AI-assisted rendering to test atmosphere, materiality, and experiential brand storytelling.",
         items: [
-          { src: EX + "Arc teryx/Final image 1.jpg", type: "image", w: 160, label: "Concept render exploring the broader retail world and spatial language." },
-          { src: EX + "Arc teryx/Final image 2.jpg", type: "image", w: 160, label: "Interior moment focused on immersion, product display, and interaction." },
+          { src: EX + "Arc teryx/Final image 1.jpg", type: "image", w: 161, label: "Concept render exploring the broader retail world and spatial language." },
+          { src: EX + "Arc teryx/Final image 2.jpg", type: "image", w: 161, label: "Interior moment focused on immersion, product display, and interaction." },
           { src: EX + "Arc teryx/Progress.mp4",      type: "video", w: 95,  label: "Process video showing the development of the concept and environment." },
         ],
       },
@@ -534,10 +542,11 @@
         name: "Zarizar, Brand Refresh",
         desc: "Luxury craft brand concept translating handwoven shawls, artisan heritage, and cultural storytelling into a refined visual identity, campaign system, and digital experience with Nimit Dadhania.",
         items: [
-          { src: EX + "Zari zar /Zarizar - Brand World.png",            type: "image", w: 160, label: "Visual system exploring the brand's materials, values, and cultural references." },
+          { src: EX + "Zari zar /Zarizar - Brand World.png",            type: "image", w: 161, label: "Visual system exploring the brand's materials, values, and cultural references." },
+          { src: EX + "Zari zar /Zarizar - Mockup 1 .png",              type: "image", w: 141, label: "Outdoor campaign placement centered on craft, education, and generational knowledge." },
           { src: EX + "Zari zar /Zarizar - Storefront Activation.png",  type: "image", w: 150,  label: "Storefront concept using draped fabric as an architectural brand gesture." },
-          { src: EX + "Zari zar /Zarizar - Web Design 1.mov",           type: "video", w: 160, label: "Website interaction concept introducing the brand story and visual world." },
-          { src: EX + "Zari zar /Zarizar - Web Design 2.mov",           type: "video", w: 160, label: "Website interaction concept extending the product and storytelling experience." },
+          { src: EX + "Zari zar /Zarizar - Web Design 1.mov",           type: "video", w: 161, label: "Website interaction concept introducing the brand story and visual world." },
+          { src: EX + "Zari zar /Zarizar - Web Design 2.mov",           type: "video", w: 161, label: "Website interaction concept extending the product and storytelling experience." },
           { src: EX + "Zari zar /Zarizar-Village Activation.png",       type: "image", w: 150,  label: "Destination concept connecting craft, landscape, and place-based luxury." },
         ],
       },
@@ -580,45 +589,88 @@
                b.y + b.h + pad <= a.y);
     }
 
-    function findSpot(w, h) {
-      // Try multiple padding tiers from generous to zero. At pad=0 we still
-      // refuse any actual intersection — never produce full overlap.
-      for (const pad of [PAD, 6, 3, 1, 0]) {
-        for (let i = 0; i < 250; i++) {
-          const x = (rand() - 0.5) * SPREAD_X - w / 2;
-          const y = (rand() - 0.5) * SPREAD_Y - h / 2 + Y_OFFSET;
-          const cand = { x, y, w, h };
-          let ok = true;
-          for (const p of placed) {
-            if (rectsOverlap(cand, p, pad)) { ok = false; break; }
-          }
-          if (ok) return { x, y };
-        }
-      }
-      // Grid fallback — walk a fine grid and return the first non-overlapping cell.
-      const stepX = Math.max(8, w / 4);
-      const stepY = Math.max(8, h / 4);
-      for (let y = -SPREAD_Y / 2 + Y_OFFSET; y <= SPREAD_Y / 2 + Y_OFFSET - h; y += stepY) {
-        for (let x = -SPREAD_X / 2; x <= SPREAD_X / 2 - w; x += stepX) {
-          const cand = { x, y, w, h };
-          let ok = true;
-          for (const p of placed) {
-            if (rectsOverlap(cand, p, 0)) { ok = false; break; }
-          }
-          if (ok) return { x, y };
-        }
-      }
-      // Truly no room — push outside viewport rather than overlap visibly.
-      return { x: SPREAD_X / 2 + 40, y: Y_OFFSET };
-    }
+    /* Collision-checked placement. We try many random candidates per item,
+       reject anything that overlaps already-placed rects (with PAD), and
+       keep the best (most empty-feeling) spot. Items are sorted
+       largest-first so big rects don't get squeezed into leftover gaps. */
+    const TOTAL_ITEMS = projects.reduce((n, p) => n + p.items.length, 0);
+    const SIZE_SCALE = 0.58;
+    const GAP = 28; // min visual gap between any two items
 
+    // Build a flat list of all items with stable identity, then sort by size.
+    // Height estimate is over-generous (1.75x w) because portrait media
+    // (phone mockups, pineapples, posters) routinely exceed 1.5x.
+    const flatItems = [];
     projects.forEach((proj, pIdx) => {
       proj.items.forEach((it, iIdx) => {
-        // Over-estimate height for collision detection (portrait media
-        // can be ~1.5x its width) so thumbs don't pile on top of each other.
-        const estH = Math.round(it.w * 1.4);
-        const spot = findSpot(it.w, estH);
-        placed.push({ x: spot.x, y: spot.y, w: it.w, h: estH });
+        const w = Math.round(it.w * SIZE_SCALE);
+        const h = Math.round(w * 1.75);
+        flatItems.push({ pIdx, iIdx, it, w, h });
+      });
+    });
+    flatItems.sort((a, b) => (b.w * b.h) - (a.w * a.h));
+
+    function findSpot(w, h) {
+      const halfX = SPREAD_X / 2;
+      const halfY = SPREAD_Y / 2;
+      const minX = -halfX;
+      const maxX =  halfX - w;
+      const minY = -halfY + Y_OFFSET;
+      const maxY =  halfY + Y_OFFSET - h;
+      let best = null;
+      let bestScore = -Infinity;
+      // Try a generous number of random candidates; score by distance to
+      // nearest neighbor so we naturally spread across empty regions.
+      for (let i = 0; i < 220; i++) {
+        const x = minX + rand() * (maxX - minX);
+        const y = minY + rand() * (maxY - minY);
+        const cand = { x, y, w, h };
+        let ok = true;
+        let nearest = Infinity;
+        for (let j = 0; j < placed.length; j++) {
+          const p = placed[j];
+          if (rectsOverlap(cand, p, GAP)) { ok = false; break; }
+          const dx = (x + w/2) - (p.x + p.w/2);
+          const dy = (y + h/2) - (p.y + p.h/2);
+          const d = dx*dx + dy*dy;
+          if (d < nearest) nearest = d;
+        }
+        if (!ok) continue;
+        if (nearest > bestScore) { bestScore = nearest; best = cand; }
+      }
+      // Progressive fallback: relax the gap until we find a spot. Final
+       // resort is a random position (overlap allowed) so items always
+       // appear on the canvas instead of stacking in a corner.
+      if (!best) {
+        for (const relaxGap of [12, 4, 0]) {
+          for (let i = 0; i < 200; i++) {
+            const x = minX + rand() * (maxX - minX);
+            const y = minY + rand() * (maxY - minY);
+            const cand = { x, y, w, h };
+            let ok = true;
+            for (let j = 0; j < placed.length; j++) {
+              if (rectsOverlap(cand, placed[j], relaxGap)) { ok = false; break; }
+            }
+            if (ok) { best = cand; break; }
+          }
+          if (best) break;
+        }
+      }
+      if (!best) {
+        best = {
+          x: minX + rand() * (maxX - minX),
+          y: minY + rand() * (maxY - minY),
+          w, h
+        };
+      }
+      return best;
+    }
+
+    flatItems.forEach(({ pIdx, iIdx, it, w, h }) => {
+      const spot = findSpot(w, h);
+      placed.push({ x: spot.x, y: spot.y, w, h });
+
+      const proj = projects[pIdx];
 
         const zi  = Math.floor(rand() * 10); // 0–9 so title (z:5) is sandwiched
         const baseTransform = `translate(${spot.x}px, ${spot.y}px)`;
@@ -630,21 +682,37 @@
         thumb.style.zIndex = zi;
         thumb.style.setProperty("--base-transform", baseTransform);
 
+        // Canvas uses tiny webp thumbnails for speed; modal swaps in originals.
+        const thumbSrc = it.type === "video"
+          ? it.src
+          : it.src.replace(/^Explore\//, "Explore/thumbs/").replace(/\.[^.]+$/, ".webp");
         const media = it.type === "video"
-          ? `<video autoplay muted loop playsinline preload="metadata"><source src="${it.src}" type="video/mp4"></video>`
-          : `<img src="${it.src}" alt="${proj.name}" loading="lazy">`;
+          ? `<video muted loop playsinline preload="none" data-lazy-video><source src="${it.src}" type="video/mp4"></video>`
+          : `<img src="${thumbSrc}" alt="${proj.name}" loading="lazy" decoding="async">`;
 
-        thumb.innerHTML = `<div class="explore-thumb-media" style="width:${it.w}px;">${media}</div>`;
+        thumb.innerHTML = `<div class="explore-thumb-media" style="width:${w}px;">${media}</div>`;
 
         thumb.addEventListener("click", () => {
           if (dragMoved) return;
           openModal(pIdx, iIdx);
         });
-        thumb.addEventListener("mouseenter", () => showMeta(pIdx, iIdx));
-        thumb.addEventListener("mouseleave", () => resetMeta());
+        thumb.addEventListener("mouseenter", () => {
+          showMeta(pIdx, iIdx);
+          // Lazy: only start loading + playing the video when the user
+          // hovers it. Keeps initial page load fast (no upfront fetches).
+          const v = thumb.querySelector("video[data-lazy-video]");
+          if (v) {
+            if (v.preload === "none") v.preload = "metadata";
+            v.play().catch(() => {});
+          }
+        });
+        thumb.addEventListener("mouseleave", () => {
+          resetMeta();
+          const v = thumb.querySelector("video[data-lazy-video]");
+          if (v) { try { v.pause(); } catch (e) {} }
+        });
 
         world.appendChild(thumb);
-      });
     });
 
     // ─── Mouse-driven pan ──────────────────────────────────
@@ -749,7 +817,6 @@
     const modalClose   = document.getElementById("exploreModalClose");
     const modalPrev    = document.getElementById("exploreModalPrev");
     const modalNext    = document.getElementById("exploreModalNext");
-    const modalCounter = document.getElementById("exploreModalCounter");
 
     let curProj = 0;
     let curImg  = 0;
@@ -770,7 +837,6 @@
       } else {
         modalCta.style.display = "none";
       }
-      modalCounter.textContent = `${iIdx + 1} of ${proj.items.length}`;
     }
 
     function openModal(pIdx, iIdx) {

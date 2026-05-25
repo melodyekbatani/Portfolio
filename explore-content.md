@@ -151,3 +151,37 @@ I'll parse this file and apply it to explore.html.
 - Arc'teryx Render 1.png | Concept render exploring the broader retail world and spatial language.
 - Arc'teryx Render 2.png | Interior moment focused on immersion, product display, and interaction.
 - Progress.mp4 | Process video showing the development of the concept and environment.
+
+
+## GPA
+**Title:** Giannone Petricone Associates (GPA)
+**Description:** Series of projects across presentation, proposal, web and social media design where I developed the  communicate efforts across architecture, planning, and interiors projects. 
+
+**Files:**
+- GPA mockup presentation.png | Presentation system showing a refined layout direction for project storytelling and pitch materials.
+- GPA mockup socials.mp4 | Social media motion concept translating GPA’s work into a branded digital format.
+- GPA mockup socials 2.mp4 | Alternate social media concept extending the visual system across project highlights.
+- Grand Prix International Interior Hospitality Winner.mp4 | Award announcement celebrating international recognition in interior hospitality.
+- IFI GAP_STOCK T.C_Bronze Winner .mp4 | Award announcement highlighting recognition for the STOCK T.C project.
+- IFI Gap_The Royal_Silver Winner.mp4 | Award announcement highlighting recognition for The Royal project.
+
+
+
+## WZMH / Sparkbird Lab
+**Title:** WZMH / Sparkbird Lab  
+**Description:** A collection of architecture, product, and innovation work developed across modular housing, collaborative design research, and sustainability concepts.
+**Links:**
+- https://bltawards.com/winner/blt/2024/21797/0/ 
+
+**Files:**
+- Connector and unit design.png | Technical design study showing the modular unit connection system.
+- Speedstac apartment design.jpg | Modular apartment concept exploring stacked housing and repeatable building systems.
+- Collaborative practice.png | Studio process documentation showing model review and collaborative design development.
+- Biking to power.png | Prototype moment testing human-powered energy generation.
+- MySun Solar Panel 2.png | Detail of the mySUN solar charging prototype and hardware design.
+- MySun Solar Panel 3.png | Physical prototype exploring solar energy capture at an interior scale.
+- MySun Solar Panel 4.png | Prototype detail showing the light and charging system in use.
+- MySun App.png | Mobile interface concept introducing the mySUN partners and product story.
+- Mysun marketing video.mp4 | Marketing video presenting the mySUN concept, team, and use case.
+- Model.jpg | Physical model exploring modular stacking, scale, and spatial configuration.
+
