@@ -19,12 +19,35 @@
       --cs-rhythm:    120px;
       --cs-rhythm-sm: 64px;
       --cs-measure:   880px;     /* centered content column width */
-      --cs-text:      60ch;      /* body paragraph max line length */
+      --cs-text:      78ch;      /* body paragraph max line length */
       --cs-toc-w:     160px;
+      --cs-media-gap: 8px;       /* matches work-page grid gap */
     }
 
     .nav-indicator { transform: translate(-200px, -200px); }
     body { background: var(--bg); }
+
+    /* ─── Orphan / widow control across the template ─────────
+       balance evens short lines of headings; pretty prevents
+       single-word last lines on body copy. */
+    .cs-hero h1,
+    .cs-block h2,
+    .cs-feature .copy h2,
+    .cs-overview-copy .cs-overview-h,
+    .cs-sub,
+    .cs-principles h3,
+    .cs-reflections h3,
+    .cs-next-title { text-wrap: balance; }
+
+    .cs-block p,
+    .cs-overview-copy p,
+    .cs-feature .copy p,
+    .cs-principles p,
+    .cs-reflections p,
+    .cs-meta-block .value,
+    .cs-hero .meta,
+    .cs-next-desc,
+    .cs-figure figcaption { text-wrap: pretty; }
 
     .cs-shell { padding-top: var(--nav-h); }
 
@@ -73,15 +96,14 @@
       display: flex;
       align-items: flex-start;
       gap: 0;
-      padding: 48px 0 32px;
+      padding: 72px 0 0;
     }
-    /* Tight pairing: hero text → hero figure should sit close,
-       and the figure should fill close to a full viewport. */
-    .cs-hero-figure { margin-top: calc(var(--cs-rhythm) * -1 + 24px); }
     .cs-hero-figure .cs-figure-media {
       aspect-ratio: auto;
       height: min(82vh, 820px);
     }
+    /* Equal 72px space above and below the hero title block. */
+    .cs-hero + .cs-stack { margin-top: calc(var(--cs-rhythm) * -1 + 72px); }
     .cs-hero-title { flex: 1 1 0; min-width: 0; }
     .cs-hero-copy  { flex: 1 1 0; min-width: 0; }
     .cs-hero h1 {
@@ -111,8 +133,6 @@
       color: var(--muted);
       font-size: var(--fs-small);
     }
-    .cs-figure-media.tall { aspect-ratio: 4 / 5; }
-    .cs-figure-media.square { aspect-ratio: 1 / 1; }
     .cs-figure-media img,
     .cs-figure-media video {
       width: 100%; height: 100%;
@@ -132,12 +152,55 @@
     .cs-media-grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: var(--cs-media-gap);
+      align-items: start;
     }
     .cs-media-grid-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: var(--cs-media-gap);
+      align-items: start;
+    }
+    /* Every figure inside a grid shares one aspect ratio so heights
+       line up perfectly. Force width: 100% so media can't collapse
+       to its placeholder text and become narrower than its column. */
+    .cs-media-grid-2 > .cs-figure,
+    .cs-media-grid-3 > .cs-figure { min-width: 0; width: 100%; }
+    .cs-media-grid-2 .cs-figure-media,
+    .cs-media-grid-3 .cs-figure-media {
+      width: 100%;
+      height: auto;
+    }
+    .cs-media-grid-2 .cs-figure-media { aspect-ratio: 16 / 9; }
+    .cs-media-grid-3 .cs-figure-media { aspect-ratio: 1 / 1; }
+
+    /* Group related media inside .cs-stack — these get a tight gap
+       between items, while the cs-page section rhythm stays wide. */
+    .cs-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--cs-media-gap);
+    }
+
+    /* Any media block (figure or grid) that directly follows another
+       media block at the cs-page level should also collapse the big
+       section-rhythm gap down to the small media gap. */
+    .cs-page > .cs-figure + .cs-figure,
+    .cs-page > .cs-figure + .cs-media-grid-2,
+    .cs-page > .cs-figure + .cs-media-grid-3,
+    .cs-page > .cs-media-grid-2 + .cs-figure,
+    .cs-page > .cs-media-grid-2 + .cs-media-grid-2,
+    .cs-page > .cs-media-grid-2 + .cs-media-grid-3,
+    .cs-page > .cs-media-grid-3 + .cs-figure,
+    .cs-page > .cs-media-grid-3 + .cs-media-grid-2,
+    .cs-page > .cs-media-grid-3 + .cs-media-grid-3,
+    .cs-page > .cs-stack + .cs-figure,
+    .cs-page > .cs-stack + .cs-media-grid-2,
+    .cs-page > .cs-stack + .cs-media-grid-3,
+    .cs-page > .cs-figure + .cs-stack,
+    .cs-page > .cs-media-grid-2 + .cs-stack,
+    .cs-page > .cs-media-grid-3 + .cs-stack {
+      margin-top: calc(var(--cs-rhythm) * -1 + var(--cs-media-gap));
     }
 
     /* ─── 2. Overview: 2-col meta grid, narrative below ─────── */
@@ -199,6 +262,16 @@
       color: var(--muted);
       font-size: var(--fs-micro);
     }
+    .cs-overview-copy .cs-overview-h {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      color: var(--ink);
+      margin: 0 0 24px;
+      max-width: 28ch;
+      text-wrap: balance;
+    }
     .cs-overview-copy p {
       font-size: var(--fs-body);
       font-weight: var(--fw-regular);
@@ -227,7 +300,7 @@
       line-height: var(--lh-snug);
       margin: 0 0 20px;
       text-wrap: balance;
-      max-width: 24ch;
+      max-width: 40ch;
     }
     .cs-block p {
       font-size: var(--fs-body);
@@ -295,7 +368,7 @@
       line-height: var(--lh-snug);
       margin: 0 0 14px;
       text-wrap: balance;
-      max-width: 24ch;
+      max-width: 40ch;
     }
     .cs-feature .copy p {
       font-size: var(--fs-body);
@@ -360,110 +433,77 @@
       margin: 0;
     }
 
-    /* ─── Next project (full-bleed, inspired by work-grid) ──── */
+    /* ─── Next project (split card: text left, media right) ─── */
     .cs-next-wrap {
       margin-top: var(--cs-rhythm);
-      padding: 0;
     }
     .cs-next {
-      position: relative;
-      display: block;
-      height: 70vh;
-      min-height: 480px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 360px;
       background-color: #111;
       overflow: hidden;
       text-decoration: none;
       color: #fff;
-      isolation: isolate;
     }
-    /* Blurred backdrop image (same trick as work cards) */
-    .cs-next::before {
-      content: '';
-      position: absolute;
-      inset: -40px;
-      background-image: var(--card-bg);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      filter: blur(3px);
-      opacity: 0.18;
-      z-index: 0;
-      transition: opacity var(--t-slow) var(--ease-out), transform var(--t-slow) var(--ease-out);
-    }
-    .cs-next:hover::before { opacity: 0.28; transform: scale(1.04); }
-
-    /* Foreground media: centered project preview */
-    .cs-next-media {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      z-index: 1;
-    }
-    .cs-next-media img,
-    .cs-next-media video {
-      width: 70%;
-      height: 60%;
-      object-fit: cover;
-      transition: transform var(--t-slow) var(--ease-out);
-    }
-    .cs-next:hover .cs-next-media img,
-    .cs-next:hover .cs-next-media video { transform: scale(1.05); }
-
-    /* Top-left kicker */
-    .cs-next-kicker {
-      position: absolute;
-      top: clamp(24px, 4vh, 48px);
-      left: var(--pad-page);
-      z-index: 2;
-      font-size: var(--fs-small);
-      font-weight: var(--fw-regular);
-      letter-spacing: var(--ls-widest);
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-    }
-
-    /* Bottom row: title + description + arrow (matches work-grid typography) */
-    .cs-next-foot {
-      position: absolute;
-      left: var(--pad-page);
-      right: var(--pad-page);
-      bottom: clamp(32px, 5vh, 56px);
-      z-index: 2;
+    .cs-next-text {
       display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 32px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      padding: clamp(40px, 6vw, 72px) clamp(32px, 5vw, 64px);
     }
-    .cs-next-text { max-width: 64ch; }
     .cs-next-title {
       font-size: var(--fs-title-md);
       font-weight: var(--fw-medium);
-      letter-spacing: 0.01em;
-      line-height: 1;
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
       color: #fff;
-      margin: 0 0 12px;
+      margin: 0;
     }
     .cs-next-desc {
       font-size: var(--fs-body);
       font-weight: var(--fw-regular);
       line-height: var(--lh-body);
-      color: rgba(255,255,255,0.86);
+      color: rgba(255,255,255,0.7);
       margin: 0;
+      max-width: 40ch;
     }
-    .cs-next-arrow {
-      width: 64px; height: 64px;
-      border: 1px solid rgba(255,255,255,0.4);
-      border-radius: 50%;
-      display: grid; place-items: center;
+    .cs-next-cta {
+      margin-top: 24px;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
+      text-transform: uppercase;
       color: #fff;
-      font-size: 22px;
-      transition: transform var(--t-slow) var(--ease-emil), background var(--t-base) var(--ease-out);
+      position: relative;
+      align-self: flex-start;
+      padding-bottom: 4px;
     }
-    .cs-next:hover .cs-next-arrow {
-      transform: translateX(10px);
-      background: rgba(255,255,255,0.1);
+    .cs-next-cta::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 1px;
+      background: currentColor;
+      transition: width var(--t-slow) var(--ease-out);
     }
+    .cs-next:hover .cs-next-cta::after { width: 100%; }
+
+    .cs-next-media {
+      position: relative;
+      overflow: hidden;
+      background: #111;
+    }
+    .cs-next-media img,
+    .cs-next-media video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--t-slow) var(--ease-out);
+    }
+    .cs-next:hover .cs-next-media img,
+    .cs-next:hover .cs-next-media video { transform: scale(1.04); }
 
     /* ─── Bottom TOC bar (matches top nav styling) ──────────── */
     .cs-toc {
@@ -528,11 +568,12 @@
       .cs-media-grid-2, .cs-media-grid-3 { grid-template-columns: 1fr; }
       .cs-impact { grid-template-columns: 1fr; gap: 28px; padding: 36px 0; }
       .cs-reflections { grid-template-columns: 1fr; gap: 24px; }
-      .cs-next-wrap { padding: 0 var(--pad-page-sm); }
-      .cs-next { flex-direction: column; align-items: flex-start; padding: 48px 0; }
+      .cs-next { grid-template-columns: 1fr; min-height: 0; }
+      .cs-next-media { order: 0; aspect-ratio: 16 / 10; }
+      .cs-next-text { order: 1; padding: clamp(24px, 6vw, 40px); }
     }
 
-    /* Footer overrides — match home page page-footer pattern */
+    /* Footer overrides, match home page page-footer pattern */
     .page-footer { margin-top: var(--cs-rhythm); }
   </style>
 </head>
@@ -549,10 +590,6 @@
 
   <div class="cs-shell">
 
-    <!-- Top bar: Back -->
-    <div class="cs-topbar">
-      <a href="/" class="cs-back"><i class="ph ph-arrow-left"></i> Back</a>
-    </div>
 
     <!-- Sticky simple TOC -->
     <aside class="cs-toc" aria-label="Contents">
@@ -561,7 +598,7 @@
       <a href="#solution">Solution</a>
       <a href="#research">Research</a>
       <a href="#next-steps">Next Steps</a>
-      <a href="#learnings">What I learned</a>
+      <a href="#learnings">Key Takeaways</a>
     </aside>
 
     <article class="cs-page">
@@ -577,20 +614,22 @@
       </header>
 
       <!-- HERO MEDIA STACK -->
-      <figure class="cs-figure cs-hero-figure">
-        <div class="cs-figure-media">Hero image or video</div>
-        <figcaption><span class="num">Fig 1.0</span><span>Caption.</span></figcaption>
-      </figure>
+      <div class="cs-stack">
+        <figure class="cs-figure cs-hero-figure">
+          <div class="cs-figure-media">Hero image or video</div>
+          <figcaption><span class="num">Fig 1.0</span><span>Caption.</span></figcaption>
+        </figure>
 
-      <div class="cs-media-grid-2">
-        <figure class="cs-figure">
-          <div class="cs-figure-media tall">Supporting still or video</div>
-          <figcaption><span class="num">Fig 1.1</span><span>Caption.</span></figcaption>
-        </figure>
-        <figure class="cs-figure">
-          <div class="cs-figure-media tall">Supporting still or video</div>
-          <figcaption><span class="num">Fig 1.2</span><span>Caption.</span></figcaption>
-        </figure>
+        <div class="cs-media-grid-2">
+          <figure class="cs-figure">
+            <div class="cs-figure-media">Supporting still or video</div>
+            <figcaption><span class="num">Fig 1.1</span><span>Caption.</span></figcaption>
+          </figure>
+          <figure class="cs-figure">
+            <div class="cs-figure-media">Supporting still or video</div>
+            <figcaption><span class="num">Fig 1.2</span><span>Caption.</span></figcaption>
+          </figure>
+        </div>
       </div>
 
       <!-- OVERVIEW: role / team / timeline + narrative -->
@@ -632,9 +671,11 @@
         </div>
 
         <div class="cs-overview-copy">
+          <span class="cs-kicker">Overview</span>
+          <h2 class="cs-overview-h">A longer sentence headline that frames what Sembli does and the change it tries to create.</h2>
           <p>A one-paragraph overview of what Sembli is and who it is for. Set the stage in plain language without jargon.</p>
           <p>A second paragraph on what I did on the project end-to-end and the decisions I owned.</p>
-          <p>A third paragraph on outcomes worth surfacing up front — launch, sentiment, metrics, or what shipped.</p>
+          <p>A third paragraph on outcomes worth surfacing up front, launch, sentiment, metrics, or what shipped.</p>
         </div>
       </section>
 
@@ -643,7 +684,7 @@
         <span class="cs-kicker">Problem</span>
         <h2>The specific tension users feel, named in one sentence.</h2>
         <p>A short, conversational paragraph that grounds the pain in a real moment or behavior.</p>
-        <p>A second paragraph that goes one layer deeper — what users try first, why it stalls, and the workaround they fall back on.</p>
+        <p>A second paragraph that goes one layer deeper, what users try first, why it stalls, and the workaround they fall back on.</p>
 
         <span class="cs-sub">Why now</span>
         <p>Paragraph on the cultural or technological shift that makes this problem worth solving today and not five years ago.</p>
@@ -657,7 +698,7 @@
       <section id="solution" class="cs-section cs-block">
         <span class="cs-kicker">Solution</span>
         <h2>A one-line description of the system, not the feature list.</h2>
-        <p>Paragraph on how the pieces fit together — the spine of the experience and the unit of value each user gets.</p>
+        <p>Paragraph on how the pieces fit together, the spine of the experience and the unit of value each user gets.</p>
         <p>A second paragraph that previews the three or four moves the rest of this section unpacks in detail.</p>
       </section>
 
@@ -677,6 +718,17 @@
         <figcaption><span class="num">Fig 3.0</span><span>Caption.</span></figcaption>
       </figure>
 
+      <div class="cs-media-grid-2">
+        <figure class="cs-figure">
+          <div class="cs-figure-media">Feature 01 detail</div>
+          <figcaption><span class="num">Fig 3.1</span><span>Caption.</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media">Feature 01 detail</div>
+          <figcaption><span class="num">Fig 3.2</span><span>Caption.</span></figcaption>
+        </figure>
+      </div>
+
       <section class="cs-block">
         <span class="cs-sub">Feature two, in plain language.</span>
         <p>Paragraph explaining the job this feature does.</p>
@@ -689,16 +741,37 @@
         <figure class="cs-figure"><div class="cs-figure-media square">3-up 3</div></figure>
       </div>
 
+      <figure class="cs-figure">
+        <div class="cs-figure-media">Feature 02 media</div>
+        <figcaption><span class="num">Fig 4.0</span><span>Caption.</span></figcaption>
+      </figure>
+
       <section class="cs-block">
         <span class="cs-sub">Feature three, in plain language.</span>
-        <p>Paragraph that ties the system together — the connective tissue users may not notice but rely on.</p>
+        <p>Paragraph that ties the system together, the connective tissue users may not notice but rely on.</p>
       </section>
+
+      <div class="cs-media-grid-2">
+        <figure class="cs-figure">
+          <div class="cs-figure-media">Feature 03 detail</div>
+          <figcaption><span class="num">Fig 5.0</span><span>Caption.</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media">Feature 03 detail</div>
+          <figcaption><span class="num">Fig 5.1</span><span>Caption.</span></figcaption>
+        </figure>
+      </div>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media">Solution summary or final screen</div>
+        <figcaption><span class="num">Fig 5.2</span><span>Caption.</span></figcaption>
+      </figure>
 
       <!-- RESEARCH -->
       <section id="research" class="cs-section cs-block">
         <span class="cs-kicker">Research</span>
         <h2>What I learned by listening before designing.</h2>
-        <p>Paragraph framing how I gathered signal — interviews, audits, surveys — and the assumption I was testing going in.</p>
+        <p>Paragraph framing how I gathered signal, interviews, audits, surveys, and the assumption I was testing going in.</p>
         <p>Second paragraph on what surprised me and the moment the brief shifted.</p>
 
         <span class="cs-sub">Method</span>
@@ -708,7 +781,7 @@
         <p>Paragraph synthesizing the pattern across conversations. Quote one user verbatim if it earns its place.</p>
 
         <span class="cs-sub">What it changed</span>
-        <p>Paragraph naming the design decision that flipped because of what I learned — concretely, not abstractly.</p>
+        <p>Paragraph naming the design decision that flipped because of what I learned, concretely, not abstractly.</p>
       </section>
 
       <section>
@@ -731,10 +804,10 @@
         <p>Paragraph on the directions I'd pursue and the experiments I'd run first.</p>
 
         <span class="cs-sub">Short-term</span>
-        <p>Paragraph on the immediate next move — what would ship within a few weeks and how I'd measure whether it landed.</p>
+        <p>Paragraph on the immediate next move, what would ship within a few weeks and how I'd measure whether it landed.</p>
 
         <span class="cs-sub">Long-term</span>
-        <p>Paragraph on the version of this product two or three iterations out — what becomes possible when the foundation is in place.</p>
+        <p>Paragraph on the version of this product two or three iterations out, what becomes possible when the foundation is in place.</p>
 
         <span class="cs-sub">Open questions</span>
         <p>Paragraph naming the questions I haven't resolved yet and what evidence would help me answer them.</p>
@@ -742,9 +815,9 @@
 
       <!-- WHAT I LEARNED -->
       <section id="learnings" class="cs-section cs-block">
-        <span class="cs-kicker">What I learned</span>
+        <span class="cs-kicker">Key Takeaways</span>
         <h2>The lessons I'm carrying into the next project.</h2>
-        <p>Opening paragraph framing the broader takeaway — what shifted in how I work, not just what I did.</p>
+        <p>Opening paragraph framing the broader takeaway, what shifted in how I work, not just what I did.</p>
         <p>Second paragraph on the moment I most underestimated and what it taught me about scoping.</p>
       </section>
 
@@ -773,19 +846,16 @@
 
     <!-- NEXT PROJECT -->
     <div class="cs-next-wrap">
-      <a class="cs-next" href="/aeri/index.html" style="--card-bg: url('../Home Page/Background images /Aeri - cover.png');">
-        <span class="cs-next-kicker">Next project</span>
+      <a class="cs-next" href="/aeri/index.html">
+        <div class="cs-next-text">
+          <h3 class="cs-next-title">Aeri</h3>
+          <p class="cs-next-desc">AI-powered diabetes management with AR integration and smart signal detection.</p>
+          <span class="cs-next-cta">See next project</span>
+        </div>
         <div class="cs-next-media">
           <video autoplay muted loop playsinline preload="metadata">
             <source src="../Home Page/Aeri Video.mp4" type="video/mp4">
           </video>
-        </div>
-        <div class="cs-next-foot">
-          <div class="cs-next-text">
-            <h3 class="cs-next-title">Aeri</h3>
-            <p class="cs-next-desc">A short description of the Aeri project — what it is and the problem it tackles. Matches the work-page card copy.</p>
-          </div>
-          <div class="cs-next-arrow"><i class="ph ph-arrow-right"></i></div>
         </div>
       </a>
     </div>
