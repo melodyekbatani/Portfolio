@@ -143,7 +143,7 @@
 
           <div class="project-secondary-meta">
             <h3 class="project-secondary-title"><a href="/gemini/index.html" style="text-decoration: none; color: inherit;">Adaptive Research</a></h3>
-            <p class="t-body project-secondary-copy">Search-first system for improving memory and energy efficiency at scale.</p>
+            <p class="t-body project-secondary-copy">Sustainability feature integration for Google Gemini that reduces redundant AI compute.</p>
             <div class="tags project-secondary-tags">
               <span class="tag">Feature Integration</span>
               <span class="tag">Fellowship Award</span>
@@ -388,34 +388,43 @@
       else closeWorkPanel();
     });
 
-    // Scroll-to-open: a downward scroll on the home view slides Work up.
-    // Threshold avoids accidental triggers from tiny wheel events.
+    // Scroll-to-open (home → work) and scroll-to-close (work → home, when at top).
     let scrollGuard = false;
     function maybeOpenFromScroll(deltaY) {
       if (scrollGuard) return;
       if (body.classList.contains("work-open")) return;
-      if (deltaY < 30) return;
+      if (deltaY < 6) return;
       scrollGuard = true;
       openWorkPanel();
-      // unlock after the panel transition completes
-      setTimeout(() => { scrollGuard = false; }, 800);
+      setTimeout(() => { scrollGuard = false; }, 1500);
+    }
+    function maybeCloseFromScroll(deltaY) {
+      if (scrollGuard) return;
+      if (!body.classList.contains("work-open")) return;
+      if (deltaY > -6) return;
+      if (workPanel.scrollTop > 4) return;
+      scrollGuard = true;
+      closeWorkPanel();
+      setTimeout(() => { scrollGuard = false; }, 1500);
     }
 
     window.addEventListener("wheel", (e) => {
-      maybeOpenFromScroll(e.deltaY);
+      if (body.classList.contains("work-open")) maybeCloseFromScroll(e.deltaY);
+      else maybeOpenFromScroll(e.deltaY);
     }, { passive: true });
 
-    // Touch support — track swipe-up distance
     let touchStartY = null;
     window.addEventListener("touchstart", (e) => {
-      if (body.classList.contains("work-open")) return;
       touchStartY = e.touches[0].clientY;
     }, { passive: true });
     window.addEventListener("touchmove", (e) => {
       if (touchStartY === null) return;
-      const dy = touchStartY - e.touches[0].clientY; // positive = swipe up
-      if (dy > 50) {
+      const dy = touchStartY - e.touches[0].clientY; // +ve = swipe up
+      if (!body.classList.contains("work-open") && dy > 50) {
         maybeOpenFromScroll(dy);
+        touchStartY = null;
+      } else if (body.classList.contains("work-open") && dy < -50 && workPanel.scrollTop <= 4) {
+        maybeCloseFromScroll(dy);
         touchStartY = null;
       }
     }, { passive: true });
