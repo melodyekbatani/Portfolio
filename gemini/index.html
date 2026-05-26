@@ -708,8 +708,8 @@
             <figcaption><span class="num">Fig 1.1</span><span>Three-screen flow: prompt, re-discovery, surfaced past chat.</span></figcaption>
           </figure>
           <figure class="cs-figure">
-            <div class="cs-figure-media"></div>
-            <figcaption><span class="num">Fig 1.2</span><span>Secondary hero image — to be placed.</span></figcaption>
+            <div class="cs-figure-media"><video src="Style-frames.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+            <figcaption><span class="num">Fig 1.2</span><span>Style frames exploring the visual language of the intervention.</span></figcaption>
           </figure>
         </div>
       </div>
@@ -1123,6 +1123,31 @@
       window.addEventListener("scroll", update, { passive: true });
       window.addEventListener("resize", update);
       update();
+    })();
+
+    // Play each figure video once when it enters the viewport
+    (function () {
+      const videos = document.querySelectorAll("article.cs-page .cs-figure video");
+      if (!videos.length || !("IntersectionObserver" in window)) return;
+      videos.forEach(v => {
+        v.removeAttribute("autoplay");
+        v.removeAttribute("loop");
+        v.loop = false;
+        v.pause();
+        try { v.currentTime = 0; } catch (e) {}
+      });
+      const played = new WeakSet();
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const v = e.target;
+          if (played.has(v)) return;
+          played.add(v);
+          v.play().catch(() => {});
+          io.unobserve(v);
+        });
+      }, { threshold: 0.35 });
+      videos.forEach(v => io.observe(v));
     })();
 
     // Click-to-open figure modal
