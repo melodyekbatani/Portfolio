@@ -809,6 +809,29 @@ body.work-open .work-panel {
   line-height: 1.35;
 }
 
+/* Locked project card: dims the visual + shows a lock badge */
+.project-locked { cursor: default; }
+.project-locked .project-secondary-image { position: relative; }
+.project-locked .project-secondary-image video,
+.project-locked .project-secondary-image img { filter: brightness(0.55); }
+.project-locked-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #fff;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 2;
+}
+.project-locked-overlay i { font-size: 28px; }
+
 .project-secondary {
   display: grid;
   grid-template-columns: 1fr 1.25fr;

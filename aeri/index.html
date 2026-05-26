@@ -3,1271 +3,1045 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aeri  Melody Ekbatani</title>
+  <title>Aeri | Melody Ekbatani</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../style.css">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
-
-    /* ─── Page shell ─────────────────────────────────────────── */
+    /* ─── Aeri case study — same template as Sembli ─────────── */
 
     :root {
-      --cs-rhythm: 104px;
+      --cs-rhythm:    120px;
+      --cs-rhythm-sm: 64px;
+      --cs-measure:   880px;
+      --cs-text:      78ch;
+      --cs-toc-w:     160px;
+      --cs-media-gap: 8px;
     }
 
-    body {
-      background: var(--bg);
-    }
+    .nav-indicator { transform: translate(-200px, -200px); }
+    body { background: var(--bg); }
 
-    .cs-panel {
-      padding-top: var(--nav-h);
-    }
+    /* Orphan / widow control */
+    .cs-hero h1,
+    .cs-block h2,
+    .cs-feature .copy h2,
+    .cs-overview-copy .cs-overview-h,
+    .cs-sub,
+    .cs-principles h3,
+    .cs-reflections h3,
+    .cs-next-title { text-wrap: balance; }
 
-    /* Hero matches Work panel: work-intro + project-featured-image (global style.css) */
-    .cs-hero-work-featured.project-featured {
-      cursor: default;
-      padding: 0 40px 0;
-    }
+    .cs-block p,
+    .cs-overview-copy p,
+    .cs-feature .copy p,
+    .cs-principles p,
+    .cs-reflections p,
+    .cs-meta-block .value,
+    .cs-hero .meta,
+    .cs-next-desc,
+    .cs-figure figcaption { text-wrap: pretty; }
 
-    .cs-hero-work-featured .project-featured-image {
-      cursor: default;
-    }
-
-    .cs-hero-work-featured .project-featured-image img {
-      object-fit: cover;
-      object-position: center bottom;
-    }
-
-    /* ─── Layout ─────────────────────────────────────────────── */
+    .cs-shell { padding-top: var(--nav-h); }
 
     .cs-page {
-      max-width: 1512px;
-      margin: 0 auto;
+      padding: 0 var(--pad-page);
       display: flex;
       flex-direction: column;
       gap: var(--cs-rhythm);
-      padding-top: var(--cs-rhythm);
     }
+    .cs-prose { max-width: 880px; }
 
-    .cs-section {
-      padding: 0 40px;
-    }
-
-    .cs-section-grid {
-      display: grid;
-      grid-template-columns: 3fr 4fr;
-      gap: 56px;
-      align-items: start;
-    }
-
-    /* ─── Kickers ────────────────────────────────────────────── */
-
-    .cs-kicker {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    /* ─── Headings ───────────────────────────────────────────── */
-
-    .cs-h2 {
-      font-size: 40px;
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      margin-bottom: 32px;
-      text-wrap: balance;
-    }
-
-    /* subsection heads: Overview, Design Challenge, etc. */
-    .cs-subheading {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      line-height: 1.2;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .cs-h3 {
-      font-size: 40px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-
-    /* ─── Body copy ──────────────────────────────────────────── */
-
-    .cs-body {
-      font-size: var(--fs-body);
-      font-weight: var(--fw-regular);
-      line-height: var(--lh-body);
-      color: var(--ink);
-      text-wrap: pretty;
-      max-width: 72ch;
-    }
-
-    .cs-body + .cs-body {
-      margin-top: 16px;
-    }
-
-    .cs-copy-stack {
+    /* Hero */
+    .cs-hero {
       display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .cs-copy-stack.compact {
+      align-items: flex-start;
       gap: 0;
+      padding: 72px 0 0;
     }
-
-    /* ─── Overview ───────────────────────────────────────────── */
-
-    .cs-overview {
-      display: grid;
-      grid-template-columns: 3fr 4fr;
-      gap: 56px;
-      padding: 0 40px;
+    .cs-hero-figure .cs-figure-media {
+      aspect-ratio: auto;
+      height: min(82vh, 820px);
     }
-
-    .cs-meta-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
+    .cs-hero + .cs-stack { margin-top: calc(var(--cs-rhythm) * -1 + 72px); }
+    .cs-hero-title { flex: 1 1 0; min-width: 0; }
+    .cs-hero-copy  { flex: 1 1 0; min-width: 0; }
+    .cs-hero h1 {
+      font-size: var(--fs-title-lg);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
+      margin: 0;
     }
-
-    .cs-meta-item h3 {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
-
-    .cs-meta-item p {
+    .cs-hero .meta {
       font-size: var(--fs-body);
       font-weight: var(--fw-regular);
-      line-height: var(--lh-body);
+      line-height: var(--lh-loose);
       color: var(--ink);
-      text-wrap: pretty;
+      max-width: 48ch;
+      margin: 0;
     }
 
-    .cs-tool-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      list-style: none;
-      padding: 0;
-      margin-top: 4px;
-    }
-
-    .cs-tool-grid li {
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000000;
-      border-radius: 8px;
+    /* Figures */
+    .cs-figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+    .cs-figure-media {
+      background: var(--bg-thumb);
       overflow: hidden;
+      aspect-ratio: 16 / 9;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: var(--fs-small);
     }
-
-    .cs-tool-grid li img {
-      width: 100%;
-      height: 100%;
+    .cs-figure-media img,
+    .cs-figure-media video {
+      width: 100%; height: 100%;
       object-fit: cover;
       display: block;
       border-radius: 0;
     }
-
-    .cs-tool-grid li.cs-tool-flat {
-      background: transparent;
-    }
-
-    .cs-tool-grid li.cs-tool-flat img {
-      object-fit: contain;
-    }
-
-    .cs-tool-grid li.cs-tool-zoom-out img {
-      transform: scale(0.84);
-      transform-origin: center;
-    }
-
-    /* ─── Problem band ───────────────────────────────────────── */
-
-    .cs-band {
-      padding: 0 40px;
-      background: var(--bg);
-      color: var(--ink);
-    }
-
-    .cs-band .cs-kicker {
+    .cs-figure figcaption {
+      display: flex;
+      gap: 14px;
+      font-size: var(--fs-small);
       color: var(--muted);
+      max-width: 110ch;
+    }
+    .cs-figure figcaption .num {
+      letter-spacing: var(--ls-widest);
+      white-space: nowrap;
     }
 
-    .cs-band .cs-h2 {
-      color: var(--ink);
-      max-width: 20ch;
-      margin-bottom: 24px;
-    }
-
-    .cs-band .cs-body {
-      color: var(--ink);
-      max-width: 72ch;
-    }
-
-    /* ─── Video ──────────────────────────────────────────────── */
-
-    .cs-video-wrap {
-      padding: 0 40px;
-      margin: 0;
-    }
-
-    .cs-video-wrap video {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      display: block;
-    }
-
-    .cs-video-wrap figcaption {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin-top: 16px;
-    }
-
-    /* ─── Image grid (2×2) ───────────────────────────────────── */
-
-    .cs-image-grid {
+    .cs-media-grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      padding: 0 40px;
+      gap: var(--cs-media-gap);
+      align-items: start;
     }
-
-    .cs-image-grid figure {
-      background: #f0f0f0;
-      overflow: hidden;
-    }
-
-    .cs-image-grid img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      display: block;
-    }
-
-    /* ─── Features (3-col) ───────────────────────────────────── */
-
-    .cs-features-grid {
+    .cs-media-grid-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      list-style: none;
-      padding: 0;
-      margin-top: 48px;
+      gap: var(--cs-media-gap);
+      align-items: start;
     }
-
-    .cs-features-grid > li video {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-      margin-bottom: 20px;
-    }
-
-    .cs-features-grid .cs-h3,
-    .cs-iterations-grid .cs-h3 {
-      font-size: 30px !important;
-      font-weight: 500 !important;
-      letter-spacing: 0.02em !important;
-      line-height: 1 !important;
-      margin-bottom: 12px;
-      text-wrap: balance;
-    }
-
-    .cs-features-list {
-      list-style: none;
-      padding: 0;
-      margin-top: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .cs-features-list li {
-      font-size: var(--fs-body);
-      font-weight: var(--fw-regular);
-      letter-spacing: 0;
-      line-height: var(--lh-body);
-      color: var(--ink);
-      text-wrap: pretty;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .cs-features-list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: var(--ink);
-      font-size: 12px;
-      top: 0.42em;
-      line-height: 1;
-    }
-
-    /* ─── Impacts band ───────────────────────────────────────── */
-
-    .cs-impacts {
-      width: 100%;
-      margin: 0 auto;
-      padding: calc(var(--cs-rhythm) * 2.6) 40px;
-      background: var(--bg);
-      color: var(--ink);
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cs-impacts .cs-kicker {
-      color: rgba(17, 17, 17, 0.48);
-      display: block;
-      margin-bottom: 32px;
-    }
-
-    .cs-impacts-heading {
-      font-size: clamp(56px, 8vw, 120px);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      color: var(--ink);
-      width: 100%;
-      max-width: 18ch;
-      text-wrap: balance;
-    }
-
-    .cs-impacts-sub {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(17, 17, 17, 0.44);
-      margin-top: 32px;
-    }
-
-    /* ─── Scale-in scroll animation ──────────────────────────── */
-
-    .cs-scale-in {
-      transform: scale(0.08);
-      opacity: 0;
-      transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
-      will-change: transform;
-    }
-
-    .cs-scale-in.is-visible {
-      transform: scale(1);
-      opacity: 1;
-    }
-
-    /* ─── Competitor research row ────────────────────────────── */
-
-    .cs-competitor-lede {
-      max-width: 80ch;
-    }
-
-    .cs-competitor-lede .cs-copy-stack {
-      max-width: none;
-    }
-
-    .cs-competitor-row {
+    .cs-media-grid-5 {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      margin-top: 48px;
-      width: 100%;
+      gap: var(--cs-media-gap);
+      align-items: start;
     }
+    .cs-media-grid-2 > .cs-figure,
+    .cs-media-grid-3 > .cs-figure,
+    .cs-media-grid-5 > .cs-figure { min-width: 0; width: 100%; }
+    .cs-media-grid-2 .cs-figure-media,
+    .cs-media-grid-3 .cs-figure-media,
+    .cs-media-grid-5 .cs-figure-media {
+      width: 100%;
+      height: auto;
+    }
+    .cs-media-grid-2 .cs-figure-media { aspect-ratio: 16 / 9; }
+    .cs-media-grid-3 .cs-figure-media { aspect-ratio: 1 / 1; }
+    .cs-media-grid-5 .cs-figure-media { aspect-ratio: 1 / 1; }
+    /* Competitor product shots often ship with a hard white background.
+       Multiply blend drops the white into the tile so all five read
+       as the same grey card. The grid itself also takes the tile
+       colour so the gap between items reads as a single gray strip. */
+    .cs-media-grid-5 { background: var(--bg-thumb); }
+    .cs-media-grid-5 .cs-figure-media img { mix-blend-mode: multiply; }
+    /* The FreeStyle Libre image runs larger than the rest, pull it in. */
+    .cs-media-grid-5 .cs-figure-media img[src*="Competitor Research 4"] {
+      transform: scale(0.78);
+    }
+    /* Tall variant for grids that should run portrait (e.g. the
+       three-feature video grid in the Solution section). */
+    .cs-media-grid-3.tall .cs-figure-media { aspect-ratio: 3 / 4; }
 
-    .cs-competitor-row figure {
-      background: #f0f0f0;
-      overflow: hidden;
-      min-height: 160px;
+    .cs-stack {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      gap: var(--cs-media-gap);
     }
 
-    .cs-competitor-row img {
-      width: 100%;
-      height: 160px;
-      object-fit: contain;
-      background: #f7f7f7;
+    .cs-page > .cs-figure + .cs-figure,
+    .cs-page > .cs-figure + .cs-media-grid-2,
+    .cs-page > .cs-figure + .cs-media-grid-3,
+    .cs-page > .cs-media-grid-2 + .cs-figure,
+    .cs-page > .cs-media-grid-2 + .cs-media-grid-2,
+    .cs-page > .cs-media-grid-2 + .cs-media-grid-3,
+    .cs-page > .cs-media-grid-3 + .cs-figure,
+    .cs-page > .cs-media-grid-3 + .cs-media-grid-2,
+    .cs-page > .cs-media-grid-3 + .cs-media-grid-3,
+    .cs-page > .cs-stack + .cs-figure,
+    .cs-page > .cs-stack + .cs-media-grid-2,
+    .cs-page > .cs-stack + .cs-media-grid-3,
+    .cs-page > .cs-figure + .cs-stack,
+    .cs-page > .cs-media-grid-2 + .cs-stack,
+    .cs-page > .cs-media-grid-3 + .cs-stack {
+      margin-top: calc(var(--cs-rhythm) * -1 + var(--cs-media-gap));
+    }
+
+    /* Overview */
+    .cs-overview {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+    .cs-meta-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 72px;
+      row-gap: 40px;
+    }
+    .cs-meta-block .label {
       display: block;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
     }
+    .cs-meta-block .value {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-loose);
+      color: var(--ink);
+    }
+    .cs-meta-block ul {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 6px;
+      font-size: var(--fs-body);
+      color: var(--ink);
+    }
+    .cs-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .cs-chips .chip {
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      color: var(--ink);
+      background: var(--bg-subtle);
+      padding: 8px 14px;
+      border-radius: 6px;
+      line-height: 1;
+    }
+    .cs-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .cs-tools .tool {
+      width: 48px; height: 48px;
+      background: var(--bg-subtle);
+      display: grid; place-items: center;
+      overflow: hidden;
+    }
+    /* Tool logos render in full brand color, centered on the tile. */
+    .cs-tools .tool img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* These three logos are drawn white-on-transparent in their
+       source files; invert them so they read as black on the
+       light grey tile. */
+    .cs-tools .tool img[src*="OpenAI"],
+    .cs-tools .tool img[src*="Midjourney"],
+    .cs-tools .tool img[src*="Perplexity"] {
+      filter: invert(1);
+    }
+    /* Claude and After Effects ship with their own rounded-corner
+       backgrounds. Scale them up so the corners are cropped by
+       the tile and they read as flat colour tiles. */
+    .cs-tools .tool img[src*="Claude"],
+    .cs-tools .tool img[src*="aftereffects"] {
+      transform: scale(1.18);
+    }
+    /* OpenAI, Midjourney, and Gemini source files run edge-to-edge.
+       Pull them in slightly so they breathe inside the tile. */
+    .cs-tools .tool img[src*="OpenAI"],
+    .cs-tools .tool img[src*="Midjourney"],
+    .cs-tools .tool img[src*="Gemini"] {
+      transform: scale(0.78);
+    }
+    .cs-overview-copy .cs-overview-h {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      color: var(--ink);
+      margin: 0 0 24px;
+      max-width: 28ch;
+      text-wrap: balance;
+    }
+    .cs-overview-copy p {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      margin: 0;
+      max-width: var(--cs-text);
+    }
+    .cs-overview-copy p + p { margin-top: 20px; }
 
-    /* ─── Iterations (3-col) ─────────────────────────────────── */
+    /* Section + kicker + headings */
+    .cs-section { scroll-margin-top: calc(var(--nav-h) + 32px); }
+    .cs-kicker {
+      display: block;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .cs-block h2 {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin: 0 0 20px;
+      text-wrap: balance;
+      max-width: 40ch;
+    }
+    .cs-block p {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      max-width: var(--cs-text);
+      margin: 0;
+      text-wrap: pretty;
+    }
+    .cs-block p + p { margin-top: 16px; }
+    .cs-sub {
+      display: block;
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      color: var(--ink);
+      margin: 32px 0 12px;
+      max-width: 28ch;
+    }
+    .cs-block .cs-sub:first-child { margin-top: 0; }
 
-    .cs-iterations-grid {
+    /* Principles / Insights */
+    .cs-principles {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 32px;
-      list-style: none;
-      padding: 0;
-      margin-top: 48px;
+      counter-reset: prin;
     }
-
-    .cs-iterations-grid > li figure {
-      background: none;
-      margin-bottom: 20px;
-      overflow: hidden;
-      padding: 0;
+    .cs-principles .item {
+      counter-increment: prin;
+      padding-top: 14px;
     }
-
-    .cs-iterations-grid > li img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      object-position: center;
-      background: none;
+    .cs-principles .item::before {
+      content: counter(prin, decimal-leading-zero);
       display: block;
+      font-size: var(--fs-micro);
+      letter-spacing: var(--ls-widest);
+      color: var(--muted);
+      margin-bottom: 10px;
     }
-
-    .cs-iterations-list {
-      list-style: none;
-      padding: 0;
-      margin-top: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .cs-principles h3 {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin: 0 0 8px;
     }
-
-    .cs-iterations-list li {
+    .cs-principles p {
       font-size: var(--fs-body);
       font-weight: var(--fw-regular);
-      letter-spacing: 0;
       line-height: var(--lh-body);
       color: var(--ink);
-      text-wrap: pretty;
-      padding-left: 16px;
-      position: relative;
+      margin: 0;
     }
 
-    .cs-iterations-list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: var(--ink);
-      font-size: 12px;
-      top: 0.42em;
-      line-height: 1;
-    }
-
-    /* ─── Pitch band ─────────────────────────────────────────── */
-
-    .cs-pitch {
-      width: 100%;
-      margin: 0 auto;
-      padding: calc(var(--cs-rhythm) * 2.6) 40px;
-      background: var(--bg);
-      color: var(--ink);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .cs-pitch .cs-kicker {
-      color: rgba(17, 17, 17, 0.48);
-      margin-bottom: 32px;
-    }
-
-    .cs-pitch-heading {
-      font-size: clamp(56px, 8vw, 120px);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      color: var(--ink);
-      width: 100%;
-      max-width: 18ch;
-      text-wrap: balance;
-    }
-
-    /* ─── YouTube embed ──────────────────────────────────────── */
-
-    .cs-embed {
-      padding: 0 40px;
-    }
-
-    .cs-embed iframe {
-      width: 100%;
-      height: clamp(320px, 50vw, 640px);
-      border: none;
-      display: block;
-    }
-
-    /* ─── Reflection / takeaways ─────────────────────────────── */
-
-    .cs-takeaways {
+    /* Reflections */
+    .cs-reflections {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      margin-top: 48px;
+      gap: 32px 56px;
+      counter-reset: refl;
     }
-
-    .cs-takeaway h3 {
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 1.3;
-      margin-bottom: 12px;
+    .cs-reflections .item {
+      counter-increment: refl;
+      padding-top: 14px;
     }
-
-    .cs-takeaway p {
+    .cs-reflections .item::before {
+      content: counter(refl, decimal-leading-zero);
+      display: block;
+      font-size: var(--fs-micro);
+      letter-spacing: var(--ls-widest);
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .cs-reflections h3 {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      margin: 0 0 8px;
+    }
+    .cs-reflections p {
       font-size: var(--fs-body);
-      font-weight: var(--fw-regular);
       line-height: var(--lh-body);
       color: var(--ink);
-      text-wrap: pretty;
-      max-width: 48ch;
+      margin: 0;
     }
 
-    /* ─── Next steps ─────────────────────────────────────────── */
-
-    .cs-next-list {
-      list-style: none;
-      padding: 0;
-      margin-top: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .cs-next-list li {
-      font-size: var(--fs-body);
-      font-weight: var(--fw-regular);
-      line-height: var(--lh-body);
-      color: var(--ink);
-      text-wrap: pretty;
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .cs-next-list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: var(--ink);
-      font-size: 12px;
-      top: 0.42em;
-      line-height: 1;
-    }
-
-    .cs-next-steps-layout {
-      display: flex;
-      flex-direction: column;
-      gap: clamp(40px, 5vw, 64px);
-      align-items: stretch;
-    }
-
-    .cs-next-steps-main {
-      max-width: none;
-    }
-
-    .cs-next-project {
+    /* Next project */
+    .cs-next-wrap { margin-top: var(--cs-rhythm); }
+    .cs-next {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-      align-items: start;
-      color: inherit;
-    }
-
-    .cs-next-project-media {
-      background: #f0f0f0;
+      grid-template-columns: 1fr 1fr;
+      min-height: 360px;
+      background-color: #111;
       overflow: hidden;
+      text-decoration: none;
+      color: #fff;
     }
+    .cs-next-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      padding: clamp(40px, 6vw, 72px) clamp(32px, 5vw, 64px);
+    }
+    .cs-next-title {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
+      color: #fff;
+      margin: 0;
+    }
+    .cs-next-desc {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: rgba(255,255,255,0.7);
+      margin: 0;
+      max-width: 40ch;
+    }
+    .cs-next-cta {
+      margin-top: 24px;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
+      text-transform: uppercase;
+      color: #fff;
+      position: relative;
+      align-self: flex-start;
+      padding-bottom: 4px;
+    }
+    .cs-next-cta::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 1px;
+      background: currentColor;
+      transition: width var(--t-slow) var(--ease-out);
+    }
+    .cs-next:hover .cs-next-cta::after { width: 100%; }
 
-    .cs-next-project-media video {
-      width: 100%;
-      aspect-ratio: 16 / 10;
+    .cs-next-media { position: relative; overflow: hidden; background: #111; }
+    .cs-next-media img,
+    .cs-next-media video {
+      width: 100%; height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform var(--t-slow) var(--ease-out);
     }
+    .cs-next:hover .cs-next-media img,
+    .cs-next:hover .cs-next-media video { transform: scale(1.04); }
 
-    .cs-next-project-copy {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .cs-next-project-label {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .cs-next-project-title {
-      font-size: clamp(28px, 3vw, 40px);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 0.98;
-      text-wrap: balance;
-    }
-
-    .cs-next-project-link {
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    /* ─── You might also like ────────────────────────────── */
-
-    .cs-also {
-      padding: 0 40px 56px;
-      margin-top: 40px;
-    }
-
-    .cs-also-header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 0;
-    }
-
-    .cs-also-label {
-      font-size: clamp(28px, 3vw, 36px);
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      color: var(--ink);
-      white-space: nowrap;
-    }
-
-    .cs-also-rule {
-      display: none;
-    }
-
-    .cs-also-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .cs-also-item {
-      display: grid;
-      grid-template-columns: 260px 1fr auto;
-      align-items: center;
-      gap: 40px;
-      text-decoration: none;
-      color: var(--ink);
-      border-top: none;
-      transition: opacity 0.2s ease;
-      padding: 6px 0;
-    }
-
-    .cs-also-item:hover {
-      opacity: 0.7;
-    }
-
-    .cs-also-thumb {
-      height: 140px;
-      overflow: hidden;
-      background: transparent;
-    }
-
-    .cs-also-thumb img,
-    .cs-also-thumb video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      display: block;
-      background: transparent;
-    }
-
-    .cs-also-info {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .cs-also-category {
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      line-height: 1.25;
-    }
-
-    .cs-also-title {
-      font-size: clamp(36px, 4.2vw, 56px);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 0.96;
-      text-wrap: balance;
-    }
-
-    .cs-also-arrow {
-      font-size: 18px;
-      color: var(--muted);
-      opacity: 0.85;
-    }
-
-    /* ─── Dividers ───────────────────────────────────────────── */
-
-    .cs-ruled {
-      border-top: none;
-    }
-
-    /* ─── Hide indicators until JS places them ──────────────── */
-
-    .nav-indicator,
-    .cs-sidenav-indicator {
-      transform: translate(-200px, -200px);
-    }
-
-    /* ─── Anchor scroll offset for fixed top nav ────────────── */
-
-    [id] {
-      scroll-margin-top: calc(var(--nav-h) + 24px);
-    }
-
-    /* ─── Layout (passthrough  sidenav is now fixed bottom) ─── */
-
-    .cs-layout {
-      display: block;
-    }
-
-    .cs-layout > .cs-page {
-      max-width: 1512px;
-      margin: 0 auto;
-    }
-
-    /* ─── Bottom Navigation ──────────────────────────────────── */
-
-    .cs-sidenav {
+    /* Bottom TOC */
+    .cs-toc {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      left: 0; right: 0; bottom: 0;
       z-index: 90;
       display: flex;
-      flex-direction: row;
       align-items: center;
-      justify-content: center;
-      gap: 0;
-      padding: 0 80px;
-      height: 48px;
-      background-color: #ffffff;
-      box-shadow: 0 -8px 0 0 #ffffff;
-      transform: translateZ(0);
+      justify-content: space-between;
+      gap: 40px;
+      padding: 0 var(--pad-page);
+      height: var(--nav-h);
+      background: var(--bg);
+      transform: translateY(0);
+      transition: transform var(--t-slow) var(--ease-out), opacity var(--t-base) var(--ease-out);
     }
-
-    .cs-sidenav-indicator {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: var(--dot-size);
-      height: var(--dot-size);
-      border-radius: 50%;
-      background: var(--ink);
+    .cs-toc.is-hidden {
+      transform: translateY(100%);
+      opacity: 0;
       pointer-events: none;
-      transition: none;
     }
-
-    .cs-sidenav-indicator.is-ready {
-      transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms ease;
-    }
-
-    .cs-sidenav-link {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
+    .cs-toc a {
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
       text-transform: uppercase;
-      line-height: 1;
-      text-decoration: none;
       color: var(--muted);
-      transition: none;
-      white-space: nowrap;
-      padding: 4px 40px 4px 24px;
+      text-decoration: none;
+      position: relative;
+      padding: 4px 0;
+      transition: color var(--t-base) var(--ease-out);
+    }
+    .cs-toc a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width var(--t-slow) var(--ease-out);
+    }
+    .cs-toc a:hover,
+    .cs-toc a.is-active { color: var(--ink); }
+    .cs-toc a:hover::after,
+    .cs-toc a.is-active::after { width: 100%; }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .cs-toc { display: none; }
+    }
+    @media (max-width: 720px) {
+      :root { --cs-rhythm: 80px; --cs-rhythm-sm: 48px; }
+      .cs-page { padding: 0 var(--pad-page-sm); }
+      .cs-hero { flex-direction: column; gap: 16px; padding: 24px 0 8px; }
+      .cs-overview { gap: 48px; }
+      .cs-meta-col { grid-template-columns: 1fr; row-gap: 32px; }
+      .cs-principles { grid-template-columns: 1fr; gap: 24px; }
+      .cs-media-grid-2, .cs-media-grid-3 { grid-template-columns: 1fr; }
+      .cs-reflections { grid-template-columns: 1fr; gap: 24px; }
+      .cs-next { grid-template-columns: 1fr; min-height: 0; }
+      .cs-next-media { order: 0; aspect-ratio: 16 / 10; }
+      .cs-next-text { order: 1; padding: clamp(24px, 6vw, 40px); }
     }
 
-    .cs-sidenav-link:hover,
-    .cs-sidenav-link.is-active {
+    .page-footer { margin-top: var(--cs-rhythm); }
+
+    /* ─── Click-to-open figure modal (mirrors explore modal) ─── */
+    .cs-figure-media:has(img),
+    .cs-figure-media:has(video) { cursor: zoom-in; }
+
+    .cs-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: #ffffff;
       color: var(--ink);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 220ms ease, visibility 0s linear 220ms;
     }
-
-    /* bottom clearance for fixed nav */
-    .cs-page {
-      padding-bottom: 80px;
+    .cs-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity 220ms ease, visibility 0s linear 0s;
     }
-
-    @media (max-width: 768px) {
-      .cs-sidenav {
-        display: none;
-      }
+    .cs-modal-brand {
+      position: absolute;
+      top: 28px;
+      left: clamp(24px, 4vw, 56px);
+      font-size: var(--fs-small);
+      color: var(--ink);
+      font-weight: var(--fw-medium);
     }
-
-    /* ─── Responsive ─────────────────────────────────────────── */
-
-    @media (max-width: 768px) {
-      :root {
-        --cs-rhythm: 80px;
-      }
-
-      .cs-subheading { font-size: 14px; }
-      .cs-hero-work-featured.project-featured {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-      .cs-section,
-      .cs-overview,
-      .cs-band,
-      .cs-video-wrap,
-      .cs-image-grid,
-      .cs-embed {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-      .cs-overview { grid-template-columns: 1fr; }
-      .cs-section-grid { grid-template-columns: 1fr; gap: 32px; }
-      .cs-next-project { gap: 20px; }
-      .cs-image-grid { grid-template-columns: 1fr; }
-      .cs-features-grid, .cs-iterations-grid, .cs-takeaways { grid-template-columns: 1fr; gap: 24px; }
-      .cs-competitor-row { grid-template-columns: repeat(3, 1fr); }
-      .cs-competitor-row img {
-        height: 170px;
-      }
-      .cs-competitor-row figure {
-        min-height: 170px;
-      }
-      .cs-impacts, .cs-pitch {
-        width: calc(100% - 40px);
-        margin-left: auto;
-        margin-right: auto;
-        padding: calc(var(--cs-rhythm) * 1.5) 24px;
-      }
+    .cs-modal-close {
+      position: absolute;
+      top: 28px;
+      right: clamp(24px, 4vw, 56px);
+      background: transparent;
+      border: 0;
+      padding: 8px 4px;
+      margin: 0;
+      cursor: pointer;
+      font: inherit;
+      font-size: var(--fs-small);
+      color: var(--ink);
+      z-index: 5;
+      transition: opacity 160ms ease;
     }
-
+    .cs-modal-close:hover { opacity: 0.6; }
+    .cs-modal-stage {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: clamp(40px, 6vh, 80px) clamp(80px, 10vw, 160px);
+    }
+    .cs-modal-media {
+      max-width: 100%;
+      max-height: 100%;
+      display: grid;
+      place-items: center;
+      transform: translateY(8px);
+      transition: transform 280ms cubic-bezier(.2,.7,.2,1);
+    }
+    .cs-modal.is-open .cs-modal-media { transform: translateY(0); }
+    .cs-modal-media img,
+    .cs-modal-media video {
+      display: block;
+      max-width: 100%;
+      max-height: calc(100vh - 200px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .cs-modal-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      color: var(--ink);
+      font-size: 32px;
+      width: 56px; height: 56px;
+      z-index: 6;
+      display: grid;
+      place-items: center;
+      transition: opacity 160ms ease, transform 200ms ease;
+      opacity: 0.6;
+    }
+    .cs-modal-arrow:hover { opacity: 1; }
+    .cs-modal-arrow.prev { left: clamp(12px, 2vw, 32px); }
+    .cs-modal-arrow.next { right: clamp(12px, 2vw, 32px); }
+    .cs-modal-arrow.prev:hover { transform: translateY(-50%) translateX(-3px); }
+    .cs-modal-arrow.next:hover { transform: translateY(-50%) translateX(3px); }
+    .cs-modal-caption {
+      position: absolute;
+      left: clamp(24px, 4vw, 56px);
+      right: clamp(24px, 4vw, 56px);
+      bottom: clamp(24px, 4vh, 48px);
+      font-size: var(--fs-small);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      max-width: 720px;
+      display: flex;
+      gap: 14px;
+    }
+    .cs-modal-caption .num {
+      letter-spacing: var(--ls-widest);
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
 
-  <div class="project-cursor" aria-hidden="true">
-    <span class="project-cursor-dot"></span>
-    <span class="project-cursor-label">Open Link</span>
-    <i class="ph ph-arrow-up-right project-cursor-icon"></i>
-  </div>
-
   <nav>
     <span class="nav-indicator" aria-hidden="true"></span>
     <a href="/" class="t-small" data-nav="home">Home</a>
-    <a href="/index.html" class="t-small" data-nav="work" data-open-work-link>Work</a>
+    <a href="/#work" class="t-small" data-nav="work" data-open-work-link>Work</a>
     <a href="/about.html" class="t-small">About</a>
     <a href="/explore.html" class="t-small">Explore</a>
     <a href="../Melody Ekbatani_2026 Resume .pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
   </nav>
 
-  <div class="cs-panel">
+  <div class="cs-shell">
 
-      <!-- Same header rhythm as Work panel: work-intro + featured image strip -->
-      <div class="cs-hero-work">
-        <div class="work-intro">
-          <div class="work-intro-title">
-            <h1 class="work-heading">Aeri</h1>
-          </div>
-          <div class="work-intro-copy">
-            <p class="t-body work-description">AI-powered preventative care contact lens for diabetes with AR integration, exploring a more proactive alternative to today’s reactive management tools.</p>
-          </div>
-          <div class="work-intro-spacer" aria-hidden="true"></div>
+    <aside class="cs-toc" aria-label="Contents">
+      <a href="#overview">Overview</a>
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#research">Research</a>
+      <a href="#next-steps">Next Steps</a>
+      <a href="#learnings">Key Takeaways</a>
+    </aside>
+
+    <article class="cs-page">
+
+      <!-- HERO -->
+      <header class="cs-hero">
+        <div class="cs-hero-title">
+          <h1>Aeri</h1>
+        </div>
+        <div class="cs-hero-copy">
+          <p class="meta">AI-powered preventative care contact lens for diabetes with AR integration, exploring a more proactive alternative to today's reactive management tools.</p>
+        </div>
+      </header>
+
+      <!-- HERO MEDIA STACK -->
+      <div class="cs-stack">
+        <figure class="cs-figure cs-hero-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Image 3.avif" alt="Metric breakdown interface in a kitchen setting" fetchpriority="high"></div>
+          <figcaption><span class="num">Fig 1.0</span><span>Aeri brings preventative care into everyday sight.</span></figcaption>
+        </figure>
+
+        <div class="cs-media-grid-2">
+          <figure class="cs-figure">
+            <div class="cs-figure-media"><img src="assets/Aeri-Image 2.avif" alt="Health metrics tracking interface" loading="lazy"></div>
+            <figcaption><span class="num">Fig 1.1</span><span>Current devices show the data, but users are left to carry the cognitive load.</span></figcaption>
+          </figure>
+          <figure class="cs-figure">
+            <div class="cs-figure-media"><img src="assets/Aeri-Image 1.avif" alt="Aeri AR interface in a forest setting" loading="lazy"></div>
+            <figcaption><span class="num">Fig 1.2</span><span>Augmented reality surfaces insights directly in context.</span></figcaption>
+          </figure>
         </div>
 
-        <div class="project-featured cs-hero-work-featured">
-          <div class="project-featured-image">
-            <img src="assets/Aeri hero.avif" alt="Aeri hero" fetchpriority="high">
-          </div>
-        </div>
+        <figure class="cs-figure">
+          <div class="cs-figure-media" style="aspect-ratio: auto;"><img src="assets/Aeri hero.png" alt="Aeri hero, light tracing the contact lens" loading="lazy" style="object-fit: contain;"></div>
+          <figcaption><span class="num">Fig 1.3</span><span>A closer look at the lens itself.</span></figcaption>
+        </figure>
       </div>
 
-    <div class="cs-layout">
-
-      <div class="cs-sidenav" role="navigation" aria-label="Page sections">
-        <span class="cs-sidenav-indicator" aria-hidden="true"></span>
-        <a href="#overview" class="cs-sidenav-link">Overview</a>
-        <a href="#problem" class="cs-sidenav-link">Problem</a>
-        <a href="#solution" class="cs-sidenav-link">Solution</a>
-        <a href="#iterations" class="cs-sidenav-link">Iteration</a>
-        <a href="#reflection" class="cs-sidenav-link">Reflection</a>
-      </div>
-
-      <div class="cs-page">
-
-      <!-- Overview -->
-      <section class="cs-overview" id="overview">
-        <div class="cs-meta-grid">
-
-          <div class="cs-meta-item">
-            <h3>Timeline</h3>
-            <p>24 hours (AI Hackathon)</p>
+      <!-- OVERVIEW -->
+      <section id="overview" class="cs-section cs-overview">
+        <div class="cs-meta-col">
+          <div class="cs-meta-block">
+            <span class="label">Timeline</span>
+            <div class="value">24 hours<br>AI Hackathon, 2025</div>
           </div>
-
-          <div class="cs-meta-item">
-            <h3>Role</h3>
-            <p>Product Designer, product strategy, user research, visual design and AI integration</p>
+          <div class="cs-meta-block">
+            <span class="label">Role</span>
+            <div class="value">Product Designer, product strategy, user research, visual design and AI integration</div>
           </div>
-
-          <div class="cs-meta-item">
-            <h3>Team</h3>
-            <p>Chareese Lam (Product and Motion)</p>
-            <p>Isabella Mixton-Garcia (Research)</p>
-          </div>
-
-          <div class="cs-meta-item">
-            <h3>Tools</h3>
-            <ul class="cs-tool-grid">
-              <li><img src="assets/Tools/Figma.avif" alt="Figma"></li>
-              <li class="cs-tool-zoom-out"><img src="assets/Tools/Gemini.avif" alt="Gemini"></li>
-              <li class="cs-tool-zoom-out"><img src="assets/Tools/Lovable.avif" alt="Lovable"></li>
-              <li><img src="assets/Tools/OpenAI.avif" alt="OpenAI"></li>
-              <li class="cs-tool-zoom-out"><img src="assets/Tools/Midjourney.avif" alt="Midjourney"></li>
-              <li class="cs-tool-flat"><img src="assets/Tools/Claude.webp" alt="Claude"></li>
-              <li><img src="assets/Tools/Perplexity .avif" alt="Perplexity"></li>
-              <li class="cs-tool-flat"><img src="assets/Tools/aftereffects.avif" alt="After Effects"></li>
+          <div class="cs-meta-block">
+            <span class="label">Team</span>
+            <ul>
+              <li>Chareese Lam (Product and Motion)</li>
+              <li>Isabella Mixton-Garcia (Research)</li>
             </ul>
           </div>
-
+          <div class="cs-meta-block">
+            <span class="label">Skills</span>
+            <div class="cs-chips">
+              <span class="chip">UX/UI</span>
+              <span class="chip">Product Strategy</span>
+              <span class="chip">User Research</span>
+              <span class="chip">Visual Design</span>
+              <span class="chip">AI Integration</span>
+            </div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Tools</span>
+            <div class="cs-tools">
+              <span class="tool"><img src="assets/Tools/Figma.avif" alt="Figma"></span>
+              <span class="tool"><img src="assets/Tools/Gemini.avif" alt="Gemini"></span>
+              <span class="tool"><img src="assets/Tools/Claude.webp" alt="Claude"></span>
+              <span class="tool"><img src="assets/Tools/Perplexity .avif" alt="Perplexity"></span>
+              <span class="tool"><img src="assets/Tools/OpenAI.avif" alt="OpenAI"></span>
+              <span class="tool"><img src="assets/Tools/Midjourney.avif" alt="Midjourney"></span>
+              <span class="tool"><img src="assets/Tools/Lovable.avif" alt="Lovable"></span>
+              <span class="tool"><img src="assets/Tools/aftereffects.avif" alt="After Effects"></span>
+            </div>
+          </div>
         </div>
 
-        <div class="cs-copy-stack">
-          <div>
-            <h2 class="cs-subheading">Overview</h2>
-            <p class="cs-body">Aeri was created for the Parsons x University of Arizona 24-hour AI Hackathon, where teams were assigned. It is an AI-powered preventative care concept designed for people managing Type 2 diabetes.</p>
-            <p class="cs-body" style="margin-top: 14px;">The project explores a more proactive alternative to today's reactive health tools by helping users anticipate changes earlier. Aeri combines continuous sensing, predictive AI, and an augmented reality interface to deliver clearer, more actionable guidance throughout the day.</p>
-          </div>
-          <div style="margin-top: 32px;">
-            <h2 class="cs-subheading">Design Challenge</h2>
-            <p class="cs-body">What if diabetes care could become more preventative?</p>
-          </div>
+        <div class="cs-overview-copy">
+          <span class="cs-kicker">Overview</span>
+          <h2 class="cs-overview-h">What if diabetes care could become more preventative?</h2>
+          <p>Aeri was created for the Parsons x University of Arizona 24-hour AI Hackathon, where teams were assigned. It is an AI-powered preventative care concept designed for people managing Type 2 diabetes.</p>
+          <p>The project explores a more proactive alternative to today's reactive health tools by helping users anticipate changes earlier. Aeri combines continuous sensing, predictive AI, and an augmented reality interface to deliver clearer, more actionable guidance throughout the day.</p>
         </div>
       </section>
 
-      <!-- Problem -->
-      <section class="cs-band" id="problem">
+      <!-- PROBLEM -->
+      <section id="problem" class="cs-section cs-block">
         <span class="cs-kicker">Problem</span>
-        <h3 class="cs-h2">Diabetes treatments today are reactive</h3>
-        <p class="cs-body">Health tools provide constant data, but diabetes management still depends heavily on the individual. Users must interpret readings, track patterns, and repeatedly check devices throughout the day.</p>
-        <p class="cs-body">With sensors that require routine replacement, care becomes a cycle of monitoring, maintenance, and reaction. This revealed an opportunity for a more preventative and supportive experience.</p>
+        <h2>Diabetes treatments today are reactive</h2>
+        <p>Health tools provide constant data, but diabetes management still depends heavily on the individual. Users must interpret readings, track patterns, and repeatedly check devices throughout the day.</p>
+        <p>With sensors that require routine replacement, care becomes a cycle of monitoring, maintenance, and reaction. This revealed an opportunity for a more preventative and supportive experience.</p>
+
+        <span class="cs-sub">A growing global health reality</span>
+        <p>More than 1 in 10 adults worldwide are living with diabetes (International Diabetes Federation). Its scale reflects a growing need for tools that better support the ongoing decisions, adjustments, and mental effort of daily care. Managing diabetes is not limited to isolated moments of checking a number. It is shaped by repeated choices around food, activity, sleep, stress, and routine, all of which can influence glucose levels throughout the day.</p>
+        <p>As a result, care often becomes a continuous process of monitoring, interpreting, and responding. This creates an opportunity to design tools that do more than report data by offering guidance that feels more supportive, timely, and easier to live with.</p>
       </section>
 
-      <!-- Video 1 -->
-      <figure class="cs-video-wrap">
-        <video src="assets/Aeri-Video 1.mp4" playsinline muted autoplay loop preload="metadata"></video>
-        <figcaption>Current devices show the data, but users are left to carry the cognitive load.</figcaption>
-      </figure>
-
-      <!-- Solution -->
-      <section class="cs-section" id="solution">
+      <!-- SOLUTION -->
+      <section id="solution" class="cs-section cs-block">
         <span class="cs-kicker">Solution</span>
-        <h3 class="cs-h2">Shifting toward proactive care</h3>
-        <div class="cs-copy-stack">
-          <p class="cs-body">We set out to design a system that helps people act before issues intensify. We focused on the management of Type 2 diabetes approaching the problem through earlier awareness, clearer guidance, and more confident decision-making.</p>
-          <p class="cs-body">Our solution, Aeri, is an AI-powered preventative care concept that utilizes an AR-integrated contact lens to help users anticipate changes earlier throughout the day.</p>
-        </div>
+        <h2>Shifting toward proactive care</h2>
+        <p>We set out to design a system that helps people act before issues intensify. We focused on the management of Type 2 diabetes approaching the problem through earlier awareness, clearer guidance, and more confident decision-making.</p>
+        <p>Our solution, Aeri, is an AI-powered preventative care concept that utilizes an AR-integrated contact lens to help users anticipate changes earlier throughout the day.</p>
+
+        <span class="cs-sub">A more supportive experience</span>
+        <p>Aeri's core experience is built around four connected parts: live interventions, daily overviews, metric breakdowns, and user controls. Together, they make health insights more useful, timely, and actionable.</p>
+        <p>User controls also give people more choice over what is surfaced, how prominently it appears, and when they are notified.</p>
+
+        <span class="cs-sub">Aeri is structured across three integrated layers</span>
       </section>
 
-      <!-- Video 2 -->
-      <figure class="cs-video-wrap">
-        <video src="assets/Aeri-Video 2.mp4" playsinline muted autoplay loop preload="metadata"></video>
-        <figcaption>Augmented reality surfaces insights directly in context.</figcaption>
+      <figure class="cs-figure">
+        <div class="cs-figure-media"><video src="assets/Aeri-Video 2.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+        <figcaption><span class="num">Fig 2.0</span><span>Aeri's ambient interface meets users in everyday environments.</span></figcaption>
       </figure>
 
-      <!-- Approach -->
-      <section class="cs-section" id="approach">
-        <span class="cs-kicker">Approach</span>
-        <h3 class="cs-h2">A more supportive experience</h3>
-        <div class="cs-copy-stack">
-          <p class="cs-body">Aeri's core experience is built around four connected parts: live interventions, daily overviews, metric breakdowns, and user controls. Together, they make health insights more useful, timely, and actionable.</p>
-          <p class="cs-body">User controls also give people more choice over what is surfaced, how prominently it appears, and when they are notified.</p>
-        </div>
-      </section>
-
-      <!-- Image grid 2×2 -->
-      <div class="cs-image-grid">
-        <figure><img src="assets/Aeri-Image 1.avif" alt="Aeri ambient interface in a living space" loading="lazy"></figure>
-        <figure><img src="assets/Aeri-Image 2.avif" alt="Aeri UI in a forest setting" loading="lazy"></figure>
-        <figure><img src="assets/Aeri-Image 3.avif" alt="Aeri interface detail" loading="lazy"></figure>
-        <figure><img src="assets/Aeri-Image 4.avif" alt="Aeri experience in context" loading="lazy"></figure>
+      <div class="cs-media-grid-3 tall">
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><video src="assets/Aeri-Video Grid 1.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+          <figcaption><span class="num">Fig 2.1</span><span>Glucose biosensor reads metabolic signals continuously.</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><video src="assets/Aeri-Video Grid 2.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+          <figcaption><span class="num">Fig 2.2</span><span>Smart lens delivers guidance in the user's view.</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><video src="assets/Aeri-Video Grid 3.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+          <figcaption><span class="num">Fig 2.3</span><span>AI-integrated interface turns data into recommendations.</span></figcaption>
+        </figure>
       </div>
 
-      <!-- Key Features -->
-      <section class="cs-section cs-ruled" id="features">
-        <span class="cs-kicker">Key Features</span>
-        <h3 class="cs-h2">Aeri is structured across three integrated layers</h3>
-        <ul class="cs-features-grid">
-          <li>
-            <video src="assets/Aeri-Video Grid 1.mp4" playsinline muted loop autoplay preload="metadata"></video>
-            <h3 class="cs-h3">Glucose Biosensor</h3>
-            <ul class="cs-features-list">
-              <li>Continuously tracks metabolic signals</li>
-              <li>Captures glucose data in real time</li>
-              <li>Sends readings to a connected system</li>
-            </ul>
-          </li>
-          <li>
-            <video src="assets/Aeri-Video Grid 2.mp4" playsinline muted loop autoplay preload="metadata"></video>
-            <h3 class="cs-h3">Smart Lens</h3>
-            <ul class="cs-features-list">
-              <li>Delivers support through an AR lens</li>
-              <li>Surfaces guidance within the user's view</li>
-              <li>Reduces the need to check a separate device</li>
-            </ul>
-          </li>
-          <li>
-            <video src="assets/Aeri-Video Grid 3.mp4" playsinline muted loop autoplay preload="metadata"></video>
-            <h3 class="cs-h3">AI Integrated Interface</h3>
-            <ul class="cs-features-list">
-              <li>Detects patterns across glucose and behavior</li>
-              <li>Predicts shifts before they escalate</li>
-              <li>Turns data into timely recommendations</li>
-            </ul>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Impacts -->
-      <section class="cs-impacts" id="impacts">
-        <span class="cs-kicker">Impacts</span>
-        <h2 class="cs-impacts-heading cs-scale-in">More than 1 in 10 adults worldwide</h2>
-        <p class="cs-impacts-sub">Stat from International Diabetes Federation</p>
-      </section>
-
-      <!-- Context -->
-      <section class="cs-section cs-ruled" id="context">
-        <div class="cs-copy-stack compact">
-          <span class="cs-kicker">Context</span>
-          <h3 class="cs-h2">A growing global health reality</h3>
-          <p class="cs-body">Its scale reflects a growing need for tools that better support the ongoing decisions, adjustments, and mental effort of daily care. Managing diabetes is not limited to isolated moments of checking a number. It is shaped by repeated choices around food, activity, sleep, stress, and routine, all of which can influence glucose levels throughout the day.</p>
-          <p class="cs-body">As a result, care often becomes a continuous process of monitoring, interpreting, and responding. This creates an opportunity to design tools that do more than report data by offering guidance that feels more supportive, timely, and easier to live with.</p>
-        </div>
-      </section>
-
-      <!-- Market Research -->
-      <section class="cs-section cs-ruled" id="market-research">
+      <!-- RESEARCH -->
+      <section id="research" class="cs-section cs-block">
         <span class="cs-kicker">Market Research</span>
-        <h3 class="cs-h2">Revealing the gap</h3>
-        <p class="cs-body">Conversations and user interviews point to a system that interrupts daily life rather than supporting it: frequent sensor failures, constant replacements, and the need to repeatedly check numbers create frustration and fatigue. Instead of feeling supported, many feel tethered to their devices, managing alerts, troubleshooting issues, and trying to make sense of inconsistent readings.</p>
+        <h2>Revealing the gap</h2>
+        <p>Conversations and user interviews point to a system that interrupts daily life rather than supporting it: frequent sensor failures, constant replacements, and the need to repeatedly check numbers create frustration and fatigue. Instead of feeling supported, many feel tethered to their devices, managing alerts, troubleshooting issues, and trying to make sense of inconsistent readings.</p>
+
+        <span class="cs-sub">Tracking diabetes data isn't easy</span>
+        <p>Across the category, products have improved in sensing accuracy, connectivity, and real-time display. However, reliability issues, short sensor lifecycles, and fragmented device ecosystems continue to introduce friction.</p>
+        <p>As conditions become more complex, the operational overhead increases highlighting an opportunity to reduce system friction and create a more seamless experience that requires less active management from the user.</p>
       </section>
 
-      <!-- Video 3 -->
-      <figure class="cs-video-wrap">
-        <video src="assets/Aeri-Video 3.mp4" playsinline muted autoplay loop preload="metadata"></video>
-        <figcaption>Research revealed the emotional and mental strain of reactive diabetes management.</figcaption>
+      <figure class="cs-figure">
+        <div class="cs-figure-media"><video src="assets/Aeri-Video 3.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+        <figcaption><span class="num">Fig 3.0</span><span>Voices from r/dexcom and user interviews surfaced the everyday weight of reactive care.</span></figcaption>
       </figure>
 
-      <!-- Competitor Research -->
-      <section class="cs-section cs-ruled" id="competitor-research">
-        <span class="cs-kicker">Competitor Research</span>
-        <h3 class="cs-h2">Tracking diabetes data isn't easy</h3>
-        <div class="cs-competitor-lede">
-          <div class="cs-copy-stack">
-            <p class="cs-body">Across the category, products have improved in sensing accuracy, connectivity, and real-time display. However, reliability issues, short sensor lifecycles, and fragmented device ecosystems continue to introduce friction.</p>
-            <p class="cs-body">As conditions become more complex, the operational overhead increases highlighting an opportunity to reduce system friction and create a more seamless experience that requires less active management from the user.</p>
+      <figure class="cs-figure">
+        <div class="cs-figure-media"><video src="assets/Aeri-Video 1.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+        <figcaption><span class="num">Fig 3.1</span><span>Current devices show the data, but users carry the cognitive load.</span></figcaption>
+      </figure>
+
+      <figure class="cs-figure">
+        <div class="cs-media-grid-5">
+          <div class="cs-figure-media"><img src="assets/Aeri-Competitor Research 1.avif" alt="Apple Watch heart rate" loading="lazy"></div>
+          <div class="cs-figure-media"><img src="assets/Aeri-Competitor Research 2.avif" alt="Dexcom CGM and app" loading="lazy"></div>
+          <div class="cs-figure-media"><img src="assets/Aeri-Competitor Research 3.avif" alt="Whoop band" loading="lazy"></div>
+          <div class="cs-figure-media"><img src="assets/Aeri-Competitor Research 4.avif" alt="FreeStyle Libre 2" loading="lazy"></div>
+          <div class="cs-figure-media"><img src="assets/Aeri-Competitor Research 5.avif" alt="Oura ring" loading="lazy"></div>
+        </div>
+        <figcaption><span class="num">Fig 3.2</span><span>A scan of today's diabetes and metabolic tracking landscape, from wearables to dedicated CGMs.</span></figcaption>
+      </figure>
+
+      <section class="cs-block">
+        <span class="cs-kicker">Iteration</span>
+        <h2>Translating ideas into a working vision</h2>
+      </section>
+
+      <div class="cs-stack" style="gap: 32px;">
+        <div class="cs-media-grid-3">
+          <figure class="cs-figure">
+            <div class="cs-figure-media"><img src="assets/Aeri-Iteration 1.avif" alt="Whiteboarding exploration" loading="lazy"></div>
+          </figure>
+          <figure class="cs-figure">
+            <div class="cs-figure-media"><img src="assets/Aeri-Iteration 2.avif" alt="Prompting and interface exploration" loading="lazy"></div>
+          </figure>
+          <figure class="cs-figure">
+            <div class="cs-figure-media"><img src="assets/Aeri-Iteration 3.avif" alt="Asset creation and refinement" loading="lazy"></div>
+          </figure>
+        </div>
+
+        <div class="cs-principles">
+          <div class="item">
+            <h3>Whiteboarding</h3>
+            <p>Mapped early system directions. Explored sensing, prediction, and interaction flows. Tested multiple concepts to identify viable pathways.</p>
           </div>
-          <div class="cs-competitor-row">
-            <figure><img src="assets/Aeri-Competitor Research 1.avif" alt="Competitor product 1" loading="lazy"></figure>
-            <figure><img src="assets/Aeri-Competitor Research 2.avif" alt="Competitor product 2" loading="lazy"></figure>
-            <figure><img src="assets/Aeri-Competitor Research 3.avif" alt="Competitor product 3" loading="lazy"></figure>
-            <figure><img src="assets/Aeri-Competitor Research 4.avif" alt="Competitor product 4" loading="lazy"></figure>
-            <figure><img src="assets/Aeri-Competitor Research 5.avif" alt="Competitor product 5" loading="lazy"></figure>
+          <div class="item">
+            <h3>Prompting</h3>
+            <p>Generated interface behaviors. Explored interactions at higher fidelity. Evaluated clarity, usability, and feasibility.</p>
+          </div>
+          <div class="item">
+            <h3>Asset Creation</h3>
+            <p>Built interface and visual system outputs. Developed scenes to show the product in context. Refined consistency across touchpoints.</p>
           </div>
         </div>
-      </section>
-
-      <!-- Iterations -->
-      <section class="cs-section cs-ruled" id="iterations">
-        <span class="cs-kicker">Iteration</span>
-        <h3 class="cs-h2">Translating ideas into a working vision</h3>
-        <ul class="cs-iterations-grid">
-          <li>
-            <figure><img src="assets/Aeri-Iteration 1.avif" alt="Whiteboarding exploration" loading="lazy"></figure>
-            <h3 class="cs-h3">Whiteboarding</h3>
-            <ul class="cs-iterations-list">
-              <li>Mapped early system directions</li>
-              <li>Explored sensing, prediction, and interaction flows</li>
-              <li>Tested multiple concepts to identify viable pathways</li>
-            </ul>
-          </li>
-          <li>
-            <figure><img src="assets/Aeri-Iteration 2.avif" alt="Prompting and interface exploration" loading="lazy"></figure>
-            <h3 class="cs-h3">Prompting</h3>
-            <ul class="cs-iterations-list">
-              <li>Generated interface behaviors</li>
-              <li>Explored interactions at higher fidelity</li>
-              <li>Evaluated clarity, usability, and feasibility</li>
-            </ul>
-          </li>
-          <li>
-            <figure><img src="assets/Aeri-Iteration 3.avif" alt="Asset creation and refinement" loading="lazy"></figure>
-            <h3 class="cs-h3">Asset Creation</h3>
-            <ul class="cs-iterations-list">
-              <li>Built interface and visual system outputs</li>
-              <li>Developed scenes to show the product in context</li>
-              <li>Refined consistency across touchpoints</li>
-            </ul>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Pitch band -->
-      <section class="cs-pitch" id="pitch">
-        <span class="cs-kicker">The Pitch</span>
-        <h2 class="cs-pitch-heading cs-scale-in">Proactive care, guided in real time</h2>
-      </section>
-
-      <!-- YouTube embed -->
-      <div class="cs-embed">
-        <iframe
-          src="https://www.youtube.com/embed/ETbjoDGkTJc"
-          title="Aeri pitch video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
       </div>
 
-      <!-- Reflection -->
-      <section class="cs-section cs-ruled" id="reflection">
+      <!-- NEXT STEPS -->
+      <section id="next-steps" class="cs-section cs-block">
+        <span class="cs-kicker">Future Development</span>
+        <h2>Next Steps</h2>
+        <p>Further evaluate the biomedical feasibility of the sensing approach and underlying hardware.</p>
+        <p>Refine predictive modeling with clinical datasets to improve accuracy and reliability.</p>
+        <p>Test AR guidance interactions in real-world contexts to validate usability and behavior.</p>
+        <p>Expand user research with individuals managing Type 2 diabetes to ground the system in lived experience.</p>
+      </section>
+
+      <!-- KEY TAKEAWAYS -->
+      <section id="learnings" class="cs-section cs-block">
         <span class="cs-kicker">Reflection</span>
-        <h3 class="cs-h2">Our takeaways</h3>
-        <div class="cs-takeaways">
-          <div class="cs-takeaway">
+        <h2>Our takeaways</h2>
+      </section>
+
+      <section>
+        <div class="cs-reflections">
+          <div class="item">
             <h3>Working through a 24-hour sprint</h3>
             <p>Working in a collaborative sprint setting reinforced the importance of aligning early, defining roles quickly, and a shared understanding of the concept.</p>
           </div>
-          <div class="cs-takeaway">
+          <div class="item">
             <h3>Working with AI</h3>
             <p>I learned to use AI as a tool to accelerate exploration and production, while staying intentional in directing and refining outputs. Strong results came from guiding, editing, and curating rather than relying on it passively.</p>
           </div>
-          <div class="cs-takeaway">
+          <div class="item">
             <h3>Working with complex systems</h3>
             <p>I learned how to simplify a complex system under time pressure by focusing on what is most relevant to the user. This meant prioritizing clarity over completeness and translating technical logic into understandable moments of guidance.</p>
           </div>
         </div>
       </section>
 
-      <!-- Next Steps -->
-      <section class="cs-section cs-ruled" id="next-steps">
-        <div class="cs-next-steps-layout">
-          <div class="cs-next-steps-main">
-            <span class="cs-kicker">Future Development</span>
-            <h3 class="cs-h2">Next Steps</h3>
-            <ul class="cs-next-list">
-              <li>Further evaluate the biomedical feasibility of the sensing approach and underlying hardware.</li>
-              <li>Refine predictive modeling with clinical datasets to improve accuracy and reliability.</li>
-              <li>Test AR guidance interactions in real-world contexts to validate usability and behavior.</li>
-              <li>Expand user research with individuals managing Type 2 diabetes to ground the system in lived experience.</li>
-            </ul>
-          </div>
-        </div>
+      <!-- ─── AVAILABLE MEDIA (hidden) ───────────────────────── -->
+      <section class="cs-section cs-block" hidden style="display: none !important;">
+        <span class="cs-kicker">Available Media</span>
+        <h2>All assets, point to where each one goes.</h2>
+        <p>Every asset in aeri/assets/ is shown below with its filename. Tell me which figure slot each belongs to (Fig 1.0, Fig 1.1, etc.) and I'll wire them in.</p>
       </section>
 
-      <!-- You might also like -->
-      <section class="cs-also">
-        <div class="cs-also-header">
-          <span class="cs-also-label">You might also like</span>
-          <div class="cs-also-rule"></div>
-        </div>
-        <ul class="cs-also-list">
-          <li>
-            <a href="/Parameter/index.html" class="cs-also-item">
-              <div class="cs-also-thumb">
-                <video src="../Home Page/Parameter.mp4" playsinline muted autoplay loop preload="metadata"></video>
-              </div>
-              <div class="cs-also-info">
-                <span class="cs-also-category">UX · Health Data</span>
-                <h4 class="cs-also-title">Parameter</h4>
-              </div>
-              <i class="ph ph-arrow-up-right cs-also-arrow"></i>
-            </a>
-          </li>
-          <li>
-            <a href="/gemini/index.html" class="cs-also-item">
-              <div class="cs-also-thumb">
-                <video src="../Home Page/Google Gemini.mp4" playsinline muted autoplay loop preload="metadata"></video>
-              </div>
-              <div class="cs-also-info">
-                <span class="cs-also-category">UX · AI</span>
-                <h4 class="cs-also-title">Adaptive Research</h4>
-              </div>
-              <i class="ph ph-arrow-up-right cs-also-arrow"></i>
-            </a>
-          </li>
-          <li>
-            <a href="/Loam/index.html" class="cs-also-item">
-              <div class="cs-also-thumb">
-                <video src="../Home Page/loam.mp4" playsinline muted autoplay loop preload="metadata"></video>
-              </div>
-              <div class="cs-also-info">
-                <span class="cs-also-category">Product Design</span>
-                <h4 class="cs-also-title">Loam</h4>
-              </div>
-              <i class="ph ph-arrow-up-right cs-also-arrow"></i>
-            </a>
-          </li>
-        </ul>
-      </section>
+      <div class="cs-media-grid-3" hidden style="display: none !important;">
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri hero.avif" alt="Aeri hero" loading="lazy"></div>
+          <figcaption><span class="num">A1</span><span>Aeri hero.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Image 1.avif" alt="Aeri Image 1" loading="lazy"></div>
+          <figcaption><span class="num">A2</span><span>Aeri-Image 1.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Image 2.avif" alt="Aeri Image 2" loading="lazy"></div>
+          <figcaption><span class="num">A3</span><span>Aeri-Image 2.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Image 3.avif" alt="Aeri Image 3" loading="lazy"></div>
+          <figcaption><span class="num">A4</span><span>Aeri-Image 3.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Image 4.avif" alt="Aeri Image 4" loading="lazy"></div>
+          <figcaption><span class="num">A5</span><span>Aeri-Image 4.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><video src="assets/Aeri-Video 1.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+          <figcaption><span class="num">A6</span><span>Aeri-Video 1.mp4</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><video src="assets/Aeri-Video 2.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+          <figcaption><span class="num">A7</span><span>Aeri-Video 2.mp4</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><video src="assets/Aeri-Video 3.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+          <figcaption><span class="num">A8</span><span>Aeri-Video 3.mp4</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><video src="assets/Aeri-Video Grid 1.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+          <figcaption><span class="num">A9</span><span>Aeri-Video Grid 1.mp4</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><video src="assets/Aeri-Video Grid 2.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+          <figcaption><span class="num">A10</span><span>Aeri-Video Grid 2.mp4</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><video src="assets/Aeri-Video Grid 3.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+          <figcaption><span class="num">A11</span><span>Aeri-Video Grid 3.mp4</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Iteration 1.avif" alt="Iteration 1" loading="lazy"></div>
+          <figcaption><span class="num">A12</span><span>Aeri-Iteration 1.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Iteration 2.avif" alt="Iteration 2" loading="lazy"></div>
+          <figcaption><span class="num">A13</span><span>Aeri-Iteration 2.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Iteration 3.avif" alt="Iteration 3" loading="lazy"></div>
+          <figcaption><span class="num">A14</span><span>Aeri-Iteration 3.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Competitor Research 1.avif" alt="Competitor 1" loading="lazy"></div>
+          <figcaption><span class="num">A15</span><span>Aeri-Competitor Research 1.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Competitor Research 2.avif" alt="Competitor 2" loading="lazy"></div>
+          <figcaption><span class="num">A16</span><span>Aeri-Competitor Research 2.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Competitor Research 3.avif" alt="Competitor 3" loading="lazy"></div>
+          <figcaption><span class="num">A17</span><span>Aeri-Competitor Research 3.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Competitor Research 4.avif" alt="Competitor 4" loading="lazy"></div>
+          <figcaption><span class="num">A18</span><span>Aeri-Competitor Research 4.avif</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media"><img src="assets/Aeri-Competitor Research 5.avif" alt="Competitor 5" loading="lazy"></div>
+          <figcaption><span class="num">A19</span><span>Aeri-Competitor Research 5.avif</span></figcaption>
+        </figure>
+      </div>
 
-      <!-- Footer -->
-      <footer class="page-footer">
-        <h2 class="page-footer-title">Let's Work</h2>
-        <div class="page-footer-grid">
-          <div class="page-footer-column">
-            <p class="page-footer-heading">Find me</p>
-            <div class="page-footer-links">
-              <a href="https://linkedin.com/in/melodyekbatani" target="_blank" rel="noreferrer">LinkedIn</a>
-              <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github</a>
-              <a href="#" target="_blank" rel="noreferrer">Resume</a>
-            </div>
-          </div>
-          <div class="page-footer-column">
-            <p class="page-footer-heading">Focus</p>
-            <div class="page-footer-links">
-              <p>Product Design</p>
-              <p>Creating AI Systems</p>
-              <p>Storytelling</p>
-            </div>
-          </div>
-          <div class="page-footer-message">
-            <p>Designing through clarity, storytelling, and moments of delight.</p>
-            <a href="mailto:melodyekbatani@gmail.com" rel="noreferrer" style="display: block; margin-top: 16px; font-size: 18px; font-weight: 500;">melodyekbatani@gmail.com</a>
+    </article>
+
+    <!-- NEXT PROJECT -->
+    <div class="cs-next-wrap">
+      <a class="cs-next" href="/gemini/index.html">
+        <div class="cs-next-text">
+          <h3 class="cs-next-title">Adaptive Research</h3>
+          <p class="cs-next-desc">Designing how Google Gemini guides researchers through complex inquiry, end to end.</p>
+          <span class="cs-next-cta">See next project</span>
+        </div>
+        <div class="cs-next-media">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="../Home Page/Google Gemini.mp4" type="video/mp4">
+          </video>
+        </div>
+      </a>
+    </div>
+
+    <footer class="page-footer">
+      <h2 class="page-footer-title">Let's Work</h2>
+      <div class="page-footer-grid">
+        <div class="page-footer-column">
+          <p class="page-footer-heading">Find me</p>
+          <div class="page-footer-links">
+            <a href="https://linkedin.com/in/melodyekbatani" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github</a>
+            <a href="../Melody Ekbatani_2026 Resume .pdf" target="_blank" rel="noreferrer">Resume</a>
           </div>
         </div>
-        <div class="page-footer-meta"></div>
-      </footer>
+        <div class="page-footer-column">
+          <p class="page-footer-heading">Focus</p>
+          <div class="page-footer-links">
+            <p>Product Design</p>
+            <p>Creating AI Systems</p>
+            <p>Storytelling</p>
+          </div>
+        </div>
+        <div class="page-footer-message">
+          <p>Designing through clarity, storytelling, and moments of delight.</p>
+          <a href="mailto:melodyekbatani@gmail.com" rel="noreferrer" style="display: block; margin-top: 16px; font-size: var(--fs-body); font-weight: var(--fw-medium);">melodyekbatani@gmail.com</a>
+        </div>
+      </div>
+      <div class="page-footer-meta"></div>
+    </footer>
 
-    </div><!-- end cs-page -->
-    </div><!-- end cs-layout -->
-  </div><!-- end cs-panel -->
+  </div>
+
+  <!-- Click-to-open figure modal -->
+  <div class="cs-modal" id="csModal" aria-hidden="true" role="dialog">
+    <div class="cs-modal-brand">Melody Ekbatani</div>
+    <button class="cs-modal-close" id="csModalClose" type="button" aria-label="Close">Close</button>
+
+    <button class="cs-modal-arrow prev" id="csModalPrev" type="button" aria-label="Previous">
+      <i class="ph ph-caret-left"></i>
+    </button>
+    <button class="cs-modal-arrow next" id="csModalNext" type="button" aria-label="Next">
+      <i class="ph ph-caret-right"></i>
+    </button>
+
+    <div class="cs-modal-stage">
+      <div class="cs-modal-media" id="csModalMedia"></div>
+    </div>
+
+    <div class="cs-modal-caption" id="csModalCaption"></div>
+  </div>
 
   <script>
-    // Nav indicator
     function bindIndicator(container, indicatorSelector, itemSelector, activeSelector) {
       if (!container) return;
       const indicator = container.querySelector(indicatorSelector);
@@ -1276,9 +1050,9 @@
       let activeItem = activeSelector ? container.querySelector(activeSelector) : null;
       function placeIndicator(item, color = "#111111") {
         if (!item) return;
-        const containerBox = container.getBoundingClientRect();
-        const itemBox = item.getBoundingClientRect();
-        indicator.style.transform = `translate(${itemBox.left - containerBox.left + 4}px, ${itemBox.top - containerBox.top + itemBox.height / 2}px) translateY(-50%)`;
+        const cb = container.getBoundingClientRect();
+        const ib = item.getBoundingClientRect();
+        indicator.style.transform = `translate(${ib.left - cb.left + 4}px, ${ib.top - cb.top + ib.height / 2}px) translateY(-50%)`;
         indicator.style.backgroundColor = color;
       }
       if (activeItem) placeIndicator(activeItem);
@@ -1288,73 +1062,122 @@
         item.addEventListener("focus", () => placeIndicator(item, "#CFCFCF"));
       });
       container.addEventListener("mouseleave", () => { if (activeItem) placeIndicator(activeItem); });
-      window.addEventListener("resize", () => { if (activeItem) placeIndicator(activeItem); });
     }
     bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", null);
 
-    // Side nav: ball indicator + scroll-based active tracking
-    const sideNav = document.querySelector('.cs-sidenav');
-    if (sideNav) {
-      const sideNavBall = sideNav.querySelector('.cs-sidenav-indicator');
-      const sideNavLinks = [...sideNav.querySelectorAll('.cs-sidenav-link')];
-      const sideNavSections = sideNavLinks.map(link => document.querySelector(link.getAttribute('href')));
-      let activeSideNavLink = null;
-
-      function placeSideNavBall(link, color = '#111111') {
-        if (!link || !sideNavBall) return;
-        const cBox = sideNav.getBoundingClientRect();
-        const lBox = link.getBoundingClientRect();
-        sideNavBall.style.transform = `translate(${lBox.left - cBox.left + 4}px, ${lBox.top - cBox.top + lBox.height / 2}px) translateY(-50%)`;
-        sideNavBall.style.backgroundColor = color;
-      }
-
-      sideNavLinks.forEach(link => {
-        link.addEventListener('mouseenter', () => placeSideNavBall(link, '#CFCFCF'));
-        link.addEventListener('focus', () => placeSideNavBall(link, '#CFCFCF'));
-      });
-      sideNav.addEventListener('mouseleave', () => {
-        if (activeSideNavLink) placeSideNavBall(activeSideNavLink, '#111111');
-      });
-
-      function updateSideNav() {
-        let currentId = null;
-        sideNavSections.forEach(section => {
-          if (!section) return;
-          if (window.scrollY + 100 >= section.getBoundingClientRect().top + window.scrollY - 10) {
-            currentId = section.id;
-          }
-        });
-        const newActive = sideNavLinks.find(link => link.getAttribute('href') === '#' + currentId) || null;
-        if (newActive !== activeSideNavLink) {
-          activeSideNavLink = newActive;
-          sideNavLinks.forEach(link => link.classList.toggle('is-active', link === activeSideNavLink));
-          if (activeSideNavLink) placeSideNavBall(activeSideNavLink, '#111111');
+    (function () {
+      const toc = document.querySelector(".cs-toc");
+      const sentinel = document.querySelector(".cs-next-wrap");
+      if (!toc || !sentinel || !("IntersectionObserver" in window)) return;
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          toc.classList.toggle("is-hidden", e.isIntersecting);
         }
+      }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
+      io.observe(sentinel);
+    })();
+
+    (function () {
+      const tocLinks = [...document.querySelectorAll(".cs-toc a")];
+      if (!tocLinks.length) return;
+      const sections = tocLinks
+        .map(a => document.querySelector(a.getAttribute("href")))
+        .filter(Boolean);
+
+      function update() {
+        const y = window.scrollY + 140;
+        let activeId = sections[0] && sections[0].id;
+        for (const s of sections) {
+          if (s.offsetTop <= y) activeId = s.id;
+        }
+        tocLinks.forEach(a => {
+          a.classList.toggle("is-active", a.getAttribute("href") === "#" + activeId);
+        });
       }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
 
-      window.addEventListener('scroll', updateSideNav, { passive: true });
-      window.addEventListener('resize', () => { if (activeSideNavLink) placeSideNavBall(activeSideNavLink); });
-      updateSideNav();
-      requestAnimationFrame(() => sideNavBall && sideNavBall.classList.add('is-ready'));
-    }
 
-    // Custom cursor
-    const cursor = document.querySelector(".project-cursor");
-    if (cursor) {
-      document.addEventListener("mousemove", (e) => {
-        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    // Click-to-open figure modal
+    (function () {
+      const modal = document.getElementById("csModal");
+      const mediaSlot = document.getElementById("csModalMedia");
+      const captionEl = document.getElementById("csModalCaption");
+      const closeBtn = document.getElementById("csModalClose");
+      const prevBtn = document.getElementById("csModalPrev");
+      const nextBtn = document.getElementById("csModalNext");
+      if (!modal) return;
+
+      // Collect every figure that has media inside
+      const figures = [...document.querySelectorAll("article.cs-page .cs-figure")]
+        .filter(fig => fig.querySelector(".cs-figure-media img, .cs-figure-media video"));
+
+      const items = figures.map(fig => {
+        const m = fig.querySelector(".cs-figure-media img, .cs-figure-media video");
+        const cap = fig.querySelector("figcaption");
+        const num = cap && cap.querySelector(".num");
+        const txt = cap && cap.querySelector("span:last-child");
+        return {
+          type: m.tagName.toLowerCase(),     // "img" or "video"
+          src: m.getAttribute("src"),
+          alt: m.getAttribute("alt") || "",
+          num: num ? num.textContent : "",
+          caption: txt ? txt.textContent : "",
+        };
       });
-    }
+      let curIdx = 0;
 
-    // Scale-in animation on scroll
-    document.querySelectorAll('.cs-scale-in').forEach(el => {
-      new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) el.classList.add('is-visible');
-      }, { threshold: 0.15 }).observe(el);
-    });
+      function render(i) {
+        const it = items[i];
+        if (!it) return;
+        mediaSlot.innerHTML = it.type === "video"
+          ? `<video src="${it.src}" autoplay muted loop playsinline controls></video>`
+          : `<img src="${it.src}" alt="${it.alt}">`;
+        captionEl.innerHTML = it.num || it.caption
+          ? `<span class="num">${it.num}</span><span>${it.caption}</span>`
+          : "";
+        curIdx = i;
+      }
+      function open(i) {
+        render(i);
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+      function close() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        const v = mediaSlot.querySelector("video");
+        if (v) { try { v.pause(); } catch (e) {} }
+        setTimeout(() => { mediaSlot.innerHTML = ""; }, 240);
+        document.body.style.overflow = "";
+      }
+      function next() { render((curIdx + 1) % items.length); }
+      function prev() { render((curIdx - 1 + items.length) % items.length); }
 
+      figures.forEach((fig, i) => {
+        const tile = fig.querySelector(".cs-figure-media");
+        if (!tile) return;
+        tile.addEventListener("click", () => open(i));
+      });
+
+      closeBtn.addEventListener("click", close);
+      prevBtn.addEventListener("click", prev);
+      nextBtn.addEventListener("click", next);
+      modal.addEventListener("click", (e) => {
+        // click outside the media closes the modal
+        if (e.target === modal || e.target.classList.contains("cs-modal-stage")) close();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (!modal.classList.contains("is-open")) return;
+        if (e.key === "Escape") close();
+        if (e.key === "ArrowRight") next();
+        if (e.key === "ArrowLeft") prev();
+      });
+    })();
   </script>
-
   <script src="../nav.js" defer></script>
 </body>
 </html>
