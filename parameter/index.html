@@ -171,6 +171,22 @@
       margin-top: 4px;
     }
 
+    .cs-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .cs-chips .chip {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink);
+      background: #f0f0f0;
+      padding: 8px 14px;
+      border-radius: 6px;
+      line-height: 1;
+    }
+
     .cs-tool-grid li {
       width: 48px;
       height: 48px;
@@ -845,15 +861,15 @@
 
           <div class="cs-meta-item">
             <h3>Tools</h3>
-            <ul class="cs-tool-grid">
-              <li><img src="Tools/Figma.avif" alt="Figma"></li>
-              <li><img src="../aeri/assets/Tools/Gemini.avif" alt="Gemini"></li>
-              <li><img src="../aeri/assets/Tools/Lovable.avif" alt="Lovable"></li>
-              <li><img src="../aeri/assets/Tools/OpenAI.avif" alt="ChatGPT"></li>
-              <li><img src="../aeri/assets/Tools/Perplexity .avif" alt="Perplexity"></li>
-              <li><img src="../aeri/assets/Tools/Claude.webp" alt="Claude"></li>
-              <li><img src="../aeri/assets/Tools/aftereffects.avif" alt="After Effects"></li>
-            </ul>
+            <div class="cs-chips">
+              <span class="chip">Figma</span>
+              <span class="chip">Gemini</span>
+              <span class="chip">Lovable</span>
+              <span class="chip">ChatGPT</span>
+              <span class="chip">Perplexity</span>
+              <span class="chip">Claude</span>
+              <span class="chip">After Effects</span>
+            </div>
           </div>
 
         </div>

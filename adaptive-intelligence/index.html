@@ -322,12 +322,16 @@
       gap: 56px;
       align-items: start;
     }
+    .cs-split > .cs-figure {
+      max-width: 520px;
+      margin-left: auto;
+      width: 100%;
+    }
     .cs-split .cs-figure-media {
       aspect-ratio: auto;
       height: auto;
-      max-height: calc(100vh - var(--nav-h) * 2 - 120px);
-      max-width: 520px;
-      margin-left: auto;
+      max-height: calc(100vh - var(--nav-h) * 2 - 180px);
+      width: 100%;
       background: transparent;
       display: block;
     }
@@ -335,7 +339,7 @@
     .cs-split .cs-figure-media video {
       width: 100%;
       height: auto;
-      max-height: calc(100vh - var(--nav-h) * 2 - 120px);
+      max-height: calc(100vh - var(--nav-h) * 2 - 180px);
       object-fit: contain;
       display: block;
     }
@@ -649,6 +653,34 @@
       color: var(--muted);
     }
 
+    /* Sound toggle overlay */
+    .cs-has-sound .cs-figure-media { position: relative; }
+    .cs-sound-toggle {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 0;
+      background: rgba(17, 17, 17, 0.72);
+      color: #fff;
+      font: inherit;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 160ms ease, transform 160ms ease;
+    }
+    .cs-sound-toggle:hover { background: rgba(17, 17, 17, 0.9); }
+    .cs-sound-toggle i { font-size: 16px; line-height: 1; }
+    .cs-sound-toggle.is-on i::before { content: "\f1e9"; }
+
     /* Available media gallery (visible — for placing images) */
     .cs-available {
       border-top: 1px solid var(--rule, rgba(0,0,0,0.08));
@@ -741,14 +773,14 @@
           </div>
           <div class="cs-meta-block">
             <span class="label">Tools</span>
-            <div class="cs-tools">
-              <span class="tool"><img src="../aeri/assets/Tools/Figma.avif" alt="Figma"></span>
-              <span class="tool"><img src="../aeri/assets/Tools/Gemini.avif" alt="Gemini"></span>
-              <span class="tool"><img src="../aeri/assets/Tools/Claude.webp" alt="Claude"></span>
-              <span class="tool"><img src="../aeri/assets/Tools/Perplexity .avif" alt="Perplexity"></span>
-              <span class="tool"><img src="../aeri/assets/Tools/OpenAI.avif" alt="OpenAI"></span>
-              <span class="tool"><img src="../aeri/assets/Tools/aftereffects.avif" alt="After Effects"></span>
-              <span class="tool"><img src="premiere pro.png" alt="Adobe Premiere Pro"></span>
+            <div class="cs-chips">
+              <span class="chip">Figma</span>
+              <span class="chip">Gemini</span>
+              <span class="chip">Claude</span>
+              <span class="chip">Perplexity</span>
+              <span class="chip">OpenAI</span>
+              <span class="chip">After Effects</span>
+              <span class="chip">Adobe Premiere Pro</span>
             </div>
           </div>
         </div>
@@ -783,8 +815,14 @@
         <p>A standard Gemini query costs 0.24 Wh. Indexed keyword matching over existing chats costs 0.001–0.01 kWh, orders of magnitude less. By routing familiar queries to retrieval first, the intervention reduces redundant generation and surfaces answers the user already has.</p>
       </section>
 
-      <figure class="cs-figure">
-        <div class="cs-figure-media"><video src="Final Edit.mp4" playsinline muted autoplay loop preload="metadata" style="transform: scale(1.11);"></video></div>
+      <figure class="cs-figure cs-has-sound">
+        <div class="cs-figure-media">
+          <video src="Final Edit.mp4#t=0.2" playsinline muted autoplay loop preload="metadata" style="transform: scale(1.11);"></video>
+          <button type="button" class="cs-sound-toggle" aria-label="Unmute video">
+            <i class="ph ph-speaker-simple-x"></i>
+            <span class="cs-sound-label">Sound off</span>
+          </button>
+        </div>
         <figcaption><span class="num">Fig 2.1</span><span>Search-first retrieval surfaces past answers before generating new responses.</span></figcaption>
       </figure>
 
@@ -1149,6 +1187,24 @@
       }, { threshold: 0.35 });
       videos.forEach(v => io.observe(v));
     })();
+
+    // Sound toggle on figures with cs-has-sound
+    document.querySelectorAll(".cs-has-sound").forEach((fig) => {
+      const video = fig.querySelector("video");
+      const btn = fig.querySelector(".cs-sound-toggle");
+      if (!video || !btn) return;
+      const label = btn.querySelector(".cs-sound-label");
+      const icon = btn.querySelector("i");
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        video.muted = !video.muted;
+        const on = !video.muted;
+        btn.classList.toggle("is-on", on);
+        if (label) label.textContent = on ? "Sound on" : "Sound off";
+        if (icon) icon.className = on ? "ph ph-speaker-simple-high" : "ph ph-speaker-simple-x";
+        if (on) video.play().catch(() => {});
+      });
+    });
 
     // Click-to-open figure modal
     (function () {

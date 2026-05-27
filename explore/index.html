@@ -685,7 +685,7 @@
         // Canvas uses tiny webp thumbnails for speed; modal swaps in originals.
         const thumbSrc = it.type === "video"
           ? it.src
-          : it.src.replace(/^Explore\//, "Explore/thumbs/").replace(/\.[^.]+$/, ".webp");
+          : ("thumbs/" + it.src).replace(/\.[^.]+$/, ".webp");
         const media = it.type === "video"
           ? `<video muted loop playsinline preload="none" data-lazy-video><source src="${it.src}" type="video/mp4"></video>`
           : `<img src="${thumbSrc}" alt="${proj.name}" loading="lazy" decoding="async">`;
