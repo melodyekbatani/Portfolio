@@ -26,17 +26,22 @@
     /* Hero matches Work panel: work-intro + project-featured-image (global style.css) */
     .cs-hero-work-featured.project-featured {
       cursor: default;
-      padding: 0 40px 0;
+      padding: 0 40px 24px;
     }
 
     .cs-hero-work-featured .project-featured-image {
       cursor: default;
+      height: auto;
+      min-height: 0;
+      overflow: visible;
     }
 
+    .cs-hero-work-featured .project-featured-image img,
     .cs-hero-work-featured .project-featured-image video {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
       object-position: center bottom;
       display: block;
     }
@@ -66,43 +71,46 @@
     /* ─── Kickers ────────────────────────────────────────────── */
 
     .cs-kicker {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
       text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 16px;
+      color: var(--muted);
+      margin-bottom: 24px;
       display: block;
     }
 
     /* ─── Headings ───────────────────────────────────────────── */
 
     .cs-h2 {
-      font-size: 40px;
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      margin-bottom: 32px;
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin: 0 0 20px;
+      max-width: 40ch;
       text-wrap: balance;
     }
 
     /* subsection heads */
     .cs-subheading {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
       line-height: 1.2;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      color: var(--muted);
+      margin-bottom: 24px;
       display: block;
     }
 
     .cs-h3 {
-      font-size: 40px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      margin-bottom: 16px;
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin: 0 0 12px;
+      text-wrap: balance;
     }
 
     /* ─── Body copy ──────────────────────────────────────────── */
@@ -146,18 +154,18 @@
     }
 
     .cs-meta-item h3 {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
       text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 8px;
+      color: var(--muted);
+      margin-bottom: 14px;
     }
 
     .cs-meta-item p {
       font-size: var(--fs-body);
       font-weight: var(--fw-regular);
-      line-height: var(--lh-body);
+      line-height: var(--lh-loose);
       color: var(--ink);
       text-wrap: pretty;
     }
@@ -178,10 +186,10 @@
       margin-top: 4px;
     }
     .cs-chips .chip {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
       color: var(--ink);
-      background: #f0f0f0;
+      background: var(--bg-subtle);
       padding: 8px 14px;
       border-radius: 6px;
       line-height: 1;
@@ -251,10 +259,11 @@
     }
 
     .cs-video-wrap figcaption {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
       text-transform: uppercase;
+      color: var(--muted);
       color: var(--ink);
       margin-top: 16px;
     }
@@ -315,10 +324,10 @@
       padding: calc(var(--cs-rhythm) * 1.5) 40px;
       background: #ffffff;
       color: var(--ink);
-      text-align: center;
+      text-align: left;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
     }
 
@@ -329,10 +338,10 @@
     }
 
     .cs-impacts-heading {
-      font-size: clamp(56px, 8vw, 120px);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 1;
+      font-size: var(--fs-title-lg);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
       color: var(--ink);
       width: 100%;
       max-width: 22ch;
@@ -340,11 +349,11 @@
     }
 
     .cs-impacts-sub {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
       text-transform: uppercase;
-      color: rgba(17, 17, 17, 0.44);
+      color: var(--muted);
       margin-top: 32px;
     }
 
@@ -372,9 +381,9 @@
       color: var(--ink);
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      text-align: center;
+      text-align: left;
     }
 
     .cs-pitch .cs-kicker {
@@ -383,10 +392,10 @@
     }
 
     .cs-pitch-heading {
-      font-size: clamp(56px, 8vw, 120px);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 1;
+      font-size: var(--fs-title-lg);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
       color: var(--ink);
       width: 100%;
       max-width: 20ch;
@@ -403,9 +412,10 @@
     }
 
     .cs-takeaway h3 {
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 1.3;
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
       margin-bottom: 12px;
     }
 
@@ -447,9 +457,9 @@
     }
 
     .cs-quote cite {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
       text-transform: uppercase;
       color: var(--muted);
       font-style: normal;
@@ -558,101 +568,76 @@
       text-transform: uppercase;
     }
 
-    /* ─── You might also like ────────────────────────────── */
-
-    .cs-also {
-      padding: 0 40px 56px;
-      margin-top: 40px;
-    }
-
-    .cs-also-header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 0;
-    }
-
-    .cs-also-label {
-      font-size: clamp(28px, 3vw, 36px);
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      color: var(--ink);
-      white-space: nowrap;
-    }
-
-    .cs-also-rule {
-      display: none;
-    }
-
-    .cs-also-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .cs-also-item {
+    /* ─── Next project card (matches Adaptive Intelligence template) ─── */
+    .cs-next-wrap { margin-top: var(--cs-rhythm); padding: 0 40px; }
+    .cs-next {
       display: grid;
-      grid-template-columns: 260px 1fr auto;
-      align-items: center;
-      gap: 40px;
-      text-decoration: none;
-      color: var(--ink);
-      border-top: none;
-      transition: opacity 0.2s ease;
-      padding: 6px 0;
-    }
-
-    .cs-also-item:hover {
-      opacity: 0.7;
-    }
-
-    .cs-also-thumb {
-      height: 140px;
+      grid-template-columns: 1fr 1fr;
+      min-height: 360px;
+      background-color: #111;
       overflow: hidden;
-      background: transparent;
+      text-decoration: none;
+      color: #fff;
     }
-
-    .cs-also-thumb img,
-    .cs-also-thumb video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      display: block;
-      background: transparent;
-    }
-
-    .cs-also-info {
+    .cs-next-text {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      justify-content: center;
+      gap: 16px;
+      padding: clamp(40px, 6vw, 72px) clamp(32px, 5vw, 64px);
     }
-
-    .cs-also-category {
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      line-height: 1.25;
-    }
-
-    .cs-also-title {
-      font-size: clamp(36px, 4.2vw, 56px);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 0.96;
+    .cs-next-title {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
+      color: #fff;
+      margin: 0;
       text-wrap: balance;
     }
-
-    .cs-also-arrow {
-      font-size: 18px;
-      color: var(--muted);
-      opacity: 0.85;
+    .cs-next-desc {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: rgba(255,255,255,0.7);
+      margin: 0;
+      max-width: 40ch;
+      text-wrap: pretty;
+    }
+    .cs-next-cta {
+      margin-top: 24px;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
+      text-transform: uppercase;
+      color: #fff;
+      position: relative;
+      align-self: flex-start;
+      padding-bottom: 4px;
+    }
+    .cs-next-cta::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 1px;
+      background: currentColor;
+      transition: width var(--t-slow) var(--ease-out);
+    }
+    .cs-next:hover .cs-next-cta::after { width: 100%; }
+    .cs-next-media { position: relative; overflow: hidden; background: #111; }
+    .cs-next-media img,
+    .cs-next-media video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--t-slow) var(--ease-out);
+    }
+    .cs-next:hover .cs-next-media img,
+    .cs-next:hover .cs-next-media video { transform: scale(1.04); }
+    @media (max-width: 720px) {
+      .cs-next { grid-template-columns: 1fr; min-height: 0; }
+      .cs-next-media { order: 0; aspect-ratio: 16 / 10; }
+      .cs-next-text { order: 1; padding: clamp(24px, 6vw, 40px); }
     }
 
     /* ─── Dividers ───────────────────────────────────────────── */
@@ -685,69 +670,54 @@
       margin: 0 auto;
     }
 
-    /* ─── Bottom Navigation ──────────────────────────────────── */
-
-    .cs-sidenav {
+    /* ─── Bottom TOC (matches Adaptive Intelligence template) ─── */
+    .cs-toc {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      left: 0; right: 0; bottom: 0;
       z-index: 90;
       display: flex;
-      flex-direction: row;
       align-items: center;
-      justify-content: center;
-      gap: 0;
-      padding: 0 80px;
-      height: 28px;
-      background-color: #ffffff;
-      box-shadow: 0 -4px 0 0 #ffffff;
-      transform: translateZ(0);
+      justify-content: space-between;
+      gap: 40px;
+      padding: 0 var(--pad-page);
+      height: var(--nav-h);
+      background: var(--bg);
+      transform: translateY(0);
+      transition: transform var(--t-slow) var(--ease-out), opacity var(--t-base) var(--ease-out);
     }
-
-    .cs-sidenav-indicator {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: var(--dot-size);
-      height: var(--dot-size);
-      border-radius: 50%;
-      background: var(--ink);
+    .cs-toc.is-hidden {
+      transform: translateY(100%);
+      opacity: 0;
       pointer-events: none;
-      transition: none;
     }
-
-    .cs-sidenav-indicator.is-ready {
-      transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms ease;
-    }
-
-    .cs-sidenav-link {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
+    .cs-toc a {
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
       text-transform: uppercase;
-      line-height: 1;
-      text-decoration: none;
       color: var(--muted);
-      transition: none;
-      white-space: nowrap;
-      padding: 4px 40px 4px 24px;
+      text-decoration: none;
+      position: relative;
+      padding: 4px 0;
+      transition: color var(--t-base) var(--ease-out);
     }
-
-    .cs-sidenav-link:hover,
-    .cs-sidenav-link.is-active {
-      color: var(--ink);
+    .cs-toc a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width var(--t-slow) var(--ease-out);
     }
+    .cs-toc a:hover,
+    .cs-toc a.is-active { color: var(--ink); }
+    .cs-toc a:hover::after,
+    .cs-toc a.is-active::after { width: 100%; }
 
-    /* bottom clearance for fixed nav */
-    .cs-page {
-      padding-bottom: 80px;
-    }
-
-    @media (max-width: 768px) {
-      .cs-sidenav {
-        display: none;
-      }
+    @media (max-width: 1100px) {
+      .cs-toc { display: none; }
     }
 
     /* ─── Responsive ─────────────────────────────────────────── */
@@ -828,14 +798,13 @@
 
     <div class="cs-layout">
 
-      <div class="cs-sidenav" role="navigation" aria-label="Page sections">
-        <span class="cs-sidenav-indicator" aria-hidden="true"></span>
-        <a href="#overview" class="cs-sidenav-link">Overview</a>
-        <a href="#problem" class="cs-sidenav-link">Problem</a>
-        <a href="#solution" class="cs-sidenav-link">Solution</a>
-        <a href="#user-research" class="cs-sidenav-link">Research</a>
-        <a href="#reflection" class="cs-sidenav-link">Reflection</a>
-      </div>
+      <aside class="cs-toc" aria-label="Contents">
+        <a href="#overview">Overview</a>
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#user-research">Research</a>
+        <a href="#reflection">Reflection</a>
+      </aside>
 
       <div class="cs-page">
 
@@ -1151,51 +1120,21 @@
         </div>
       </section>
 
-      <!-- You might also like -->
-      <section class="cs-also">
-        <div class="cs-also-header">
-          <span class="cs-also-label">You might also like</span>
-          <div class="cs-also-rule"></div>
-        </div>
-        <ul class="cs-also-list">
-          <li>
-            <a href="/aeri/" class="cs-also-item">
-              <div class="cs-also-thumb">
-                <img src="../Home Page/Aeri.png" alt="Aeri">
-              </div>
-              <div class="cs-also-info">
-                <span class="cs-also-category">UX · Health AI</span>
-                <h4 class="cs-also-title">Aeri</h4>
-              </div>
-              <i class="ph ph-arrow-up-right cs-also-arrow"></i>
-            </a>
-          </li>
-          <li>
-            <a href="/adaptive-intelligence/" class="cs-also-item">
-              <div class="cs-also-thumb">
-                <video src="../Home Page/Google Gemini.mp4" playsinline muted autoplay loop preload="metadata"></video>
-              </div>
-              <div class="cs-also-info">
-                <span class="cs-also-category">UX · AI</span>
-                <h4 class="cs-also-title">Adaptive Intelligence</h4>
-              </div>
-              <i class="ph ph-arrow-up-right cs-also-arrow"></i>
-            </a>
-          </li>
-          <li>
-            <a href="/loam/" class="cs-also-item">
-              <div class="cs-also-thumb">
-                <video src="../Home Page/loam.mp4" playsinline muted autoplay loop preload="metadata"></video>
-              </div>
-              <div class="cs-also-info">
-                <span class="cs-also-category">Product Design</span>
-                <h4 class="cs-also-title">Loam</h4>
-              </div>
-              <i class="ph ph-arrow-up-right cs-also-arrow"></i>
-            </a>
-          </li>
-        </ul>
-      </section>
+      <!-- NEXT PROJECT -->
+      <div class="cs-next-wrap">
+        <a class="cs-next" href="/loam/">
+          <div class="cs-next-text">
+            <h3 class="cs-next-title">Loam</h3>
+            <p class="cs-next-desc">Product design for an early-stage sustainability platform connecting growers to the carbon market.</p>
+            <span class="cs-next-cta">See next project</span>
+          </div>
+          <div class="cs-next-media">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="../Home Page/loam.mp4" type="video/mp4">
+            </video>
+          </div>
+        </a>
+      </div>
 
       <!-- Footer -->
       <footer class="page-footer">
@@ -1250,42 +1189,40 @@
     }
     bindIndicator(document.querySelector("nav"), ".nav-indicator", "a");
 
-    // Side nav: ball indicator + scroll-based active tracking
-    const sideNav = document.querySelector('.cs-sidenav');
-    if (sideNav) {
-      const sideNavBall = sideNav.querySelector('.cs-sidenav-indicator');
-      const sideNavLinks = [...sideNav.querySelectorAll('.cs-sidenav-link')];
-      const sideNavSections = sideNavLinks.map(link => document.querySelector(link.getAttribute('href')));
-      let activeSideNavLink = null;
-      function placeSideNavBall(link, color = '#111111') {
-        if (!link || !sideNavBall) return;
-        const cBox = sideNav.getBoundingClientRect(), lBox = link.getBoundingClientRect();
-        sideNavBall.style.transform = `translate(${lBox.left - cBox.left + 4}px, ${lBox.top - cBox.top + lBox.height / 2}px) translateY(-50%)`;
-        sideNavBall.style.backgroundColor = color;
-      }
-      sideNavLinks.forEach(link => {
-        link.addEventListener('mouseenter', () => placeSideNavBall(link, '#CFCFCF'));
-        link.addEventListener('focus', () => placeSideNavBall(link, '#CFCFCF'));
-      });
-      sideNav.addEventListener('mouseleave', () => { if (activeSideNavLink) placeSideNavBall(activeSideNavLink, '#111111'); });
-      function updateSideNav() {
-        let currentId = null;
-        sideNavSections.forEach(section => {
-          if (!section) return;
-          if (window.scrollY + 100 >= section.getBoundingClientRect().top + window.scrollY - 10) currentId = section.id;
-        });
-        const newActive = sideNavLinks.find(link => link.getAttribute('href') === '#' + currentId) || null;
-        if (newActive !== activeSideNavLink) {
-          activeSideNavLink = newActive;
-          sideNavLinks.forEach(link => link.classList.toggle('is-active', link === activeSideNavLink));
-          if (activeSideNavLink) placeSideNavBall(activeSideNavLink, '#111111');
+    // Bottom TOC: hide when next-project card enters the viewport
+    (function () {
+      const toc = document.querySelector(".cs-toc");
+      const sentinel = document.querySelector(".cs-next-wrap") || document.querySelector(".page-footer");
+      if (!toc || !sentinel || !("IntersectionObserver" in window)) return;
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          toc.classList.toggle("is-hidden", e.isIntersecting);
         }
+      }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
+      io.observe(sentinel);
+    })();
+
+    // Bottom TOC: scroll-spy active state
+    (function () {
+      const tocLinks = [...document.querySelectorAll(".cs-toc a")];
+      if (!tocLinks.length) return;
+      const sections = tocLinks
+        .map(a => document.querySelector(a.getAttribute("href")))
+        .filter(Boolean);
+      function update() {
+        const y = window.scrollY + 140;
+        let activeId = sections[0] && sections[0].id;
+        for (const s of sections) {
+          if (s.offsetTop <= y) activeId = s.id;
+        }
+        tocLinks.forEach(a => {
+          a.classList.toggle("is-active", a.getAttribute("href") === "#" + activeId);
+        });
       }
-      window.addEventListener('scroll', updateSideNav, { passive: true });
-      window.addEventListener('resize', () => { if (activeSideNavLink) placeSideNavBall(activeSideNavLink); });
-      updateSideNav();
-      requestAnimationFrame(() => sideNavBall && sideNavBall.classList.add('is-ready'));
-    }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
 
     const cursor = document.querySelector(".project-cursor");
     if (cursor) {
