@@ -41,7 +41,16 @@
     .cs-next-desc,
     .cs-figure figcaption { text-wrap: pretty; }
 
-    .cs-shell { padding-top: var(--nav-h); }
+    /* Slide-up entrance — in normal flow so the window keeps scrolling
+       (preserves native anchor jumps + the bottom TOC scroll-spy) */
+    .cs-shell {
+      padding-top: var(--nav-h);
+      animation: csSlideUp var(--t-panel) cubic-bezier(0.19, 1, 0.22, 1) backwards;
+    }
+    @keyframes csSlideUp {
+      from { transform: translateY(100vh); }
+      to   { transform: translateY(0); }
+    }
 
     .cs-page {
       padding: 0 var(--pad-page);
@@ -83,7 +92,7 @@
       font-weight: var(--fw-regular);
       line-height: var(--lh-loose);
       color: var(--ink);
-      max-width: 48ch;
+      max-width: 64ch;
       margin: 0;
     }
 
@@ -451,8 +460,8 @@
     /* Reflections */
     .cs-reflections {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px 56px;
+      grid-template-columns: 1fr;
+      gap: 40px;
       counter-reset: refl;
     }
     .cs-reflections .item {
@@ -538,10 +547,14 @@
     .cs-next-media { position: relative; overflow: hidden; background: #111; }
     .cs-next-media img,
     .cs-next-media video {
-      width: 100%; height: 100%;
+      position: absolute;
+      inset: -1px;
+      width: calc(100% + 2px);
+      height: calc(100% + 2px);
       object-fit: cover;
       display: block;
       transition: transform var(--t-slow) var(--ease-out);
+      backface-visibility: hidden;
     }
     .cs-next:hover .cs-next-media img,
     .cs-next:hover .cs-next-media video { transform: scale(1.04); }
