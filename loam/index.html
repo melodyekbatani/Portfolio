@@ -3,62 +3,649 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loam  Melody Ekbatani</title>
+  <title>Loam | Melody Ekbatani</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../style.css">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
-
-    /* ─── Page shell ─────────────────────────────────────────── */
+    /* ─── Loam case study — shared case-study template ──────── */
 
     :root {
-      --cs-rhythm: 104px;
+      --cs-rhythm:    120px;
+      --cs-rhythm-sm: 64px;
+      --cs-measure:   880px;
+      --cs-text:      78ch;
+      --cs-toc-w:     160px;
+      --cs-media-gap: 8px;
     }
-
-    body {
-      background: var(--bg);
-    }
-
-    .cs-panel {
-      padding-top: var(--nav-h);
-    }
-
-    /* ─── Hide indicator until JS places it ─────────────────── */
 
     .nav-indicator { transform: translate(-200px, -200px); }
+    body { background: var(--bg); }
 
-    /* ─── Media stack ────────────────────────────────────────── */
+    /* Orphan / widow control */
+    .cs-hero h1,
+    .cs-block h2,
+    .cs-feature .copy h2,
+    .cs-overview-copy .cs-overview-h,
+    .cs-sub,
+    .cs-principles h3,
+    .cs-reflections h3,
+    .cs-next-title { text-wrap: balance; }
 
-    .loam-page {
-      max-width: 1512px;
-      margin: 0 auto;
+    .cs-block p,
+    .cs-overview-copy p,
+    .cs-feature .copy p,
+    .cs-principles p,
+    .cs-reflections p,
+    .cs-meta-block .value,
+    .cs-hero .meta,
+    .cs-next-desc,
+    .cs-figure figcaption { text-wrap: pretty; }
+
+    /* Slide-up entrance — in normal flow so the window keeps scrolling
+       (preserves native anchor jumps + the bottom TOC scroll-spy) */
+    .cs-shell {
+      padding-top: var(--nav-h);
+      animation: csSlideUp var(--t-panel) cubic-bezier(0.19, 1, 0.22, 1) backwards;
+    }
+    @keyframes csSlideUp {
+      from { transform: translateY(100vh); }
+      to   { transform: translateY(0); }
+    }
+
+    .cs-page {
+      padding: 0 var(--pad-page);
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      padding: var(--cs-rhythm) 40px 80px;
+      gap: var(--cs-rhythm);
     }
+    .cs-prose { max-width: 880px; }
 
-    .loam-media-stack figure {
+    /* Hero */
+    .cs-hero {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      padding: 72px 0 0;
+    }
+    .cs-hero-figure .cs-figure-media {
+      aspect-ratio: auto;
+      height: min(82vh, 820px);
+    }
+    .cs-hero + .cs-stack { margin-top: calc(var(--cs-rhythm) * -1 + 72px); }
+    .cs-hero-title { flex: 1 1 0; min-width: 0; }
+    .cs-hero-copy  { flex: 1 1 0; min-width: 0; }
+    .cs-hero h1 {
+      font-size: var(--fs-title-lg);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
       margin: 0;
-      overflow: hidden;
-      background: #f0f0f0;
+    }
+    .cs-hero .meta {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-loose);
+      color: var(--ink);
+      max-width: 64ch;
+      margin: 0;
     }
 
-    .loam-media-stack img,
-    .loam-media-stack video {
+    /* Figures */
+    .cs-figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+    .cs-figure-media {
+      background: var(--bg-thumb);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: var(--fs-small);
+    }
+    .cs-figure-media img,
+    .cs-figure-media video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+    }
+    .cs-figure figcaption {
+      display: flex;
+      gap: 14px;
+      font-size: var(--fs-small);
+      color: var(--muted);
+      max-width: 110ch;
+    }
+    .cs-figure figcaption .num {
+      letter-spacing: var(--ls-widest);
+      white-space: nowrap;
+    }
+
+    .cs-media-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--cs-media-gap);
+      align-items: start;
+    }
+    .cs-media-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--cs-media-gap);
+      align-items: start;
+    }
+    .cs-media-grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--cs-media-gap);
+      align-items: start;
+    }
+    .cs-media-grid-2 > .cs-figure,
+    .cs-media-grid-3 > .cs-figure,
+    .cs-media-grid-5 > .cs-figure { min-width: 0; width: 100%; }
+    .cs-media-grid-2 .cs-figure-media,
+    .cs-media-grid-3 .cs-figure-media,
+    .cs-media-grid-5 .cs-figure-media {
       width: 100%;
       height: auto;
+    }
+    .cs-media-grid-2 .cs-figure-media { aspect-ratio: 16 / 9; }
+    .cs-media-grid-3 .cs-figure-media { aspect-ratio: 1 / 1; }
+    .cs-media-grid-5 .cs-figure-media { aspect-ratio: 1 / 1; }
+    /* Competitor product shots often ship with a hard white background.
+       Multiply blend drops the white into the tile so all five read
+       as the same grey card. The grid itself also takes the tile
+       colour so the gap between items reads as a single gray strip. */
+    .cs-media-grid-5 { background: var(--bg-thumb); }
+    .cs-media-grid-5 .cs-figure-media img { mix-blend-mode: multiply; }
+    /* The FreeStyle Libre image runs larger than the rest, pull it in. */
+    .cs-media-grid-5 .cs-figure-media img[src*="Competitor Research 4"] {
+      transform: scale(0.78);
+    }
+    /* Tall variant for grids that should run portrait (e.g. the
+       three-feature video grid in the Solution section). */
+    .cs-media-grid-3.tall .cs-figure-media { aspect-ratio: 3 / 4; }
+
+    .cs-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--cs-media-gap);
+    }
+
+    .cs-page > .cs-figure + .cs-figure,
+    .cs-page > .cs-figure + .cs-media-grid-2,
+    .cs-page > .cs-figure + .cs-media-grid-3,
+    .cs-page > .cs-media-grid-2 + .cs-figure,
+    .cs-page > .cs-media-grid-2 + .cs-media-grid-2,
+    .cs-page > .cs-media-grid-2 + .cs-media-grid-3,
+    .cs-page > .cs-media-grid-3 + .cs-figure,
+    .cs-page > .cs-media-grid-3 + .cs-media-grid-2,
+    .cs-page > .cs-media-grid-3 + .cs-media-grid-3,
+    .cs-page > .cs-stack + .cs-figure,
+    .cs-page > .cs-stack + .cs-media-grid-2,
+    .cs-page > .cs-stack + .cs-media-grid-3,
+    .cs-page > .cs-figure + .cs-stack,
+    .cs-page > .cs-media-grid-2 + .cs-stack,
+    .cs-page > .cs-media-grid-3 + .cs-stack {
+      margin-top: calc(var(--cs-rhythm) * -1 + var(--cs-media-gap));
+    }
+
+    /* Overview */
+    .cs-overview {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+    .cs-meta-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 72px;
+      row-gap: 40px;
+    }
+    .cs-meta-block .label {
       display: block;
-      object-fit: contain;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .cs-meta-block .value {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-loose);
+      color: var(--ink);
+    }
+    .cs-meta-block ul {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 6px;
+      font-size: var(--fs-body);
+      color: var(--ink);
+    }
+    .cs-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .cs-chips .chip {
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      color: var(--ink);
+      background: var(--bg-subtle);
+      padding: 8px 14px;
+      border-radius: 6px;
+      line-height: 1;
+    }
+    .cs-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .cs-tools .tool {
+      width: 48px; height: 48px;
+      background: var(--bg-subtle);
+      display: grid; place-items: center;
+      overflow: hidden;
+    }
+    /* Tool logos render in full brand color, centered on the tile. */
+    .cs-tools .tool img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* These three logos are drawn white-on-transparent in their
+       source files; invert them so they read as black on the
+       light grey tile. */
+    .cs-tools .tool img[src*="OpenAI"],
+    .cs-tools .tool img[src*="Midjourney"],
+    .cs-tools .tool img[src*="Perplexity"] {
+      filter: invert(1);
+    }
+    /* Claude and After Effects ship with their own rounded-corner
+       backgrounds. Scale them up so the corners are cropped by
+       the tile and they read as flat colour tiles. */
+    .cs-tools .tool img[src*="Claude"],
+    .cs-tools .tool img[src*="aftereffects"] {
+      transform: scale(1.18);
+    }
+    /* OpenAI, Midjourney, and Gemini source files run edge-to-edge.
+       Pull them in slightly so they breathe inside the tile. */
+    .cs-tools .tool img[src*="OpenAI"],
+    .cs-tools .tool img[src*="Midjourney"],
+    .cs-tools .tool img[src*="Gemini"] {
+      transform: scale(0.78);
+    }
+    .cs-overview-copy .cs-overview-h {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      color: var(--ink);
+      margin: 0 0 24px;
+      max-width: 28ch;
+      text-wrap: balance;
+    }
+    .cs-overview-copy p {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      margin: 0;
+      max-width: var(--cs-text);
+    }
+    .cs-overview-copy p + p { margin-top: 20px; }
+
+    /* Section + kicker + headings */
+    .cs-section { scroll-margin-top: calc(var(--nav-h) + 32px); }
+    .cs-kicker {
+      display: block;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-widest);
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .cs-block h2 {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin: 0 0 20px;
+      text-wrap: balance;
+      max-width: 40ch;
+    }
+    .cs-block p {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      max-width: var(--cs-text);
+      margin: 0;
+      text-wrap: pretty;
+    }
+    .cs-block p + p { margin-top: 16px; }
+    .cs-sub {
+      display: block;
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      color: var(--ink);
+      margin: 32px 0 12px;
+      max-width: 28ch;
+    }
+    .cs-block .cs-sub:first-child { margin-top: 0; }
+
+    /* Principles / Insights */
+    .cs-principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      counter-reset: prin;
+    }
+    .cs-principles .item {
+      counter-increment: prin;
+      padding-top: 14px;
+    }
+    .cs-principles .item::before {
+      content: counter(prin, decimal-leading-zero);
+      display: block;
+      font-size: var(--fs-micro);
+      letter-spacing: var(--ls-widest);
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .cs-principles h3 {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin: 0 0 8px;
+    }
+    .cs-principles p {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      margin: 0;
+    }
+
+    /* Reflections */
+    .cs-reflections {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      counter-reset: refl;
+    }
+    .cs-reflections .item {
+      counter-increment: refl;
+      padding-top: 14px;
+    }
+    .cs-reflections .item::before {
+      content: counter(refl, decimal-leading-zero);
+      display: block;
+      font-size: var(--fs-micro);
+      letter-spacing: var(--ls-widest);
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .cs-reflections h3 {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      margin: 0 0 8px;
+    }
+    .cs-reflections p {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      margin: 0;
+    }
+
+    /* Next project */
+    .cs-next-wrap { margin-top: var(--cs-rhythm); }
+    .cs-next {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 360px;
+      background-color: #111;
+      overflow: hidden;
+      text-decoration: none;
+      color: #fff;
+    }
+    .cs-next-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      padding: clamp(40px, 6vw, 72px) clamp(32px, 5vw, 64px);
+    }
+    .cs-next-title {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
+      color: #fff;
+      margin: 0;
+    }
+    .cs-next-desc {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: rgba(255,255,255,0.7);
+      margin: 0;
+      max-width: 40ch;
+    }
+    .cs-next-cta {
+      margin-top: 24px;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
+      text-transform: uppercase;
+      color: #fff;
+      position: relative;
+      align-self: flex-start;
+      padding-bottom: 4px;
+    }
+    .cs-next-cta::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 1px;
+      background: currentColor;
+      transition: width var(--t-slow) var(--ease-out);
+    }
+    .cs-next:hover .cs-next-cta::after { width: 100%; }
+
+    .cs-next-media { position: relative; overflow: hidden; background: #111; }
+    .cs-next-media img,
+    .cs-next-media video {
+      position: absolute;
+      inset: -1px;
+      width: calc(100% + 2px);
+      height: calc(100% + 2px);
+      object-fit: cover;
+      display: block;
+      transition: transform var(--t-slow) var(--ease-out);
+      backface-visibility: hidden;
+    }
+    .cs-next:hover .cs-next-media img,
+    .cs-next:hover .cs-next-media video { transform: scale(1.04); }
+
+    /* Bottom TOC */
+    .cs-toc {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 0 var(--pad-page);
+      height: var(--nav-h);
+      background: var(--bg);
+      transform: translateY(0);
+      transition: transform var(--t-slow) var(--ease-out), opacity var(--t-base) var(--ease-out);
+    }
+    .cs-toc.is-hidden {
+      transform: translateY(100%);
+      opacity: 0;
       pointer-events: none;
     }
+    .cs-toc a {
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      padding: 4px 0;
+      transition: color var(--t-base) var(--ease-out);
+    }
+    .cs-toc a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width var(--t-slow) var(--ease-out);
+    }
+    .cs-toc a:hover,
+    .cs-toc a.is-active { color: var(--ink); }
+    .cs-toc a:hover::after,
+    .cs-toc a.is-active::after { width: 100%; }
 
-    @media (max-width: 768px) {
-      .loam-page {
-        padding: calc(var(--nav-h) + 24px) 20px 48px;
-      }
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .cs-toc { display: none; }
+    }
+    @media (max-width: 720px) {
+      :root { --cs-rhythm: 80px; --cs-rhythm-sm: 48px; }
+      .cs-page { padding: 0 var(--pad-page-sm); }
+      .cs-hero { flex-direction: column; gap: 16px; padding: 24px 0 8px; }
+      .cs-overview { gap: 48px; }
+      .cs-meta-col { grid-template-columns: 1fr; row-gap: 32px; }
+      .cs-principles { grid-template-columns: 1fr; gap: 24px; }
+      .cs-media-grid-2, .cs-media-grid-3 { grid-template-columns: 1fr; }
+      .cs-reflections { grid-template-columns: 1fr; gap: 24px; }
+      .cs-next { grid-template-columns: 1fr; min-height: 0; }
+      .cs-next-media { order: 0; aspect-ratio: 16 / 10; }
+      .cs-next-text { order: 1; padding: clamp(24px, 6vw, 40px); }
     }
 
+    .page-footer { margin-top: var(--cs-rhythm); }
+
+    /* ─── Click-to-open figure modal (mirrors explore modal) ─── */
+    .cs-figure-media:has(img),
+    .cs-figure-media:has(video) { cursor: zoom-in; }
+
+    .cs-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: #ffffff;
+      color: var(--ink);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 220ms ease, visibility 0s linear 220ms;
+    }
+    .cs-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity 220ms ease, visibility 0s linear 0s;
+    }
+    .cs-modal-brand {
+      position: absolute;
+      top: 28px;
+      left: clamp(24px, 4vw, 56px);
+      font-size: var(--fs-small);
+      color: var(--ink);
+      font-weight: var(--fw-medium);
+    }
+    .cs-modal-close {
+      position: absolute;
+      top: 28px;
+      right: clamp(24px, 4vw, 56px);
+      background: transparent;
+      border: 0;
+      padding: 8px 4px;
+      margin: 0;
+      cursor: pointer;
+      font: inherit;
+      font-size: var(--fs-small);
+      color: var(--ink);
+      z-index: 5;
+      transition: opacity 160ms ease;
+    }
+    .cs-modal-close:hover { opacity: 0.6; }
+    .cs-modal-stage {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: clamp(40px, 6vh, 80px) clamp(80px, 10vw, 160px);
+    }
+    .cs-modal-media {
+      max-width: 100%;
+      max-height: 100%;
+      display: grid;
+      place-items: center;
+      transform: translateY(8px);
+      transition: transform 280ms cubic-bezier(.2,.7,.2,1);
+    }
+    .cs-modal.is-open .cs-modal-media { transform: translateY(0); }
+    .cs-modal-media img,
+    .cs-modal-media video {
+      display: block;
+      max-width: 100%;
+      max-height: calc(100vh - 200px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .cs-modal-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      color: var(--ink);
+      font-size: 32px;
+      width: 56px; height: 56px;
+      z-index: 6;
+      display: grid;
+      place-items: center;
+      transition: opacity 160ms ease, transform 200ms ease;
+      opacity: 0.6;
+    }
+    .cs-modal-arrow:hover { opacity: 1; }
+    .cs-modal-arrow.prev { left: clamp(12px, 2vw, 32px); }
+    .cs-modal-arrow.next { right: clamp(12px, 2vw, 32px); }
+    .cs-modal-arrow.prev:hover { transform: translateY(-50%) translateX(-3px); }
+    .cs-modal-arrow.next:hover { transform: translateY(-50%) translateX(3px); }
+    .cs-modal-caption {
+      position: absolute;
+      left: clamp(24px, 4vw, 56px);
+      right: clamp(24px, 4vw, 56px);
+      bottom: clamp(24px, 4vh, 48px);
+      font-size: var(--fs-small);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      max-width: 720px;
+      display: flex;
+      gap: 14px;
+    }
+    .cs-modal-caption .num {
+      letter-spacing: var(--ls-widest);
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
@@ -66,48 +653,206 @@
   <nav>
     <span class="nav-indicator" aria-hidden="true"></span>
     <a href="/" class="t-small" data-nav="home">Home</a>
-    <a href="/#work" class="t-small" data-nav="work">Work</a>
+    <a href="/#work" class="t-small" data-nav="work" data-open-work-link>Work</a>
     <a href="/about" class="t-small">About</a>
     <a href="/explore" class="t-small">Explore</a>
     <a href="../Melody Ekbatani_2026 Resume .pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
   </nav>
 
-  <div class="cs-panel">
+  <div class="cs-shell">
 
-    <!-- Hero -->
-    <div class="cs-hero-work">
-      <div class="work-intro">
-        <div class="work-intro-title">
-          <h1 class="work-heading">Loam</h1>
+    <aside class="cs-toc" aria-label="Contents">
+      <a href="#overview">Overview</a>
+      <a href="#context">Context</a>
+      <a href="#research">Research</a>
+      <a href="#system">Design System</a>
+      <a href="#solution">Solution</a>
+      <a href="#outcomes">Outcomes</a>
+    </aside>
+
+    <article class="cs-page">
+
+      <!-- HERO -->
+      <header class="cs-hero">
+        <div class="cs-hero-title">
+          <h1>Loam</h1>
         </div>
-        <div class="work-intro-copy">
-          <p class="t-body work-description">Bringing sustainable and local vendors into one platform, helping users discover and shop responsible products.</p>
+        <div class="cs-hero-copy">
+          <p class="meta">A mission-driven marketplace curating sustainable, organic products, designed end-to-end from brand identity to a scalable multi-seller system.</p>
         </div>
-        <div class="work-intro-spacer" aria-hidden="true"></div>
+      </header>
+
+      <!-- HERO MEDIA STACK -->
+      <div class="cs-stack">
+        <figure class="cs-figure cs-hero-figure">
+          <div class="cs-figure-media"><video src="1 - Hero video.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+          <figcaption><span class="num">Fig 1.0</span><span>Loam — for Earth, with love.</span></figcaption>
+        </figure>
       </div>
+
+      <!-- OVERVIEW -->
+      <section id="overview" class="cs-section cs-overview">
+        <div class="cs-meta-col">
+          <div class="cs-meta-block">
+            <span class="label">Timeline</span>
+            <div class="value">10 months<br>Nov 2024 – Aug 2025</div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Role</span>
+            <div class="value">Product &amp; Brand Designer (Freelance), leading end-to-end product design, design systems, and brand identity</div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Scope</span>
+            <div class="cs-chips">
+              <span class="chip">UX/UI Architecture</span>
+              <span class="chip">Design Systems</span>
+              <span class="chip">Brand Identity</span>
+              <span class="chip">Art Direction</span>
+            </div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Tools</span>
+            <div class="cs-chips">
+              <span class="chip">Figma</span>
+              <span class="chip">Shopify</span>
+              <span class="chip">Adobe Creative Cloud</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-overview-copy">
+          <span class="cs-kicker">Overview</span>
+          <h2 class="cs-overview-h">For Earth, with love</h2>
+          <p>Loam is a mission-driven marketplace that curates sustainable, organic products, all things good for you and the Earth. I led end-to-end product and brand design across the experience, from UX/UI architecture and a scalable design system to the brand identity that ties it together.</p>
+          <p>The marketplace brings vetted, conscious brands together across Wardrobe, Beauty &amp; Wellness, Living, and Children, giving shoppers one trusted place to discover better-for-you alternatives without sacrificing quality or aesthetics.</p>
+        </div>
+      </section>
+
+      <!-- CONTEXT -->
+      <section id="context" class="cs-section cs-block">
+        <span class="cs-kicker">Context</span>
+        <h2>Scaling a multi-seller ecosystem</h2>
+        <p>Loam needed to grow from a small curated shop into a multi-seller marketplace supporting hundreds of independent, mission-aligned vendors, without losing the consistency, trust, and editorial warmth that define the brand.</p>
+        <p>That meant designing not just a storefront, but the systems behind it: how sellers join, list, and manage products, and how shoppers discover, trust, and return.</p>
+      </section>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media"><img src="3 - Intro graphic.webp" alt="Loam brand and product overview" loading="lazy"></div>
+        <figcaption><span class="num">Fig 2.0</span><span>One trusted home for sustainable brands across wardrobe, beauty, living, and children.</span></figcaption>
+      </figure>
+
+      <!-- RESEARCH -->
+      <section id="research" class="cs-section cs-block">
+        <span class="cs-kicker">Research</span>
+        <h2>Understanding conscious shoppers</h2>
+        <p>I studied how people discover and decide on sustainable products: what builds trust, what creates doubt, and where conventional marketplaces fall short for values-driven shoppers.</p>
+        <p>These signals shaped an experience that leads with transparency and curation rather than endless choice, helping shoppers feel confident that everything on Loam is genuinely good for them and the Earth.</p>
+      </section>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media"><video src="5 - Reddit research.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+        <figcaption><span class="num">Fig 3.0</span><span>Community and competitor research grounded the experience in real shopper behavior.</span></figcaption>
+      </figure>
+
+      <!-- DESIGN SYSTEM -->
+      <section id="system" class="cs-section cs-block">
+        <span class="cs-kicker">Design System</span>
+        <h2>40+ reusable components, one coherent brand</h2>
+        <p>I built a scalable design system of 40+ reusable components to ensure consistency across product and marketing touchpoints, so every surface, from storefront to seller portal to campaign, reads as one coherent brand.</p>
+
+        <span class="cs-sub">Brand identity</span>
+        <p>The identity is warm, aspirational, and values-driven, expressed through "For Earth, With Love." Typography, color, and imagery work together to feel premium and editorial while staying approachable, reinforcing trust without ever feeling clinical.</p>
+      </section>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media"><video src="4 - brand design graphic.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+        <figcaption><span class="num">Fig 4.0</span><span>A scalable system of type, color, and components, built for consistency at scale.</span></figcaption>
+      </figure>
+
+      <!-- SOLUTION -->
+      <section id="solution" class="cs-section cs-block">
+        <span class="cs-kicker">Solution</span>
+        <h2>End-to-end workflows for a multi-seller marketplace</h2>
+        <p>I defined the core workflows across onboarding, seller portals, shipping, returns, and customer journeys, then integrated Shopify Collective to scale a multi-seller ecosystem supporting 300+ vendors.</p>
+        <p>The result connects both sides of the marketplace: tools that make it simple for vendors to join and operate, and a shopping experience that stays clear, trustworthy, and editorial throughout.</p>
+      </section>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media"><video src="2 - Key Screens.mp4" playsinline muted autoplay loop preload="metadata"></video></div>
+        <figcaption><span class="num">Fig 5.0</span><span>Key screens across the shopping and seller experience.</span></figcaption>
+      </figure>
+
+      <!-- OUTCOMES -->
+      <section id="outcomes" class="cs-section cs-block">
+        <span class="cs-kicker">Outcomes</span>
+        <h2>A coherent marketplace, built to scale</h2>
+        <p>Loam launched as a unified, scalable marketplace supporting 300+ vendors, with a design system and brand identity that keep the experience consistent across product and marketing as the catalog grows.</p>
+      </section>
+
+    </article>
+
+    <!-- NEXT PROJECT -->
+    <div class="cs-next-wrap">
+      <a class="cs-next" href="/stashit/">
+        <div class="cs-next-text">
+          <h3 class="cs-next-title">Stash It</h3>
+          <p class="cs-next-desc">A platform tracking style inspiration through connecting screenshots, carts, and social feeds.</p>
+          <span class="cs-next-cta">See next project</span>
+        </div>
+        <div class="cs-next-media">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="../Home Page/Stashit video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </a>
     </div>
 
-    <!-- Media -->
-    <main class="loam-page">
-      <section class="loam-media-stack" aria-label="Loam media">
-        <figure>
-          <video src="1 - Hero video.mp4" playsinline muted autoplay loop preload="metadata"></video>
-        </figure>
-        <figure>
-          <video src="2 - Key Screens.mp4" playsinline muted autoplay loop preload="metadata"></video>
-        </figure>
-        <figure>
-          <img src="3 - Intro graphic .webp" alt="Loam brand and intro" loading="lazy">
-        </figure>
-        <figure>
-          <video src="4 - brand design graphic .mp4" playsinline muted autoplay loop preload="metadata"></video>
-        </figure>
-        <figure>
-          <video src="5 - Reddit research .mp4" playsinline muted autoplay loop preload="metadata"></video>
-        </figure>
-      </section>
-    </main>
+    <footer class="page-footer">
+      <h2 class="page-footer-title">Let's Work</h2>
+      <div class="page-footer-grid">
+        <div class="page-footer-column">
+          <p class="page-footer-heading">Find me</p>
+          <div class="page-footer-links">
+            <a href="https://linkedin.com/in/melodyekbatani" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github</a>
+            <a href="../Melody Ekbatani_2026 Resume .pdf" target="_blank" rel="noreferrer">Resume</a>
+          </div>
+        </div>
+        <div class="page-footer-column">
+          <p class="page-footer-heading">Focus</p>
+          <div class="page-footer-links">
+            <p>Product Design</p>
+            <p>Creating AI Systems</p>
+            <p>Storytelling</p>
+          </div>
+        </div>
+        <div class="page-footer-message">
+          <p>Designing through clarity, storytelling, and moments of delight.</p>
+          <a href="mailto:melodyekbatani@gmail.com" rel="noreferrer" style="display: block; margin-top: 16px; font-size: var(--fs-body); font-weight: var(--fw-medium);">melodyekbatani@gmail.com</a>
+        </div>
+      </div>
+      <div class="page-footer-meta"></div>
+    </footer>
 
+  </div>
+
+  <!-- Click-to-open figure modal -->
+  <div class="cs-modal" id="csModal" aria-hidden="true" role="dialog">
+    <div class="cs-modal-brand">Melody Ekbatani</div>
+    <button class="cs-modal-close" id="csModalClose" type="button" aria-label="Close">Close</button>
+
+    <button class="cs-modal-arrow prev" id="csModalPrev" type="button" aria-label="Previous">
+      <i class="ph ph-caret-left"></i>
+    </button>
+    <button class="cs-modal-arrow next" id="csModalNext" type="button" aria-label="Next">
+      <i class="ph ph-caret-right"></i>
+    </button>
+
+    <div class="cs-modal-stage">
+      <div class="cs-modal-media" id="csModalMedia"></div>
+    </div>
+
+    <div class="cs-modal-caption" id="csModalCaption"></div>
   </div>
 
   <script>
@@ -119,9 +864,9 @@
       let activeItem = activeSelector ? container.querySelector(activeSelector) : null;
       function placeIndicator(item, color = "#111111") {
         if (!item) return;
-        const containerBox = container.getBoundingClientRect();
-        const itemBox = item.getBoundingClientRect();
-        indicator.style.transform = `translate(${itemBox.left - containerBox.left + 4}px, ${itemBox.top - containerBox.top + itemBox.height / 2}px) translateY(-50%)`;
+        const cb = container.getBoundingClientRect();
+        const ib = item.getBoundingClientRect();
+        indicator.style.transform = `translate(${ib.left - cb.left + 4}px, ${ib.top - cb.top + ib.height / 2}px) translateY(-50%)`;
         indicator.style.backgroundColor = color;
       }
       if (activeItem) placeIndicator(activeItem);
@@ -131,11 +876,122 @@
         item.addEventListener("focus", () => placeIndicator(item, "#CFCFCF"));
       });
       container.addEventListener("mouseleave", () => { if (activeItem) placeIndicator(activeItem); });
-      window.addEventListener("resize", () => { if (activeItem) placeIndicator(activeItem); });
     }
     bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", null);
-  </script>
 
+    (function () {
+      const toc = document.querySelector(".cs-toc");
+      const sentinel = document.querySelector(".cs-next-wrap");
+      if (!toc || !sentinel || !("IntersectionObserver" in window)) return;
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          toc.classList.toggle("is-hidden", e.isIntersecting);
+        }
+      }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
+      io.observe(sentinel);
+    })();
+
+    (function () {
+      const tocLinks = [...document.querySelectorAll(".cs-toc a")];
+      if (!tocLinks.length) return;
+      const sections = tocLinks
+        .map(a => document.querySelector(a.getAttribute("href")))
+        .filter(Boolean);
+
+      function update() {
+        const y = window.scrollY + 140;
+        let activeId = sections[0] && sections[0].id;
+        for (const s of sections) {
+          if (s.offsetTop <= y) activeId = s.id;
+        }
+        tocLinks.forEach(a => {
+          a.classList.toggle("is-active", a.getAttribute("href") === "#" + activeId);
+        });
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    })();
+
+
+    // Click-to-open figure modal
+    (function () {
+      const modal = document.getElementById("csModal");
+      const mediaSlot = document.getElementById("csModalMedia");
+      const captionEl = document.getElementById("csModalCaption");
+      const closeBtn = document.getElementById("csModalClose");
+      const prevBtn = document.getElementById("csModalPrev");
+      const nextBtn = document.getElementById("csModalNext");
+      if (!modal) return;
+
+      // Collect every figure that has media inside
+      const figures = [...document.querySelectorAll("article.cs-page .cs-figure")]
+        .filter(fig => fig.querySelector(".cs-figure-media img, .cs-figure-media video"));
+
+      const items = figures.map(fig => {
+        const m = fig.querySelector(".cs-figure-media img, .cs-figure-media video");
+        const cap = fig.querySelector("figcaption");
+        const num = cap && cap.querySelector(".num");
+        const txt = cap && cap.querySelector("span:last-child");
+        return {
+          type: m.tagName.toLowerCase(),     // "img" or "video"
+          src: m.getAttribute("src"),
+          alt: m.getAttribute("alt") || "",
+          num: num ? num.textContent : "",
+          caption: txt ? txt.textContent : "",
+        };
+      });
+      let curIdx = 0;
+
+      function render(i) {
+        const it = items[i];
+        if (!it) return;
+        mediaSlot.innerHTML = it.type === "video"
+          ? `<video src="${it.src}" autoplay muted loop playsinline controls></video>`
+          : `<img src="${it.src}" alt="${it.alt}">`;
+        captionEl.innerHTML = it.num || it.caption
+          ? `<span class="num">${it.num}</span><span>${it.caption}</span>`
+          : "";
+        curIdx = i;
+      }
+      function open(i) {
+        render(i);
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+      function close() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        const v = mediaSlot.querySelector("video");
+        if (v) { try { v.pause(); } catch (e) {} }
+        setTimeout(() => { mediaSlot.innerHTML = ""; }, 240);
+        document.body.style.overflow = "";
+      }
+      function next() { render((curIdx + 1) % items.length); }
+      function prev() { render((curIdx - 1 + items.length) % items.length); }
+
+      figures.forEach((fig, i) => {
+        const tile = fig.querySelector(".cs-figure-media");
+        if (!tile) return;
+        tile.addEventListener("click", () => open(i));
+      });
+
+      closeBtn.addEventListener("click", close);
+      prevBtn.addEventListener("click", prev);
+      nextBtn.addEventListener("click", next);
+      modal.addEventListener("click", (e) => {
+        // click outside the media closes the modal
+        if (e.target === modal || e.target.classList.contains("cs-modal-stage")) close();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (!modal.classList.contains("is-open")) return;
+        if (e.key === "Escape") close();
+        if (e.key === "ArrowRight") next();
+        if (e.key === "ArrowLeft") prev();
+      });
+    })();
+  </script>
   <script src="../nav.js" defer></script>
 </body>
 </html>
