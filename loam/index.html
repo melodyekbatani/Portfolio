@@ -70,7 +70,12 @@
     }
     .cs-hero-figure .cs-figure-media {
       aspect-ratio: auto;
-      height: min(82vh, 820px);
+      height: auto;
+    }
+    .cs-hero-figure .cs-figure-media video,
+    .cs-hero-figure .cs-figure-media img {
+      height: auto;
+      object-fit: contain;
     }
     .cs-hero + .cs-stack { margin-top: calc(var(--cs-rhythm) * -1 + 72px); }
     .cs-hero-title { flex: 1 1 0; min-width: 0; }
@@ -408,7 +413,7 @@
     .cs-next {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 360px;
+      min-height: 440px;
       background-color: #111;
       overflow: hidden;
       text-decoration: none;
