@@ -14,8 +14,9 @@
     }
 
     body.explore-page {
-      overflow: hidden;
-      height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      min-height: 100vh;
       background-color: var(--bg, #ffffff);
       color: #1a232c;
     }
@@ -52,7 +53,6 @@
       to   { transform: translate3d(0, 110%, 0); }
     }
     .explore-bg,
-    .explore-stage,
     .explore-meta,
     .explore-hint {
       animation: exploreSlideUp 1500ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -61,29 +61,47 @@
       transform: translateZ(0);
     }
     body.is-exiting .explore-bg,
-    body.is-exiting .explore-stage,
     body.is-exiting .explore-meta,
     body.is-exiting .explore-hint {
       animation: exploreSlideDown 1300ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    /* Stage is a tall scrolling masonry, so it fades in (a transform slide
+       would offset by its own large height). */
+    .explore-stage {
+      animation: exploreFadeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes exploreFadeIn {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    body.is-exiting .explore-stage {
+      animation: exploreFadeOut 450ms ease forwards;
+    }
+    @keyframes exploreFadeOut {
+      from { opacity: 1; }
+      to   { opacity: 0; }
     }
     body.explore-page nav a { color: #1a232c; }
     body.explore-page nav .nav-indicator { background: #1a232c; }
 
     .explore-stage {
-      position: fixed;
-      inset: 0;
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
       cursor: default;
-      user-select: none;
-      z-index: 0;
-      overflow: hidden;
     }
 
+    /* Responsive masonry: equal-width columns, organic varied heights */
     .explore-world {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 0; height: 0;
-      will-change: transform;
+      column-count: 5;
+      column-gap: 22px;
+      max-width: 1640px;
+      margin: 0 auto;
+      padding: 132px 40px 140px;
     }
+    @media (max-width: 1280px) { .explore-world { column-count: 4; } }
+    @media (max-width: 960px)  { .explore-world { column-count: 3; } }
+    @media (max-width: 640px)  { .explore-world { column-count: 2; column-gap: 14px; padding: 108px 16px 132px; } }
 
     /* Big faded title at the center of the canvas — pans with the world */
     .explore-title {
@@ -111,28 +129,28 @@
       margin-top: 4px;
     }
 
-    /* Individual scattered thumbnails */
+    /* Masonry tiles — seeded per-item rotation/gap/inset keep the random vibe */
     .explore-thumb {
-      position: absolute;
+      break-inside: avoid;
+      width: 100%;
+      margin: 0 0 var(--gap, 44px);
       cursor: pointer;
-      transform: var(--base-transform);
-      transition: filter 320ms ease;
-      will-change: transform;
+      position: relative;
+      transition: transform 360ms cubic-bezier(0.16, 1, 0.3, 1), filter 320ms ease;
     }
     .explore-thumb:hover {
-      z-index: 1000 !important;     /* always on top of siblings */
-      filter: drop-shadow(0 4px 14px rgba(0,0,0,0.14));
+      transform: scale(1.04);
+      z-index: 5;
+      filter: drop-shadow(0 10px 26px rgba(0,0,0,0.16));
     }
 
+    /* Smaller media centered in the cell, with whitespace around it */
     .explore-thumb-media {
       display: block;
       overflow: hidden;
-      transform-origin: center;
-      transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform;
-    }
-    .explore-thumb:hover .explore-thumb-media {
-      transform: scale(3.2);
+      border-radius: var(--radius, 4px);
+      width: var(--media-w, 68%);
+      margin: 0 auto;
     }
 
     /* Meta block content swaps smoothly on hover */
@@ -161,6 +179,8 @@
       height: auto;        /* keep natural aspect, no crop */
       object-fit: contain;
     }
+    /* Per-item nudge to hide thin edge/letterbox seams on specific videos */
+    .explore-thumb-media video.scaled { transform: scale(1.02); }
 
     /* Bottom bar — full viewport width, white, padding matches the top
        nav so the page reads as nav + canvas + bar. Hover text replaces
@@ -272,6 +292,7 @@
       height: auto;
       object-fit: contain;
     }
+    .explore-modal-media video.scaled { transform: scale(1.02); }
 
     .explore-modal-topnav {
       position: absolute;
@@ -521,7 +542,7 @@
           { src: EX + "Mysun/MySun Solar Panel 3.png",        type: "image", w: 141, label: "Solar panel alternate view." },
           { src: EX + "Mysun/MySun Solar Panel 4.png",        type: "image", w: 141, label: "Solar panel concept render." },
           { src: EX + "Mysun/MySun photos.png",              type: "image", w: 150, label: "Documentation of MySun in context." },
-          { src: EX + "Mysun/Mysun marketing video.mp4",      type: "video", w: 141, label: "MySun marketing video." },
+          { src: EX + "Mysun/Mysun marketing video.mp4",      type: "video", w: 141, scale: true, sound: true, label: "MySun marketing video." },
           { src: EX + "Mysun/Biking to power.png",            type: "image", w: 141, label: "Concept exploration: biking to power study." },
           { src: EX + "Mysun/Collaborative practice.png",     type: "image", w: 141, label: "Studio collaborative practice." },
           { src: EX + "Mysun/Speedstac apartment design.jpg", type: "image", w: 150, label: "Speedstac apartment massing study." },
@@ -567,174 +588,74 @@
     }
     const rand = mulberry32(7);
 
-    // Scatter region (world units). Sized to viewport so every item fits
-    // on one screen — no panning required to see them all.
-    const NAV_TOP   = 120;     /* generous nav clearance */
-    const CHROME_B  = 80;
-    /* Spread fits inside the viewport (minus nav top + bottom bar) so
-       nothing gets cut off; PAD keeps items visually separated. */
-    const SPREAD_X = Math.max(900, window.innerWidth  - 120);
-    const SPREAD_Y = Math.max(500, window.innerHeight - NAV_TOP - CHROME_B);
-    /* Offset the scatter vertically so the y-range clears the fixed nav at
-       top and bottom bar — world origin is centered, but items are biased
-       down by (CHROME_B - NAV_TOP) / 2. */
-    const Y_OFFSET = (NAV_TOP - CHROME_B) / 2;
-    const PAD     = 20;
-    const placed = []; // { x, y, w, h }
-
-    function rectsOverlap(a, b, pad) {
-      return !(a.x + a.w + pad <= b.x ||
-               b.x + b.w + pad <= a.x ||
-               a.y + a.h + pad <= b.y ||
-               b.y + b.h + pad <= a.y);
-    }
-
-    /* Collision-checked placement. We try many random candidates per item,
-       reject anything that overlaps already-placed rects (with PAD), and
-       keep the best (most empty-feeling) spot. Items are sorted
-       largest-first so big rects don't get squeezed into leftover gaps. */
-    const TOTAL_ITEMS = projects.reduce((n, p) => n + p.items.length, 0);
-    const SIZE_SCALE = 0.58;
-    const GAP = 28; // min visual gap between any two items
-
-    // Build a flat list of all items with stable identity, then sort by size.
-    // Height estimate is over-generous (1.75x w) because portrait media
-    // (phone mockups, pineapples, posters) routinely exceed 1.5x.
+    // Flatten every item, then shuffle with the seeded RNG so the order
+    // feels random but stays stable across reloads.
     const flatItems = [];
     projects.forEach((proj, pIdx) => {
       proj.items.forEach((it, iIdx) => {
-        const w = Math.round(it.w * SIZE_SCALE);
-        const h = Math.round(w * 1.75);
-        flatItems.push({ pIdx, iIdx, it, w, h });
+        flatItems.push({ pIdx, iIdx, it });
       });
     });
-    flatItems.sort((a, b) => (b.w * b.h) - (a.w * a.h));
-
-    function findSpot(w, h) {
-      const halfX = SPREAD_X / 2;
-      const halfY = SPREAD_Y / 2;
-      const minX = -halfX;
-      const maxX =  halfX - w;
-      const minY = -halfY + Y_OFFSET;
-      const maxY =  halfY + Y_OFFSET - h;
-      let best = null;
-      let bestScore = -Infinity;
-      // Try a generous number of random candidates; score by distance to
-      // nearest neighbor so we naturally spread across empty regions.
-      for (let i = 0; i < 220; i++) {
-        const x = minX + rand() * (maxX - minX);
-        const y = minY + rand() * (maxY - minY);
-        const cand = { x, y, w, h };
-        let ok = true;
-        let nearest = Infinity;
-        for (let j = 0; j < placed.length; j++) {
-          const p = placed[j];
-          if (rectsOverlap(cand, p, GAP)) { ok = false; break; }
-          const dx = (x + w/2) - (p.x + p.w/2);
-          const dy = (y + h/2) - (p.y + p.h/2);
-          const d = dx*dx + dy*dy;
-          if (d < nearest) nearest = d;
-        }
-        if (!ok) continue;
-        if (nearest > bestScore) { bestScore = nearest; best = cand; }
-      }
-      // Progressive fallback: relax the gap until we find a spot. Final
-       // resort is a random position (overlap allowed) so items always
-       // appear on the canvas instead of stacking in a corner.
-      if (!best) {
-        for (const relaxGap of [12, 4, 0]) {
-          for (let i = 0; i < 200; i++) {
-            const x = minX + rand() * (maxX - minX);
-            const y = minY + rand() * (maxY - minY);
-            const cand = { x, y, w, h };
-            let ok = true;
-            for (let j = 0; j < placed.length; j++) {
-              if (rectsOverlap(cand, placed[j], relaxGap)) { ok = false; break; }
-            }
-            if (ok) { best = cand; break; }
-          }
-          if (best) break;
-        }
-      }
-      if (!best) {
-        best = {
-          x: minX + rand() * (maxX - minX),
-          y: minY + rand() * (maxY - minY),
-          w, h
-        };
-      }
-      return best;
+    for (let i = flatItems.length - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      [flatItems[i], flatItems[j]] = [flatItems[j], flatItems[i]];
     }
 
-    flatItems.forEach(({ pIdx, iIdx, it, w, h }) => {
-      const spot = findSpot(w, h);
-      placed.push({ x: spot.x, y: spot.y, w, h });
-
-      const proj = projects[pIdx];
-
-        const zi  = Math.floor(rand() * 10); // 0–9 so title (z:5) is sandwiched
-        const baseTransform = `translate(${spot.x}px, ${spot.y}px)`;
-
-        const thumb = document.createElement("div");
-        thumb.className = "explore-thumb";
-        thumb.dataset.project = pIdx;
-        thumb.dataset.image   = iIdx;
-        thumb.style.zIndex = zi;
-        thumb.style.setProperty("--base-transform", baseTransform);
-
-        // Canvas uses tiny webp thumbnails for speed; modal swaps in originals.
-        const thumbSrc = it.type === "video"
-          ? it.src
-          : ("thumbs/" + it.src).replace(/\.[^.]+$/, ".webp");
-        const media = it.type === "video"
-          ? `<video muted loop playsinline preload="none" data-lazy-video><source src="${it.src}" type="video/mp4"></video>`
-          : `<img src="${thumbSrc}" alt="${proj.name}" loading="lazy" decoding="async">`;
-
-        thumb.innerHTML = `<div class="explore-thumb-media" style="width:${w}px;">${media}</div>`;
-
-        thumb.addEventListener("click", () => {
-          if (dragMoved) return;
-          openModal(pIdx, iIdx);
-        });
-        thumb.addEventListener("mouseenter", () => {
-          showMeta(pIdx, iIdx);
-          // Lazy: only start loading + playing the video when the user
-          // hovers it. Keeps initial page load fast (no upfront fetches).
-          const v = thumb.querySelector("video[data-lazy-video]");
-          if (v) {
-            if (v.preload === "none") v.preload = "metadata";
-            v.play().catch(() => {});
-          }
-        });
-        thumb.addEventListener("mouseleave", () => {
-          resetMeta();
-          const v = thumb.querySelector("video[data-lazy-video]");
-          if (v) { try { v.pause(); } catch (e) {} }
-        });
-
-        world.appendChild(thumb);
-    });
-
-    // ─── Mouse-driven pan ──────────────────────────────────
-    // Cursor position alone drives the camera: mouse at center → world
-    // centered; mouse toward an edge → world pans the opposite way to
-    // reveal what's on that side. No drag, no scroll — just move.
-    let camX = 0, camY = 0;          // current (smoothed) camera position
-    let targetX = 0, targetY = 0;    // target driven by mouse
     // dragMoved kept as a no-op for the existing click guard
     let dragMoved = false;
 
-    // Everything already fits on one screen — pan is now a subtle
-    // parallax "look-around" rather than a way to reveal content.
-    const PAN_X = 50;
-    const PAN_Y = 35;
+    // Videos load + play only while on (or near) screen, then pause when
+    // they scroll away — keeps the page light and tiles aren't blank.
+    const videoIO = ("IntersectionObserver" in window)
+      ? new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            const v = e.target;
+            if (e.isIntersecting) {
+              if (v.preload !== "auto") v.preload = "auto";
+              v.play().catch(() => {});
+            } else {
+              try { v.pause(); } catch (err) {}
+            }
+          }
+        }, { rootMargin: "300px 0px" })
+      : null;
 
-    function applyTransform() {
-      world.style.transform = `translate3d(${camX.toFixed(2)}px, ${camY.toFixed(2)}px, 0)`;
-    }
-    applyTransform();
+    flatItems.forEach(({ pIdx, iIdx, it }) => {
+      const proj = projects[pIdx];
 
-    // Cursor pan disabled — canvas is static.
+      // Seeded per-tile variation keeps the random vibe: smaller media at
+      // varied sizes, with varied whitespace around each tile.
+      const mediaW = 56 + Math.round(rand() * 24);   // 56%..80% of the column
+      const gap    = 36 + Math.round(rand() * 28);   // 36..64px below each tile
+
+      const thumb = document.createElement("div");
+      thumb.className = "explore-thumb";
+      thumb.dataset.project = pIdx;
+      thumb.dataset.image   = iIdx;
+      thumb.style.setProperty("--media-w", mediaW + "%");
+      thumb.style.setProperty("--gap", gap + "px");
+
+      // Images use tiny thumbnails (gifs keep .gif to stay animated); modal swaps in originals.
+      const thumbExt = it.src.toLowerCase().endsWith(".gif") ? "gif" : "webp";
+      const thumbSrc = ("thumbs/" + it.src).replace(/\.[^.]+$/, "." + thumbExt);
+      const media = it.type === "video"
+        ? `<video class="${it.scale ? "scaled" : ""}" muted loop playsinline preload="metadata" data-lazy-video><source src="${it.src}" type="video/mp4"></video>`
+        : `<img src="${thumbSrc}" alt="${proj.name}" loading="lazy" decoding="async">`;
+
+      thumb.innerHTML = `<div class="explore-thumb-media">${media}</div>`;
+
+      thumb.addEventListener("click", () => {
+        if (dragMoved) return;
+        openModal(pIdx, iIdx);
+      });
+      thumb.addEventListener("mouseenter", () => showMeta(pIdx, iIdx));
+      thumb.addEventListener("mouseleave", () => resetMeta());
+
+      world.appendChild(thumb);
+
+      const v = thumb.querySelector("video[data-lazy-video]");
+      if (v && videoIO) videoIO.observe(v);
+    });
 
     // ─── Nav indicator (shared) ────────────────────────────
     function bindIndicator(container, indicatorSelector, itemSelector, activeSelector) {
@@ -826,7 +747,7 @@
       const item = proj.items[iIdx];
       curProj = pIdx; curImg = iIdx;
       const media = item.type === "video"
-        ? `<video autoplay muted loop playsinline controls><source src="${item.src}" type="video/mp4"></video>`
+        ? `<video class="${item.scale ? "scaled" : ""}" autoplay ${item.sound ? "" : "muted"} loop playsinline controls><source src="${item.src}" type="video/mp4"></video>`
         : `<img src="${item.src}" alt="${proj.name}">`;
       modalMedia.innerHTML = media;
       modalTitle.textContent = proj.name;
