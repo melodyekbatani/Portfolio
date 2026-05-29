@@ -449,17 +449,6 @@ nav a.active {
   z-index: 0;
 }
 
-/* Mobile: shorten the hero so Work peeks above the bottom edge — strong
-   visual cue that a small swipe-up will reveal it. Scroll-snap helps that
-   gesture complete with a light flick instead of needing a full drag. */
-@media (max-width: 768px) {
-  .hero { height: 88vh; height: 88dvh; }
-  .rail { padding-top: 88vh; padding-top: 88dvh; }
-  html {
-    scroll-snap-type: y proximity;
-  }
-  .hero, .work-panel { scroll-snap-align: start; }
-}
 
 /* Click-driven slide-up: when the user clicks Work, the panel lifts itself
    into view with a transform animation (same feel as the cross-document
