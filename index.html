@@ -5,19 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Melody Ekbatani</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=12">
-  <script>
-    // Arriving with Work intent — either the localStorage flag set by
-    // another page, or a #work URL hash. Pre-position the work panel so
-    // it appears instantly without a slide animation.
-    try {
-      const hasFlag = localStorage.getItem("portfolio-active-panel") === "work";
-      const hasHash = window.location.hash === "#work";
-      if (hasFlag || hasHash) {
-        document.documentElement.classList.add("work-open-preload");
-      }
-    } catch (e) {}
-  </script>
+  <link rel="stylesheet" href="style.css?v=17">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 </head>
 <body>
@@ -62,18 +50,18 @@
         </div>
 
         <div class="hero-thumb">
-          <button type="button" class="hero-thumb-trigger t-small" data-open-work>A glimpse of my work</button>
-          <button type="button" class="hero-thumb-media" data-open-work data-project-hover="View Full Projects" aria-label="Open work page preview">
+          <a href="#work" class="hero-thumb-trigger t-small">A glimpse of my work</a>
+          <a href="#work" class="hero-thumb-media" data-project-hover="View Full Projects" aria-label="Open work page preview">
             <video autoplay muted loop playsinline>
               <source src="Header reel.mp4" type="video/mp4">
             </video>
-          </button>
+          </a>
         </div>
 
       </div>
     </section>
 
-    <section class="work-panel" id="work" aria-hidden="true">
+    <section class="work-panel" id="work">
       <div class="work-panel-inner">
         <div class="work-intro">
           <div class="work-intro-title">
@@ -324,112 +312,58 @@
     const navIndicator = bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", "a.active");
     bindIndicator(document.querySelector(".hero-links"), ".hero-links-indicator", "a");
 
-    const body = document.body;
     const workPanel = document.querySelector(".work-panel");
-    const openWorkTriggers = document.querySelectorAll("[data-open-work]");
     const homeLink = document.querySelector('[data-nav="home"]');
     const workLink = document.querySelector('[data-nav="work"]');
     const projectCursor = document.querySelector(".project-cursor");
     const projectCursorLabel = projectCursor?.querySelector(".project-cursor-label");
     const hoverProjects = document.querySelectorAll("[data-project-hover]");
 
-    function setActiveNav(link) {
-      if (!navIndicator || !homeLink || !workLink) return;
+    // Home → scroll to top (anchor on / would otherwise reload the page).
+    homeLink?.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
-      [homeLink, workLink].forEach((item) => item.classList.remove("active"));
-      link.classList.add("active");
-      navIndicator.setActiveItem(link);
-      navIndicator.placeIndicator(link);
-    }
-
-    function openWorkPanel() {
-      body.classList.add("work-open");
-      workPanel?.setAttribute("aria-hidden", "false");
-      workPanel?.scrollTo({ top: 0 });
-      setActiveNav(workLink);
-    }
-
-    function closeWorkPanel() {
-      body.classList.remove("work-open");
-      workPanel?.setAttribute("aria-hidden", "true");
-      window.scrollTo({ top: 0 });
-      setActiveNav(homeLink);
-    }
-
-    openWorkTriggers.forEach((trigger) => {
-      trigger.addEventListener("click", (event) => {
+    // Click-driven slide-up: any link to #work plays a transform animation
+    // (the panel lifts into view, same feel as the cross-document page
+    // slide), then commits to its natural scroll position so subsequent
+    // scrolling is native.
+    let rising = false;
+    document.querySelectorAll('a[href="#work"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (!workPanel) return;
         event.preventDefault();
-        openWorkPanel();
+        if (rising) return;
+        // If Work is already at/near the top of the viewport, skip the
+        // replay and just snap.
+        if (workPanel.getBoundingClientRect().top <= 4) {
+          workPanel.scrollIntoView({ block: "start" });
+          return;
+        }
+        rising = true;
+        workPanel.classList.add("is-rising");
+        setTimeout(() => {
+          workPanel.classList.remove("is-rising");
+          workPanel.scrollIntoView({ block: "start", behavior: "instant" });
+          rising = false;
+        }, 620);
       });
     });
 
-    homeLink?.addEventListener("click", (event) => {
-      event.preventDefault();
-      closeWorkPanel();
-    });
-
-    // Honor signals from other pages: localStorage flag set by about.html,
-    // or a `#work` hash from links like explore.html's nav.
-    const requestedPanel = window.localStorage.getItem("portfolio-active-panel");
-    window.localStorage.removeItem("portfolio-active-panel");
-    if (requestedPanel === "work" || window.location.hash === "#work") {
-      openWorkPanel();
-    } else {
-      closeWorkPanel();
+    // Active nav reflects whether the hero or Work is in view.
+    if (workPanel && homeLink && workLink && navIndicator) {
+      const setActive = (link) => {
+        [homeLink, workLink].forEach((i) => i.classList.remove("active"));
+        link.classList.add("active");
+        navIndicator.setActiveItem(link);
+        navIndicator.placeIndicator(link);
+      };
+      new IntersectionObserver(
+        (entries) => entries.forEach((e) => setActive(e.isIntersecting ? workLink : homeLink)),
+        { rootMargin: "-40% 0px -55% 0px" }
+      ).observe(workPanel);
     }
-    // Release the preload lock so subsequent open/close cycles animate normally
-    document.documentElement.classList.remove("work-open-preload");
-
-    // When the URL hash changes (e.g. user is already on the home page and
-    // taps "Work" in the mobile menu, which just appends #work without a
-    // full navigation), open/close the panel accordingly.
-    window.addEventListener("hashchange", () => {
-      if (window.location.hash === "#work") openWorkPanel();
-      else closeWorkPanel();
-    });
-
-    // Scroll-to-open (home → work) and scroll-to-close (work → home, when at top).
-    let scrollGuard = false;
-    function maybeOpenFromScroll(deltaY) {
-      if (scrollGuard) return;
-      if (body.classList.contains("work-open")) return;
-      if (deltaY < 6) return;
-      scrollGuard = true;
-      openWorkPanel();
-      setTimeout(() => { scrollGuard = false; }, 1500);
-    }
-    function maybeCloseFromScroll(deltaY) {
-      if (scrollGuard) return;
-      if (!body.classList.contains("work-open")) return;
-      if (deltaY > -6) return;
-      if (workPanel.scrollTop > 4) return;
-      scrollGuard = true;
-      closeWorkPanel();
-      setTimeout(() => { scrollGuard = false; }, 1500);
-    }
-
-    window.addEventListener("wheel", (e) => {
-      if (body.classList.contains("work-open")) maybeCloseFromScroll(e.deltaY);
-      else maybeOpenFromScroll(e.deltaY);
-    }, { passive: true });
-
-    let touchStartY = null;
-    window.addEventListener("touchstart", (e) => {
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-    window.addEventListener("touchmove", (e) => {
-      if (touchStartY === null) return;
-      const dy = touchStartY - e.touches[0].clientY; // +ve = swipe up
-      if (!body.classList.contains("work-open") && dy > 50) {
-        maybeOpenFromScroll(dy);
-        touchStartY = null;
-      } else if (body.classList.contains("work-open") && dy < -50 && workPanel.scrollTop <= 4) {
-        maybeCloseFromScroll(dy);
-        touchStartY = null;
-      }
-    }, { passive: true });
-    window.addEventListener("touchend", () => { touchStartY = null; }, { passive: true });
-
 
     // Single global position tracker  cursor is always at real mouse coords
     if (projectCursor) {

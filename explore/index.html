@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explore | Melody Ekbatani</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../style.css?v=12">
+  <link rel="stylesheet" href="../style.css?v=17">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
     /* ─── Explore: scattered constellation canvas ────────── */
@@ -41,46 +41,8 @@
       will-change: transform;
     }
 
-    /* Slide-up entrance — black panel + canvas + chrome rise from below.
-       End/start at 110% (not 100%) so sub-pixel rounding can't leave a
-       1px sliver at the viewport edge during transition. */
-    @keyframes exploreSlideUp {
-      from { transform: translate3d(0, 110%, 0); }
-      to   { transform: translate3d(0, 0, 0); }
-    }
-    @keyframes exploreSlideDown {
-      from { transform: translate3d(0, 0, 0); }
-      to   { transform: translate3d(0, 110%, 0); }
-    }
-    .explore-bg,
-    .explore-meta,
-    .explore-hint {
-      animation: exploreSlideUp 1500ms cubic-bezier(0.22, 1, 0.36, 1) both;
-      will-change: transform;
-      backface-visibility: hidden;
-      transform: translateZ(0);
-    }
-    body.is-exiting .explore-bg,
-    body.is-exiting .explore-meta,
-    body.is-exiting .explore-hint {
-      animation: exploreSlideDown 1300ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-    /* Stage is a tall scrolling masonry, so it fades in (a transform slide
-       would offset by its own large height). */
-    .explore-stage {
-      animation: exploreFadeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-    @keyframes exploreFadeIn {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    body.is-exiting .explore-stage {
-      animation: exploreFadeOut 450ms ease forwards;
-    }
-    @keyframes exploreFadeOut {
-      from { opacity: 1; }
-      to   { opacity: 0; }
-    }
+    /* Page-load + page-exit transitions are owned by the cross-document
+       View Transitions API in style.css. */
     body.explore-page nav a { color: #1a232c; }
     body.explore-page nav .nav-indicator { background: #1a232c; }
 
@@ -832,26 +794,7 @@
       metaCounter.textContent = "";
     }
 
-    // ─── Slide-down exit on internal navigation ──────────────
-    document.querySelectorAll("a[href]").forEach((link) => {
-      const href = link.getAttribute("href");
-      if (!href || href.startsWith("http") || href.startsWith("mailto") || href.startsWith("#")) return;
-      if (link.getAttribute("target") === "_blank") return;
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const dest = link.href;
-        // mirror about.html signaling so /#work opens the Work panel
-        if (link.getAttribute("data-nav") === "work") {
-          window.localStorage.setItem("portfolio-active-panel", "work");
-        } else if (link.getAttribute("data-nav") === "home") {
-          window.localStorage.setItem("portfolio-active-panel", "home");
-        }
-        document.body.classList.add("is-exiting");
-        setTimeout(() => { window.location.href = dest; }, 1280);
-      });
-    });
-
-    // ─── Modal: scoped to a single project's images ────────
+// ─── Modal: scoped to a single project's images ────────
     const modal        = document.getElementById("exploreModal");
     const modalMedia   = document.getElementById("exploreModalMedia");
     const modalTitle   = document.getElementById("exploreModalTitle");

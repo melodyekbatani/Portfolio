@@ -5,43 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About | Melody Ekbatani</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../style.css?v=13">
+  <link rel="stylesheet" href="../style.css?v=17">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
 
-    /* ─── Slide-up entry ─────────────────────────────────────── */
-
+    /* About is a normal scrolling document — page transitions are owned by
+       the cross-document View Transitions API in style.css. */
     .about-panel {
-      position: fixed;
-      top: calc(var(--nav-h) * -1);
-      left: 0;
-      right: 0;
-      bottom: 0;
       background: #ffffff;
-      transform: translate3d(0, 100%, 0);
-      animation: aboutSlideUp 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      overflow-x: hidden;
-      overflow-y: auto;
-      padding-top: calc(var(--nav-h) * 2);
-      z-index: 8;
-      will-change: transform;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      isolation: isolate;
-    }
-
-    @keyframes aboutSlideUp {
-      from { transform: translate3d(0, 100%, 0); }
-      to   { transform: translate3d(0, 0, 0); }
-    }
-
-    @keyframes aboutSlideDown {
-      from { transform: translate3d(0, 0, 0); }
-      to   { transform: translate3d(0, 105%, 0); }
-    }
-
-    .about-panel.is-exiting {
-      animation: aboutSlideDown 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      padding-top: var(--nav-h);
     }
 
     /* ─── Shell ──────────────────────────────────────────────── */
@@ -1382,26 +1354,7 @@
 
     bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", "a.active");
 
-    // Slide down on all internal navigation away from about page
-    const aboutPanel = document.querySelector(".about-panel");
-    document.querySelectorAll("a[href]").forEach(link => {
-      const href = link.getAttribute("href");
-      // Skip external links and mailto
-      if (!href || href.startsWith("http") || href.startsWith("mailto") || href.startsWith("#")) return;
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (link.hasAttribute("data-open-work-link")) {
-          window.localStorage.setItem("portfolio-active-panel", "work");
-        } else if (link.getAttribute("data-nav") === "home") {
-          window.localStorage.setItem("portfolio-active-panel", "home");
-        }
-        const dest = link.href;
-        aboutPanel?.classList.add("is-exiting");
-        setTimeout(() => { window.location.href = dest; }, 580);
-      });
-    });
-
-    // Highlights unfold: cards start stacked + tilted at center, fan out as
+// Highlights unfold: cards start stacked + tilted at center, fan out as
     // the section scrolls into the viewport, settle into a clean row.
     (function () {
       // Reference the whole section (title + images) so the unfold lands

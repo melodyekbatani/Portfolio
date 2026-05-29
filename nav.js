@@ -84,3 +84,48 @@
     }
   });
 })();
+
+// ─── Case-study "Next project" cards: pause the preview video at a chosen
+//     still frame and play it on hover — same feel as the home Work grid.
+//     Desktop only; on mobile the card video keeps its autoplay/loop.
+(function () {
+  const cards = document.querySelectorAll(".cs-next");
+  if (!cards.length) return;
+
+  const desktop = window.matchMedia("(min-width: 769px)");
+  const stillTime = (v) => parseFloat(v.dataset.stillTime || "4");
+
+  function seekToStill(v) {
+    v.pause();
+    const t = stillTime(v);
+    const apply = () => { try { v.currentTime = Math.min(t, (v.duration || t) - 0.05); } catch (e) {} };
+    if (v.readyState >= 1) apply();
+    else v.addEventListener("loadedmetadata", apply, { once: true });
+  }
+
+  function applyPause() {
+    if (!desktop.matches) return;
+    cards.forEach((card) => {
+      const v = card.querySelector(".cs-next-media video");
+      if (!v) return;
+      v.removeAttribute("autoplay");
+      seekToStill(v);
+    });
+  }
+  applyPause();
+  desktop.addEventListener("change", applyPause);
+
+  cards.forEach((card) => {
+    const v = card.querySelector(".cs-next-media video");
+    if (!v) return;
+    card.addEventListener("mouseenter", () => {
+      if (!desktop.matches) return;
+      try { v.currentTime = v.hasAttribute("data-play-from-still") ? stillTime(v) : 0; } catch (e) {}
+      v.play().catch(() => {});
+    });
+    card.addEventListener("mouseleave", () => {
+      if (!desktop.matches) return;
+      seekToStill(v);
+    });
+  });
+})();

@@ -84,11 +84,48 @@ html {
   -webkit-font-smoothing: antialiased;
   font-kerning: normal;
   text-rendering: optimizeLegibility;
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
   overflow-x: hidden;
+}
+
+/* ─── Page transitions (cross-document View Transitions) ─────── */
+/* Every navigation slides the incoming page up over the outgoing
+   one while the nav stays pinned. Browsers without support just
+   navigate instantly (no broken state). */
+
+@view-transition {
+  navigation: auto;
+}
+
+/* Incoming page rises from the bottom; outgoing page stays put
+   beneath it. New root paints above old root by default. */
+::view-transition-new(root) {
+  animation: vt-page-up 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-old(root) {
+  animation: none;
+}
+
+@keyframes vt-page-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* The nav is lifted into its own snapshot group and held in place,
+   so it's the one element that never moves between pages. */
+::view-transition-group(site-nav) {
+  animation-duration: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root),
+  ::view-transition-old(root) {
+    animation: none;
+  }
 }
 
 .project-cursor {
@@ -226,6 +263,7 @@ nav {
   z-index: 100;
   transform: translateZ(0);
   box-shadow: 0 8px 0 0 var(--bg);
+  view-transition-name: site-nav;
 }
 
 /* Dot indicator replaced by drawn-in underline (kept for JS compatibility) */
@@ -351,20 +389,17 @@ nav a.active {
 }
 
 .hero-thumb-trigger {
-  border: 0;
-  background: transparent;
-  text-align: left;
+  display: inline-block;
   cursor: pointer;
   width: fit-content;
 }
 
 .hero-thumb-media {
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background-color: var(--ink);
-  border: 0;
-  padding: 0;
   cursor: pointer;
 }
 
@@ -376,48 +411,50 @@ nav a.active {
 
 /* ─── Work Header ────────────────────────────────────────── */
 
+/* The hero is fixed behind; the Work section is normal content sitting
+   above it (z-index:1, opaque). As the document scrolls, Work rises up
+   over the fixed hero — the "slide up" effect, achieved with pure native
+   scroll instead of a JS-driven panel. The hero is scoped fixed only on
+   desktop; mobile keeps a normal stacked layout. */
 .work-panel {
-  position: fixed;
-  top: calc(var(--nav-h) * -1);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 8;
+  position: relative;
+  z-index: 1;
   background: var(--bg);
-  transform: translate3d(0, 100%, 0);
-  transition: transform var(--t-panel) cubic-bezier(0.19, 1, 0.22, 1);
-  pointer-events: none;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  padding-top: calc(var(--nav-h) * 2);
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  isolation: isolate;
-}
-
-html.work-open-preload .work-panel {
-  transform: translate3d(0, 0, 0);
-  transition: none;
-  pointer-events: auto;
-}
-
-html.work-open-preload body {
-  overflow: hidden;
-}
-
-body.work-open {
-  overflow: hidden;
-}
-
-body.work-open .work-panel {
-  transform: translate3d(0, 0, 0);
-  pointer-events: auto;
 }
 
 .work-panel-inner {
-  min-height: calc(100vh - var(--nav-h));
   padding-bottom: 0;
+}
+
+@media (min-width: 769px) {
+  .rail { padding-top: 100vh; }
+  .hero {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    min-height: 0;
+    z-index: 0;
+  }
+}
+
+/* Click-driven slide-up: when the user clicks Work, the panel lifts itself
+   into view with a transform animation (same feel as the cross-document
+   page slide). Scroll-down still reveals it naturally without this class. */
+.work-panel.is-rising {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: 50;             /* below nav (z=100) so nav stays pinned on top */
+  overflow-y: auto;
+  animation: workRise 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes workRise {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
 }
 
 .work-intro {
