@@ -4,8 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explore | Melody Ekbatani</title>
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../style.css?v=17">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="An archive of explorations across motion, brand, architecture, and code.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Melody Ekbatani">
+  <meta property="og:title" content="Explore — Melody Ekbatani">
+  <meta property="og:description" content="An archive of explorations across motion, brand, architecture, and code.">
+  <meta property="og:image" content="https://melodyekbatani.com/share-card.png?v=2">
+  <meta property="og:url" content="https://melodyekbatani.com/explore/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Explore — Melody Ekbatani">
+  <meta name="twitter:description" content="An archive of explorations across motion, brand, architecture, and code.">
+  <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=2">
+  <link rel="stylesheet" href="../style.css?v=29">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
     /* ─── Explore: scattered constellation canvas ────────── */
@@ -63,7 +77,7 @@
     }
     @media (max-width: 1280px) { .explore-world { column-count: 4; } }
     @media (max-width: 960px)  { .explore-world { column-count: 3; } }
-    @media (max-width: 640px)  { .explore-world { column-count: 2; column-gap: 14px; padding: 108px 16px 132px; } }
+    @media (max-width: 640px)  { .explore-world { column-count: 3; column-gap: 8px; padding: 108px 20px 132px; } }
 
     /* Big faded title at the center of the canvas — pans with the world */
     .explore-title {
@@ -422,20 +436,20 @@
         name: "Field / Structure",
         desc: "Hand-coded project reinterpreting two abstract artworks using only HTML, CSS, and JavaScript, translating composition, structure, and movement into a responsive web experience.",
         href: "https://melodyekbatani.github.io/extra-credit/",
-        items: [ { src: EX + "Coding/Field-Structure.png", type: "image", label: "Mobile and Web layout" } ],
+        items: [ { src: EX + "Coding/Field-Structure.png", type: "image", label: "Mobile and Web layout", featured: 5 } ],
       },
       {
         name: "Fauna",
         desc: "A motion and spatial design exploration using AI, 3D rendering, and compositing to imagine spatial takeovers.",
         items: [
-          { src: EX + "Fauna/Fauna animation.gif", type: "image", label: "Animated study exploring organic movement through a soft, abstract particle system." },
-          { src: EX + "Fauna/Progress Photoshop Image.png", type: "image", label: "Room takeover concept with organic red and pink forms transforming an interior space." },
+          { src: EX + "Fauna/Fauna animation.gif", type: "image", label: "Animated study exploring organic movement through a soft, abstract particle system.", featured: 2 },
+          { src: EX + "Fauna/Progress Photoshop Image.png", type: "image", label: "Room takeover concept with organic red and pink forms transforming an interior space.", featured: -1 },
           { src: EX + "Fauna/New York 2.MP4", type: "video", label: "AI-generated motion exploration of organic forms moving through city space." },
           { src: EX + "Fauna/Room 1.mp4", type: "video", label: "Interior animation exploring how fauna-inspired textures can occupy and transform a room." },
         ],
       },
       {
-        name: "Lost, Uber Eats",
+        name: "Lost, Uber Eats", deprioritize: true,
         desc: "A campaign for the Design Buddies x AdMagination Challenge, created with Liam Fleming using MidJourney and Adobe Creative Suite. Honourable mention and challenge recognition.",
         items: [
           { src: EX + "Uber Eats/Lost - Mountain.png", type: "image", label: "Mountain delivery concept pushing food delivery to its limits." },
@@ -452,7 +466,7 @@
         desc: "A luxury craft brand concept translating handwoven shawls, artisan heritage, and cultural storytelling into a refined visual identity, campaign system, and digital experience with Nimit Dadhania.",
         items: [
           { src: EX + "Zari zar/Zarizar - Brand World.png", type: "image", label: "Visual system exploring the brand's materials, values, and cultural references." },
-          { src: EX + "Zari zar/Zarizar - Mockup 1.png", type: "image", label: "Outdoor campaign placement centered on craft, education, and generational knowledge." },
+          { src: EX + "Zari zar/Zarizar - Mockup 1.png", type: "image", label: "Outdoor campaign placement centered on craft, education, and generational knowledge.", featured: 7 },
           { src: EX + "Zari zar/Zarizar - Storefront Activation.png", type: "image", label: "Storefront concept using draped fabric as an architectural brand gesture." },
           { src: EX + "Zari zar/Zarizar - Web Design 1.mp4", type: "video", label: "Website interaction concept introducing the brand story and visual world." },
           { src: EX + "Zari zar/Zarizar - Web Design 2.mp4", type: "video", label: "Website interaction concept extending the product and storytelling experience." },
@@ -541,10 +555,10 @@
         name: "Digital Expression Fellowship",
         desc: "A fellowship application and public display project exploring how data visualization, motion, and architectural-scale media can make the environmental impact of AI infrastructure more visible.",
         items: [
-          { src: EX + "Fellowship/Fellowship.mp4", type: "video", label: "Application video connecting architecture and product design to public-scale interfaces, storytelling, and digital expression." },
+          { src: EX + "Fellowship/Fellowship.mp4", type: "video", label: "Application video connecting architecture and product design to public-scale interfaces, storytelling, and digital expression.", featured: 3 },
           { src: EX + "Fellowship/IMG_9477.mp4", type: "video", label: "Behind-the-scenes documentation translating research into a large-scale visual system." },
           { src: EX + "Fellowship/Data viz recording.mp4", type: "video", label: "Screen recording of the data visualization concept, using scale, repetition, and motion to communicate carbon impact." },
-          { src: EX + "Fellowship/_P3A8739 1.jpg", type: "image", label: "Group photo from the MPS Communication Design program with the fellowship cohort and faculty." },
+          { src: EX + "Fellowship/_P3A8739 1.jpg", type: "image", label: "Group photo from the MPS Communication Design program with the fellowship cohort and faculty.", featured: 1 },
           { src: EX + "Fellowship/Untitled-1.png", type: "image", label: "Installation photo showing the data visualization displayed at architectural scale." },
         ],
       },
@@ -552,7 +566,7 @@
         name: "Graza",
         desc: "A self-initiated retail activation concept inspired by Graza, exploring how the brand's playful squeeze-bottle identity could translate into a tactile pop-up environment.",
         items: [
-          { src: EX + "Graza/Untitled design (10).mp4", type: "video", label: "Motion concept presenting a Graza-inspired retail world through soft greens, tiled surfaces, arched forms, and olive-grove references." },
+          { src: EX + "Graza/Untitled design (10).mp4", type: "video", label: "Motion concept presenting a Graza-inspired retail world through soft greens, tiled surfaces, arched forms, and olive-grove references.", featured: 6 },
         ],
       },
       {
@@ -617,7 +631,7 @@
           { src: EX + "Studio concepts/IMG_3225.jpg", type: "image", label: "Process photo documenting collaborative product development, research, and interface planning." },
           { src: EX + "Studio concepts/IMG_3677.jpg", type: "image", label: "Work-in-progress Figma board showing user flows, onboarding systems, and early interface architecture." },
           { src: EX + "Studio concepts/IMG_6317.jpg", type: "image", label: "Process documentation connecting interface decisions to everyday working rituals." },
-          { src: EX + "Studio concepts/IMG_8241.jpg", type: "image", label: "Collaborative design review showing team discussion, critique, and product iteration." },
+          { src: EX + "Studio concepts/IMG_8241.jpg", type: "image", label: "Collaborative design review showing team discussion, critique, and product iteration.", featured: 4 },
           { src: EX + "Studio concepts/mel_.png", type: "image", label: "Portrait and process image documenting the maker behind the work." },
           { src: EX + "Studio concepts/social_u7556763149_Five_eclectic_fashion_icons_on_a_New_York_subway__d4729652-bb18-4095-a9d6-c5acc824a0f6_0.mp4", type: "video", label: "AI-assisted visual experiment exploring fashion, identity, and product storytelling through motion." },
         ],
@@ -680,26 +694,54 @@
       Array.prototype.push.apply(flatItems, result);
     })();
 
+    // Reorder for the masonry: positive `featured: N` items go to the top
+    // (ascending), items on a project flagged `deprioritize: true` or with
+    // `featured < 0` go to the bottom (ascending = -1 above -2). Everything
+    // else keeps its shuffled order in the middle.
+    (function reorderFeatured() {
+      const top = [], mid = [], bottom = [];
+      for (const x of flatItems) {
+        const proj = projects[x.pIdx];
+        const f = x.it.featured;
+        if (proj.deprioritize || (typeof f === "number" && f < 0)) bottom.push(x);
+        else if (typeof f === "number" && f > 0) top.push(x);
+        else mid.push(x);
+      }
+      top.sort((a, b) => a.it.featured - b.it.featured);
+      bottom.sort((a, b) => {
+        const af = typeof a.it.featured === "number" ? a.it.featured : 0;
+        const bf = typeof b.it.featured === "number" ? b.it.featured : 0;
+        return bf - af; // -1 before -2
+      });
+      flatItems.length = 0;
+      Array.prototype.push.apply(flatItems, top.concat(mid, bottom));
+    })();
+
     // dragMoved kept as a no-op for the existing click guard
     let dragMoved = false;
 
-    // Videos load + play only while on (or near) screen, then pause when
-    // they scroll away — keeps the page light and tiles aren't blank.
+    // On mobile we render video items as static jpg posters in the masonry
+    // (modal still plays the real video). Killing video decode on mobile is
+    // the single biggest perf win on the constellation page.
+    const isMobileVid = window.matchMedia("(max-width: 768px)").matches;
     const videoIO = ("IntersectionObserver" in window)
       ? new IntersectionObserver((entries) => {
           for (const e of entries) {
             const v = e.target;
             if (e.isIntersecting) {
+              if (v.dataset.poster && !v.getAttribute("poster")) {
+                v.setAttribute("poster", v.dataset.poster);
+              }
               if (v.preload !== "auto") v.preload = "auto";
               v.play().catch(() => {});
             } else {
               try { v.pause(); } catch (err) {}
             }
           }
-        }, { rootMargin: "300px 0px" })
+        }, { rootMargin: isMobileVid ? "150px 0px" : "300px 0px" })
       : null;
 
-    flatItems.forEach(({ pIdx, iIdx, it }) => {
+    flatItems.forEach(({ pIdx, iIdx, it }, tileIdx) => {
       const proj = projects[pIdx];
 
       // Seeded per-tile variation keeps the random vibe: smaller media at
@@ -714,11 +756,16 @@
       thumb.style.setProperty("--media-w", mediaW + "%");
       thumb.style.setProperty("--gap", gap + "px");
 
-      // Images use tiny thumbnails (gifs keep .gif to stay animated); modal swaps in originals.
-      const thumbExt = it.src.toLowerCase().endsWith(".gif") ? "gif" : "webp";
+      // Images use tiny webp thumbs (gifs keep .gif to stay animated); videos
+      // get a jpg poster so Low Power Mode / non-autoplay still shows a frame.
+      const thumbExt = it.src.toLowerCase().endsWith(".gif") ? "gif"
+                     : it.type === "video" ? "jpg"
+                     : "webp";
       const thumbSrc = ("thumbs/" + it.src).replace(/\.[^.]+$/, "." + thumbExt);
       const media = it.type === "video"
-        ? `<video class="${it.scale ? "scaled" : ""}" muted ${it.start ? `data-start="${it.start}"` : "loop"} playsinline preload="metadata" data-lazy-video><source src="${it.src}" type="video/mp4"></video>`
+        ? (isMobileVid
+            ? `<img src="${thumbSrc}" alt="${proj.name}" loading="lazy" decoding="async">`
+            : `<video class="${it.scale ? "scaled" : ""}" muted ${it.start ? `data-start="${it.start}"` : "loop"} playsinline preload="none" data-poster="${thumbSrc}" data-lazy-video><source src="${it.src}" type="video/mp4"></video>`)
         : `<img src="${thumbSrc}" alt="${proj.name}" loading="lazy" decoding="async">`;
 
       thumb.innerHTML = `<div class="explore-thumb-media">${media}</div>`;
@@ -733,7 +780,9 @@
       world.appendChild(thumb);
 
       const v = thumb.querySelector("video[data-lazy-video]");
-      if (v && videoIO) videoIO.observe(v);
+      // Defer observe so the page transition finishes first, then stagger
+      // each tile so initial poster + video decodes don't all hit at once.
+      if (v && videoIO) setTimeout(() => videoIO.observe(v), 200 + tileIdx * 10);
       if (v && it.start) {
         const s = it.start;
         v.addEventListener("loadedmetadata", () => { try { v.currentTime = s; } catch (e) {} });

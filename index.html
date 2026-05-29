@@ -4,8 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Melody Ekbatani</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=17">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Product designer interested in emerging interaction models and AI systems, with a background in architecture and innovation.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Melody Ekbatani">
+  <meta property="og:title" content="Melody Ekbatani">
+  <meta property="og:description" content="Product designer interested in emerging interaction models and AI systems, with a background in architecture and innovation.">
+  <meta property="og:image" content="https://melodyekbatani.com/share-card.png?v=2">
+  <meta property="og:url" content="https://melodyekbatani.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Melody Ekbatani">
+  <meta name="twitter:description" content="Product designer interested in emerging interaction models and AI systems, with a background in architecture and innovation.">
+  <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=2">
+  <link rel="stylesheet" href="style.css?v=29">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 </head>
 <body>
@@ -52,7 +66,7 @@
         <div class="hero-thumb">
           <a href="#work" class="hero-thumb-trigger t-small">A glimpse of my work</a>
           <a href="#work" class="hero-thumb-media" data-project-hover="View Full Projects" aria-label="Open work page preview">
-            <video autoplay muted loop playsinline>
+            <video autoplay muted loop playsinline preload="none">
               <source src="Header reel.mp4" type="video/mp4">
             </video>
           </a>
@@ -79,7 +93,7 @@
         <article class="project-secondary" style="cursor: pointer; --card-bg: url('Home Page/Background images /Aeri - cover.png');" onclick="window.location.href='/aeri/'">
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Aeri" data-preview="aeri/assets/Aeri hero.avif">
-              <video autoplay muted loop playsinline data-still-time="4" data-play-from-still>
+              <video autoplay muted loop playsinline preload="none" poster="Home Page/stills/Aeri Video.jpg" data-still-time="4" data-play-from-still>
                 <source src="Home Page/Aeri Video.mp4" type="video/mp4">
               </video>
             </div>
@@ -99,7 +113,7 @@
         <article class="project-secondary project-locked" style="--card-bg: url('Home Page/Background images /Sembli-Cover.png');">
           <div class="project-secondary-visual">
             <div class="project-secondary-image">
-              <video autoplay muted loop playsinline data-still-time="23">
+              <video autoplay muted loop playsinline preload="none" poster="Home Page/stills/Sembli.jpg" data-still-time="23">
                 <source src="Home Page/Sembli.mp4" type="video/mp4">
               </video>
             </div>
@@ -123,7 +137,7 @@
         <article class="project-secondary project-secondary-reverse" style="cursor: pointer; --card-bg: url('Home Page/Background images /Gemini - cover.png');" onclick="window.location.href='/adaptive-intelligence/'">
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Adaptive Intelligence" data-preview="adaptive-intelligence/15.mp4" data-preview-type="video">
-              <video autoplay muted loop playsinline data-still-time="3.8" data-play-from-still>
+              <video autoplay muted loop playsinline preload="none" poster="Home Page/stills/Google Gemini.jpg" data-still-time="3.8" data-play-from-still>
                 <source src="Home Page/Google Gemini.mp4" type="video/mp4">
               </video>
             </div>
@@ -152,7 +166,7 @@
 
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Parameter" data-preview="parameter/3-Brand design.mp4" data-preview-type="video">
-              <video autoplay muted loop playsinline>
+              <video autoplay muted loop playsinline preload="none" poster="Home Page/stills/Parameter.jpg">
                 <source src="Home Page/Parameter.mp4" type="video/mp4">
               </video>
             </div>
@@ -163,7 +177,7 @@
         <article class="project-secondary project-secondary-reverse" style="cursor: pointer; --card-bg: url('Home Page/Background images /Loam - cover.png');" onclick="window.location.href='/loam/'">
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Loam" data-preview="loam/3 - Intro graphic .webp">
-              <video autoplay muted loop playsinline>
+              <video autoplay muted loop playsinline preload="none" poster="Home Page/stills/loam.jpg">
                 <source src="Home Page/loam.mp4" type="video/mp4">
               </video>
             </div>
@@ -192,7 +206,7 @@
 
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Stash It">
-              <video autoplay muted loop playsinline>
+              <video autoplay muted loop playsinline preload="none" poster="Home Page/stills/Stashit video.jpg">
                 <source src="Home Page/Stashit video.mp4" type="video/mp4">
               </video>
             </div>
@@ -318,6 +332,18 @@
     const projectCursor = document.querySelector(".project-cursor");
     const projectCursorLabel = projectCursor?.querySelector(".project-cursor-label");
     const hoverProjects = document.querySelectorAll("[data-project-hover]");
+
+    // Hero reel — serve a 720p, audio-stripped version on mobile (~460 KB
+    // vs the 22 MB desktop master). preload="none" defers fetch until
+    // autoplay actually plays.
+    (function () {
+      const heroVid = document.querySelector(".hero-thumb-media video");
+      if (!heroVid) return;
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        heroVid.src = "Header reel-mobile.mp4?v=2";
+        heroVid.load();
+      }
+    })();
 
     // Home → scroll to top (anchor on / would otherwise reload the page).
     homeLink?.addEventListener("click", (event) => {

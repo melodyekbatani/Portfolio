@@ -4,8 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About | Melody Ekbatani</title>
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../style.css?v=17">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Designer with a background in architecture and innovation, interested in emerging interaction models and AI systems.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Melody Ekbatani">
+  <meta property="og:title" content="About — Melody Ekbatani">
+  <meta property="og:description" content="Designer with a background in architecture and innovation, interested in emerging interaction models and AI systems.">
+  <meta property="og:image" content="https://melodyekbatani.com/share-card.png?v=2">
+  <meta property="og:url" content="https://melodyekbatani.com/about/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About — Melody Ekbatani">
+  <meta name="twitter:description" content="Designer with a background in architecture and innovation, interested in emerging interaction models and AI systems.">
+  <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=2">
+  <link rel="stylesheet" href="../style.css?v=29">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
 
@@ -160,6 +174,11 @@
       padding: 40px 0 24px;
       margin: 0 calc(var(--pad-page) * -1);
       /* No overflow:hidden — cards spread freely during the unfold */
+    }
+    @media (max-width: 768px) {
+      /* Parent uses --pad-page-sm (20px) on mobile — match the negative
+         margin so the stage doesn't extend past the viewport. */
+      .highlights-stage { margin: 0 calc(var(--pad-page-sm) * -1); }
     }
 
     .highlights-track {

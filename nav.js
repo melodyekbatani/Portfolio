@@ -109,6 +109,10 @@
       const v = card.querySelector(".cs-next-media video");
       if (!v) return;
       v.removeAttribute("autoplay");
+      // Markup is preload="none" so iOS LPM keeps the poster — bump to
+      // metadata on desktop so seekToStill has something to seek into.
+      if (v.preload !== "auto") v.preload = "metadata";
+      v.load();
       seekToStill(v);
     });
   }

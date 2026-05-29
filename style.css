@@ -101,6 +101,12 @@ body {
   navigation: auto;
 }
 
+/* Mobile: skip the cross-document slide. Real device CPU + lots of video
+   makes the slide stutter — instant nav feels snappier. */
+@media (max-width: 768px) {
+  @view-transition { navigation: none; }
+}
+
 /* Incoming page rises from the bottom; outgoing page stays put
    beneath it. New root paints above old root by default. */
 ::view-transition-new(root) {
@@ -426,17 +432,33 @@ nav a.active {
   padding-bottom: 0;
 }
 
-@media (min-width: 769px) {
-  .rail { padding-top: 100vh; }
-  .hero {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100vh;
-    min-height: 0;
-    z-index: 0;
+/* Fixed hero behind, Work scrolls up over it — applies on every viewport
+   width so scrolling slides Work up on mobile too. */
+.rail {
+  padding-top: 100vh;
+  padding-top: 100dvh;
+}
+.hero {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  z-index: 0;
+}
+
+/* Mobile: shorten the hero so Work peeks above the bottom edge — strong
+   visual cue that a small swipe-up will reveal it. Scroll-snap helps that
+   gesture complete with a light flick instead of needing a full drag. */
+@media (max-width: 768px) {
+  .hero { height: 88vh; height: 88dvh; }
+  .rail { padding-top: 88vh; padding-top: 88dvh; }
+  html {
+    scroll-snap-type: y proximity;
   }
+  .hero, .work-panel { scroll-snap-align: start; }
 }
 
 /* Click-driven slide-up: when the user clicks Work, the panel lifts itself
@@ -706,8 +728,8 @@ nav a.active {
   .work-grid .project-featured,
   .work-grid .project-secondary,
   .work-grid .project-secondary.project-secondary-reverse {
-    height: 60vh;
-    min-height: 60vh;
+    height: 80vh;
+    min-height: 80vh;
     padding: 40px 12px 12px;   /* tag-clear top (matches tag inset+height), 12px elsewhere */
   }
   .work-grid .project-featured-image img,
@@ -776,6 +798,13 @@ nav a.active {
   .work-grid .project-secondary:hover .project-secondary-image img,
   .work-grid .project-secondary:hover .project-secondary-image video {
     transform: none;
+  }
+
+  /* Skip the blurred card-bg backdrop on mobile — at opacity 0.1 it's
+     barely visible, and dropping it spares 6 PNG fetches on first paint. */
+  .work-grid .project-featured::before,
+  .work-grid .project-secondary::before {
+    display: none;
   }
 }
 
@@ -1378,19 +1407,23 @@ footer {
     display: none;
   }
 
-  /* Hero — stack from top on mobile, no vertical centering */
+  /* Hero — mobile shows hero only; content aligns to the bottom of the
+     viewport. Work is hidden on mobile so the hero is the whole page. */
   .hero {
-    min-height: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     padding-top: var(--nav-h);
+    padding-bottom: 32px;
   }
   .hero-name .t-display {
     font-size: 56px;
     line-height: 1;
   }
   .hero-name {
-    padding-top: 140px;
+    padding-top: 0;
   }
   .hero-bottom {
     padding: 24px var(--pad-page-sm) 32px;
@@ -1400,6 +1433,13 @@ footer {
   .hero-bio .t-body { font-size: 16px; line-height: 1.4; }
   .hero-thumb-media {
     aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  /* Scale the video slightly so the thin top edge of the source frame
+     doesn't show on mobile. */
+  .hero-thumb-media video {
+    transform: scale(1.04);
+    transform-origin: center;
   }
 
   .work-intro {
