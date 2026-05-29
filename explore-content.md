@@ -55,7 +55,7 @@ I'll parse this file and apply it to explore.html.
 ---
 ## Manuscript
 **Title:** Manuscript
-**Description:** Hand-coded project in collaboration with Cason Huang through a shared process of pair programming, and experimental design using HTML and CSS.
+**Description:** Hand-coded project exploring type-setting long form content on the webusing HTML and CSS.
 **Links:**
 - https://melodyekbatani.github.io/manu/
 
@@ -185,3 +185,124 @@ I'll parse this file and apply it to explore.html.
 - Mysun marketing video.mp4 | Marketing video presenting the mySUN concept, team, and use case.
 - Model.jpg | Physical model exploring modular stacking, scale, and spatial configuration.
 
+## Architecture / Spatial Design Studies
+**Title:** Architecture / Spatial Design Studies  
+**Description:** A collection of architectural and spatial design studies exploring atmosphere, form, landscape, and built environments through motion, rendering, and speculative visual storytelling.
+
+**Files:**
+- Archi final (1).mp4 | Motion study presenting a series of architectural concepts through atmosphere, scale, and spatial composition.
+- faster__v1 (720p).mp4 | Fast-paced visual study exploring architecture, materiality, and environmental movement.
+- new cover(1).mp4 | Cover video introducing the broader architecture series through cinematic spatial imagery.
+- SUPERYAMA.mp4 | Architectural concept study exploring bold form, elevation, and speculative built environments.
+- Unrolled,_ramped_elevation..mp4 | Spatial study focused on ramped circulation, elevation, and architectural sequence.
+- When_nature_takes_over.mp4 | Speculative architecture study imagining how natural systems can occupy, soften, and transform built space.
+
+---
+## Bochi Lights
+**Title:** Bochi Lights  
+**Description:** A self-initiated social media pitch inspired by Bochi Lights, exploring soft light, shadow, and sculptural interiors.
+
+**Files:**
+- Bochi Lights.MP4 | Motion piece presenting Bochi Lights through a calm, interior-led visual language shaped by glow, materiality, and spatial mood.
+
+
+## Digital Expression Fellowship
+**Title:** Digital Expression Fellowship  
+**Description:** public display exploring ways to makethe environmental impact of AI infrastructure more visible. The work connects my MPS Communication Design practice with public-facing digital storytelling.
+
+
+---
+## Digital Expression Fellowship
+**Title:** Digital Expression Fellowship  
+**Description:** A fellowship application and public display project exploring how data visualization, motion, and architectural-scale media can make the environmental impact of AI infrastructure more visible. The work connects my MPS Communication Design practice with public-facing digital storytelling.
+
+**Files:**
+- Fellowship.mp4 | Application video connecting my background in architecture and product design to public-scale interfaces, storytelling, and digital expression.
+- IMG_9477.MOV | Behind-the-scenes documentation showing the process of developing the concept and translating research into a large-scale visual system.
+- Screen Recording 2026-05-29 at 12.08.52 AM(1).mov | Screen recording of the data visualization concept, showing how scale, repetition, and motion were used to communicate carbon impact.
+- _P3A8739 1.jpg | Group photo from the MPS Communication Design program with the fellowship cohort and faculty.
+- untitled-1.png | Installation photo showing the data visualization displayed at architectural scale.
+- image(309).png | Installation photo showing the data visualization displayed at architectural scale.
+
+---
+## Graza
+**Title:** Graza  
+**Description:** A self-initiated retail activation concept inspired by Graza, exploring how the brand’s playful squeeze-bottle identity and single-varietal olive oil story could translate into a tactile pop-up environment.
+
+**Files:**
+- Untitled design (10).mp4 | Motion concept presenting a Graza-inspired retail world through soft greens, tiled surfaces, arched forms, and olive-grove references.
+
+---
+## Hot Girl Pickles
+**Title:** Hot Girl Pickles  
+**Description:** A self-initiated social media and retail concept inspired by Hot Girl Pickles, exploring how a bold, internet-native food brand could extend into a playful physical and digital campaign.
+
+**Files:**
+- Hot Girl Pickles - Progress.mp4 | Process video showing the development of a punchy brand world built around snack culture, social content, and playful retail storytelling.
+
+---
+## Minor Figures
+**Title:** Minor Figures  
+**Description:** A self-initiated retail activation concept for Minor Figures, exploring how the brand’s oat milk identity could take over the streetscape through playful, sculptural pop-up environments. The project uses AI-assisted rendering and motion to test atmosphere, materiality, and urban brand storytelling.
+
+**Files:**
+- Portfolio_11.jpg | Concept board showing a series of Minor Figures pop-up environments shaped by soft sculptural forms, street-level interaction, and immersive product display.
+- Final Minor figures.mp4 | Motion piece presenting the Minor Figures retail concept as an urban takeover, translating the brand into a playful spatial campaign.
+
+
+---
+## Pawn & Rook
+**Title:** Pawn & Rook  
+**Description:** A speculative event identity and digital system for an invitational chess tournament through motion design.
+
+**Files:**
+- LOGO 1.m4v | Logo animation exploring the Pawn & Rook identity through quiet tension, structure, and strategic movement.
+- LOGO 2.m4v | Logo motion study testing rhythm, pacing, and the relationship between human intuition and system logic.
+- LOGO 3.m4v | Identity animation refining the event mark through editorial motion and restrained visual contrast.
+- LOGO 4.m4v | Logo motion concept extending the brand system across title, event, and digital touchpoints.
+- SCREEN 1.m4v | Interface screen exploring the event’s live system, pairing players, AI labs, and match information.
+- SCREEN 2.m4v | Digital screen concept presenting the tournament as both a competitive chess event and a cultural installation.
+- SCREEN 4.m4v | Motion screen study using typography, pacing, and hierarchy to frame the live event experience.
+- SCREEN 5.m4v | Event screen exploring how match data, lab pairings, and strategic play could appear across digital surfaces.
+- SCREEN 6.m4v | Final screen motion study extending the Pawn & Rook identity into a live, editorial event system.
+
+---
+## Laneige — Sephora Retail Concept
+**Title:** Laneige — Sephora Retail Concept  
+**Description:** A Park Agency retail design exercise translating Laneige’s hydration story into a Sephora pop-up environment through water-inspired visuals, glowing displays, and immersive product storytelling.
+
+**Files:**
+- Copy+of+Design+Exercise+(4)(1).png | Interior view exploring soft blue lighting, translucent displays, and water-inspired brand graphics.
+- Portfolio_19.jpg | Storefront concept extending the Laneige activation into Sephora’s street-facing window experience.
+- Portfolio_20.jpg | Retail system overview showing product displays, campaign graphics, and spatial moments designed around hydration.
+
+---
+## Oli
+**Title:** Oli  
+**Description:** A speculative brand and packaging concept for Oli, an olive oil spray exploring how food, beauty, and street-level brand worlds can merge through playful identity, surreal product imagery, and AI-assisted campaign storytelling.
+
+**Files:**
+- Front of the Label [Logo A stylized olive branch with the word oli integrated into the design] oli Premium Olive Oil Spray 100% Pure Extra Virgin Olive Oil Cold Pressed Non-GMO No Preservatives [S (9).png | Packaging label concept defining Oli’s visual identity, product details, flavor system, and graphic language.
+- Oli Olive Oil.MP4 | Motion piece presenting Oli as a playful olive oil spray brand through product storytelling, surreal visuals, and campaign-style pacing.
+- Oli other (2).png | Campaign visual placing the Oli identity within a surreal street scene shaped by soft organic forms and olive-inspired color.
+- Oli+(1).jpg | Printed postcard mockups extending the Oli campaign system into tactile brand collateral.
+- Oli+(3).jpg | Product render showing the olive oil spray packaging applied to a physical can format.
+
+
+---
+## Product Design Explorations
+**Title:** Product Design Explorations  
+**Description:** A collection of product design studies exploring early-stage interface concepts, research workflows, AI-assisted prototyping, and collaborative design process. The work spans health intelligence, creative search, fashion discovery, and spatial interface ideas, showing how rough sketches, Figma systems, motion, and real-world testing shape product direction.
+
+**Files:**
+- Frame 1321315025.png | Concept sketches exploring health dashboards, prevention pathways, education features, and system-led data visualization.
+- final cellphone 2.mp4 | Mobile prototype video presenting an interface flow through motion, interaction, and product storytelling.
+- grok-video-05c751e0-1a42-4c40-9706-f0efdabe9540.mp4 | AI-assisted motion study testing how product concepts can be visualized beyond static screens.
+- grok-video-744c6cba-b2a1-4c2c-ac32-79370c893edb.mp4 | Motion experiment extending the product world through speculative interface and campaign-style visuals.
+- image 448.png | Search interface exploration showing how prompts can organize visual research into structured categories.
+- IMG_3225.jpg | Process photo documenting collaborative product development, research, and interface planning.
+- IMG_3677.jpg | Work-in-progress Figma board showing user flows, onboarding systems, and early interface architecture.
+- IMG_6317.jpg | Process documentation showing product design work in context, connecting interface decisions to everyday working rituals.
+- IMG_8241.jpg | Collaborative design review showing team discussion, critique, and product iteration in progress.
+- mel_.png | Portrait/process image supporting the product design archive and documenting the maker behind the work.
+- social_u7556763149_Five_eclectic_fashion_icons_on_a_New_York_subway__d4729652-bb18-4095-a9d6-c5acc824a0f6_0.mp4 | AI-assisted visual experiment exploring fashion, identity, and product storytelling through motion.
