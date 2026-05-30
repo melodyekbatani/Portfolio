@@ -1,9 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
   <style>
-    circle { fill: #111111; }
-    @media (prefers-color-scheme: dark) {
-      circle { fill: #ffffff; }
-    }
+    path { fill: #111111; }
+    @media (prefers-color-scheme: dark) { path { fill: #ffffff; } }
   </style>
-  <circle cx="32" cy="32" r="22"/>
+  <path d="M2.96081 18.3621H12.444L19.61 39.431H19.6958L26.4756 18.3621H35.9588V49H29.651V27.2874H29.5652L22.0559 49H16.8637L9.35443 27.502H9.26861V49H2.96081V18.3621ZM38.4573 18.3621H61.3714V24.0262H45.1942V30.5915H60.0411V35.8266H45.1942V43.3358H61.7146V49H38.4573V18.3621Z"/>
 </svg>
