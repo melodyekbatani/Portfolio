@@ -20,7 +20,7 @@
   <meta name="twitter:title" content="Melody Ekbatani">
   <meta name="twitter:description" content="Product designer interested in emerging interaction models and AI systems, with a background in architecture and innovation.">
   <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=2">
-  <link rel="stylesheet" href="style.css?v=59">
+  <link rel="stylesheet" href="style.css?v=65">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 </head>
 <body>
@@ -223,24 +223,24 @@
             <div class="page-footer-column">
               <p class="page-footer-heading">Find me</p>
               <div class="page-footer-links">
-                <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer">LinkedIn</a>
-                <a href="https://github.com/" target="_blank" rel="noreferrer">Github</a>
-                <a href="#" target="_blank" rel="noreferrer">Resume</a>
+                <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer" class="t-small page-footer-link">LinkedIn <i class="ph ph-arrow-up-right"></i></a>
+                <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer" class="t-small page-footer-link">Github <i class="ph ph-arrow-up-right"></i></a>
+                <a href="/Melody Ekbatani_2026 Resume .pdf" target="_blank" rel="noreferrer" class="t-small page-footer-link">Resume <i class="ph ph-arrow-up-right"></i></a>
               </div>
             </div>
 
             <div class="page-footer-column">
-              <p class="page-footer-heading">Focus</p>
+              <p class="page-footer-heading">What Guides My Work</p>
               <div class="page-footer-links">
-                <p>Product Design</p>
-                <p>Creating AI Systems</p>
-                <p>Storytelling</p>
+                <p>Innovation</p>
+                <p>Entrepreneurship</p>
+                <p>Creativity</p>
               </div>
             </div>
 
             <div class="page-footer-message">
               <p>Designing through clarity, storytelling, and moments of delight.</p>
-              <a href="mailto:melodyekbatani@gmail.com" rel="noreferrer" style="display: block; margin-top: 16px; font-size: 18px; font-weight: 500;">melodyekbatani@gmail.com</a>
+              <a href="mailto:melodyekbatani@gmail.com" class="t-small page-footer-email" rel="noreferrer">melodyekbatani@gmail.com <i class="ph ph-arrow-up-right"></i></a>
             </div>
           </div>
 
@@ -479,6 +479,44 @@
           if (!desktop.matches) return;
           seekToStill(video);
         });
+      });
+    })();
+
+    // Footer email → copy to clipboard with brief "Copied" feedback.
+    // Uses navigator.clipboard when available (HTTPS / localhost), falls
+    // back to a hidden-textarea + execCommand("copy") so it still works
+    // in non-secure contexts (file://, VS Code preview, etc.).
+    (function () {
+      const link = document.querySelector(".page-footer-email");
+      if (!link) return;
+      const email = "melodyekbatani@gmail.com";
+      const original = link.innerHTML;
+      let resetTimer = null;
+
+      function showCopied() {
+        link.innerHTML = 'Copied <i class="ph ph-check"></i>';
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => { link.innerHTML = original; }, 1500);
+      }
+      function fallbackCopy() {
+        const ta = document.createElement("textarea");
+        ta.value = email;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.top = "0"; ta.style.left = "0";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); showCopied(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(showCopied).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
       });
     })();
 
