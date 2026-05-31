@@ -1195,11 +1195,11 @@ footer {
 }
 
 .page-footer-heading {
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  line-height: 1.2;
-  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.35;
+  text-transform: none;
 }
 
 .page-footer-links {
@@ -1210,9 +1210,13 @@ footer {
 
 .page-footer-links a,
 .page-footer-links p {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.35;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  line-height: 1.2;
+  padding: 4px 0;             /* match .page-footer-link so both columns have the same rhythm */
+  margin: 0;
 }
 
 .page-footer-message {
@@ -1222,9 +1226,8 @@ footer {
   text-align: left;
 }
 
-/* Footer Find-me links (LinkedIn / Github / Resume) — uppercase t-small
-   with arrow-up-right icon and draw-in underline on hover. Double class
-   selector escapes the higher-specificity .page-footer-links a rule. */
+/* Footer Find-me links: layout (icon + hover underline) only — font
+   styling inherits from the .page-footer-links a rule above. */
 .page-footer-link.page-footer-link {
   display: inline-flex;
   align-items: center;
@@ -1232,11 +1235,6 @@ footer {
   padding: 4px 0;
   position: relative;
   width: fit-content;
-  font-size: var(--fs-small);
-  font-weight: var(--fw-regular);
-  letter-spacing: var(--ls-wider);
-  text-transform: uppercase;
-  line-height: 1.2;
 }
 .page-footer-link::after {
   content: '';
