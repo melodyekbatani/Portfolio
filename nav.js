@@ -133,3 +133,37 @@
     });
   });
 })();
+
+// ─── Viewport-gated playback for inline content videos.
+//     Markup ships preload="none" + autoplay; autoplay overrides preload and
+//     makes the browser fetch every clip up front. Strip autoplay and play a
+//     clip only while it's near the viewport, so bytes load on demand and
+//     offscreen videos don't burn CPU/data. The .cs-next preview cards keep
+//     their own hover logic (above) and are excluded here.
+(function () {
+  if (!("IntersectionObserver" in window)) return; // graceful: keep poster
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const videos = Array.from(document.querySelectorAll("video[autoplay]"))
+    .filter((v) => !v.closest(".cs-next"));
+  if (!videos.length) return;
+
+  videos.forEach((v) => v.removeAttribute("autoplay"));
+  if (reduceMotion) return; // leave the poster frame in place, never auto-play
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const v = entry.target;
+        if (entry.isIntersecting) {
+          v.play().catch(() => {}); // preload="none" → load starts here
+        } else {
+          v.pause();
+        }
+      });
+    },
+    { rootMargin: "200px 0px", threshold: 0.1 } // start just before it scrolls in
+  );
+
+  videos.forEach((v) => io.observe(v));
+})();
