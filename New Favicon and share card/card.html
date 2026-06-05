@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --ink:#111111; --ink-soft:#46535f; --muted:#AAAAAA; --accent:#E8001D;
+    --font-sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1200px;height:630px;}
+  body{
+    font-family:var(--font-sans);
+    background:#ffffff;
+    color:var(--ink);
+    display:flex;flex-direction:column;
+    padding:84px 90px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .top{display:flex;justify-content:space-between;align-items:baseline;}
+  .eyebrow{
+    font-size:18px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink);
+  }
+  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .name{
+    font-weight:500;font-size:148px;line-height:.92;letter-spacing:-.02em;
+    margin-left:-10px; /* optical: cancel display-size left side-bearing */
+  }
+  .role{
+    margin-top:36px;font-size:22px;font-weight:500;color:var(--ink);
+    letter-spacing:.14em;text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="eyebrow">Portfolio · 2026</div>
+    <div class="eyebrow">Based in New York</div>
+  </div>
+  <div class="mid">
+    <div class="name">Melody<br>Ekbatani</div>
+    <div class="role">Product Designer</div>
+  </div>
+</body>
+</html>
