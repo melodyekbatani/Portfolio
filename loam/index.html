@@ -12,12 +12,12 @@
   <meta name="description" content="Bringing local, sustainable vendors together so users can discover and shop responsibly.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Melody Ekbatani">
-  <meta property="og:title" content="Loam — Melody Ekbatani">
+  <meta property="og:title" content="Loam | Melody Ekbatani">
   <meta property="og:description" content="Bringing local, sustainable vendors together so users can discover and shop responsibly.">
   <meta property="og:image" content="https://melodyekbatani.com/share-card.png?v=3">
   <meta property="og:url" content="https://melodyekbatani.com/loam/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Loam — Melody Ekbatani">
+  <meta name="twitter:title" content="Loam | Melody Ekbatani">
   <meta name="twitter:description" content="Bringing local, sustainable vendors together so users can discover and shop responsibly.">
   <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=3">
   <link rel="stylesheet" href="../style.css?v=70">
@@ -234,6 +234,79 @@
       font-weight: var(--fw-regular);
       line-height: var(--lh-loose);
       color: var(--ink);
+    }
+    /* Live-link banner: black panel with title + link, site mockup sized down
+       on a cream panel beside it. Mirrors the next-project card style. */
+    .cs-live {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 220px;
+      background-color: #111;
+      overflow: hidden;
+      text-decoration: none;
+      color: #fff;
+    }
+    .cs-live-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      padding: clamp(28px, 4vw, 44px);
+    }
+    .cs-live-title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
+      color: #fff;
+      margin: 0;
+    }
+    .cs-live-cta {
+      margin-top: 8px;
+      font-size: var(--fs-small);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-wider);
+      text-transform: uppercase;
+      color: #fff;
+      position: relative;
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding-bottom: 4px;
+    }
+    .cs-live-cta::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width var(--t-slow) var(--ease-out);
+    }
+    .cs-live:hover .cs-live-cta::after { width: 100%; }
+    .cs-live-media {
+      background: #FAF4E0;
+      display: grid;
+      place-items: center;
+      padding: clamp(24px, 4vw, 56px);
+      overflow: hidden;
+    }
+    .cs-live-media img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      transition: transform var(--t-slow) var(--ease-out);
+    }
+    .cs-live:hover .cs-live-media img { transform: scale(1.03); }
+    @media (max-width: 720px) {
+      .cs-live { grid-template-columns: 1fr; min-height: 0; }
+      .cs-live-media { order: 0; }
+      .cs-live-text { order: 1; }
     }
     .cs-meta-block ul {
       list-style: none; padding: 0; margin: 0;
@@ -713,6 +786,7 @@
       <a href="#research">Research</a>
       <a href="#system">Design System</a>
       <a href="#solution">Solution</a>
+      <a href="#constraints">Constraints</a>
       <a href="#outcomes">Outcomes</a>
     </aside>
 
@@ -725,7 +799,7 @@
           <h1>Loam</h1>
         </div>
         <div class="cs-hero-copy">
-          <p class="meta">A mission-driven marketplace curating sustainable, organic products, designed end-to-end from brand identity to a scalable multi-seller system.</p>
+          <p class="meta">Shipped marketplace for 300+ sustainable vendors. I designed it end-to-end, from brand identity to the multi-seller system.</p>
         </div>
       </header>
 
@@ -733,7 +807,7 @@
       <div class="cs-stack">
         <figure class="cs-figure cs-hero-figure">
           <div class="cs-figure-media"><video  src="1 - Hero video.mp4" playsinline muted autoplay loop preload="none" poster="stills/1 - Hero video.jpg?v=2"></video></div>
-          <figcaption><span class="num">Fig 1.0</span><span>Loam — for Earth, with love.</span></figcaption>
+          <figcaption><span class="num">Fig 1.0</span><span>Loam: a live marketplace for sustainable living. For Earth, with love.</span></figcaption>
         </figure>
       </div>
 
@@ -746,7 +820,11 @@
           </div>
           <div class="cs-meta-block">
             <span class="label">Role</span>
-            <div class="value">Product &amp; Brand Designer (Freelance) — leading end-to-end product design, design systems, and brand identity</div>
+            <div class="value">Product &amp; Brand Designer (Freelance). Led product design, design systems, and brand identity across vendor and customer flows.</div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Team</span>
+            <div class="value">Allison Lomax (Founder)<br>Lokendra Panwar, Sakshi Makode (Engineering consultants, Propero)</div>
           </div>
           <div class="cs-meta-block">
             <span class="label">Scope</span>
@@ -767,11 +845,24 @@
           </div>
         </div>
 
+        <div class="cs-live-wrap">
+          <span class="cs-kicker">Live link</span>
+          <a class="cs-live" href="https://shoploam.com/" target="_blank" rel="noreferrer">
+            <div class="cs-live-text">
+              <h2 class="cs-live-title">Shoploam.com</h2>
+              <span class="cs-live-cta">View live <i class="ph ph-arrow-up-right"></i></span>
+            </div>
+            <div class="cs-live-media">
+              <img src="stills/1 - Hero video.jpg" alt="Shoploam.com shown on desktop and mobile" loading="lazy">
+            </div>
+          </a>
+        </div>
+
         <div class="cs-overview-copy">
           <span class="cs-kicker">Overview</span>
-          <h2 class="cs-overview-h">For Earth, with love</h2>
-          <p>Loam is a mission-driven marketplace that curates sustainable, organic products, all things good for you and the Earth. I led end-to-end product and brand design across the experience, from UX/UI architecture and a scalable design system to the brand identity that ties it together.</p>
-          <p>The marketplace brings vetted, conscious brands together across Wardrobe, Beauty &amp; Wellness, Living, and Children, giving shoppers one trusted place to discover better-for-you alternatives without sacrificing quality or aesthetics.</p>
+          <h2 class="cs-overview-h">A two-sided marketplace, designed end to end</h2>
+          <p>Loam is a mission-driven marketplace for sustainable, organic products. I led design across both sides of the marketplace: the shopper experience and the seller tools. The work spanned UX architecture, a scalable design system, and the brand identity that ties it together.</p>
+          <p>The product brings vetted brands together across Wardrobe, Beauty &amp; Wellness, Living, and Children. It gives shoppers one trusted place to discover better-for-you alternatives. The harder problem sat underneath the storefront. I had to design the systems that let independent vendors join, list, and operate, while keeping the experience consistent and trustworthy as the catalog scales.</p>
         </div>
       </section>
 
@@ -779,8 +870,8 @@
       <section id="context" class="cs-section cs-block">
         <span class="cs-kicker">Context</span>
         <h2>Scaling a multi-seller ecosystem</h2>
-        <p>Loam needed to grow from a small curated shop into a multi-seller marketplace supporting hundreds of independent, mission-aligned vendors, without losing the consistency, trust, and editorial warmth that define the brand.</p>
-        <p>That meant designing not just a storefront, but the systems behind it: how sellers join, list, and manage products, and how shoppers discover, trust, and return.</p>
+        <p>Loam needed to grow from a small curated shop into a multi-seller marketplace supporting hundreds of independent, mission-aligned vendors. It had to do that without losing the consistency, trust, and editorial warmth that define the brand.</p>
+        <p>That meant designing more than a storefront. I also designed the systems behind it: how sellers join, list, and manage products, and how shoppers discover, trust, and return.</p>
       </section>
 
       <figure class="cs-figure">
@@ -793,7 +884,7 @@
         <span class="cs-kicker">Research</span>
         <h2>Understanding conscious shoppers</h2>
         <p>I studied how people discover and decide on sustainable products: what builds trust, what creates doubt, and where conventional marketplaces fall short for values-driven shoppers.</p>
-        <p>These signals shaped an experience that leads with transparency and curation rather than endless choice, helping shoppers feel confident that everything on Loam is genuinely good for them and the Earth.</p>
+        <p>These signals shaped an experience that leads with transparency and curation rather than endless choice. The goal was to help shoppers feel confident that everything on Loam is genuinely good for them and the Earth.</p>
       </section>
 
       <figure class="cs-figure">
@@ -805,10 +896,10 @@
       <section id="system" class="cs-section cs-block">
         <span class="cs-kicker">Design System</span>
         <h2>40+ reusable components, one coherent brand</h2>
-        <p>I built a scalable design system of 40+ reusable components to ensure consistency across product and marketing touchpoints, so every surface, from storefront to seller portal to campaign, reads as one coherent brand.</p>
+        <p>I built a scalable design system of 40+ reusable components to ensure consistency across product and marketing touchpoints. Every surface, from storefront to seller portal to campaign, reads as one coherent brand.</p>
 
         <span class="cs-sub">Brand identity</span>
-        <p>The identity is warm, aspirational, and values-driven, expressed through "For Earth, With Love." Typography, color, and imagery work together to feel premium and editorial while staying approachable, reinforcing trust without ever feeling clinical.</p>
+        <p>The identity is warm, aspirational, and values-driven, expressed through "For Earth, With Love." Typography, color, and imagery work together to feel premium and editorial while staying approachable. The result reinforces trust without ever feeling clinical.</p>
       </section>
 
       <figure class="cs-figure">
@@ -819,9 +910,9 @@
       <!-- SOLUTION -->
       <section id="solution" class="cs-section cs-block">
         <span class="cs-kicker">Solution</span>
-        <h2>End-to-end workflows for a multi-seller marketplace</h2>
-        <p>I defined the core workflows across onboarding, seller portals, shipping, returns, and customer journeys, then integrated Shopify Collective to scale a multi-seller ecosystem supporting 300+ vendors.</p>
-        <p>The result connects both sides of the marketplace: tools that make it simple for vendors to join and operate, and a shopping experience that stays clear, trustworthy, and editorial throughout.</p>
+        <h2>Designing the seller and shopper journeys</h2>
+        <p>I designed the core workflows across both sides of the marketplace. This covered vendor onboarding, the seller portal, product listing, shipping and returns, and the shopper journey from discovery to checkout. I also designed the category system, which spans four departments (Wardrobe, Beauty &amp; Wellness, Living, and Children) and roughly 25 subcategories.</p>
+        <p>Loam runs on Shopify Collective, which provides the underlying multi-seller infrastructure for payments, vendor payouts, and order routing. My work was the experience layer on top. I designed how vendors move through onboarding and manage their storefronts. I also designed how shoppers discover and trust products across 300+ vendors without the experience feeling fragmented. I designed and built most of the marketplace myself, with two senior engineering consultants supporting a few focused tasks. Designing within Collective's constraints, rather than building infrastructure from scratch, kept the marketplace shippable on a small team.</p>
       </section>
 
       <figure class="cs-figure">
@@ -829,11 +920,39 @@
         <figcaption><span class="num">Fig 5.0</span><span>Key screens across the shopping and seller experience.</span></figcaption>
       </figure>
 
+      <!-- TODO (Change 7): Add 2-3 real product UI screens here (and/or in the Constraints
+           section below) once the image files exist in the project. Use the same
+           <figure class="cs-figure"> / <figcaption> markup as the figures above.
+           Suggested captions:
+             - "Vendor onboarding flow."
+             - "Seller portal, product management."
+             - "Shopper journey from discovery to checkout." -->
+
+      <!-- CONSTRAINTS & DECISIONS -->
+      <section id="constraints" class="cs-section cs-block">
+        <span class="cs-kicker">Constraints</span>
+        <h2>Constraints and decisions</h2>
+        <!-- TODO (Change 6): {{CONSTRAINT}} not yet provided. Add one real limitation
+             (Shopify Collective or otherwise) as the second sentence of the paragraph below.
+             Example: "Collective's vendor onboarding flow could not be fully customized, so
+             seller setup had to fit a structure I did not control." -->
+        <p>Building on Shopify Collective meant designing within fixed boundaries.</p>
+        <!-- TODO (Change 6): {{REDESIGN}} not yet provided. Add a paragraph here describing
+             what you redesigned or cut because of the constraint above.
+             Example: "I redesigned onboarding into a guided sequence layered on top of
+             Collective's defaults. Vendors got a Loam-branded, lower-friction path to a live
+             storefront without custom backend work." -->
+        <p>The recurring tradeoff was curation versus scale. The brand depends on everything feeling vetted and editorial. A multi-seller marketplace pulls toward volume and inconsistency. I prioritized a tightly designed system of components, templates, and guardrails. This let the catalog grow without each new vendor diluting the experience.</p>
+      </section>
+
       <!-- OUTCOMES -->
       <section id="outcomes" class="cs-section cs-block">
         <span class="cs-kicker">Outcomes</span>
         <h2>A coherent marketplace, built to scale</h2>
-        <p>Loam launched as a unified, scalable marketplace supporting 300+ vendors, with a design system and brand identity that keep the experience consistent across product and marketing as the catalog grows.</p>
+        <p>Loam is live as a unified marketplace supporting 300+ vendors across four departments and roughly 25 subcategories, selling products from independent brands that ship direct from the maker. A design system and brand identity keep the experience consistent as the catalog grows, and a full supporting system is live: seller onboarding, product management, order tracking, and a returns flow that connects shoppers directly with each brand.</p>
+        <!-- TODO (Change 8): {{SHOPIFY_NUMBER}} optional figure not yet provided. If you have
+             one real number from the Shopify admin, add a final sentence here, e.g.
+             "Launched [month/year] with [Y] products." -->
       </section>
 
     </article>
