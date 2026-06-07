@@ -256,6 +256,9 @@
       transition: width 300ms ease;
     }
     .cs-live-link:hover::after { width: 100%; }
+    /* Collapse the loose line-height so the 1px underline lands on a whole
+       pixel and renders at the same thickness as the footer/nav links. */
+    .cs-live-value { line-height: 1.2; }
     .cs-meta-block ul {
       list-style: none; padding: 0; margin: 0;
       display: flex; flex-direction: column; gap: 6px;
@@ -793,7 +796,7 @@
           </div>
           <div class="cs-meta-block">
             <span class="label">Live link</span>
-            <div class="value"><a class="t-small cs-live-link" href="https://shoploam.com/" target="_blank" rel="noreferrer">shoploam.com <i class="ph ph-arrow-up-right"></i></a></div>
+            <div class="value cs-live-value"><a class="t-small cs-live-link" href="https://shoploam.com/" target="_blank" rel="noreferrer">shoploam.com <i class="ph ph-arrow-up-right"></i></a></div>
           </div>
         </div>
 
