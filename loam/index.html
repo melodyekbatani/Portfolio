@@ -235,79 +235,27 @@
       line-height: var(--lh-loose);
       color: var(--ink);
     }
-    /* Live-link banner: black panel with title + link, site mockup sized down
-       on a cream panel beside it. Mirrors the next-project card style. */
-    .cs-live {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 220px;
-      background-color: #111;
-      overflow: hidden;
-      text-decoration: none;
-      color: #fff;
-    }
-    .cs-live-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 12px;
-      padding: clamp(28px, 4vw, 44px);
-    }
-    .cs-live-title {
-      font-size: var(--fs-h2);
-      font-weight: var(--fw-medium);
-      letter-spacing: var(--ls-tight);
-      line-height: var(--lh-tight);
-      color: #fff;
-      margin: 0;
-    }
-    .cs-live-cta {
-      margin-top: 8px;
-      font-size: var(--fs-small);
-      font-weight: var(--fw-regular);
-      letter-spacing: var(--ls-wider);
-      text-transform: uppercase;
-      color: #fff;
-      position: relative;
-      align-self: flex-start;
+    /* Live link styled to match the footer email: uppercase t-small with an
+       icon and a draw-in underline on hover. */
+    .cs-live-link {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding-bottom: 4px;
+      position: relative;
+      width: fit-content;
+      padding: 4px 0;
     }
-    .cs-live-cta::after {
+    .cs-live-link::after {
       content: '';
       position: absolute;
       left: 0;
-      bottom: 0;
+      bottom: 2px;
       width: 0;
       height: 1px;
       background: currentColor;
-      transition: width var(--t-slow) var(--ease-out);
+      transition: width 300ms ease;
     }
-    .cs-live:hover .cs-live-cta::after { width: 100%; }
-    .cs-live-media {
-      background: #FAF4E0;
-      display: grid;
-      place-items: center;
-      padding: clamp(24px, 4vw, 56px);
-      overflow: hidden;
-    }
-    .cs-live-media img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      display: block;
-      transition: transform var(--t-slow) var(--ease-out);
-    }
-    .cs-live:hover .cs-live-media img { transform: scale(1.03); }
-    @media (max-width: 720px) {
-      .cs-live { grid-template-columns: 1fr; min-height: 0; }
-      .cs-live-media { order: 0; }
-      .cs-live-text { order: 1; }
-    }
+    .cs-live-link:hover::after { width: 100%; }
     .cs-meta-block ul {
       list-style: none; padding: 0; margin: 0;
       display: flex; flex-direction: column; gap: 6px;
@@ -843,19 +791,10 @@
               <span class="chip">Adobe Creative Cloud</span>
             </div>
           </div>
-        </div>
-
-        <div class="cs-live-wrap">
-          <span class="cs-kicker">Live link</span>
-          <a class="cs-live" href="https://shoploam.com/" target="_blank" rel="noreferrer">
-            <div class="cs-live-text">
-              <h2 class="cs-live-title">Shoploam.com</h2>
-              <span class="cs-live-cta">View live <i class="ph ph-arrow-up-right"></i></span>
-            </div>
-            <div class="cs-live-media">
-              <img src="stills/1 - Hero video.jpg" alt="Shoploam.com shown on desktop and mobile" loading="lazy">
-            </div>
-          </a>
+          <div class="cs-meta-block">
+            <span class="label">Live link</span>
+            <div class="value"><a class="t-small cs-live-link" href="https://shoploam.com/" target="_blank" rel="noreferrer">shoploam.com <i class="ph ph-arrow-up-right"></i></a></div>
+          </div>
         </div>
 
         <div class="cs-overview-copy">
