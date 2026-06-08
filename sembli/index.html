@@ -457,9 +457,13 @@
     }
 
     /* ─── Next project (split card: text left, media right) ─── */
-    .cs-next-wrap {
-      margin-top: var(--cs-rhythm);
-    }
+    /* Compact next-project card in the right margin */
+    .cs-next.sembli-next { margin-top: 28px; width: 100%; height: 96px; min-height: 0; }
+    .sembli-next .cs-next-text { padding: 0 18px; display: flex; flex-direction: column; justify-content: center; gap: 0; }
+    .sembli-next .cs-next-title { font-size: var(--fs-body); margin: 0; }
+    .sembli-next .cs-next-desc { display: none; }
+    .sembli-next .cs-next-cta { font-size: var(--fs-micro); margin-top: 6px; }
+    .sembli-next .cs-next-media { aspect-ratio: auto; height: 100%; }
     .cs-next {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -623,6 +627,91 @@
       }
     }
 
+
+
+    /* Coming-soon landing: video on the left, the pitch on the right margin */
+    .sembli-soon {
+      min-height: 100vh;
+      box-sizing: border-box;
+      padding: calc(var(--nav-h) + 32px) var(--pad-page) 48px;
+      display: flex;
+      align-items: center;
+    }
+    .sembli-soon-inner {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 416px;
+      align-items: center;
+      gap: 64px;
+    }
+    .sembli-soon-video { width: 100%; display: flex; justify-content: center; }
+    .sembli-soon-video video {
+      display: block;
+      width: 100%;
+      max-height: 52vh;
+      height: auto;
+      object-fit: contain;
+    }
+    .sembli-soon-copy { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+    .sembli-soon-title {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
+      margin: 0;
+    }
+    .sembli-soon-support {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--ink);
+      margin: 16px 0 0;
+    }
+    .sembli-soon-role {
+      font-size: var(--fs-small);
+      color: var(--muted);
+      margin: 18px 0 0;
+    }
+    .sembli-soon-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      margin: 32px 0 0;
+    }
+    .sembli-soon-tags { margin-top: 18px; gap: 18px; }
+    .sembli-soon-tags .tag {
+      font-size: var(--fs-small);
+      border: none;
+      padding: 0;
+      color: var(--muted);
+    }
+    .sembli-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: var(--fs-small);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-widest);
+      color: var(--ink);
+      text-decoration: none;
+      position: relative;
+    }
+    .sembli-cta i { font-size: 13px; }
+    .sembli-cta::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -3px;
+      width: 0; height: 1px;
+      background: var(--ink);
+      transition: width var(--t-base) var(--ease-out);
+    }
+    .sembli-cta:hover::after { width: 100%; }
+    @media (max-width: 860px) {
+      .sembli-soon-inner { grid-template-columns: 1fr; gap: 32px; }
+      .sembli-soon { padding: calc(var(--nav-h) + 24px) var(--pad-page) 32px; }
+      .sembli-soon-hero { margin-top: 14px; }
+      .sembli-soon-support { margin-top: 16px; }
+    }
   </style>
 </head>
 <body>
@@ -636,308 +725,36 @@
     <a href="../Melody Ekbatani.pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
   </nav>
 
-  <div class="cs-shell">
-
-
-    <!-- Sticky simple TOC -->
-    <aside class="cs-toc" aria-label="Contents">
-      <a href="#overview">Overview</a>
-      <a href="#problem">Problem</a>
-      <a href="#solution">Solution</a>
-      <a href="#research">Research</a>
-      <a href="#next-steps">Next Steps</a>
-      <a href="#learnings">Key Takeaways</a>
-    </aside>
-
-    <article class="cs-page">
-
-      <!-- HERO: title left / description right -->
-
-      <header class="cs-hero">
-        <div class="cs-hero-title">
-          <h1>Sembli</h1>
-        </div>
-        <div class="cs-hero-copy">
-          <p class="meta">A short two-sentence description of the project that frames what it is and who it's for. Plain language, no jargon.</p>
-        </div>
-      </header>
-
-      <!-- HERO MEDIA STACK -->
-      <div class="cs-stack">
-        <figure class="cs-figure cs-hero-figure">
-          <div class="cs-figure-media">Hero image or video</div>
-          <figcaption><span class="num">Fig 1.0</span><span>Caption.</span></figcaption>
-        </figure>
-
-        <div class="cs-media-grid-2">
-          <figure class="cs-figure">
-            <div class="cs-figure-media">Supporting still or video</div>
-            <figcaption><span class="num">Fig 1.1</span><span>Caption.</span></figcaption>
-          </figure>
-          <figure class="cs-figure">
-            <div class="cs-figure-media">Supporting still or video</div>
-            <figcaption><span class="num">Fig 1.2</span><span>Caption.</span></figcaption>
-          </figure>
-        </div>
+  <main class="sembli-soon">
+    <div class="sembli-soon-inner">
+      <div class="sembli-soon-video">
+        <video src="../Home Page/Sembli.mp4" playsinline muted autoplay loop preload="none" poster="../Home Page/stills/Sembli.jpg?v=3"></video>
       </div>
-
-      <!-- OVERVIEW: role / team / timeline + narrative -->
-      <section id="overview" class="cs-section cs-overview">
-        <div class="cs-meta-col">
-          <div class="cs-meta-block">
-            <span class="label">Timeline</span>
-            <div class="value">8 weeks<br>2025</div>
-          </div>
-          <div class="cs-meta-block">
-            <span class="label">Role</span>
-            <div class="value">Product Designer — research, interaction design, visual design and prototyping</div>
-          </div>
-          <div class="cs-meta-block">
-            <span class="label">Team</span>
-            <ul>
-              <li>Teammate name (Role)</li>
-              <li>Teammate name (Role)</li>
-            </ul>
-          </div>
-          <div class="cs-meta-block">
-            <span class="label">Skills</span>
-            <div class="cs-chips">
-              <span class="chip">UX/UI</span>
-              <span class="chip">Product Strategy</span>
-              <span class="chip">User Research</span>
-              <span class="chip">Visual Design</span>
-            </div>
-          </div>
-          <div class="cs-meta-block">
-            <span class="label">Tools</span>
-            <div class="cs-chips">
-              <span class="chip">Tool</span>
-              <span class="chip">Tool</span>
-              <span class="chip">Tool</span>
-              <span class="chip">Tool</span>
-            </div>
-          </div>
+      <div class="sembli-soon-copy">
+        <h1 class="sembli-soon-title">Sembli</h1>
+        <div class="tags sembli-soon-tags">
+          <span class="tag">AI-Native Product</span>
+          <span class="tag">Shipped Product</span>
         </div>
-
-        <div class="cs-overview-copy">
-          <span class="cs-kicker">Overview</span>
-          <h2 class="cs-overview-h">A longer sentence headline that frames what Sembli does and the change it tries to create.</h2>
-          <p>A one-paragraph overview of what Sembli is and who it is for. Set the stage in plain language without jargon.</p>
-          <p>A second paragraph on what I did on the project end-to-end and the decisions I owned.</p>
-          <p>A third paragraph on outcomes worth surfacing up front, launch, sentiment, metrics, or what shipped.</p>
+        <p class="sembli-soon-support">250 AI tools, organized into reusable workflows. 70 come prebuilt and vetted, with AI built into the product itself. The AI turns your goal into a recommended one, wired in via API.</p>
+        <div class="sembli-soon-cta">
+          <a class="sembli-cta" href="https://sembli.us" target="_blank" rel="noreferrer">Visit the live product <i class="ph ph-arrow-up-right"></i></a>
         </div>
-      </section>
-
-      <!-- PROBLEM -->
-      <section id="problem" class="cs-section cs-block">
-        <span class="cs-kicker">Problem</span>
-        <h2>The specific tension users feel, named in one sentence.</h2>
-        <p>A short, conversational paragraph that grounds the pain in a real moment or behavior.</p>
-        <p>A second paragraph that goes one layer deeper, what users try first, why it stalls, and the workaround they fall back on.</p>
-
-        <span class="cs-sub">Why now</span>
-        <p>Paragraph on the cultural or technological shift that makes this problem worth solving today and not five years ago.</p>
-
-        <span class="cs-sub">Where existing solutions fall short</span>
-        <p>Paragraph naming the dominant alternatives and where each breaks down for this specific user.</p>
-        <p>Optional second paragraph that draws a line between the gap and the opportunity.</p>
-      </section>
-
-      <!-- SOLUTION -->
-      <section id="solution" class="cs-section cs-block">
-        <span class="cs-kicker">Solution</span>
-        <h2>A one-line description of the system, not the feature list.</h2>
-        <p>Paragraph on how the pieces fit together, the spine of the experience and the unit of value each user gets.</p>
-        <p>A second paragraph that previews the three or four moves the rest of this section unpacks in detail.</p>
-      </section>
-
-      <figure class="cs-figure">
-        <div class="cs-figure-media">Key screen or system diagram</div>
-        <figcaption><span class="num">Fig 2.0</span><span>What the diagram shows and why it matters.</span></figcaption>
-      </figure>
-
-      <section class="cs-block">
-        <span class="cs-sub">Feature one, in plain language.</span>
-        <p>Paragraph explaining how it works and what it earns the user.</p>
-        <p>A second paragraph on the trade-off or constraint that shaped this feature.</p>
-      </section>
-
-      <figure class="cs-figure">
-        <div class="cs-figure-media">Feature 01 media</div>
-        <figcaption><span class="num">Fig 3.0</span><span>Caption.</span></figcaption>
-      </figure>
-
-      <div class="cs-media-grid-2">
-        <figure class="cs-figure">
-          <div class="cs-figure-media">Feature 01 detail</div>
-          <figcaption><span class="num">Fig 3.1</span><span>Caption.</span></figcaption>
-        </figure>
-        <figure class="cs-figure">
-          <div class="cs-figure-media">Feature 01 detail</div>
-          <figcaption><span class="num">Fig 3.2</span><span>Caption.</span></figcaption>
-        </figure>
+        <a class="cs-next sembli-next" href="/aeri/">
+          <div class="cs-next-text">
+            <h3 class="cs-next-title">Aeri</h3>
+            <p class="cs-next-desc">AI-powered diabetes management with AR integration and smart signal detection.</p>
+            <span class="cs-next-cta">See next project</span>
+          </div>
+          <div class="cs-next-media">
+            <video autoplay muted loop playsinline preload="none" data-play-from-still poster="../Home Page/stills/Aeri Video.jpg?v=2">
+              <source src="../Home Page/Aeri Video.mp4" type="video/mp4">
+            </video>
+          </div>
+        </a>
       </div>
-
-      <section class="cs-block">
-        <span class="cs-sub">Feature two, in plain language.</span>
-        <p>Paragraph explaining the job this feature does.</p>
-        <p>A second paragraph on how it pairs with feature one to compound the user's payoff.</p>
-      </section>
-
-      <div class="cs-media-grid-3">
-        <figure class="cs-figure"><div class="cs-figure-media square">3-up 1</div></figure>
-        <figure class="cs-figure"><div class="cs-figure-media square">3-up 2</div></figure>
-        <figure class="cs-figure"><div class="cs-figure-media square">3-up 3</div></figure>
-      </div>
-
-      <figure class="cs-figure">
-        <div class="cs-figure-media">Feature 02 media</div>
-        <figcaption><span class="num">Fig 4.0</span><span>Caption.</span></figcaption>
-      </figure>
-
-      <section class="cs-block">
-        <span class="cs-sub">Feature three, in plain language.</span>
-        <p>Paragraph that ties the system together, the connective tissue users may not notice but rely on.</p>
-      </section>
-
-      <div class="cs-media-grid-2">
-        <figure class="cs-figure">
-          <div class="cs-figure-media">Feature 03 detail</div>
-          <figcaption><span class="num">Fig 5.0</span><span>Caption.</span></figcaption>
-        </figure>
-        <figure class="cs-figure">
-          <div class="cs-figure-media">Feature 03 detail</div>
-          <figcaption><span class="num">Fig 5.1</span><span>Caption.</span></figcaption>
-        </figure>
-      </div>
-
-      <figure class="cs-figure">
-        <div class="cs-figure-media">Solution summary or final screen</div>
-        <figcaption><span class="num">Fig 5.2</span><span>Caption.</span></figcaption>
-      </figure>
-
-      <!-- RESEARCH -->
-      <section id="research" class="cs-section cs-block">
-        <span class="cs-kicker">Research</span>
-        <h2>What I learned by listening before designing.</h2>
-        <p>Paragraph framing how I gathered signal, interviews, audits, surveys, and the assumption I was testing going in.</p>
-        <p>Second paragraph on what surprised me and the moment the brief shifted.</p>
-
-        <span class="cs-sub">Method</span>
-        <p>Short paragraph on the specific mix of methods and why each one was the right tool for that question.</p>
-
-        <span class="cs-sub">What I heard</span>
-        <p>Paragraph synthesizing the pattern across conversations. Quote one user verbatim if it earns its place.</p>
-
-        <span class="cs-sub">What it changed</span>
-        <p>Paragraph naming the design decision that flipped because of what I learned, concretely, not abstractly.</p>
-      </section>
-
-      <section>
-        <div class="cs-principles">
-          <div class="item"><h3>Insight one</h3><p>One-sentence takeaway from research.</p></div>
-          <div class="item"><h3>Insight two</h3><p>One-sentence takeaway.</p></div>
-          <div class="item"><h3>Insight three</h3><p>One-sentence takeaway.</p></div>
-        </div>
-      </section>
-
-      <figure class="cs-figure">
-        <div class="cs-figure-media">Research artifact, mental model, or moodboard</div>
-        <figcaption><span class="num">Fig 4.0</span><span>Caption.</span></figcaption>
-      </figure>
-
-      <!-- NEXT STEPS -->
-      <section id="next-steps" class="cs-section cs-block">
-        <span class="cs-kicker">Next Steps</span>
-        <h2>What I'd build next if I kept going.</h2>
-        <p>Paragraph on the directions I'd pursue and the experiments I'd run first.</p>
-
-        <span class="cs-sub">Short-term</span>
-        <p>Paragraph on the immediate next move, what would ship within a few weeks and how I'd measure whether it landed.</p>
-
-        <span class="cs-sub">Long-term</span>
-        <p>Paragraph on the version of this product two or three iterations out, what becomes possible when the foundation is in place.</p>
-
-        <span class="cs-sub">Open questions</span>
-        <p>Paragraph naming the questions I haven't resolved yet and what evidence would help me answer them.</p>
-      </section>
-
-      <!-- WHAT I LEARNED -->
-      <section id="learnings" class="cs-section cs-block">
-        <span class="cs-kicker">Key Takeaways</span>
-        <h2>The lessons I'm carrying into the next project.</h2>
-        <p>Opening paragraph framing the broader takeaway, what shifted in how I work, not just what I did.</p>
-        <p>Second paragraph on the moment I most underestimated and what it taught me about scoping.</p>
-      </section>
-
-      <section>
-        <div class="cs-reflections">
-          <div class="item">
-            <h3>Takeaway one</h3>
-            <p>Short paragraph on what I'd repeat next time and the situation it applies to.</p>
-          </div>
-          <div class="item">
-            <h3>Takeaway two</h3>
-            <p>Short paragraph naming a specific habit or check that earned its place in my process.</p>
-          </div>
-          <div class="item">
-            <h3>Takeaway three</h3>
-            <p>Short paragraph on a tool or rule I'd retire if I started over.</p>
-          </div>
-          <div class="item">
-            <h3>Takeaway four</h3>
-            <p>Short paragraph on the conversation I wish I'd started a week earlier.</p>
-          </div>
-        </div>
-      </section>
-
-    </article>
-
-    <!-- NEXT PROJECT -->
-    <div class="cs-next-wrap">
-      <a class="cs-next" href="/aeri/">
-        <div class="cs-next-text">
-          <h3 class="cs-next-title">Aeri</h3>
-          <p class="cs-next-desc">AI-powered diabetes management with AR integration and smart signal detection.</p>
-          <span class="cs-next-cta">See next project</span>
-        </div>
-        <div class="cs-next-media">
-          <video autoplay muted loop playsinline preload="none" data-play-from-still poster="../Home Page/stills/Aeri Video.jpg?v=2">
-            <source src="../Home Page/Aeri Video.mp4" type="video/mp4">
-          </video>
-        </div>
-      </a>
     </div>
-
-    <!-- FOOTER (matches home / aeri page-footer) -->
-    <footer class="page-footer">
-      <h2 class="page-footer-title">Let's Work</h2>
-      <div class="page-footer-grid">
-        <div class="page-footer-column">
-          <p class="page-footer-heading">Find me</p>
-          <div class="page-footer-links">
-            <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer" class="t-small page-footer-link">LinkedIn <i class="ph ph-arrow-up-right"></i></a>
-            <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer" class="t-small page-footer-link">Github <i class="ph ph-arrow-up-right"></i></a>
-            <a href="/Melody Ekbatani.pdf" target="_blank" rel="noreferrer" class="t-small page-footer-link">Resume <i class="ph ph-arrow-up-right"></i></a>
-          </div>
-        </div>
-        <div class="page-footer-column">
-          <p class="page-footer-heading">What Guides My Work</p>
-          <div class="page-footer-links">
-            <p>Innovation</p>
-                <p>Entrepreneurship</p>
-                <p>Creativity</p>
-          </div>
-        </div>
-        <div class="page-footer-message">
-          <p>Designing through clarity, storytelling, and moments of delight.</p>
-          <a href="mailto:melodyekbatani@gmail.com" class="t-small page-footer-email" rel="noreferrer">melodyekbatani@gmail.com <i class="ph ph-arrow-up-right"></i></a>
-        </div>
-      </div>
-      <div class="page-footer-meta"></div>
-    </footer>
-
-  </div>
+  </main>
 
   <script>
     // Nav indicator
