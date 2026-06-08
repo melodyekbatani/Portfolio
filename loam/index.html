@@ -446,6 +446,51 @@
       margin: 0;
     }
 
+    /* Takeaways beside the closing photos: text left, the photo pair
+       sits side by side in the right column. Stacks on mobile. */
+    .cs-takeaways {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: stretch;
+    }
+    /* Photo fills the right column and is cropped (cover) to the exact height
+       of the takeaways text. The media track fills the row; the image is
+       absolutely positioned so it always covers it, whatever the text height. */
+    /* The figure is stretched to the row height by the grid; its media is
+       absolutely positioned to fill that height (minus the caption), so the
+       photo always matches the takeaways text top-to-bottom. */
+    .cs-takeaways .cs-takeaway-photo { position: relative; display: block; }
+    .cs-takeaways .cs-takeaway-photo .cs-figure-media {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 2.8em;
+      aspect-ratio: auto;
+    }
+    .cs-takeaways .cs-takeaway-photo .cs-figure-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .cs-takeaways .cs-takeaway-photo figcaption {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+    }
+    @media (max-width: 720px) {
+      .cs-takeaways { grid-template-columns: 1fr; gap: 40px; }
+      .cs-takeaways .cs-takeaway-photo {
+        display: flex;
+        flex-direction: column;
+        max-width: 320px;
+      }
+      .cs-takeaways .cs-takeaway-photo .cs-figure-media {
+        position: static; aspect-ratio: 3 / 4;
+      }
+      .cs-takeaways .cs-takeaway-photo .cs-figure-media img { position: static; }
+      .cs-takeaways .cs-takeaway-photo figcaption { position: static; }
+    }
+
     /* Next project */
     .cs-next-wrap { margin-top: var(--cs-rhythm); }
     .cs-next {
@@ -698,6 +743,46 @@
       aspect-ratio: 2578 / 1080;
     }
 
+    /* ── New stills: diagrams, brand boards, photos ───────────── */
+    /* Schematic diagrams display in full on white (no cover-crop); their
+       ratios vary widely, so the media box follows the image. Capped to the
+       reading measure and centered so the tall system map does not dominate. */
+    .cs-diagram-fig { align-self: center; width: 100%; max-width: var(--cs-measure); }
+    .cs-figure-media.cs-diagram {
+      aspect-ratio: auto;
+      height: auto;
+      background: #fff;
+      place-items: stretch;
+    }
+    .cs-figure-media.cs-diagram img { object-fit: contain; width: 100%; height: auto; }
+
+    /* Brand boards ship at a fixed 2.39:1; match the tile so they fill
+       edge-to-edge without cropping (mirrors the Fig 5 brand video). */
+    .cs-figure-media.cs-board { aspect-ratio: 5202 / 2180; }
+
+    /* Mid-fi flow strip is a wide row of screens on white; contain it. */
+    .cs-figure-media.cs-screens {
+      aspect-ratio: 2465 / 750;
+      background: #fff;
+      place-items: stretch;
+    }
+    .cs-figure-media.cs-screens img { object-fit: contain; width: 100%; height: auto; }
+
+    /* Architecture lead: the system map sits to the left of the intro copy.
+       Map top-aligns with the heading; stacks below the copy on mobile. */
+    .cs-arch-lead {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .cs-arch-lead .cs-diagram-fig { align-self: start; max-width: none; }
+    @media (max-width: 720px) {
+      .cs-arch-lead { grid-template-columns: 1fr; gap: 32px; }
+      .cs-arch-lead > .cs-figure { order: 2; }
+      .cs-arch-lead > .cs-block  { order: 1; }
+    }
+
     /* Mobile: stack figure captions vertically (fig number on its own line),
        align them flush with the rest of the case-study copy. Cover the
        higher-specificity .cs-has-sound + cs-split figcaption selectors too. */
@@ -733,12 +818,11 @@
 
     <aside class="cs-toc" aria-label="Contents">
       <a href="#overview">Overview</a>
-      <a href="#context">Context</a>
       <a href="#research">Research</a>
       <a href="#system">Design System</a>
       <a href="#solution">Solution</a>
-      <a href="#constraints">Constraints</a>
       <a href="#outcomes">Outcomes</a>
+      <a href="#reflection">Reflection</a>
     </aside>
 
     <article class="cs-page">
@@ -750,7 +834,7 @@
           <h1>Loam</h1>
         </div>
         <div class="cs-hero-copy">
-          <p class="meta">Shipped marketplace for 300+ sustainable vendors. I designed it end-to-end, from brand identity to the multi-seller system.</p>
+          <p class="meta">Shipped marketplace for 300+ sustainable vendors. I designed it end to end, from brand identity to the multi-seller system.</p>
         </div>
       </header>
 
@@ -761,6 +845,23 @@
           <figcaption><span class="num">Fig 1.0</span><span>Loam: a live marketplace for sustainable living. For Earth, with love.</span></figcaption>
         </figure>
       </div>
+
+      <!-- KEY IMAGES -->
+      <div class="cs-media-grid-2">
+        <figure class="cs-figure">
+          <div class="cs-figure-media cs-board"><img src="Brand Design 2.png" alt="Loam brand identity in application" loading="lazy"></div>
+          <figcaption><span class="num">Fig 1.1</span><span>The identity in application, from "Live Regenerative" to the "Playground" story.</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <div class="cs-figure-media cs-board"><img src="Brand design 1.png" alt="Loam brand system: logo, color, and motifs" loading="lazy"></div>
+          <figcaption><span class="num">Fig 1.2</span><span>The brand system: logo, palette, and recurring motifs.</span></figcaption>
+        </figure>
+      </div>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media"><video  src="2 - Key Screens.mp4" playsinline muted autoplay loop preload="none" poster="stills/2 - Key Screens.jpg?v=2"></video></div>
+        <figcaption><span class="num">Fig 1.3</span><span>Key screens across the shopping and seller experience.</span></figcaption>
+      </figure>
 
       <!-- OVERVIEW -->
       <section id="overview" class="cs-section cs-overview">
@@ -808,19 +909,6 @@
         </div>
       </section>
 
-      <!-- CONTEXT -->
-      <section id="context" class="cs-section cs-block">
-        <span class="cs-kicker">Context</span>
-        <h2>Scaling a multi-seller ecosystem</h2>
-        <p>Loam needed to grow from a small curated shop into a multi-seller marketplace supporting hundreds of independent, mission-aligned vendors. It had to do that without losing the consistency, trust, and editorial warmth that define the brand.</p>
-        <p>That meant designing more than a storefront. I also designed the systems behind it: how sellers join, list, and manage products, and how shoppers discover, trust, and return.</p>
-      </section>
-
-      <figure class="cs-figure">
-        <div class="cs-figure-media"><img src="3 - Intro graphic.webp" alt="Loam brand and product overview" loading="lazy"></div>
-        <figcaption><span class="num">Fig 2.0</span><span>One trusted home for sustainable brands across wardrobe, beauty, living, and children.</span></figcaption>
-      </figure>
-
       <!-- RESEARCH -->
       <section id="research" class="cs-section cs-block">
         <span class="cs-kicker">Research</span>
@@ -831,12 +919,49 @@
 
       <figure class="cs-figure">
         <div class="cs-figure-media"><video  src="5 - Reddit research.mp4" playsinline muted autoplay loop preload="none" poster="stills/5 - Reddit research.jpg?v=3"></video></div>
-        <figcaption><span class="num">Fig 3.0</span><span>Community and competitor research grounded the experience in real shopper behavior.</span></figcaption>
+        <figcaption><span class="num">Fig 2.0</span><span>Community and competitor research grounded the experience in real shopper behavior.</span></figcaption>
       </figure>
 
+      <!-- INFORMATION ARCHITECTURE -->
+      <section id="system" class="cs-section cs-arch-lead">
+        <div class="cs-block">
+          <span class="cs-kicker">Design System</span>
+          <h2>Structuring the marketplace before designing it</h2>
+          <p>Before any visual design, I mapped the full marketplace: every page, how shoppers and sellers move through it, and how data flows between them. Then I broke each page into reusable components, each one tagged by how its content is managed.</p>
+
+          <span class="cs-sub">A content model for scale</span>
+          <p>The hard problem was keeping a large, multi-vendor catalog coherent without a large team to maintain it. I designed a content model with three zone types. Evergreen zones hold static brand and structure. Rotational zones update automatically from product and recommendation feeds. Manual zones hold the editorial and merchandising work that needs a person. Most of the site stays current on its own, so human effort goes only where it adds the most value.</p>
+        </div>
+        <figure class="cs-figure cs-diagram-fig">
+          <div class="cs-figure-media cs-diagram"><img src="System map.png" alt="Loam marketplace system map" loading="lazy"></div>
+        </figure>
+      </section>
+
+      <div class="cs-block">
+        <span class="cs-sub">Applying the model to every page</span>
+        <p>With the content model defined, I applied it to every page type. The homepage, category, product, corporate, and journal templates are all assembled from the same evergreen, rotational, and manual zones. Blocking each layout this way kept the system consistent before any visual design began.</p>
+      </div>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media cs-diagram"><img src="Lofi wireframes.png" alt="Low-fidelity page wireframes" loading="lazy"></div>
+        <figcaption><span class="num">Fig 3.0</span><span>Page templates blocked out by content zone, before any visual design.</span></figcaption>
+      </figure>
+
+      <div class="cs-arch-lead">
+        <div class="cs-block">
+          <span class="cs-sub">Breaking pages into components</span>
+          <p>Each template then decomposes into a component inventory, and every component maps to one of the three content zones. That mapping is what lets most of the catalog stay current on its own.</p>
+          <p>The three zones split the work cleanly. Evergreen holds the static brand and structural UI. Rotational updates automatically from product and recommendation feeds. Manual covers the editorial pieces a person still owns: hero messaging, curated stories, and custom promotions. Across page types the mix skews evergreen and rotational, so the catalog largely maintains itself.</p>
+        </div>
+        <figure class="cs-figure cs-diagram-fig">
+          <div class="cs-figure-media cs-diagram"><img src="New Content types.png" alt="Content system: zone types, per-page components, and zone distribution" loading="lazy"></div>
+          <figcaption><span class="num">Fig 3.1</span><span>The content system: zone types, the components each page maps to, and how they distribute across pages.</span></figcaption>
+        </figure>
+      </div>
+
       <!-- DESIGN SYSTEM -->
-      <section id="system" class="cs-section cs-block">
-        <span class="cs-kicker">Design System</span>
+      <section class="cs-section cs-block">
+        <span class="cs-sub">A scalable component system</span>
         <h2>40+ reusable components, one coherent brand</h2>
         <p>I built a scalable design system of 40+ reusable components to ensure consistency across product and marketing touchpoints. Every surface, from storefront to seller portal to campaign, reads as one coherent brand.</p>
 
@@ -853,27 +978,23 @@
       <section id="solution" class="cs-section cs-block">
         <span class="cs-kicker">Solution</span>
         <h2>Designing the seller and shopper journeys</h2>
-        <p>I designed the core workflows across both sides of the marketplace. This covered vendor onboarding, the seller portal, product listing, shipping and returns, and the shopper journey from discovery to checkout. I also designed the category system, which spans four departments (Wardrobe, Beauty &amp; Wellness, Living, and Children) and roughly 25 subcategories.</p>
+        <p>I designed the core workflows across both sides of the marketplace. This covered vendor onboarding, the seller portal, product listing, shipping and returns, and the shopper journey from discovery to checkout. I also designed the category system, which spans four departments and roughly 25 subcategories.</p>
         <p>Loam runs on Shopify Collective, which provides the underlying multi-seller infrastructure for payments, vendor payouts, and order routing. My work was the experience layer on top. I designed how vendors move through onboarding and manage their storefronts. I also designed how shoppers discover and trust products across 300+ vendors without the experience feeling fragmented. I designed and built most of the marketplace myself, with two senior engineering consultants supporting a few focused tasks. Designing within Collective's constraints, rather than building infrastructure from scratch, kept the marketplace shippable on a small team.</p>
       </section>
 
       <figure class="cs-figure">
-        <div class="cs-figure-media"><video  src="2 - Key Screens.mp4" playsinline muted autoplay loop preload="none" poster="stills/2 - Key Screens.jpg?v=2"></video></div>
-        <figcaption><span class="num">Fig 5.0</span><span>Key screens across the shopping and seller experience.</span></figcaption>
+        <div class="cs-figure-media"><img src="3 - Intro graphic.webp" alt="Loam brand and product overview" loading="lazy"></div>
+        <figcaption><span class="num">Fig 5.0</span><span>One trusted home for sustainable brands across wardrobe, beauty, living, and children.</span></figcaption>
       </figure>
 
-      <!-- TODO (Change 7): Add 2-3 real product UI screens here (and/or in the Constraints
-           section below) once the image files exist in the project. Use the same
-           <figure class="cs-figure"> / <figcaption> markup as the figures above.
-           Suggested captions:
-             - "Vendor onboarding flow."
-             - "Seller portal, product management."
-             - "Shopper journey from discovery to checkout." -->
+      <figure class="cs-figure">
+        <div class="cs-figure-media cs-screens"><img src="Core flow - edge case - midfi prototype.png" alt="Mid-fidelity prototype: checkout, confirmation, order history, and seller login" loading="lazy"></div>
+        <figcaption><span class="num">Fig 5.1</span><span>Mid-fidelity flows: checkout, order confirmation, order history, and seller login.</span></figcaption>
+      </figure>
 
-      <!-- CONSTRAINTS & DECISIONS -->
-      <section id="constraints" class="cs-section cs-block">
-        <span class="cs-kicker">Constraints</span>
-        <h2>Constraints and decisions</h2>
+      <!-- CONSTRAINTS & DECISIONS (merged into Solution) -->
+      <div class="cs-block">
+        <span class="cs-sub">Constraints and decisions</span>
         <!-- TODO (Change 6): {{CONSTRAINT}} not yet provided. Add one real limitation
              (Shopify Collective or otherwise) as the second sentence of the paragraph below.
              Example: "Collective's vendor onboarding flow could not be fully customized, so
@@ -885,16 +1006,46 @@
              Collective's defaults. Vendors got a Loam-branded, lower-friction path to a live
              storefront without custom backend work." -->
         <p>The recurring tradeoff was curation versus scale. The brand depends on everything feeling vetted and editorial. A multi-seller marketplace pulls toward volume and inconsistency. I prioritized a tightly designed system of components, templates, and guardrails. This let the catalog grow without each new vendor diluting the experience.</p>
-      </section>
+      </div>
 
       <!-- OUTCOMES -->
       <section id="outcomes" class="cs-section cs-block">
         <span class="cs-kicker">Outcomes</span>
         <h2>A coherent marketplace, built to scale</h2>
-        <p>Loam is live as a unified marketplace supporting 300+ vendors across four departments and roughly 25 subcategories, selling products from independent brands that ship direct from the maker. A design system and brand identity keep the experience consistent as the catalog grows, and a full supporting system is live: seller onboarding, product management, order tracking, and a returns flow that connects shoppers directly with each brand.</p>
+        <p>Loam is live as a unified marketplace supporting 300+ vendors, selling products from independent brands that ship direct from the maker. A design system and brand identity keep the experience consistent as the catalog grows. The full supporting system is live too: seller onboarding, product management, order tracking, and a returns flow that connects shoppers directly with each brand.</p>
         <!-- TODO (Change 8): {{SHOPIFY_NUMBER}} optional figure not yet provided. If you have
              one real number from the Shopify admin, add a final sentence here, e.g.
              "Launched [month/year] with [Y] products." -->
+      </section>
+
+      <figure class="cs-figure">
+        <div class="cs-figure-media"><video  src="2 - Key Screens.mp4" playsinline muted autoplay loop preload="none" poster="stills/2 - Key Screens.jpg?v=2"></video></div>
+        <figcaption><span class="num">Fig 6.0</span><span>Key screens across the shopping and seller experience.</span></figcaption>
+      </figure>
+
+      <section id="reflection" class="cs-section cs-block">
+        <span class="cs-kicker">Reflection</span>
+        <h2>Takeaways</h2>
+        <div class="cs-takeaways">
+          <div class="cs-reflections">
+            <div class="item">
+              <h3>Designing within a platform's limits</h3>
+              <p>Building on Shopify Collective meant designing inside fixed boundaries rather than from a blank canvas. I learned to treat those limits as a starting point, shaping a branded, lower-friction experience on top of infrastructure I did not control.</p>
+            </div>
+            <div class="item">
+              <h3>Systems over screens</h3>
+              <p>Keeping a 300+ vendor catalog coherent came down to the system, not individual pages. A content model of evergreen, rotational, and manual zones let most of the site stay current on its own, so a small team could scale without losing consistency.</p>
+            </div>
+            <div class="item">
+              <h3>Balancing curation and scale</h3>
+              <p>The constant tension was editorial warmth versus marketplace volume. I leaned on tightly designed components, templates, and guardrails so the catalog could grow without each new vendor diluting the brand.</p>
+            </div>
+          </div>
+          <figure class="cs-figure cs-takeaway-photo">
+            <div class="cs-figure-media"><img src="Photos on site.png" alt="The team behind Loam" loading="lazy"></div>
+            <figcaption><span class="num">Fig 6.1</span><span>After nearly a year, I met founder Allison Lomax in person, on site in Sedona, where Loam began.</span></figcaption>
+          </figure>
+        </div>
       </section>
 
     </article>
