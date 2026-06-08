@@ -834,7 +834,7 @@
           <h1>Loam</h1>
         </div>
         <div class="cs-hero-copy">
-          <p class="meta">Shipped marketplace for 300+ sustainable vendors. I designed it end to end, from brand identity to the multi-seller system.</p>
+          <p class="meta">Shipped marketplace for 300+ sustainable vendors, designed from the brand identity down to the systems that run it.</p>
         </div>
       </header>
 
@@ -904,8 +904,8 @@
         <div class="cs-overview-copy">
           <span class="cs-kicker">Overview</span>
           <h2 class="cs-overview-h">A two-sided marketplace, designed end to end</h2>
-          <p>Loam is a mission-driven marketplace for sustainable, organic products. I led design across both sides of the marketplace: the shopper experience and the seller tools. The work spanned UX architecture, a scalable design system, and the brand identity that ties it together.</p>
-          <p>The product brings vetted brands together across Wardrobe, Beauty &amp; Wellness, Living, and Children. It gives shoppers one trusted place to discover better-for-you alternatives. The harder problem sat underneath the storefront. I had to design the systems that let independent vendors join, list, and operate, while keeping the experience consistent and trustworthy as the catalog scales.</p>
+          <p>Loam is a mission-driven marketplace for sustainable, organic products. I led design on both sides of it: the shopper experience and the tools sellers use to run their storefronts. That work spanned the UX architecture, a scalable design system, and the brand identity that holds them together.</p>
+          <p>It brings independent brands together across Wardrobe, Beauty &amp; Wellness, Living, and Children, giving shoppers one trusted place to find better-for-you alternatives. The harder problem sat beneath the storefront: designing the systems that let vendors join, list, and operate, while the experience stayed cohesive and trustworthy as more sellers came on.</p>
         </div>
       </section>
 
@@ -914,7 +914,7 @@
         <span class="cs-kicker">Research</span>
         <h2>Understanding conscious shoppers</h2>
         <p>I studied how people discover and decide on sustainable products: what builds trust, what creates doubt, and where conventional marketplaces fall short for values-driven shoppers.</p>
-        <p>These signals shaped an experience that leads with transparency and curation rather than endless choice. The goal was to help shoppers feel confident that everything on Loam is genuinely good for them and the Earth.</p>
+        <p>Those signals pointed to an experience that leads with transparency and a tight edit, not endless choice. The goal was simple: shoppers should trust that everything on Loam is good for them and for the Earth.</p>
       </section>
 
       <figure class="cs-figure">
@@ -927,20 +927,18 @@
         <div class="cs-block">
           <span class="cs-kicker">Design System</span>
           <h2>Structuring the marketplace before designing it</h2>
-          <p>Before any visual design, I mapped the full marketplace: every page, how shoppers and sellers move through it, and how data flows between them. Then I broke each page into reusable components, each one tagged by how its content is managed.</p>
+          <p>Before any visual design, I mapped the full marketplace: every page, how shoppers and sellers move through it, and how data flows between them.</p>
 
           <span class="cs-sub">A content model for scale</span>
-          <p>The hard problem was keeping a large, multi-vendor catalog coherent without a large team to maintain it. I designed a content model with three zone types. Evergreen zones hold static brand and structure. Rotational zones update automatically from product and recommendation feeds. Manual zones hold the editorial and merchandising work that needs a person. Most of the site stays current on its own, so human effort goes only where it adds the most value.</p>
+          <p>The hard part was holding a large, multi-vendor storefront together without a large team behind it. So I built the content model around three zone types, each one defined by how often its content changes and who owns it. Most of the site updates itself, which frees people to spend their time only where real judgment is needed.</p>
+
+          <span class="cs-sub">Applying the model to every page</span>
+          <p>With the model defined, I applied it to every page type. Homepage, category, product, corporate, and journal templates all draw from the same set of zones, so each layout could be blocked out and resolved as structure before a single visual decision.</p>
         </div>
         <figure class="cs-figure cs-diagram-fig">
           <div class="cs-figure-media cs-diagram"><img src="System map.png" alt="Loam marketplace system map" loading="lazy"></div>
         </figure>
       </section>
-
-      <div class="cs-block">
-        <span class="cs-sub">Applying the model to every page</span>
-        <p>With the content model defined, I applied it to every page type. The homepage, category, product, corporate, and journal templates are all assembled from the same evergreen, rotational, and manual zones. Blocking each layout this way kept the system consistent before any visual design began.</p>
-      </div>
 
       <figure class="cs-figure">
         <div class="cs-figure-media cs-diagram"><img src="Lofi wireframes.png" alt="Low-fidelity page wireframes" loading="lazy"></div>
@@ -950,8 +948,8 @@
       <div class="cs-arch-lead">
         <div class="cs-block">
           <span class="cs-sub">Breaking pages into components</span>
-          <p>Each template then decomposes into a component inventory, and every component maps to one of the three content zones. That mapping is what lets most of the catalog stay current on its own.</p>
-          <p>The three zones split the work cleanly. Evergreen holds the static brand and structural UI. Rotational updates automatically from product and recommendation feeds. Manual covers the editorial pieces a person still owns: hero messaging, curated stories, and custom promotions. Across page types the mix skews evergreen and rotational, so the catalog largely maintains itself.</p>
+          <p>Each template then breaks down into a set of components, and every component maps to one of the three zones. That mapping is what lets most of the site run on its own.</p>
+          <p>Each zone does a different job. Evergreen holds the static brand and structural UI. Rotational pulls automatically from product and recommendation feeds. Manual is the work a person still owns: hero messaging, curated stories, and promotions. Most pages lean on the first two, so the site mostly keeps itself up to date.</p>
         </div>
         <figure class="cs-figure cs-diagram-fig">
           <div class="cs-figure-media cs-diagram"><img src="New Content types.png" alt="Content system: zone types, per-page components, and zone distribution" loading="lazy"></div>
@@ -961,7 +959,7 @@
 
       <div class="cs-block">
         <span class="cs-sub">Prototyping the core flows</span>
-        <p>With the structure in place, I moved into mid-fidelity to pressure-test the highest-stakes moments on both sides of the marketplace. I prototyped checkout and order confirmation for shoppers, and order history and the seller login for vendors. Working through these flows surfaced the states and edge cases the component system would need to support.</p>
+        <p>With the structure in place, I moved into mid-fidelity to test the highest-stakes moments for each side. For shoppers, that was checkout and order confirmation. For vendors, order history and the seller login. Walking through these flows showed me the states and edge cases the components would need to handle.</p>
       </div>
 
       <figure class="cs-figure">
@@ -973,10 +971,10 @@
       <section class="cs-section cs-block">
         <span class="cs-sub">A scalable component system</span>
         <h2>40+ reusable components, one coherent brand</h2>
-        <p>I built a scalable design system of 40+ reusable components to ensure consistency across product and marketing touchpoints. Every surface, from storefront to seller portal to campaign, reads as one coherent brand.</p>
+        <p>The system grew to 40+ reusable components, covering storefront, seller portal, and marketing. Building each piece once and reusing it everywhere is what keeps the product and the marketing reading as one brand, even as we add new surfaces.</p>
 
         <span class="cs-sub">Brand identity</span>
-        <p>The identity is warm, aspirational, and values-driven, expressed through "For Earth, With Love." Typography, color, and imagery work together to feel premium and editorial while staying approachable. The result reinforces trust without ever feeling clinical.</p>
+        <p>The identity is warm and aspirational, built around "For Earth, With Love." Type, color, and imagery feel premium and considered without ever getting clinical, so the brand stays easy to trust.</p>
       </section>
 
       <figure class="cs-figure">
@@ -988,8 +986,8 @@
       <section id="solution" class="cs-section cs-block">
         <span class="cs-kicker">Solution</span>
         <h2>Designing the seller and shopper journeys</h2>
-        <p>I designed the core workflows across both sides of the marketplace. This covered vendor onboarding, the seller portal, product listing, shipping and returns, and the shopper journey from discovery to checkout. I also designed the category system, which spans four departments and roughly 25 subcategories.</p>
-        <p>Loam runs on Shopify Collective, which provides the underlying multi-seller infrastructure for payments, vendor payouts, and order routing. My work was the experience layer on top. I designed how vendors move through onboarding and manage their storefronts. I also designed how shoppers discover and trust products across 300+ vendors without the experience feeling fragmented. I designed and built most of the marketplace myself, with two senior engineering consultants supporting a few focused tasks. Designing within Collective's constraints, rather than building infrastructure from scratch, kept the marketplace shippable on a small team.</p>
+        <p>I owned the core workflows for both sellers and shoppers: vendor onboarding, the seller portal, product listing, shipping and returns, and the path from discovery to checkout. I also built the category system, four departments and about 25 subcategories.</p>
+        <p>Loam runs on Shopify Collective, which gives us a proven base for the hard infrastructure: payments, vendor payouts, and order routing. That freed me to focus where design mattered most, the experience layer on top of it. I designed how vendors move through onboarding and run their storefronts, and how shoppers find and trust products across hundreds of brands without the whole thing feeling stitched together. I designed and built most of it myself, with two senior engineering consultants on a few focused tasks. Leaning on Collective for the plumbing is what let a small team ship a marketplace this complete.</p>
       </section>
 
       <figure class="cs-figure">
@@ -1000,14 +998,14 @@
       <!-- CONSTRAINTS & DECISIONS (merged into Solution) -->
       <div class="cs-block">
         <span class="cs-sub">Constraints and decisions</span>
-        <p>The recurring tradeoff was curation versus scale. The brand depends on everything feeling vetted and editorial. A multi-seller marketplace pulls toward volume and inconsistency. I prioritized a tightly designed system of components, templates, and guardrails. This let the catalog grow without each new vendor diluting the experience.</p>
+        <p>The constant tension was curation versus scale. The brand depends on everything feeling hand-picked, but opening up to a lot of sellers pulls toward volume and mess. So I put the rigor into the system itself: components, templates, and guardrails that hold the bar. A new vendor can come on without watering down the experience, because the structure does the editing a person otherwise would have to.</p>
       </div>
 
       <!-- OUTCOMES -->
       <section id="outcomes" class="cs-section cs-block">
         <span class="cs-kicker">Outcomes</span>
-        <h2>A coherent marketplace, built to scale</h2>
-        <p>Loam is live as a unified marketplace supporting 300+ vendors, selling products from independent brands that ship direct from the maker. A design system and brand identity keep the experience consistent as the catalog grows. The full supporting system is live too: seller onboarding, product management, order tracking, and a returns flow that connects shoppers directly with each brand.</p>
+        <h2>One marketplace, built to scale</h2>
+        <p>Loam is live. We run 300+ independent vendors, each shipping direct from the maker, under one brand and one design system that hold up as more sellers come on. The full operating layer shipped with it: seller onboarding, product management, order tracking, and a returns flow that puts shoppers in touch with the brand they bought from.</p>
         <!-- TODO (Change 8): {{SHOPIFY_NUMBER}} optional figure not yet provided. If you have
              one real number from the Shopify admin, add a final sentence here, e.g.
              "Launched [month/year] with [Y] products." -->
@@ -1024,16 +1022,16 @@
         <div class="cs-takeaways">
           <div class="cs-reflections">
             <div class="item">
-              <h3>Designing within a platform's limits</h3>
-              <p>Building on Shopify Collective meant designing inside fixed boundaries rather than from a blank canvas. I learned to treat those limits as a starting point, shaping a branded, lower-friction experience on top of infrastructure I did not control.</p>
+              <h3>Building on the right foundation</h3>
+              <p>Building on Shopify Collective meant I didn't have to rebuild payments, payouts, and order routing. That let me spend almost all of my time on the experience and the brand, the parts that set Loam apart, and still ship something this complete with a small team.</p>
             </div>
             <div class="item">
               <h3>Systems over screens</h3>
-              <p>Keeping a 300+ vendor catalog coherent came down to the system, not individual pages. A content model of evergreen, rotational, and manual zones let most of the site stay current on its own, so a small team could scale without losing consistency.</p>
+              <p>The win was never in any single screen. It was in the model underneath, a small set of content rules that let the site keep itself current. Designing that first is what let a small team ship something this broad and keep it from falling apart.</p>
             </div>
             <div class="item">
               <h3>Balancing curation and scale</h3>
-              <p>The constant tension was editorial warmth versus marketplace volume. I leaned on tightly designed components, templates, and guardrails so the catalog could grow without each new vendor diluting the brand.</p>
+              <p>Curation and scale look like opposites, but they don't have to be. The trick was building the taste into the structure, so we could bring on far more sellers and still feel hand-picked. That balance, more than any one screen, is what I'm proudest of here.</p>
             </div>
           </div>
           <figure class="cs-figure cs-takeaway-photo">
