@@ -458,7 +458,7 @@
 
     /* ─── Next project (split card: text left, media right) ─── */
     /* Compact next-project card in the right margin */
-    .cs-next.sembli-next { margin-top: 28px; width: 100%; height: 96px; min-height: 0; }
+    .cs-next.sembli-next { position: absolute; right: var(--pad-page); bottom: var(--pad-page); width: 416px; height: 120px; margin-top: 0; min-height: 0; }
     .sembli-next .cs-next-text { padding: 0 18px; display: flex; flex-direction: column; justify-content: center; gap: 0; }
     .sembli-next .cs-next-title { font-size: var(--fs-body); margin: 0; }
     .sembli-next .cs-next-desc { display: none; }
@@ -631,6 +631,7 @@
 
     /* Coming-soon landing: video on the left, the pitch on the right margin */
     .sembli-soon {
+      position: relative;
       min-height: 100vh;
       box-sizing: border-box;
       padding: calc(var(--nav-h) + 32px) var(--pad-page) 48px;
