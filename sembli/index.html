@@ -458,12 +458,6 @@
 
     /* ─── Next project (split card: text left, media right) ─── */
     /* Compact next-project card in the right margin */
-    .cs-next.sembli-next { position: absolute; right: var(--pad-page); bottom: var(--pad-page); width: 416px; height: 120px; margin-top: 0; min-height: 0; }
-    .sembli-next .cs-next-text { padding: 0 18px; display: flex; flex-direction: column; justify-content: center; gap: 0; }
-    .sembli-next .cs-next-title { font-size: var(--fs-body); margin: 0; }
-    .sembli-next .cs-next-desc { display: none; }
-    .sembli-next .cs-next-cta { font-size: var(--fs-micro); margin-top: 6px; }
-    .sembli-next .cs-next-media { aspect-ratio: auto; height: 100%; }
     .cs-next {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -629,90 +623,7 @@
 
 
 
-    /* Coming-soon landing: video on the left, the pitch on the right margin */
-    .sembli-soon {
-      position: relative;
-      min-height: 100vh;
-      box-sizing: border-box;
-      padding: calc(var(--nav-h) + 32px) var(--pad-page) 48px;
-      display: flex;
-      align-items: center;
-    }
-    .sembli-soon-inner {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 416px;
-      align-items: center;
-      gap: 64px;
-    }
-    .sembli-soon-video { width: 100%; display: flex; justify-content: center; }
-    .sembli-soon-video video {
-      display: block;
-      width: 100%;
-      max-height: 52vh;
-      height: auto;
-      object-fit: contain;
-    }
-    .sembli-soon-copy { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
-    .sembli-soon-title {
-      font-size: var(--fs-title-md);
-      font-weight: var(--fw-medium);
-      letter-spacing: var(--ls-tight);
-      line-height: var(--lh-tight);
-      margin: 0;
-    }
-    .sembli-soon-support {
-      font-size: var(--fs-body);
-      line-height: var(--lh-body);
-      color: var(--ink);
-      margin: 16px 0 0;
-    }
-    .sembli-soon-role {
-      font-size: var(--fs-small);
-      color: var(--muted);
-      margin: 18px 0 0;
-    }
-    .sembli-soon-cta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 14px;
-      margin: 32px 0 0;
-    }
-    .sembli-soon-tags { margin-top: 18px; gap: 18px; }
-    .sembli-soon-tags .tag {
-      font-size: var(--fs-small);
-      border: none;
-      padding: 0;
-      color: var(--muted);
-    }
-    .sembli-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: var(--fs-small);
-      text-transform: uppercase;
-      letter-spacing: var(--ls-widest);
-      color: var(--ink);
-      text-decoration: none;
-      position: relative;
-    }
-    .sembli-cta i { font-size: 13px; }
-    .sembli-cta::after {
-      content: "";
-      position: absolute;
-      left: 0; bottom: -3px;
-      width: 0; height: 1px;
-      background: var(--ink);
-      transition: width var(--t-base) var(--ease-out);
-    }
-    .sembli-cta:hover::after { width: 100%; }
-    @media (max-width: 860px) {
-      .sembli-soon-inner { grid-template-columns: 1fr; gap: 32px; }
-      .sembli-soon { padding: calc(var(--nav-h) + 24px) var(--pad-page) 32px; }
-      .sembli-soon-hero { margin-top: 14px; }
-      .sembli-soon-support { margin-top: 16px; }
-    }
+
   </style>
 </head>
 <body>
@@ -726,36 +637,284 @@
     <a href="../Melody-Ekbatani.pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
   </nav>
 
-  <main class="sembli-soon">
-    <div class="sembli-soon-inner">
-      <div class="sembli-soon-video">
-        <video src="../Home Page/Sembli.mp4" playsinline muted autoplay loop preload="none" poster="../Home Page/stills/Sembli.jpg?v=3"></video>
-      </div>
-      <div class="sembli-soon-copy">
-        <h1 class="sembli-soon-title">Sembli</h1>
-        <div class="tags sembli-soon-tags">
-          <span class="tag">AI-Native Product</span>
-          <span class="tag">Shipped Product</span>
+  <div class="cs-shell">
+
+    <aside class="cs-toc" aria-label="Contents">
+      <a href="#overview">Overview</a>
+      <a href="#research">Research</a>
+      <a href="#design">Design</a>
+      <a href="#solution">Solution</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#reflection">Reflection</a>
+    </aside>
+
+    <article class="cs-page">
+
+      <!-- HERO -->
+      <header class="cs-hero">
+        <div class="cs-hero-title">
+          <h1>Sembli</h1>
         </div>
-        <p class="sembli-soon-support">250 AI tools, organized into reusable workflows. 70 come prebuilt and vetted, with AI built into the product itself. The AI turns your goal into a recommended one, wired in via API.</p>
-        <div class="sembli-soon-cta">
-          <a class="sembli-cta" href="https://sembli.us" target="_blank" rel="noreferrer">Visit the live product <i class="ph ph-arrow-up-right"></i></a>
+        <div class="cs-hero-copy">
+          <p class="meta">A shipped AI-native product that turns 250 scattered AI tools into reusable, guided workflows. I designed and built it end to end, with the AI wired in.</p>
         </div>
-        <a class="cs-next sembli-next" href="/aeri/">
-          <div class="cs-next-text">
-            <h3 class="cs-next-title">Aeri</h3>
-            <p class="cs-next-desc">AI-powered diabetes management with AR integration and smart signal detection.</p>
-            <span class="cs-next-cta">See next project</span>
-          </div>
-          <div class="cs-next-media">
-            <video autoplay muted loop playsinline preload="none" data-play-from-still poster="../Home Page/stills/Aeri Video.jpg?v=2">
-              <source src="../Home Page/Aeri Video.mp4" type="video/mp4">
-            </video>
-          </div>
-        </a>
+      </header>
+
+      <!-- HERO MEDIA STACK -->
+      <div class="cs-stack">
+        <figure class="cs-figure cs-hero-figure">
+          <div class="cs-figure-media"><video  src="../Home Page/Sembli.mp4" playsinline muted autoplay loop preload="none" poster="../Home Page/stills/Sembli.jpg?v=3"></video></div>
+          <figcaption><span class="num">Fig 1.0</span><span>Sembli: a live workspace that turns tool overload into repeatable creative workflows.</span></figcaption>
+        </figure>
       </div>
+
+      <div class="cs-media-grid-2">
+        <figure class="cs-figure">
+          <!-- ASSET: Discover, desktop + mobile -->
+          <div class="cs-figure-media">Discover &mdash; desktop &amp; mobile</div>
+          <figcaption><span class="num">Fig 1.1</span><span>Discover: the tool catalog, across desktop and mobile.</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <!-- ASSET: brand system board -->
+          <div class="cs-figure-media">Brand system</div>
+          <figcaption><span class="num">Fig 1.2</span><span>The brand: mascot, accent system, and the "assemble" idea made visual.</span></figcaption>
+        </figure>
+      </div>
+
+      <figure class="cs-figure">
+        <!-- ASSET: key screens across Discover / Stack Builder / Saved -->
+        <div class="cs-figure-media">Key screens</div>
+        <figcaption><span class="num">Fig 1.3</span><span>Key screens across Discover, the Stack Builder, and Saved.</span></figcaption>
+      </figure>
+
+      <!-- OVERVIEW -->
+      <section id="overview" class="cs-section cs-overview">
+        <div class="cs-meta-col">
+          <div class="cs-meta-block">
+            <span class="label">Timeline</span>
+            <!-- TODO: confirm dates -->
+            <div class="value">4 months<br>Jan &ndash; Apr 2025 (Capstone)</div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Role</span>
+            <div class="value">Product Strategist, Designer &amp; Developer. Owned product strategy, UX/UI, visual identity, and the working build.</div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Team</span>
+            <div class="value">Solo capstone project.</div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Scope</span>
+            <div class="cs-chips">
+              <span class="chip">Product Strategy</span>
+              <span class="chip">UX/UI</span>
+              <span class="chip">Visual Identity</span>
+              <span class="chip">AI Integration</span>
+              <span class="chip">Front-end Build</span>
+            </div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Tools</span>
+            <!-- TODO: add your build stack chip(s) -->
+            <div class="cs-chips">
+              <span class="chip">Figma</span>
+              <span class="chip">OpenAI API</span>
+              <span class="chip">Gemini API</span>
+            </div>
+          </div>
+          <div class="cs-meta-block">
+            <span class="label">Live link</span>
+            <div class="value cs-live-value"><a class="t-small cs-live-link" href="https://sembli.us" target="_blank" rel="noreferrer">sembli.us <i class="ph ph-arrow-up-right"></i></a></div>
+          </div>
+        </div>
+
+        <div class="cs-overview-copy">
+          <span class="cs-kicker">Overview</span>
+          <h2 class="cs-overview-h">An AI-native product, designed and built end to end</h2>
+          <p>Sembli turns scattered AI tools into reusable workflows. You set a goal, compare the tools that get you there, and save the result as a workflow you can return to and share. It also helps you discover new tools, compare pricing, and start from prebuilt assemblies instead of a blank page.</p>
+          <p>I owned all of it: product strategy, UX/UI, the visual identity, and the working build. That includes the OpenAI and Gemini APIs wired in underneath. It began as my capstone. It's the project where I owned the whole stack, not just the screens.</p>
+        </div>
+      </section>
+
+      <!-- RESEARCH -->
+      <section id="research" class="cs-section cs-block">
+        <span class="cs-kicker">Research</span>
+        <h2>The problem was never a lack of tools</h2>
+        <p>The number of AI tools keeps growing, but using them across a single piece of work stays fragmented. Every tool is its own tab, subscription, and prompt. Deciding what to use, when, and how to combine it is left entirely to the user. They have to research the product, compare the pricing, guess at what pairs with what, and rebuild the process from scratch each time.</p>
+        <p>It lands hardest on designers and students, freelancers and creators, early-stage founders, and non-technical people. They want to build with AI without becoming full-time tool researchers to do it.</p>
+
+        <span class="cs-sub">Starting wide</span>
+        <p>Sembli began as open-ended exploration around AI, creativity, and where product experiences are heading. I mapped a wide range of directions. One pattern kept resurfacing on my ideation boards: people were surrounded by tools but had no system for deciding what to use, when, and how to combine them. That observation became the project.</p>
+
+        <span class="cs-sub">Writing the PRD</span>
+        <p>To pressure-test the idea, I wrote a product requirements doc covering the problem, audience, and core experience. It forced a fuzzy concept into three clear priorities: assemble, compare, and save workflows.</p>
+      </section>
+
+      <div class="cs-media-grid-2">
+        <figure class="cs-figure">
+          <!-- ASSET: ideation boards -->
+          <div class="cs-figure-media">Ideation boards</div>
+          <figcaption><span class="num">Fig 2.0</span><span>Ideation boards: the pattern that became Sembli.</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <!-- ASSET: PRD -->
+          <div class="cs-figure-media">PRD</div>
+          <figcaption><span class="num">Fig 2.1</span><span>The PRD that turned a broad idea into clear priorities.</span></figcaption>
+        </figure>
+      </div>
+
+      <!-- DESIGN -->
+      <section id="design" class="cs-section cs-block">
+        <span class="cs-kicker">Design</span>
+        <h2>From "which tool?" to "what process am I building?"</h2>
+        <p>The reframe is the whole product. Instead of optimizing "What tool should I use?", Sembli helps you answer "What process am I trying to build?" From there it works as a lightweight workflow builder: start from a goal, get a suggested stack or browse a prebuilt assembly, compare on price and fit, and save the workflow to reuse.</p>
+
+        <span class="cs-sub">Designing the core flow, and building the AI under it</span>
+        <p>The heart is the prompt-to-stack flow: describe what you're making, set preferences like budget, and get back a workflow organized by task stage, such as research, copy, editing, and distribution. I built that generation with the OpenAI and Gemini APIs wired directly into the product, so the stack is assembled for you, not just browsed. I didn't only design this part. I developed it.</p>
+
+        <span class="cs-sub">Choosing the structure</span>
+        <p>I prototyped several directions before committing: tool marketplaces, workflow cards, standalone stack builders, saved libraries, and isolated pricing tools. Each did one thing well and broke on the rest. A marketplace helped you find tools but left you to assemble them. A builder assumed you already knew what you wanted. The version that worked combined both, pairing the discoverability of a directory with the guidance of a workflow builder.</p>
+
+        <span class="cs-sub">Organizing the system</span>
+        <p>I structured Sembli into four areas: Home, Discover, Assemblies, and Saved. Together they hold the full arc: find a tool, build a repeatable system, and return to a saved workflow when the task comes back.</p>
+      </section>
+
+      <div class="cs-media-grid-2">
+        <figure class="cs-figure">
+          <!-- ASSET: explorations (marketplaces/cards/builders/libraries) -->
+          <div class="cs-figure-media">Explorations</div>
+          <figcaption><span class="num">Fig 3.0</span><span>Testing marketplaces, cards, builders, and libraries before landing on discovery plus builder.</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
+          <!-- ASSET: four areas (Home/Discover/Assemblies/Saved) -->
+          <div class="cs-figure-media">Home &middot; Discover &middot; Assemblies &middot; Saved</div>
+          <figcaption><span class="num">Fig 3.1</span><span>Home, Discover, Assemblies, and Saved, each owning a part of the experience.</span></figcaption>
+        </figure>
+      </div>
+
+      <!-- DESIGN: Stack Builder -->
+      <section class="cs-section cs-block">
+        <h2>The Stack Builder is the product idea, made usable</h2>
+        <p>The Stack Builder is the clearest expression of the concept. Tools are grouped into workflow stages, and you can compare, swap, and reshape any part of the stack. It's the moment a pile of tools becomes a process you can run again.</p>
+
+        <span class="cs-sub">Making budget visible</span>
+        <p>Cost drives most real tool decisions, but it's usually buried across separate pricing pages and subscriptions. I pulled budget into the workflow itself, through pricing filters, a running cost summary, and side-by-side comparisons. You choose on function and spend at the same time, before committing to anything.</p>
+      </section>
+
+      <figure class="cs-figure">
+        <!-- ASSET: Stack Builder screen -->
+        <div class="cs-figure-media">The Stack Builder</div>
+        <figcaption><span class="num">Fig 4.0</span><span>The Stack Builder: tools grouped by workflow stage, with a live cost summary.</span></figcaption>
+      </figure>
+
+      <!-- DESIGN: Brand -->
+      <section class="cs-section cs-block">
+        <h2>Brand identity</h2>
+        <p>The identity grew straight from the product idea of assembling scattered pieces into something useful. A playful mascot, bright accent graphics, and a name that suggests combining and building give Sembli personality without burying the clarity of the system underneath.</p>
+      </section>
+
+      <figure class="cs-figure">
+        <!-- ASSET: brand identity -->
+        <div class="cs-figure-media">Brand identity</div>
+        <figcaption><span class="num">Fig 4.1</span><span>A playful identity over a clear system: mascot, accents, and type.</span></figcaption>
+      </figure>
+
+      <!-- SOLUTION -->
+      <section id="solution" class="cs-section cs-block">
+        <span class="cs-kicker">Solution</span>
+        <h2>Discovery and a workflow builder, in one product</h2>
+        <p>The final experience combines goal-led discovery, tool exploration, prebuilt assemblies, the Stack Builder, and saved workflows. It treats AI tools as parts of a larger process, not a list to pick from.</p>
+
+        <span class="cs-sub">Constraints and decisions</span>
+        <p>The constant tension was guidance versus freedom. Too much structure and it becomes a rigid template. Too little and it's just another directory. So I put the intelligence into the assembly itself: a goal goes in, an organized stack comes out, and everything stays swappable. Building that generation on the OpenAI and Gemini APIs is what made the guidance real, not just a static list.</p>
+      </section>
+
+      <figure class="cs-figure">
+        <!-- ASSET: goal-to-saved-workflow flow -->
+        <div class="cs-figure-media">Goal &rarr; saved workflow</div>
+        <figcaption><span class="num">Fig 5.0</span><span>Goal-led discovery through to a saved, reusable workflow.</span></figcaption>
+      </figure>
+
+      <!-- OUTCOMES -->
+      <section id="outcomes" class="cs-section cs-block">
+        <span class="cs-kicker">Outcomes</span>
+        <h2>A shipped product, with the AI built in</h2>
+        <p>Sembli is live at sembli.us. It catalogs 250 AI tools. It ships 70 prebuilt, vetted workflows, so no one starts from a blank page. And it runs goal-to-stack generation through the OpenAI and Gemini APIs. It's a working product, not a prototype. It's also the project where I designed and built the whole thing myself.</p>
+      </section>
+
+      <figure class="cs-figure">
+        <!-- ASSET: live, desktop + mobile (can reuse the hero product video) -->
+        <div class="cs-figure-media">Sembli, live</div>
+        <figcaption><span class="num">Fig 6.0</span><span>Sembli, live across desktop and mobile.</span></figcaption>
+      </figure>
+
+      <!-- REFLECTION -->
+      <section id="reflection" class="cs-section cs-block">
+        <span class="cs-kicker">Reflection</span>
+        <h2>Takeaways</h2>
+        <div class="cs-reflections">
+          <div class="item">
+            <h3>Owning the whole stack</h3>
+            <p>Sembli is the project where I went past the screens, into strategy, brand, and the build, including the AI integration. Wiring real LLM APIs into my own product changed how I design AI features. Now I know what's cheap, hard, or possible underneath the interface.</p>
+          </div>
+          <div class="item">
+            <h3>Structure over tools</h3>
+            <p>The product was never the catalog. It's the system that turns a catalog into a process. The strongest direction only appeared once I stopped trying to pick a single pattern and combined discovery with guided assembly.</p>
+          </div>
+          <div class="item">
+            <h3>Designing for approachable complexity</h3>
+            <p>The real work was making something complex feel light: a playful brand, clear interfaces, and budget made visible. The system reduces overwhelm instead of adding to it. That balance is what I'm proudest of here.</p>
+          </div>
+        </div>
+      </section>
+
+    </article>
+
+    <!-- NEXT PROJECT -->
+    <div class="cs-next-wrap">
+      <a class="cs-next" href="/aeri/">
+        <div class="cs-next-text">
+          <h3 class="cs-next-title">Aeri</h3>
+          <p class="cs-next-desc">AI-powered diabetes management with AR integration and smart signal detection.</p>
+          <span class="cs-next-cta">See next project</span>
+        </div>
+        <div class="cs-next-media">
+          <video autoplay muted loop playsinline preload="none" data-play-from-still poster="../Home Page/stills/Aeri Video.jpg?v=2">
+            <source src="../Home Page/Aeri Video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </a>
     </div>
-  </main>
+
+    <footer class="page-footer">
+      <h2 class="page-footer-title">Let's Work</h2>
+      <div class="page-footer-grid">
+        <div class="page-footer-column">
+          <p class="page-footer-heading">Find me</p>
+          <div class="page-footer-links">
+            <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer" class="t-small page-footer-link">LinkedIn <i class="ph ph-arrow-up-right"></i></a>
+            <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer" class="t-small page-footer-link">Github <i class="ph ph-arrow-up-right"></i></a>
+            <a href="/Melody-Ekbatani.pdf" target="_blank" rel="noreferrer" class="t-small page-footer-link">Resume <i class="ph ph-arrow-up-right"></i></a>
+          </div>
+        </div>
+        <div class="page-footer-column">
+          <p class="page-footer-heading">What Guides My Work</p>
+          <div class="page-footer-links">
+            <p>Innovation</p>
+            <p>Entrepreneurship</p>
+            <p>Creativity</p>
+          </div>
+        </div>
+        <div class="page-footer-message">
+          <p>Designing through clarity, storytelling, and moments of delight.</p>
+          <a href="mailto:melodyekbatani@gmail.com" class="t-small page-footer-email" rel="noreferrer">melodyekbatani@gmail.com <i class="ph ph-arrow-up-right"></i></a>
+        </div>
+      </div>
+      <div class="page-footer-meta"></div>
+    </footer>
+
+  </div>
+
 
   <script>
     // Nav indicator
