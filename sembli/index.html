@@ -624,6 +624,9 @@
 
 
 
+    /* Product shots / device mockups on white: show in full, never crop */
+    .cs-figure-media.cs-shot { background: #fff; aspect-ratio: auto; height: auto; place-items: stretch; }
+    .cs-figure-media.cs-shot img { object-fit: contain; width: 100%; height: auto; }
   </style>
 </head>
 <body>
@@ -662,30 +665,28 @@
 
       <!-- HERO MEDIA STACK -->
       <div class="cs-stack">
-        <figure class="cs-figure cs-hero-figure">
+        <figure class="cs-figure">
+          <div class="cs-figure-media cs-shot"><img src="assets/Discovery Page.png" alt="Sembli Discover page on desktop and mobile" loading="lazy"></div>
+          <figcaption><span class="num">Fig 1.0</span><span>Discover: the tool catalog, across desktop and mobile.</span></figcaption>
+        </figure>
+        <figure class="cs-figure">
           <div class="cs-figure-media"><video  src="../Home Page/Sembli.mp4" playsinline muted autoplay loop preload="none" poster="../Home Page/stills/Sembli.jpg?v=3"></video></div>
-          <figcaption><span class="num">Fig 1.0</span><span>Sembli: a live workspace that turns tool overload into repeatable creative workflows.</span></figcaption>
+          <figcaption><span class="num">Fig 1.1</span><span>Sembli: a live workspace that turns tool overload into repeatable creative workflows.</span></figcaption>
         </figure>
       </div>
 
       <div class="cs-media-grid-2">
         <figure class="cs-figure">
-          <!-- ASSET: Discover, desktop + mobile -->
-          <div class="cs-figure-media">Discover &mdash; desktop &amp; mobile</div>
-          <figcaption><span class="num">Fig 1.1</span><span>Discover: the tool catalog, across desktop and mobile.</span></figcaption>
-        </figure>
-        <figure class="cs-figure">
           <!-- ASSET: brand system board -->
           <div class="cs-figure-media">Brand system</div>
           <figcaption><span class="num">Fig 1.2</span><span>The brand: mascot, accent system, and the "assemble" idea made visual.</span></figcaption>
         </figure>
+        <figure class="cs-figure">
+          <!-- ASSET: key screens across Discover / Stack Builder / Saved -->
+          <div class="cs-figure-media">Key screens</div>
+          <figcaption><span class="num">Fig 1.3</span><span>Key screens across Discover, the Stack Builder, and Saved.</span></figcaption>
+        </figure>
       </div>
-
-      <figure class="cs-figure">
-        <!-- ASSET: key screens across Discover / Stack Builder / Saved -->
-        <div class="cs-figure-media">Key screens</div>
-        <figcaption><span class="num">Fig 1.3</span><span>Key screens across Discover, the Stack Builder, and Saved.</span></figcaption>
-      </figure>
 
       <!-- OVERVIEW -->
       <section id="overview" class="cs-section cs-overview">
