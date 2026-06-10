@@ -579,7 +579,7 @@ nav a.active {
     margin: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;   /* left-align media so it shares a left edge with badge + text */
     overflow: hidden;
   }
 
@@ -592,7 +592,7 @@ nav a.active {
     max-height: 94%;
     object-fit: contain;
     transition: transform var(--t-slow) var(--ease-out);
-    transform-origin: center;
+    transform-origin: left center;   /* media is left-aligned — scale from the left so it isn't clipped */
     will-change: transform;
   }
 
@@ -632,7 +632,7 @@ nav a.active {
     transition: opacity 320ms ease, transform 480ms var(--ease-out);
     pointer-events: none;
     background: transparent;
-    padding: 80px 48px 40px;
+    padding: 80px 48px 40px clamp(24px, 3vw, 48px);  /* left = card padding → aligns with media + badge */
     margin: 0;
     min-height: 0;
   }
@@ -706,6 +706,32 @@ nav a.active {
   .work-grid .project-secondary-visual,
   .work-grid .project-secondary-reverse .project-secondary-visual { order: 0; }
   .work-grid .project-secondary-reverse .project-secondary-meta { order: 0; }
+
+/* Narrow desktop / landscape tablet: drop to one column. The cards are
+   locked to 90vh, so 2-up they become tall, skinny boxes with the
+   contained media floating in dead space. One column lets the media fill
+   the full width and the dead space collapses. */
+@media (max-width: 1400px) and (min-width: 769px) {
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+  /* Drop the 90vh lock. At full width that leaves the contained media
+     floating in tall dead space, far above the bottom text overlay. A
+     landscape aspect-ratio sizes the card to the media so the image fills
+     the width and the text sits just beneath it. */
+  .work-grid .project-secondary,
+  .work-grid .project-secondary.project-secondary-reverse {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+  /* One consistent media size across the whole single-column range. */
+  .work-grid .project-secondary-image img,
+  .work-grid .project-secondary-image video {
+    max-width: 80%;
+    max-height: 80%;
+  }
+}
 
 /* Mobile overrides: 1 column, text always visible, no hover scale */
 @media (max-width: 768px) {
@@ -795,6 +821,87 @@ nav a.active {
   .work-grid .project-secondary::before {
     display: none;
   }
+}
+
+/* ─── Live badge ─────────────────────────────────────────────
+   Persistent "this is a shipped product you can use right now" marker.
+   Only renders on cards that include .project-live-badge (Loam, Sembli).
+   It's its own link to the live site — stopPropagation in the markup
+   keeps the card's case-study click from firing. */
+.work-grid .project-live-badge {
+  position: absolute;
+  top: clamp(16px, 2vw, 28px);
+  left: clamp(24px, 3vw, 48px);   /* = card padding, so it lines up with the media + text left edge */
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 20px;
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+}
+.work-grid .project-live-badge .ph { font-size: 14px; }
+/* Draw-in underline whenever the whole card is hovered. */
+.work-grid .project-live-badge::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  bottom: 9px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 300ms ease;
+}
+.work-grid .project-secondary:hover .project-live-badge::after {
+  width: calc(100% - 40px);
+}
+
+/* Case-study hero CTA — a prominent "visit the live product" button in the
+   intro. Shares the square earthy-green dot with the work-card live badge. */
+.cs-hero-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;               /* match the work-page badge */
+  width: fit-content;
+  margin-top: 28px;
+  padding: 13px 20px;
+  background: var(--ink);
+  color: #fff;            /* override .t-small's --ink — inverted vs work page */
+  text-decoration: none;
+  border-radius: 0;
+}
+/* Draw-in underline on hover, matching the work-page live link. */
+.cs-hero-cta::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  bottom: 9px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 300ms ease;
+}
+.cs-hero-cta:hover::after { width: calc(100% - 40px); }
+/* When placed in the project-details meta grid, sit flush at the top-left
+   above the first meta block (Timeline). */
+.cs-hero-cta.cs-meta-cta {
+  margin-top: 0;
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+.cs-hero-cta .ph { font-size: 14px; }
+.cs-hero-cta-dot {
+  width: 6px;
+  height: 6px;
+  background: #4a9d6e;
+}
+/* Mobile pins tags across the top; send them right so the badge owns the
+   top-left corner. */
+@media (max-width: 768px) {
+  .work-grid .project-secondary-tags { justify-content: flex-end !important; }
+  .work-grid .project-live-badge { top: 12px; left: 12px; }
 }
 
 /* ─── Featured Project ───────────────────────────────────── */
