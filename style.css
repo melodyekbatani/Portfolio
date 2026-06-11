@@ -607,12 +607,18 @@ nav a.active {
     will-change: transform;
   }
 
-  /* Hover: scale whole media without cropping (88% × 1.1 ≈ 97%) */
+  /* Featured (Aeri) crops with object-fit:cover, so a bigger zoom is safe */
   .work-grid .project-featured:hover .project-featured-image img,
-  .work-grid .project-featured:hover .project-featured-image video,
+  .work-grid .project-featured:hover .project-featured-image video {
+    transform: scale(1.1);
+  }
+
+  /* Secondaries use object-fit:contain at 94%, so cap the zoom at 1.05
+     (94% × 1.05 ≈ 99%) to stay inside the overflow:hidden box — a 1.1
+     scale hits ~103% and clips the media (e.g. Parameter) on hover. */
   .work-grid .project-secondary:hover .project-secondary-image img,
   .work-grid .project-secondary:hover .project-secondary-image video {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 
   /* Text overlay — slides in from the bottom on hover, anchored to bottom */
