@@ -729,13 +729,21 @@ nav a.active {
   .work-grid .project-secondary.project-secondary-reverse {
     height: auto;
     min-height: 0;
-    aspect-ratio: 16 / 9;
+    /* Taller than 16/9 so the contained media has breathing room and the
+       hover text overlay reads cleanly over the lower portion. */
+    aspect-ratio: 4 / 3;
+  }
+  /* Single column: center the media instead of left-aligning it. */
+  .work-grid .project-secondary-visual,
+  .work-grid .project-secondary-image {
+    justify-content: center;
   }
   /* One consistent media size across the whole single-column range. */
   .work-grid .project-secondary-image img,
   .work-grid .project-secondary-image video {
     max-width: 80%;
     max-height: 80%;
+    transform-origin: center;   /* media is centered — scale from center */
   }
 }
 
@@ -906,7 +914,7 @@ nav a.active {
 /* Mobile pins tags across the top; send them right so the badge owns the
    top-left corner. */
 @media (max-width: 768px) {
-  .work-grid .project-secondary-tags { justify-content: flex-end !important; }
+  .work-grid .project-secondary-tags { justify-content: space-between !important; }
   .work-grid .project-live-badge { top: 12px; left: 12px; }
 }
 
