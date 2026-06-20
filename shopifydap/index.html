@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Made for Shopify | Melody Ekbatani</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=3">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Unlisted: reachable by URL only, kept out of search engines. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="A focused look at my work, made for Shopify.">
+  <link rel="stylesheet" href="../style.css?v=70">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+  <style>
+    /* ─── Made for Shopify — standalone page (not in nav) ─── */
+    /* This page is reachable by URL only. Reserve the scrollbar gutter so
+       its width matches the long scrolling pages and the cross-document
+       View Transition doesn't jump sideways. */
+    html {
+      scrollbar-gutter: stable;
+      /* style.css sets overflow-x: hidden globally, which makes html a scroll
+         container and breaks position: sticky. `clip` hides x-overflow without
+         creating a scroll container, so the layered slide works. */
+      overflow-x: clip;
+    }
+
+    .dap {
+      color: var(--ink);
+      /* Like the homepage .rail: offset the sliding panel below the fixed
+         hero. First 40vh drives the reveal, then 100vh of panel slide-up. */
+      padding-top: 140vh;
+    }
+    /* Fixed hero behind (homepage .hero pattern). */
+    .dap-hero {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 100vh;
+      height: 100dvh;
+      z-index: 0;
+      padding: var(--nav-h) var(--pad-page) clamp(32px, 6vh, 72px);
+    }
+    .dap-hero-pin {
+      height: 100%;
+      display: grid;
+      grid-template-rows: 1fr auto;   /* title region + intro (bottom) */
+    }
+    .dap-hero-pin .dap-header { align-self: center; }
+    .dap-hero-pin .dap-intro { align-self: end; }
+    /* Sliding panel (homepage .work-panel pattern): solid bg + above the hero,
+       scrolls up over it. */
+    .dap-panel {
+      position: relative;
+      z-index: 1;
+      background: var(--bg);
+      padding: 0 var(--pad-page);
+    }
+    .dap-inner {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    /* ── Header ── */
+    .dap-eyebrow {
+      font-size: var(--fs-small);
+      letter-spacing: var(--ls-widest);
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 16px;
+      /* Optical alignment: nudge right to line up with the cap "M" stem of
+         the display title (which has more left side-bearing). */
+      margin-left: 6px;
+    }
+    .dap-title {
+      /* Exactly the homepage hero-name treatment (.t-display, flush to
+         var(--pad-page) — no optical nudge). */
+      font-size: var(--fs-display);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-display);
+      line-height: var(--lh-tight);
+      text-wrap: balance;
+    }
+
+    /* All page links use the shared `.t-small .page-footer-link` classes from
+       style.css — same treatment as the footer + nav. No custom link CSS. */
+
+    .dap-toplinks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: clamp(12px, 2vh, 24px);   /* sits just below the paragraph */
+    }
+
+    /* Footer sits inside .dap (already padded to var(--pad-page)); cancel the
+       shared footer's own side padding so it aligns with the page content. */
+    .dap .page-footer {
+      padding: 0;
+      margin-top: clamp(80px, 14vh, 200px);
+    }
+
+    /* ── Intro block (inside the fixed hero) ── */
+    .dap-intro {
+      max-width: 80vw;          /* long line length */
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .dap-intro p {
+      font-size: var(--fs-lead);
+      font-weight: var(--fw-medium);
+      letter-spacing: -0.015em;
+      line-height: 1.28;
+      color: #C2C2C2;           /* base grey (slightly lighter); reveal fills to ink on scroll */
+      text-wrap: pretty;
+    }
+    /* Per-letter spans injected by JS; color is set inline during scroll. */
+    .dap-reveal .rl-char { color: inherit; }
+    /* Marked phrases also go black on hover (!important beats the inline color
+       the scroll-reveal sets per letter). */
+    .dap-reveal .rl-on:hover .rl-char { color: var(--ink) !important; }
+
+    /* ── Section headings ── */
+    .dap-section-title {
+      font-size: var(--fs-title-lg);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
+    }
+    .dap-designs { padding-top: 40px; }
+    /* Homepage-style layered slide (driven by JS): you scroll through all of
+       Designs; its last screen is held at the bottom while the foreground
+       (Recent Explores + closing + footer) slides up over it. */
+    .dap-designs { position: relative; z-index: 0; will-change: transform; }
+    .dap-foreground {
+      position: relative;
+      z-index: 1;
+      background: var(--bg);
+      min-height: 100vh;
+    }
+    .dap-explore {
+      min-height: 100vh;          /* the section takes one viewport */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;    /* content sits centered in the viewport */
+      padding-top: clamp(48px, 8vh, 96px);
+      padding-bottom: clamp(48px, 8vh, 96px);
+    }
+
+    /* ── Designs: project rows — dark textured card (homepage work-card look),
+       horizontal layout kept (meta left, video right). ── */
+    .dap-project {
+      position: relative;
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;   /* text left, image (wide) right */
+      gap: clamp(32px, 5vw, 80px);
+      align-items: stretch;   /* meta column fills the row height (= video) */
+      margin-top: clamp(40px, 6vh, 72px);
+      background-color: #111;
+      color: #fff;
+      padding: clamp(28px, 4vw, 56px);
+      overflow: hidden;
+    }
+    /* Blurred + dimmed cover image behind the card (same as the work grid). */
+    .dap-project::before {
+      content: '';
+      position: absolute;
+      inset: -40px;
+      background-image: var(--card-bg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: blur(3px);
+      opacity: 0.1;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .dap-project > * { position: relative; z-index: 1; }
+    /* Extra breathing room after the "Designs" heading before the first row. */
+    .dap-designs .dap-project:first-of-type { margin-top: clamp(28px, 4vh, 56px); }
+    .dap-project-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;   /* group title + paragraph + links at the bottom */
+      gap: 16px;
+    }
+    .dap-project-title {
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      color: #fff;
+      margin-bottom: clamp(8px, 1.5vh, 16px);   /* a bit more space under the title */
+    }
+    .dap-project-desc {
+      font-size: 20px;   /* slightly bigger than .t-body */
+      letter-spacing: 0.01em;
+      text-transform: none;
+      line-height: var(--lh-loose);
+      color: #fff;
+      max-width: 54ch;
+    }
+    /* Links go light on the dark card. */
+    .dap-project .dap-meta-links a { color: #fff; }
+    .dap-meta-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-top: 8px;
+    }
+    .dap-project-media {
+      width: 100%;
+      align-self: center;   /* hug the video's height, don't stretch to the row */
+      overflow: hidden;
+      display: block;
+    }
+    .dap-project-media img,
+    .dap-project-media video {
+      width: 100%;
+      height: auto;         /* box hugs the video — no letterbox bars */
+      display: block;
+    }
+
+    /* ── Explore ── */
+    .dap-explore-sub {
+      margin-top: 18px;
+      font-size: 16px;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      line-height: var(--lh-loose);
+      color: var(--ink-soft);
+      max-width: 36ch;
+    }
+    .dap-explore-grid {
+      margin-top: clamp(32px, 5vh, 56px);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(28px, 3vw, 48px);
+    }
+    .dap-explore-item { display: flex; flex-direction: column; }
+    .dap-explore-media {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-subtle);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .dap-explore-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .dap-explore-name {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-snug);
+      margin-bottom: 8px;
+    }
+    .dap-explore-links { display: flex; flex-wrap: wrap; gap: 20px; }
+    .dap-explore-footer {
+      margin-top: clamp(28px, 4vh, 44px);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* ── Closing statement ── */
+    .dap-closing {
+      margin-top: clamp(72px, 12vh, 160px);
+      max-width: 80vw;
+      font-size: var(--fs-lead);
+      font-weight: var(--fw-medium);
+      letter-spacing: -0.015em;
+      line-height: 1.28;
+      color: #C2C2C2;   /* same grey as the top intro text */
+      text-wrap: pretty;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      /* Mobile: hero flows normally (not fixed), no slide/reveal. */
+      .dap { padding-top: 0; }
+      .dap-hero {
+        position: static;
+        height: auto;
+        padding: calc(var(--nav-h) + 24px) var(--pad-page-sm) 0;
+      }
+      .dap-hero-pin { display: block; height: auto; }
+      .dap-panel { padding: 0 var(--pad-page-sm); }
+      .dap-title { font-size: clamp(48px, 14vw, 72px); }
+      .dap-intro { max-width: none; margin-top: clamp(40px, 7vh, 72px); }
+
+      /* Stack project rows: meta, then image below */
+      .dap-project {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 48px;
+      }
+      .dap-explore-grid { grid-template-columns: 1fr; gap: 36px; }
+      .dap-explore-media { aspect-ratio: 16 / 8; }
+      .dap-closing { max-width: none; }
+
+      /* No layered slide on mobile — everything flows normally. */
+      .dap-designs { position: static; }
+      .dap-explore {
+        min-height: auto;
+        justify-content: flex-start;
+        margin-top: clamp(72px, 12vh, 160px);
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-indicator" aria-hidden="true"></span>
+    <a href="/" class="t-small" data-nav="home">Home</a>
+    <a href="/#work" class="t-small" data-nav="work" data-open-work-link>Work</a>
+    <a href="../about" class="t-small">About</a>
+    <a href="../explore" class="t-small">Explore</a>
+    <a href="../Melody-Ekbatani.pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
+  </nav>
+
+  <main class="dap">
+
+    <!-- ── Hero ── fixed behind; the panel below slides up over it, like the
+         homepage hero + work-panel. The grey→black letter reveal is driven by
+         scroll over the first 40vh, then the panel rises over the next 100vh. -->
+    <section class="dap-hero">
+      <div class="dap-hero-pin">
+        <header class="dap-header">
+          <p class="dap-eyebrow">Made for Shopify</p>
+          <h1 class="dap-title">Melody Ekbatani</h1>
+        </header>
+        <div class="dap-intro">
+          <p class="dap-reveal">My practice centers on <span class="rl-on">elevating product experiences</span> through craft, clarity, and systems thinking. I am <span class="rl-on">classically trained as an architect</span>, bringing a multidisciplinary and structured approach to my work.</p>
+          <p class="dap-reveal">I recently completed my Master's in Digital Product Design at Parsons, where I deepened my skills in <span class="rl-on">UX/UI, front-end development, and designing with AI tools.</span> My perspective is also shaped a <span class="rl-on">culture of hospitality</span> and the <span class="rl-on">way I practice creativity outside of work</span>.</p>
+          <div class="dap-toplinks">
+            <a class="t-small page-footer-link" href="https://www.figma.com/deck/TwODZjLzavAhb1qSaP4ixP" target="_blank" rel="noreferrer">Presentation <i class="ph ph-arrow-up-right"></i></a>
+            <a class="t-small page-footer-link" href="https://www.figma.com/design/a9LOln8Ov4jelvXiKdZQn5/Melody-Ekbatani---Approach?node-id=18-9789&p=f" target="_blank" rel="noreferrer">Design Approach <i class="ph ph-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Sliding panel: everything after the hero rises up over it ── -->
+    <div class="dap-panel">
+      <div class="dap-inner">
+
+      <!-- ── Designs ── -->
+      <section class="dap-designs">
+        <h2 class="dap-section-title">Designs</h2>
+
+        <article class="dap-project" style="--card-bg: url('../Home Page/Background images /Aeri - cover.png');">
+          <div class="dap-project-meta">
+            <h3 class="dap-project-title">Aeri</h3>
+            <p class="dap-project-desc">AI-powered preventative care contact lens for diabetes with AR integration, exploring a more proactive alternative to today's reactive management tools made for the Parsons x University of Arizona AI Hackathon.</p>
+            <div class="dap-meta-links">
+              <a class="t-small page-footer-link" href="#" target="_blank" rel="noreferrer">Working File <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="/aeri/">Read full case study <i class="ph ph-arrow-up-right"></i></a>
+            </div>
+          </div>
+          <a class="dap-project-media" href="/aeri/" aria-label="Open Aeri case study">
+            <video autoplay muted loop playsinline preload="none" poster="../Home Page/stills/Aeri Video.jpg?v=4">
+              <source src="../Home Page/Aeri Video.mp4" type="video/mp4">
+            </video>
+          </a>
+        </article>
+
+        <article class="dap-project" style="--card-bg: url('../Home Page/Background images /Sembli-Cover.png');">
+          <div class="dap-project-meta">
+            <h3 class="dap-project-title">Sembli</h3>
+            <p class="dap-project-desc">A shipped AI-native product, and my Parsons capstone. It turns 250 scattered AI tools into workflows you can save and reuse. I designed it and built it end-to-end.</p>
+            <div class="dap-meta-links">
+              <a class="t-small page-footer-link" href="#" target="_blank" rel="noreferrer">Working File <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://www.sembli.us/" target="_blank" rel="noreferrer">Live Site <i class="ph ph-arrow-up-right"></i></a>
+            </div>
+          </div>
+          <a class="dap-project-media" href="https://www.sembli.us/" target="_blank" rel="noreferrer" aria-label="Open Sembli live site">
+            <video autoplay muted loop playsinline preload="none" poster="../Home Page/stills/Sembli.jpg?v=4">
+              <source src="../Home Page/Sembli.mp4" type="video/mp4">
+            </video>
+          </a>
+        </article>
+
+      </section>
+
+      <!-- ── Foreground: slides up over the pinned Designs (homepage style) ── -->
+      <div class="dap-foreground">
+
+      <!-- ── Recent Explores ── -->
+      <section class="dap-explore">
+        <h2 class="dap-section-title">Recent Explores</h2>
+        <p class="dap-explore-sub">I learn by building. These are experiments I'm making in code.</p>
+
+        <div class="dap-explore-grid">
+
+          <article class="dap-explore-item">
+            <div class="dap-explore-media">
+              <img src="../explore/Coding/Links.png" alt="R&B Archive — Are.na-driven web archive">
+            </div>
+            <h3 class="dap-explore-name">R&amp;B Archive</h3>
+            <div class="dap-explore-links">
+              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/links" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/links/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
+            </div>
+          </article>
+
+          <article class="dap-explore-item">
+            <div class="dap-explore-media">
+              <img src="../explore/Coding/Field-Structure.png" alt="Creating art in the medium of the web">
+            </div>
+            <h3 class="dap-explore-name">Creating art in the medium of the web</h3>
+            <div class="dap-explore-links">
+              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/extra-credit" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/extra-credit/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
+            </div>
+          </article>
+
+          <article class="dap-explore-item">
+            <div class="dap-explore-media">
+              <img src="../explore/Coding/Functions.png" alt="Girl dinner generator">
+            </div>
+            <h3 class="dap-explore-name">Girl dinner generator</h3>
+            <div class="dap-explore-links">
+              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/functions" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/functions/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="dap-explore-footer">
+          <a class="t-small page-footer-link" href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github Profile <i class="ph ph-arrow-up-right"></i></a>
+          <a class="t-small page-footer-link" href="/explore">Find more explorations here</a>
+        </div>
+      </section>
+
+      <!-- ── Closing statement ── -->
+      <p class="dap-closing">I've spent years learning that good design works like good hospitality: it's the care people don't notice that makes them stay. I want to bring that to the millions of people building businesses on Shopify, and to keep building, closer to how things actually ship. Many thanks.</p>
+
+      <!-- ── Let's Work — shared site footer (matches every page) ── -->
+      <footer class="page-footer page-footer-work">
+        <h2 class="page-footer-title">Let's Work</h2>
+        <div class="page-footer-grid">
+          <div class="page-footer-column">
+            <p class="page-footer-heading">Find me</p>
+            <div class="page-footer-links">
+              <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer" class="t-small page-footer-link">LinkedIn <i class="ph ph-arrow-up-right"></i></a>
+              <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer" class="t-small page-footer-link">Github <i class="ph ph-arrow-up-right"></i></a>
+              <a href="/Melody-Ekbatani.pdf" target="_blank" rel="noreferrer" class="t-small page-footer-link">Resume <i class="ph ph-arrow-up-right"></i></a>
+            </div>
+          </div>
+          <div class="page-footer-column">
+            <p class="page-footer-heading">What Guides My Work</p>
+            <div class="page-footer-links">
+              <p>Innovation</p>
+              <p>Entrepreneurship</p>
+              <p>Creativity</p>
+            </div>
+          </div>
+          <div class="page-footer-message">
+            <p>Designing through clarity, storytelling, and moments of delight.</p>
+            <a href="mailto:melodyekbatani@gmail.com" class="t-small page-footer-email" rel="noreferrer">melodyekbatani@gmail.com <i class="ph ph-arrow-up-right"></i></a>
+          </div>
+        </div>
+        <div class="page-footer-meta"></div>
+      </footer>
+
+      </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Sliding nav indicator — same behavior as the rest of the site.
+    function bindIndicator(container, indicatorSelector, itemSelector, activeSelector) {
+      if (!container) return;
+      const indicator = container.querySelector(indicatorSelector);
+      const items = [...container.querySelectorAll(itemSelector)];
+      if (!indicator || items.length === 0) return;
+      let activeItem = activeSelector ? container.querySelector(activeSelector) : null;
+
+      function placeIndicator(item, color = "#111111") {
+        if (!item) return;
+        const containerBox = container.getBoundingClientRect();
+        const itemBox = item.getBoundingClientRect();
+        indicator.style.transform = `translate(${itemBox.left - containerBox.left + 4}px, ${itemBox.top - containerBox.top + itemBox.height / 2}px) translateY(-50%)`;
+        indicator.style.backgroundColor = color;
+      }
+
+      if (activeItem) placeIndicator(activeItem);
+      requestAnimationFrame(() => indicator.classList.add("is-ready"));
+      items.forEach(item => {
+        item.addEventListener("mouseenter", () => placeIndicator(item, "#CFCFCF"));
+        item.addEventListener("focus",      () => placeIndicator(item, "#CFCFCF"));
+      });
+      container.addEventListener("mouseleave", () => { if (activeItem) placeIndicator(activeItem); });
+      window.addEventListener("resize",        () => { if (activeItem) placeIndicator(activeItem); });
+    }
+
+    bindIndicator(document.querySelector("nav"), ".nav-indicator", "a", "a.active");
+  </script>
+
+  <script>
+    // ─── Intro reveal: letters ease grey → black as you scroll through the
+    //     140vh hero. A continuous lerp toward the scroll target keeps it
+    //     smooth even on chunky wheel/trackpad input (no per-frame snapping).
+    //     Desktop only; on mobile the text just renders solid ink.
+    (function () {
+      const hero = document.querySelector(".dap-hero");
+      if (!hero) return;
+      const paras = [...hero.querySelectorAll(".dap-reveal")];
+      if (!paras.length) return;
+
+      // Grey → ink endpoints (matches --muted #AAAAAA and --ink #111111).
+      const FROM = [194, 194, 194], TO = [17, 17, 17];
+      // Letters sharing the soft transition band at once (higher = softer).
+      const RAMP = 18;
+      // Lerp factor — how quickly the reveal eases toward the scroll target.
+      const EASE = 0.14;
+
+      // Only the marked .rl-on phrases reveal to black; the rest of the copy
+      // stays grey. Split just those phrases into per-character spans (in
+      // document order) so they fill in sequence as you scroll.
+      const chars = [];
+      hero.querySelectorAll(".dap-reveal .rl-on").forEach((span) => {
+        const text = span.textContent;
+        span.textContent = "";
+        for (const ch of text) {
+          const s = document.createElement("span");
+          s.className = "rl-char";
+          s.textContent = ch;
+          span.appendChild(s);
+          chars.push(s);
+        }
+      });
+      const N = chars.length;
+      const desktop = window.matchMedia("(min-width: 769px)");
+
+      let current = 0, target = 0, raf = 0;
+
+      function measure() {
+        // Hero is fixed; the reveal runs over the first 40vh of scroll, then
+        // the panel slides up over it for the next 100vh.
+        const dist = window.innerHeight * 0.4;           // 40vh of travel
+        const p = dist > 0 ? window.scrollY / dist : 0;
+        return p < 0 ? 0 : p > 1 ? 1 : p;
+      }
+
+      function render(p) {
+        const head = p * (N + RAMP);
+        for (let i = 0; i < N; i++) {
+          let f = (head - i) / RAMP;
+          f = f < 0 ? 0 : f > 1 ? 1 : f;
+          f = f * f * (3 - 2 * f);                        // smoothstep edge
+          const r = (FROM[0] + (TO[0] - FROM[0]) * f) | 0;
+          const g = (FROM[1] + (TO[1] - FROM[1]) * f) | 0;
+          const b = (FROM[2] + (TO[2] - FROM[2]) * f) | 0;
+          chars[i].style.color = `rgb(${r},${g},${b})`;
+        }
+      }
+
+      function tick() {
+        raf = 0;
+        if (!desktop.matches) { current = target = 1; render(1); return; }
+        current += (target - current) * EASE;            // ease toward target
+        if (Math.abs(target - current) < 0.0008) current = target;
+        render(current);
+        if (current !== target) schedule();
+      }
+
+      function schedule() { if (!raf) raf = requestAnimationFrame(tick); }
+
+      function onScroll() {
+        target = desktop.matches ? measure() : 1;
+        schedule();
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      desktop.addEventListener("change", onScroll);
+
+      // Initial paint — snap to the current scroll position (no animation).
+      target = current = desktop.matches ? measure() : 1;
+      render(current);
+    })();
+  </script>
+
+  <script>
+    // Play the project videos only while they're in (or near) the viewport;
+    // pause them otherwise. Removing autoplay also stops nav.js from
+    // double-handling them.
+    (function () {
+      const vids = document.querySelectorAll(".dap-project-media video");
+      if (!vids.length || !("IntersectionObserver" in window)) return;
+      vids.forEach((v) => v.removeAttribute("autoplay"));
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.play().catch(() => {});
+          else e.target.pause();
+        });
+      }, { rootMargin: "100px 0px", threshold: 0.25 });
+      vids.forEach((v) => io.observe(v));
+    })();
+
+    // Layered slide-up: hold the Designs section's last screen at the bottom of
+    // the viewport while the foreground (Recent Explores + closing + footer)
+    // slides up over it — the homepage hero→panel effect. Desktop only.
+    (function () {
+      const designs = document.querySelector(".dap-designs");
+      const fg = document.querySelector(".dap-foreground");
+      if (!designs || !fg) return;
+      const desktop = window.matchMedia("(min-width: 769px)");
+      let raf = 0;
+
+      function update() {
+        raf = 0;
+        if (!desktop.matches) { designs.style.transform = ""; return; }
+        const vh = window.innerHeight;
+        // foreground top relative to the viewport; it sits right after Designs,
+        // so this equals Designs' natural bottom.
+        const fgTop = fg.getBoundingClientRect().top;
+        // Translate Designs down so its bottom stays at the viewport bottom
+        // while the foreground rises from the bottom (fgTop: vh → 0) to the top.
+        let hold = vh - fgTop;
+        if (hold < 0) hold = 0;
+        if (hold > vh) hold = vh;
+        designs.style.transform = `translate3d(0, ${Math.round(hold)}px, 0)`;
+      }
+
+      function onScroll() { if (!raf) raf = requestAnimationFrame(update); }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      desktop.addEventListener("change", onScroll);
+      update();
+    })();
+  </script>
+
+  <script src="../nav.js?v=2" defer></script>
+</body>
+</html>

@@ -25,6 +25,7 @@
   --fs-title-xl:  clamp(52px, 10vw, 120px);
   --fs-title-lg:  clamp(36px, 6vw, 64px);
   --fs-title-md:  clamp(28px, 3.6vw, 40px);
+  --fs-lead:      clamp(20px, 2.7vw, 34px);   /* large lead paragraph (medium wt, -0.03em) */
   --fs-h1:        clamp(32px, 4vw, 52px);
   --fs-h2:        clamp(18px, 2vw, 24px);
   --fs-nav:       30px;
@@ -1575,7 +1576,7 @@ footer {
     flex-direction: column;
     justify-content: flex-end;
     padding-top: var(--nav-h);
-    padding-bottom: 32px;
+    padding-bottom: 0;   /* shift content down to the bottom viewport edge */
   }
   .hero-name .t-display {
     font-size: 56px;
@@ -1585,8 +1586,8 @@ footer {
     padding-top: 0;
   }
   .hero-bottom {
-    padding: 24px var(--pad-page-sm) 32px;
-    gap: 20px;
+    padding: 24px var(--pad-page-sm) 0;   /* card sits flush with the viewport bottom */
+    gap: 36px;   /* more breathing room between the bio and "A glimpse of my work" */
   }
   .hero-bio { gap: 14px; }
   .hero-bio .t-body { font-size: 16px; line-height: 1.4; }
