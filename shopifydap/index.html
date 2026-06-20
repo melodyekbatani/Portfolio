@@ -211,8 +211,15 @@
     }
 
     /* ── Explore ── */
+    .dap-explore-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: clamp(24px, 4vw, 80px);
+      flex-wrap: wrap;
+    }
     .dap-explore-sub {
-      margin-top: 18px;
+      margin-top: 0;
       font-size: var(--fs-lead);
       font-weight: var(--fw-medium);
       letter-spacing: -0.015em;
@@ -454,12 +461,9 @@
       <!-- ── Recent Explores ── pinned horizontal scroll (cards move sideways as
            you scroll vertically through the section). -->
       <section class="dap-explore">
-        <h2 class="dap-section-title">Explores</h2>
-        <p class="dap-explore-sub">I learn by building. These are experiments I'm making in code.</p>
-
-        <div class="dap-explore-footer">
-          <a class="t-small page-footer-link" href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github Profile <i class="ph ph-arrow-up-right"></i></a>
-          <a class="t-small page-footer-link" href="/explore">Find more explorations here</a>
+        <div class="dap-explore-head">
+          <h2 class="dap-section-title">Explores</h2>
+          <p class="dap-explore-sub">Recent experiments I&rsquo;m building in code</p>
         </div>
 
         <div class="dap-explore-track">
@@ -519,7 +523,7 @@
             <div class="dap-explore-media">
               <img src="../explore/Coding/Binding.png" alt="Binding — typography as an organizing principle">
             </div>
-            <h3 class="dap-explore-name">Formatting long form text</h3>
+            <h3 class="dap-explore-name">Foundations</h3>
             <p class="dap-explore-desc">Building the fundamentals of front-end development and exploring themes of typography and grid design.</p>
             <div class="dap-explore-links">
               <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/Binding" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
@@ -530,6 +534,11 @@
         </div>
           </div>
           </div>
+        </div>
+
+        <div class="dap-explore-footer">
+          <a class="t-small page-footer-link" href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github Profile <i class="ph ph-arrow-up-right"></i></a>
+          <a class="t-small page-footer-link" href="/explore">More explorations <i class="ph ph-arrow-up-right"></i></a>
         </div>
       </section>
 
