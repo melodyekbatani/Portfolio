@@ -130,24 +130,7 @@
       line-height: var(--lh-tight);
     }
     .dap-designs { padding-top: 40px; }
-    /* Homepage-style layered slide (driven by JS): you scroll through all of
-       Designs; its last screen is held at the bottom while the foreground
-       (Recent Explores + closing + footer) slides up over it. */
-    .dap-designs { position: relative; z-index: 0; will-change: transform; }
-    .dap-foreground {
-      position: relative;
-      z-index: 1;
-      background: var(--bg);
-      min-height: 100vh;
-    }
-    .dap-explore {
-      min-height: 100vh;          /* the section takes one viewport */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;    /* content sits centered in the viewport */
-      padding-top: clamp(48px, 8vh, 96px);
-      padding-bottom: clamp(48px, 8vh, 96px);
-    }
+    .dap-explore { margin-top: clamp(72px, 12vh, 160px); }
 
     /* ── Designs: project rows — dark textured card (homepage work-card look),
        horizontal layout kept (meta left, video right). ── */
@@ -158,12 +141,16 @@
       gap: clamp(32px, 5vw, 80px);
       align-items: stretch;   /* meta column fills the row height (= video) */
       margin-top: clamp(40px, 6vh, 72px);
+      margin-left: calc(-1 * var(--pad-page));    /* full-bleed card */
+      margin-right: calc(-1 * var(--pad-page));
       background-color: #111;
       color: #fff;
-      padding: clamp(28px, 4vw, 56px);
+      /* content padded to var(--pad-page) so the text lines up with the
+         "Designs" heading while the bg runs to the edges. */
+      padding: clamp(28px, 4vw, 56px) var(--pad-page);
       overflow: hidden;
     }
-    /* Blurred + dimmed cover image behind the card (same as the work grid). */
+    /* Faint, white-washed cover image behind the white card (black text on top). */
     .dap-project::before {
       content: '';
       position: absolute;
@@ -172,8 +159,8 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      filter: blur(3px);
-      opacity: 0.1;
+      filter: blur(6px);
+      opacity: 0.12;
       z-index: 0;
       pointer-events: none;
     }
@@ -226,26 +213,49 @@
     /* ── Explore ── */
     .dap-explore-sub {
       margin-top: 18px;
-      font-size: 16px;
+      font-size: 20px;
       letter-spacing: 0.01em;
       text-transform: none;
       line-height: var(--lh-loose);
       color: var(--ink-soft);
       max-width: 36ch;
     }
-    .dap-explore-grid {
-      margin-top: clamp(32px, 5vh, 56px);
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(28px, 3vw, 48px);
+    /* Pinned horizontal scroll: the track is tall, the stage pins (fixed) for
+       one viewport while JS translates the cards row left as you scroll. */
+    .dap-explore-track {
+      position: relative;
+      margin-top: 8px;
+      margin-left: calc(-1 * var(--pad-page));   /* full-bleed */
+      margin-right: calc(-1 * var(--pad-page));
+      /* height set by JS */
     }
-    .dap-explore-item { display: flex; flex-direction: column; }
+    .dap-explore-stage {
+      height: 100vh;
+      display: flex;
+      align-items: center;        /* cards sit in the middle of the screen while pinned */
+      overflow: hidden;
+      background: var(--bg);                      /* white */
+    }
+    .dap-explore-stage.is-pinned { position: fixed; top: 0; left: 0; right: 0; }
+    .dap-explore-stage.is-end    { position: absolute; bottom: 0; left: 0; right: 0; }
+    .dap-explore-grid {
+      display: flex;
+      gap: clamp(56px, 7vw, 140px);
+      width: max-content;
+      padding: 0 var(--pad-page);
+      will-change: transform;
+    }
+    .dap-explore-item {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 37vw;        /* ~2.5 cards visible on the first screen */
+    }
     .dap-explore-media {
       width: 100%;
       aspect-ratio: 16 / 9;
-      background: var(--bg-subtle);
+      background: var(--bg);
       overflow: hidden;
-      margin-bottom: 14px;
+      margin-bottom: clamp(28px, 3vw, 48px);
     }
     .dap-explore-media img {
       width: 100%;
@@ -254,10 +264,19 @@
       display: block;
     }
     .dap-explore-name {
-      font-size: var(--fs-body);
-      font-weight: var(--fw-regular);
+      font-size: var(--fs-title-md);
+      font-weight: var(--fw-medium);
+      letter-spacing: var(--ls-tight);
       line-height: var(--lh-snug);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .dap-explore-desc {
+      font-size: 20px;
+      letter-spacing: 0.01em;
+      line-height: var(--lh-loose);
+      color: var(--ink-soft);
+      max-width: none;
+      margin-bottom: 18px;
     }
     .dap-explore-links { display: flex; flex-wrap: wrap; gap: 20px; }
     .dap-explore-footer {
@@ -270,8 +289,13 @@
 
     /* ── Closing statement ── */
     .dap-closing {
-      margin-top: clamp(72px, 12vh, 160px);
+      margin-top: clamp(140px, 24vh, 320px);
       max-width: 80vw;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1em;
+    }
+    .dap-closing p {
       font-size: var(--fs-lead);
       font-weight: var(--fw-medium);
       letter-spacing: -0.015em;
@@ -299,20 +323,25 @@
         grid-template-columns: 1fr;
         gap: 20px;
         margin-top: 48px;
+        margin-left: calc(-1 * var(--pad-page-sm));   /* full-bleed on mobile too */
+        margin-right: calc(-1 * var(--pad-page-sm));
+        padding: clamp(24px, 6vw, 40px) var(--pad-page-sm);
       }
-      .dap-explore-grid { grid-template-columns: 1fr; gap: 36px; }
-      .dap-explore-media { aspect-ratio: 16 / 8; }
+      /* Mobile: no pin — native horizontal swipe. */
+      .dap-explore-track { margin-left: 0; margin-right: 0; height: auto !important; }
+      .dap-explore-stage {
+        position: static;
+        height: auto;
+        display: block;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .dap-explore-stage::-webkit-scrollbar { display: none; }
+      .dap-explore-grid { padding: 0; }
+      .dap-explore-item { flex-basis: 78vw; }   /* one card + peek of the next */
       .dap-closing { max-width: none; }
-
-      /* No layered slide on mobile — everything flows normally. */
-      .dap-designs { position: static; }
-      .dap-explore {
-        min-height: auto;
-        justify-content: flex-start;
-        margin-top: clamp(72px, 12vh, 160px);
-        padding-top: 0;
-        padding-bottom: 0;
-      }
     }
   </style>
 </head>
@@ -394,18 +423,27 @@
       <!-- ── Foreground: slides up over the pinned Designs (homepage style) ── -->
       <div class="dap-foreground">
 
-      <!-- ── Recent Explores ── -->
+      <!-- ── Recent Explores ── pinned horizontal scroll (cards move sideways as
+           you scroll vertically through the section). -->
       <section class="dap-explore">
         <h2 class="dap-section-title">Recent Explores</h2>
         <p class="dap-explore-sub">I learn by building. These are experiments I'm making in code.</p>
 
+        <div class="dap-explore-footer">
+          <a class="t-small page-footer-link" href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github Profile <i class="ph ph-arrow-up-right"></i></a>
+          <a class="t-small page-footer-link" href="/explore">Find more explorations here</a>
+        </div>
+
+        <div class="dap-explore-track">
+          <div class="dap-explore-stage">
         <div class="dap-explore-grid">
 
           <article class="dap-explore-item">
             <div class="dap-explore-media">
               <img src="../explore/Coding/Links.png" alt="R&B Archive — Are.na-driven web archive">
             </div>
-            <h3 class="dap-explore-name">R&amp;B Archive</h3>
+            <h3 class="dap-explore-name">R&amp;B archive</h3>
+            <p class="dap-explore-desc">Using Are.na as a content management system, designed around the theme of R&amp;B to connect, structure, and dynamically present its content using HTML, CSS and JS.</p>
             <div class="dap-explore-links">
               <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/links" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
               <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/links/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
@@ -416,7 +454,8 @@
             <div class="dap-explore-media">
               <img src="../explore/Coding/Field-Structure.png" alt="Creating art in the medium of the web">
             </div>
-            <h3 class="dap-explore-name">Creating art in the medium of the web</h3>
+            <h3 class="dap-explore-name">Building digital artwork</h3>
+            <p class="dap-explore-desc">Hand-coded project reinterpreting two abstract artworks using only HTML, CSS, and JavaScript, translating composition, structure, and movement into a responsive web experience.</p>
             <div class="dap-explore-links">
               <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/extra-credit" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
               <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/extra-credit/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
@@ -428,22 +467,50 @@
               <img src="../explore/Coding/Functions.png" alt="Girl dinner generator">
             </div>
             <h3 class="dap-explore-name">Girl dinner generator</h3>
+            <p class="dap-explore-desc">Hand-coded interactive "girl dinner" generator that transforms ingredients into playful meal pairings and personality readings using HTML, CSS and JS.</p>
             <div class="dap-explore-links">
               <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/functions" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
               <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/functions/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
             </div>
           </article>
 
-        </div>
+          <article class="dap-explore-item">
+            <div class="dap-explore-media">
+              <img src="../explore/Coding/Spread.png" alt="Spread — experimental editorial layout">
+            </div>
+            <h3 class="dap-explore-name">Pair programming</h3>
+            <p class="dap-explore-desc">Responsive HTML/CSS created in collaboration with Cason Huang through a shared process of pair programming, and experimental design using HTML and CSS.</p>
+            <div class="dap-explore-links">
+              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/spread" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/spread/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
+            </div>
+          </article>
 
-        <div class="dap-explore-footer">
-          <a class="t-small page-footer-link" href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github Profile <i class="ph ph-arrow-up-right"></i></a>
-          <a class="t-small page-footer-link" href="/explore">Find more explorations here</a>
+          <article class="dap-explore-item">
+            <div class="dap-explore-media">
+              <img src="../explore/Coding/Binding.png" alt="Binding — typography as an organizing principle">
+            </div>
+            <h3 class="dap-explore-name">Formatting long form text</h3>
+            <p class="dap-explore-desc">Exploring typography as an organizing principle to examine how design rules shape visual outcomes using HTML and CSS.</p>
+            <div class="dap-explore-links">
+              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/binding" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/binding/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
+            </div>
+          </article>
+
+        </div>
+          </div>
         </div>
       </section>
 
-      <!-- ── Closing statement ── -->
-      <p class="dap-closing">I've spent years learning that good design works like good hospitality: it's the care people don't notice that makes them stay. I want to bring that to the millions of people building businesses on Shopify, and to keep building, closer to how things actually ship. Many thanks.</p>
+      <!-- ── Closing statement ── (same grey→black highlight reveal as the hero) -->
+      <div class="dap-closing">
+        <p class="dap-reveal">My work is focused on delivering product experiences that feel clear and considered, bringing <span class="rl-on">entrepreneurship, creativity, and innovation</span> to the table.</p>
+        <p class="dap-reveal">What draws me to Shopify is the way it <span class="rl-on">supports businesses at every stage</span>, from small businesses to enterprise teams. That creates an opportunity to design product experiences that help <span class="rl-on">merchants navigate complexity with more confidence.</span></p>
+        <p class="dap-reveal">I would be grateful for the opportunity to learn from the team, contribute to real product work, and build closer to <span class="rl-on">how thoughtful products ship.</span></p>
+        <p>Many thanks!</p>
+        <p class="dap-reveal"><span class="rl-on">Melody</span></p>
+      </div>
 
       <!-- ── Let's Work — shared site footer (matches every page) ── -->
       <footer class="page-footer page-footer-work">
@@ -610,36 +677,117 @@
       vids.forEach((v) => io.observe(v));
     })();
 
-    // Layered slide-up: hold the Designs section's last screen at the bottom of
-    // the viewport while the foreground (Recent Explores + closing + footer)
-    // slides up over it — the homepage hero→panel effect. Desktop only.
+    // Recent Explores: pinned horizontal scroll. The track is tall; the stage
+    // pins (position: fixed — browser-smooth) for one viewport while the cards
+    // translate left 1:1 with scroll. Releases to page scroll at the end.
     (function () {
-      const designs = document.querySelector(".dap-designs");
-      const fg = document.querySelector(".dap-foreground");
-      if (!designs || !fg) return;
+      const track = document.querySelector(".dap-explore-track");
+      const stage = document.querySelector(".dap-explore-stage");
+      const grid = document.querySelector(".dap-explore-grid");
+      if (!track || !stage || !grid) return;
       const desktop = window.matchMedia("(min-width: 769px)");
-      let raf = 0;
+      let overflow = 0, raf = 0;
 
       function update() {
         raf = 0;
-        if (!desktop.matches) { designs.style.transform = ""; return; }
-        const vh = window.innerHeight;
-        // foreground top relative to the viewport; it sits right after Designs,
-        // so this equals Designs' natural bottom.
-        const fgTop = fg.getBoundingClientRect().top;
-        // Translate Designs down so its bottom stays at the viewport bottom
-        // while the foreground rises from the bottom (fgTop: vh → 0) to the top.
-        let hold = vh - fgTop;
-        if (hold < 0) hold = 0;
-        if (hold > vh) hold = vh;
-        designs.style.transform = `translate3d(0, ${Math.round(hold)}px, 0)`;
+        if (!desktop.matches || overflow <= 0) return;
+        const top = track.getBoundingClientRect().top;
+        if (top > 0) {
+          stage.classList.remove("is-pinned", "is-end");
+          grid.style.transform = "translate3d(0,0,0)";
+        } else if (-top < overflow) {
+          stage.classList.add("is-pinned");
+          stage.classList.remove("is-end");
+          grid.style.transform = `translate3d(${Math.round(top)}px,0,0)`;  // top is negative
+        } else {
+          stage.classList.remove("is-pinned");
+          stage.classList.add("is-end");
+          grid.style.transform = `translate3d(${-Math.round(overflow)}px,0,0)`;
+        }
+      }
+
+      function measure() {
+        if (!desktop.matches) {
+          track.style.height = "";
+          stage.classList.remove("is-pinned", "is-end");
+          grid.style.transform = "";
+          overflow = 0;
+          return;
+        }
+        overflow = Math.max(0, grid.scrollWidth - window.innerWidth);
+        track.style.height = (overflow + window.innerHeight) + "px";
+        update();
       }
 
       function onScroll() { if (!raf) raf = requestAnimationFrame(update); }
       window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", measure);
+      window.addEventListener("load", measure);
+      desktop.addEventListener("change", measure);
+      measure();
+    })();
+
+    // Closing statement: same grey→black highlight reveal as the hero, but
+    // triggered as the block scrolls into view.
+    (function () {
+      const closing = document.querySelector(".dap-closing");
+      if (!closing) return;
+      const FROM = [194, 194, 194], TO = [17, 17, 17];
+      const RAMP = 18, EASE = 0.14;
+
+      const chars = [];
+      closing.querySelectorAll(".rl-on").forEach((span) => {
+        const text = span.textContent;
+        span.textContent = "";
+        for (const ch of text) {
+          const s = document.createElement("span");
+          s.className = "rl-char";
+          s.textContent = ch;
+          span.appendChild(s);
+          chars.push(s);
+        }
+      });
+      const N = chars.length;
+      if (!N) return;
+
+      let current = 0, target = 0, raf = 0;
+
+      function measure() {
+        const vh = window.innerHeight;
+        const top = closing.getBoundingClientRect().top;
+        // Spread the reveal over ~one viewport of scroll so the letters visibly
+        // fill in (like the hero), starting as the block enters from the bottom.
+        const p = (vh - top) / (vh * 0.85);
+        return p < 0 ? 0 : p > 1 ? 1 : p;
+      }
+
+      function render(p) {
+        const head = p * (N + RAMP);
+        for (let i = 0; i < N; i++) {
+          let f = (head - i) / RAMP;
+          f = f < 0 ? 0 : f > 1 ? 1 : f;
+          f = f * f * (3 - 2 * f);
+          const r = (FROM[0] + (TO[0] - FROM[0]) * f) | 0;
+          const g = (FROM[1] + (TO[1] - FROM[1]) * f) | 0;
+          const b = (FROM[2] + (TO[2] - FROM[2]) * f) | 0;
+          chars[i].style.color = `rgb(${r},${g},${b})`;
+        }
+      }
+
+      function tick() {
+        raf = 0;
+        current += (target - current) * EASE;
+        if (Math.abs(target - current) < 0.0008) current = target;
+        render(current);
+        if (current !== target) schedule();
+      }
+      function schedule() { if (!raf) raf = requestAnimationFrame(tick); }
+      function onScroll() { target = measure(); schedule(); }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("resize", onScroll);
-      desktop.addEventListener("change", onScroll);
-      update();
+      target = current = measure();
+      render(current);
     })();
   </script>
 
