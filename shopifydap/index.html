@@ -213,12 +213,13 @@
     /* ── Explore ── */
     .dap-explore-sub {
       margin-top: 18px;
-      font-size: 20px;
-      letter-spacing: 0.01em;
+      font-size: var(--fs-lead);
+      font-weight: var(--fw-medium);
+      letter-spacing: -0.015em;
       text-transform: none;
-      line-height: var(--lh-loose);
-      color: var(--ink-soft);
-      max-width: 36ch;
+      line-height: 1.28;
+      color: #C2C2C2;            /* same lead-text style as the hero/closing */
+      max-width: 80vw;           /* match the top section's line length */
     }
     /* Pinned horizontal scroll: the track is tall, the stage pins (fixed) for
        one viewport while JS translates the cards row left as you scroll. */
@@ -232,10 +233,31 @@
     .dap-explore-stage {
       height: 100vh;
       display: flex;
-      align-items: center;        /* cards sit in the middle of the screen while pinned */
+      align-items: flex-start;    /* band sits near the top (small gap above it) */
       overflow: hidden;
-      background: var(--bg);                      /* white */
     }
+    /* Band that wraps just the cards. Top padding also clears the fixed nav when
+       pinned (the white band tucks seamlessly under the white nav). */
+    .dap-explore-band {
+      position: relative;
+      width: 100%;
+      background-color: var(--bg);
+      padding: calc(var(--nav-h) + 12px) 0 clamp(40px, 6vh, 80px);
+      overflow: hidden;
+    }
+    /* Loam cover image, dimmed, behind the carousel. */
+    .dap-explore-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('../Home Page/Background images /Loam - cover.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.08;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .dap-explore-grid { position: relative; z-index: 1; }
     .dap-explore-stage.is-pinned { position: fixed; top: 0; left: 0; right: 0; }
     .dap-explore-stage.is-end    { position: absolute; bottom: 0; left: 0; right: 0; }
     .dap-explore-grid {
@@ -253,7 +275,7 @@
     .dap-explore-media {
       width: 100%;
       aspect-ratio: 16 / 9;
-      background: var(--bg);
+      background: transparent;
       overflow: hidden;
       margin-bottom: clamp(28px, 3vw, 48px);
     }
@@ -269,7 +291,9 @@
       letter-spacing: var(--ls-tight);
       line-height: var(--lh-snug);
       margin-bottom: 12px;
+      color: var(--ink);
     }
+    .dap-explore-links a { color: var(--ink); }
     .dap-explore-desc {
       font-size: 20px;
       letter-spacing: 0.01em;
@@ -289,7 +313,7 @@
 
     /* ── Closing statement ── */
     .dap-closing {
-      margin-top: clamp(140px, 24vh, 320px);
+      margin-top: clamp(48px, 8vh, 120px);
       max-width: 80vw;
       display: flex;
       flex-direction: column;
@@ -333,13 +357,17 @@
         position: static;
         height: auto;
         display: block;
+        overflow: visible;
+      }
+      /* Band becomes the native horizontal scroller on mobile. */
+      .dap-explore-band {
         overflow-x: auto;
         overflow-y: hidden;
         scrollbar-width: none;
         -ms-overflow-style: none;
       }
-      .dap-explore-stage::-webkit-scrollbar { display: none; }
-      .dap-explore-grid { padding: 0; }
+      .dap-explore-band::-webkit-scrollbar { display: none; }
+      .dap-explore-grid { padding: 0 var(--pad-page-sm); }
       .dap-explore-item { flex-basis: 78vw; }   /* one card + peek of the next */
       .dap-closing { max-width: none; }
     }
@@ -391,7 +419,7 @@
             <h3 class="dap-project-title">Aeri</h3>
             <p class="dap-project-desc">AI-powered preventative care contact lens for diabetes with AR integration, exploring a more proactive alternative to today's reactive management tools made for the Parsons x University of Arizona AI Hackathon.</p>
             <div class="dap-meta-links">
-              <a class="t-small page-footer-link" href="#" target="_blank" rel="noreferrer">Working File <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://www.figma.com/design/a9LOln8Ov4jelvXiKdZQn5/Design-Approach---Process?node-id=12-198&p=f&t=FYZDnbBoztLOrBGO-0" target="_blank" rel="noreferrer">Working File <i class="ph ph-arrow-up-right"></i></a>
               <a class="t-small page-footer-link" href="/aeri/">Read full case study <i class="ph ph-arrow-up-right"></i></a>
             </div>
           </div>
@@ -407,7 +435,7 @@
             <h3 class="dap-project-title">Sembli</h3>
             <p class="dap-project-desc">A shipped AI-native product, and my Parsons capstone. It turns 250 scattered AI tools into workflows you can save and reuse. I designed it and built it end-to-end.</p>
             <div class="dap-meta-links">
-              <a class="t-small page-footer-link" href="#" target="_blank" rel="noreferrer">Working File <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://www.figma.com/design/a9LOln8Ov4jelvXiKdZQn5/Melody-Ekbatani?node-id=18-9789&t=YuHPu4JlH3BOrkxE-1" target="_blank" rel="noreferrer">Working File <i class="ph ph-arrow-up-right"></i></a>
               <a class="t-small page-footer-link" href="https://www.sembli.us/" target="_blank" rel="noreferrer">Live Site <i class="ph ph-arrow-up-right"></i></a>
             </div>
           </div>
@@ -426,7 +454,7 @@
       <!-- ── Recent Explores ── pinned horizontal scroll (cards move sideways as
            you scroll vertically through the section). -->
       <section class="dap-explore">
-        <h2 class="dap-section-title">Recent Explores</h2>
+        <h2 class="dap-section-title">Explores</h2>
         <p class="dap-explore-sub">I learn by building. These are experiments I'm making in code.</p>
 
         <div class="dap-explore-footer">
@@ -436,6 +464,7 @@
 
         <div class="dap-explore-track">
           <div class="dap-explore-stage">
+          <div class="dap-explore-band">
         <div class="dap-explore-grid">
 
           <article class="dap-explore-item">
@@ -443,10 +472,10 @@
               <img src="../explore/Coding/Links.png" alt="R&B Archive — Are.na-driven web archive">
             </div>
             <h3 class="dap-explore-name">R&amp;B archive</h3>
-            <p class="dap-explore-desc">Using Are.na as a content management system, designed around the theme of R&amp;B to connect, structure, and dynamically present its content using HTML, CSS and JS.</p>
+            <p class="dap-explore-desc">An interactive R&amp;B archive that uses the Are.na API to turn a curated music collection into a responsive CD player interface.</p>
             <div class="dap-explore-links">
-              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/links" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
-              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/links/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/Links" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/Links/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
             </div>
           </article>
 
@@ -457,8 +486,8 @@
             <h3 class="dap-explore-name">Building digital artwork</h3>
             <p class="dap-explore-desc">Hand-coded project reinterpreting two abstract artworks using only HTML, CSS, and JavaScript, translating composition, structure, and movement into a responsive web experience.</p>
             <div class="dap-explore-links">
-              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/extra-credit" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
-              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/extra-credit/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/Field" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/Field/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
             </div>
           </article>
 
@@ -467,10 +496,10 @@
               <img src="../explore/Coding/Functions.png" alt="Girl dinner generator">
             </div>
             <h3 class="dap-explore-name">Girl dinner generator</h3>
-            <p class="dap-explore-desc">Hand-coded interactive "girl dinner" generator that transforms ingredients into playful meal pairings and personality readings using HTML, CSS and JS.</p>
+            <p class="dap-explore-desc">A playful meal generator that turns fridge ingredients into a personalized &ldquo;girl dinner&rdquo; plate and personality reading.</p>
             <div class="dap-explore-links">
-              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/functions" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
-              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/functions/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/Functions" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/Functions/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
             </div>
           </article>
 
@@ -479,10 +508,10 @@
               <img src="../explore/Coding/Spread.png" alt="Spread — experimental editorial layout">
             </div>
             <h3 class="dap-explore-name">Pair programming</h3>
-            <p class="dap-explore-desc">Responsive HTML/CSS created in collaboration with Cason Huang through a shared process of pair programming, and experimental design using HTML and CSS.</p>
+            <p class="dap-explore-desc">A collaborative HTML/CSS reading experience that transforms long-form text through shifting grids, expressive typography, and anti-templated design.</p>
             <div class="dap-explore-links">
-              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/spread" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
-              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/spread/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/Spread" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/Spread/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
             </div>
           </article>
 
@@ -491,14 +520,15 @@
               <img src="../explore/Coding/Binding.png" alt="Binding — typography as an organizing principle">
             </div>
             <h3 class="dap-explore-name">Formatting long form text</h3>
-            <p class="dap-explore-desc">Exploring typography as an organizing principle to examine how design rules shape visual outcomes using HTML and CSS.</p>
+            <p class="dap-explore-desc">Building the fundamentals of front-end development and exploring themes of typography and grid design.</p>
             <div class="dap-explore-links">
-              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/binding" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
-              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/binding/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/Binding" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
+              <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/Binding/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
             </div>
           </article>
 
         </div>
+          </div>
           </div>
         </div>
       </section>
