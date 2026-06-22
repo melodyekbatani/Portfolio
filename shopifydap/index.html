@@ -317,9 +317,10 @@
        The links are spaced apart like EXPLORE / RESUME in the nav. */
     .dap-explore-subrow {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: clamp(12px, 2vh, 20px);
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: clamp(24px, 4vw, 80px);
     }
     .dap-explore-subrow .dap-explore-sub {
       max-width: none;
@@ -388,7 +389,7 @@
         overflow: visible;
       }
       .dap-explore-band .dap-explore-head { padding: 0 var(--pad-page-sm); }
-      .dap-explore-subrow { flex-wrap: wrap; }
+      .dap-explore-subrow { flex-wrap: wrap; justify-content: flex-start; gap: 16px; }
       .dap-explore-headlinks { gap: 28px; }
       /* Cards wrapper becomes the native horizontal scroller on mobile. */
       .dap-explore-cards {
