@@ -321,17 +321,23 @@
       justify-content: space-between;
       align-items: baseline;
       gap: clamp(24px, 4vw, 80px);
+      width: 100%;
     }
     .dap-explore-subrow .dap-explore-sub {
       max-width: none;
     }
+    /* Links echo the nav grid: the block spans the rightmost quarter of the
+       content width so GITHUB PROFILE lands under EXPLORE and MORE EXPLORATIONS
+       sits flush right under RESUME. */
     .dap-explore-headlinks {
       display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      flex-shrink: 0;
-      margin-left: 0;   /* links flush to the left edge, below the subtitle */
+      justify-content: space-between;
+      align-items: baseline;
+      gap: clamp(24px, 4vw, 64px);
+      flex: 0 0 30.7%;
+      max-width: 30.7%;
     }
+    .dap-explore-headlinks a { white-space: nowrap; }
 
     /* ── Closing statement ── */
     .dap-closing {
@@ -364,7 +370,7 @@
       .dap-title { font-size: clamp(48px, 14vw, 72px); }
       .dap-intro { max-width: none; margin-top: clamp(40px, 7vh, 72px); }
 
-      /* Stack project rows: meta, then image below */
+      /* Stack project rows: image first, then meta below */
       .dap-project {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -373,6 +379,7 @@
         margin-right: calc(-1 * var(--pad-page-sm));
         padding: clamp(24px, 6vw, 40px) var(--pad-page-sm);
       }
+      .dap-project-media { order: -1; }   /* image above the project text on mobile */
       /* Mobile: no pin — native horizontal swipe. */
       .dap-explore-track { margin-left: 0; margin-right: 0; height: auto !important; }
       .dap-explore-stage {
@@ -388,9 +395,12 @@
         padding: 0;
         overflow: visible;
       }
-      .dap-explore-band .dap-explore-head { padding: 0 var(--pad-page-sm); }
+      /* Track isn't full-bleed on mobile (margin reset to 0), so the panel
+         already supplies the side margin — no extra page padding here, or it
+         would double up and misalign with the rest of the content. */
+      .dap-explore-band .dap-explore-head { padding: 0; }
       .dap-explore-subrow { flex-wrap: wrap; justify-content: flex-start; gap: 16px; }
-      .dap-explore-headlinks { gap: 28px; }
+      .dap-explore-headlinks { flex: 0 0 auto; max-width: none; justify-content: flex-start; gap: 28px; flex-wrap: wrap; }
       /* Cards wrapper becomes the native horizontal scroller on mobile. */
       .dap-explore-cards {
         display: block;
@@ -401,7 +411,7 @@
         -ms-overflow-style: none;
       }
       .dap-explore-cards::-webkit-scrollbar { display: none; }
-      .dap-explore-grid { padding: 0 var(--pad-page-sm); }
+      .dap-explore-grid { padding: 0; }
       .dap-explore-item { flex-basis: 78vw; }   /* one card + peek of the next */
       .dap-closing { max-width: none; }
     }
@@ -494,7 +504,7 @@
             <div class="dap-explore-head">
               <h2 class="dap-section-title">Explores</h2>
               <div class="dap-explore-subrow">
-                <p class="dap-explore-sub">Recent experiments I&rsquo;m building in code</p>
+                <p class="dap-explore-sub">Recent experiments I&rsquo;m building in code.</p>
                 <div class="dap-explore-headlinks">
                   <a class="t-small page-footer-link" href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github Profile <i class="ph ph-arrow-up-right"></i></a>
                   <a class="t-small page-footer-link" href="/explore">More explorations <i class="ph ph-arrow-up-right"></i></a>
@@ -545,7 +555,7 @@
               <img src="../explore/Coding/Spread.png" alt="Spread — experimental editorial layout">
             </div>
             <h3 class="dap-explore-name">Pair programming</h3>
-            <p class="dap-explore-desc">A collaborative HTML/CSS reading experience that transforms long-form text through shifting grids, expressive typography, and anti-templated design.</p>
+            <p class="dap-explore-desc">A collaborative HTML/CSS reading experience that transforms long-form text through shifting grids and expressive typography.</p>
             <div class="dap-explore-links">
               <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/Spread" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
               <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/Spread/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
@@ -793,6 +803,39 @@
       window.addEventListener("load", measure);
       desktop.addEventListener("change", measure);
       measure();
+    })();
+
+    // Align the "Explores" header links to the nav grid: size the link block to
+    // span exactly from EXPLORE's left edge to RESUME's right edge, so GITHUB
+    // PROFILE sits under EXPLORE and MORE EXPLORATIONS stays flush right under
+    // RESUME. The nav uses space-between, so its column positions aren't a fixed
+    // percentage of the width — measure live and re-run on resize.
+    (function () {
+      const links = document.querySelector(".dap-explore-headlinks");
+      if (!links) return;
+      const navLinks = [].slice.call(document.querySelectorAll("nav a"));
+      const explore = navLinks.find((a) => a.textContent.trim().toLowerCase().startsWith("explore"));
+      const resume = navLinks.find((a) => a.textContent.trim().toLowerCase().startsWith("resume"));
+      if (!explore || !resume) return;
+      const desktop = window.matchMedia("(min-width: 769px)");
+
+      function align() {
+        if (!desktop.matches) {
+          links.style.flexBasis = "";
+          links.style.maxWidth = "";
+          links.style.width = "";
+          return;
+        }
+        const w = Math.round(resume.getBoundingClientRect().right - explore.getBoundingClientRect().left);
+        links.style.flexBasis = w + "px";
+        links.style.maxWidth = w + "px";
+        links.style.width = w + "px";
+      }
+
+      window.addEventListener("load", align);
+      window.addEventListener("resize", align);
+      desktop.addEventListener("change", align);
+      align();
     })();
 
     // Generic grey→black highlight reveal, triggered as a block scrolls into
