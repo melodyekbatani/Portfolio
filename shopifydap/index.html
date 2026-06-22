@@ -329,16 +329,12 @@
     .dap-explore-subrow .dap-explore-sub {
       max-width: none;
     }
-    /* Links echo the nav grid: the block spans the rightmost quarter of the
-       content width so GITHUB PROFILE lands under EXPLORE and MORE EXPLORATIONS
-       sits flush right under RESUME. */
+    /* Single section link sits flush right (subrow uses space-between). */
     .dap-explore-headlinks {
       display: flex;
-      justify-content: space-between;
       align-items: baseline;
       gap: clamp(24px, 4vw, 64px);
-      flex: 0 0 30.7%;
-      max-width: 30.7%;
+      flex: 0 0 auto;
     }
     .dap-explore-headlinks a { white-space: nowrap; }
 
@@ -509,7 +505,6 @@
               <div class="dap-explore-subrow">
                 <p class="dap-explore-sub">Recent experiments I&rsquo;m building in code.</p>
                 <div class="dap-explore-headlinks">
-                  <a class="t-small page-footer-link" href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github Profile <i class="ph ph-arrow-up-right"></i></a>
                   <a class="t-small page-footer-link" href="/explore">More explorations <i class="ph ph-arrow-up-right"></i></a>
                 </div>
               </div>
@@ -806,39 +801,6 @@
       window.addEventListener("load", measure);
       desktop.addEventListener("change", measure);
       measure();
-    })();
-
-    // Align the "Explores" header links to the nav grid: size the link block to
-    // span exactly from EXPLORE's left edge to RESUME's right edge, so GITHUB
-    // PROFILE sits under EXPLORE and MORE EXPLORATIONS stays flush right under
-    // RESUME. The nav uses space-between, so its column positions aren't a fixed
-    // percentage of the width — measure live and re-run on resize.
-    (function () {
-      const links = document.querySelector(".dap-explore-headlinks");
-      if (!links) return;
-      const navLinks = [].slice.call(document.querySelectorAll("nav a"));
-      const explore = navLinks.find((a) => a.textContent.trim().toLowerCase().startsWith("explore"));
-      const resume = navLinks.find((a) => a.textContent.trim().toLowerCase().startsWith("resume"));
-      if (!explore || !resume) return;
-      const desktop = window.matchMedia("(min-width: 769px)");
-
-      function align() {
-        if (!desktop.matches) {
-          links.style.flexBasis = "";
-          links.style.maxWidth = "";
-          links.style.width = "";
-          return;
-        }
-        const w = Math.round(resume.getBoundingClientRect().right - explore.getBoundingClientRect().left);
-        links.style.flexBasis = w + "px";
-        links.style.maxWidth = w + "px";
-        links.style.width = w + "px";
-      }
-
-      window.addEventListener("load", align);
-      window.addEventListener("resize", align);
-      desktop.addEventListener("change", align);
-      align();
     })();
 
     // Generic grey→black highlight reveal, triggered as a block scrolls into
