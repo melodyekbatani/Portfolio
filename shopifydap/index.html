@@ -213,19 +213,19 @@
     /* ── Explore ── */
     .dap-explore-head {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: clamp(24px, 4vw, 80px);
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: clamp(12px, 2vh, 20px);
     }
     .dap-explore-sub {
       margin-top: 0;
-      font-size: var(--fs-lead);
-      font-weight: var(--fw-medium);
-      letter-spacing: -0.015em;
+      /* Same type treatment as the card paragraphs (.dap-explore-desc). */
+      font-size: 20px;
+      font-weight: var(--fw-regular);
+      letter-spacing: 0.01em;
       text-transform: none;
-      line-height: 1.28;
-      color: #C2C2C2;            /* same lead-text style as the hero/closing */
+      line-height: var(--lh-loose);
+      color: var(--ink);
       max-width: 80vw;           /* match the top section's line length */
     }
     /* Pinned horizontal scroll: the track is tall, the stage pins (fixed) for
@@ -240,32 +240,34 @@
     .dap-explore-stage {
       height: 100vh;
       display: flex;
-      align-items: flex-start;    /* band sits near the top (small gap above it) */
+      align-items: stretch;   /* band fills the pinned viewport height */
       overflow: hidden;
     }
-    /* Band that wraps just the cards. Top padding also clears the fixed nav when
-       pinned (the white band tucks seamlessly under the white nav). */
+    /* Band: a vertical column — header pinned at the top, cards centered in the
+       space below it. Top padding clears the fixed nav when pinned. */
     .dap-explore-band {
       position: relative;
       width: 100%;
-      background-color: var(--bg);
-      padding: calc(var(--nav-h) + 12px) 0 clamp(40px, 6vh, 80px);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: calc(var(--nav-h) + clamp(12px, 3vh, 28px)) 0 clamp(24px, 4vh, 48px);
       overflow: hidden;
     }
-    /* Loam cover image, dimmed, behind the carousel. */
-    .dap-explore-band::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('../Home Page/Background images /Loam - cover.png');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.08;
-      z-index: 0;
-      pointer-events: none;
+    .dap-explore-band .dap-explore-head {
+      flex: 0 0 auto;
+      padding: 0 var(--pad-page);
+    }
+    /* Cards region: fills the leftover height and vertically centers the row. */
+    .dap-explore-cards {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
     }
     .dap-explore-grid { position: relative; z-index: 1; }
-    .dap-explore-stage.is-pinned { position: fixed; top: 0; left: 0; right: 0; }
+    .dap-explore-stage.is-pinned { position: fixed; top: var(--pin-top, 0px); left: 0; right: 0; }
     .dap-explore-stage.is-end    { position: absolute; bottom: 0; left: 0; right: 0; }
     .dap-explore-grid {
       display: flex;
@@ -282,9 +284,10 @@
     .dap-explore-media {
       width: 100%;
       aspect-ratio: 16 / 9;
+      max-height: 46vh;        /* keep the whole card within one viewport */
       background: transparent;
       overflow: hidden;
-      margin-bottom: clamp(28px, 3vw, 48px);
+      margin-bottom: clamp(24px, 2.5vw, 40px);
     }
     .dap-explore-media img {
       width: 100%;
@@ -310,12 +313,23 @@
       margin-bottom: 18px;
     }
     .dap-explore-links { display: flex; flex-wrap: wrap; gap: 20px; }
-    .dap-explore-footer {
-      margin-top: clamp(28px, 4vh, 44px);
+    /* Subtitle on the left, the two section links on the right of the same row.
+       The links are spaced apart like EXPLORE / RESUME in the nav. */
+    .dap-explore-subrow {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: clamp(12px, 2vh, 20px);
+    }
+    .dap-explore-subrow .dap-explore-sub {
+      max-width: none;
+    }
+    .dap-explore-headlinks {
+      display: flex;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 40px;
+      flex-shrink: 0;
+      margin-left: 0;   /* links flush to the left edge, below the subtitle */
     }
 
     /* ── Closing statement ── */
@@ -366,14 +380,26 @@
         display: block;
         overflow: visible;
       }
-      /* Band becomes the native horizontal scroller on mobile. */
+      /* Band flows normally on mobile (header, then cards). */
       .dap-explore-band {
+        display: block;
+        height: auto;
+        padding: 0;
+        overflow: visible;
+      }
+      .dap-explore-band .dap-explore-head { padding: 0 var(--pad-page-sm); }
+      .dap-explore-subrow { flex-wrap: wrap; }
+      .dap-explore-headlinks { gap: 28px; }
+      /* Cards wrapper becomes the native horizontal scroller on mobile. */
+      .dap-explore-cards {
+        display: block;
+        margin-top: clamp(20px, 4vh, 36px);
         overflow-x: auto;
         overflow-y: hidden;
         scrollbar-width: none;
         -ms-overflow-style: none;
       }
-      .dap-explore-band::-webkit-scrollbar { display: none; }
+      .dap-explore-cards::-webkit-scrollbar { display: none; }
       .dap-explore-grid { padding: 0 var(--pad-page-sm); }
       .dap-explore-item { flex-basis: 78vw; }   /* one card + peek of the next */
       .dap-closing { max-width: none; }
@@ -461,14 +487,20 @@
       <!-- ── Recent Explores ── pinned horizontal scroll (cards move sideways as
            you scroll vertically through the section). -->
       <section class="dap-explore">
-        <div class="dap-explore-head">
-          <h2 class="dap-section-title">Explores</h2>
-          <p class="dap-explore-sub">Recent experiments I&rsquo;m building in code</p>
-        </div>
-
         <div class="dap-explore-track">
           <div class="dap-explore-stage">
           <div class="dap-explore-band">
+            <div class="dap-explore-head">
+              <h2 class="dap-section-title">Explores</h2>
+              <div class="dap-explore-subrow">
+                <p class="dap-explore-sub">Recent experiments I&rsquo;m building in code</p>
+                <div class="dap-explore-headlinks">
+                  <a class="t-small page-footer-link" href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github Profile <i class="ph ph-arrow-up-right"></i></a>
+                  <a class="t-small page-footer-link" href="/explore">More explorations <i class="ph ph-arrow-up-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="dap-explore-cards">
         <div class="dap-explore-grid">
 
           <article class="dap-explore-item">
@@ -487,8 +519,8 @@
             <div class="dap-explore-media">
               <img src="../explore/Coding/Field-Structure.png" alt="Creating art in the medium of the web">
             </div>
-            <h3 class="dap-explore-name">Building digital artwork</h3>
-            <p class="dap-explore-desc">Hand-coded project reinterpreting two abstract artworks using only HTML, CSS, and JavaScript, translating composition, structure, and movement into a responsive web experience.</p>
+            <h3 class="dap-explore-name">Reinterpreting artwork digitally</h3>
+            <p class="dap-explore-desc">Hand-coded project reinterpreting two abstract artworks using HTML, CSS, and JavaScript.</p>
             <div class="dap-explore-links">
               <a class="t-small page-footer-link" href="https://github.com/melodyekbatani/Field" target="_blank" rel="noreferrer">Github Repo <i class="ph ph-arrow-up-right"></i></a>
               <a class="t-small page-footer-link" href="https://melodyekbatani.github.io/Field/" target="_blank" rel="noreferrer">View Live Project <i class="ph ph-arrow-up-right"></i></a>
@@ -532,13 +564,9 @@
           </article>
 
         </div>
+            </div>
           </div>
           </div>
-        </div>
-
-        <div class="dap-explore-footer">
-          <a class="t-small page-footer-link" href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer">Github Profile <i class="ph ph-arrow-up-right"></i></a>
-          <a class="t-small page-footer-link" href="/explore">More explorations <i class="ph ph-arrow-up-right"></i></a>
         </div>
       </section>
 
@@ -765,6 +793,67 @@
       desktop.addEventListener("change", measure);
       measure();
     })();
+
+    // Generic grey→black highlight reveal, triggered as a block scrolls into
+    // view (same easing as the hero). Used by the closing statement and the
+    // "Explores" subtitle.
+    function bindScrollReveal(el) {
+      if (!el) return;
+      const FROM = [194, 194, 194], TO = [17, 17, 17];
+      const RAMP = 18, EASE = 0.14;
+
+      const chars = [];
+      el.querySelectorAll(".rl-on").forEach((span) => {
+        const text = span.textContent;
+        span.textContent = "";
+        for (const ch of text) {
+          const s = document.createElement("span");
+          s.className = "rl-char";
+          s.textContent = ch;
+          span.appendChild(s);
+          chars.push(s);
+        }
+      });
+      const N = chars.length;
+      if (!N) return;
+
+      let current = 0, target = 0, raf = 0;
+
+      function measure() {
+        const vh = window.innerHeight;
+        const top = el.getBoundingClientRect().top;
+        const p = (vh - top) / (vh * 0.85);
+        return p < 0 ? 0 : p > 1 ? 1 : p;
+      }
+
+      function render(p) {
+        const head = p * (N + RAMP);
+        for (let i = 0; i < N; i++) {
+          let f = (head - i) / RAMP;
+          f = f < 0 ? 0 : f > 1 ? 1 : f;
+          f = f * f * (3 - 2 * f);
+          const r = (FROM[0] + (TO[0] - FROM[0]) * f) | 0;
+          const g = (FROM[1] + (TO[1] - FROM[1]) * f) | 0;
+          const b = (FROM[2] + (TO[2] - FROM[2]) * f) | 0;
+          chars[i].style.color = `rgb(${r},${g},${b})`;
+        }
+      }
+
+      function tick() {
+        raf = 0;
+        current += (target - current) * EASE;
+        if (Math.abs(target - current) < 0.0008) current = target;
+        render(current);
+        if (current !== target) schedule();
+      }
+      function schedule() { if (!raf) raf = requestAnimationFrame(tick); }
+      function onScroll() { target = measure(); schedule(); }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      target = current = measure();
+      render(current);
+    }
 
     // Closing statement: same grey→black highlight reveal as the hero, but
     // triggered as the block scrolls into view.
