@@ -113,7 +113,7 @@
       font-weight: var(--fw-medium);
       letter-spacing: -0.015em;
       line-height: 1.28;
-      color: #C2C2C2;           /* base grey (slightly lighter); reveal fills to ink on scroll */
+      color: #ABABAB;           /* base grey (slightly lighter); reveal fills to ink on scroll */
       text-wrap: pretty;
     }
     /* Per-letter spans injected by JS; color is set inline during scroll. */
@@ -351,7 +351,7 @@
       font-weight: var(--fw-medium);
       letter-spacing: -0.015em;
       line-height: 1.28;
-      color: #C2C2C2;   /* same grey as the top intro text */
+      color: #ABABAB;   /* same grey as the top intro text */
       text-wrap: pretty;
     }
 
@@ -581,8 +581,9 @@
 
       <!-- ── Closing statement ── (same grey→black highlight reveal as the hero) -->
       <div class="dap-closing">
-        <p class="dap-reveal">My work is focused on delivering product experiences that feel clear and considered, bringing <span class="rl-on">entrepreneurship, creativity, and innovation</span> to the table.</p>
-        <p class="dap-reveal">What draws me to Shopify is the way it <span class="rl-on">supports businesses at every stage</span>, from small businesses to enterprise teams. That creates an opportunity to design product experiences that help <span class="rl-on">merchants navigate complexity with more confidence.</span></p>
+        <p class="dap-reveal">My work is focused on delivering product experiences that feel clear and considered, bringing <span class="rl-on">entrepreneurship, creativity, and innovation</span> to the table. What draws me to Shopify is the chance to <span class="rl-on">design for real people building real businesses.</span></p>
+        <p class="dap-reveal">I&rsquo;m inspired by that entrepreneurial journey, and I want to help create tools that <span class="rl-on">empower people to build with more clarity and confidence.</span></p>
+        <p class="dap-reveal">This past year, I attended the Sandy Jeong Shopify x Parsons panel, and I really connected with the way she spoke about Shopify&rsquo;s role in <span class="rl-on">championing the merchant-to-consumer relationship.</span></p>
         <p class="dap-reveal">I would be grateful for the opportunity to learn from the team, contribute to real product work, and build closer to <span class="rl-on">how thoughtful products ship.</span></p>
         <p class="dap-reveal"><span class="rl-on">Many thanks!</span></p>
         <p class="dap-reveal"><span class="rl-on">Melody</span></p>
@@ -663,7 +664,7 @@
       if (!paras.length) return;
 
       // Grey → ink endpoints (matches --muted #AAAAAA and --ink #111111).
-      const FROM = [194, 194, 194], TO = [17, 17, 17];
+      const FROM = [171, 171, 171], TO = [17, 17, 17];
       // Letters sharing the soft transition band at once (higher = softer).
       const RAMP = 18;
       // Lerp factor — how quickly the reveal eases toward the scroll target.
@@ -808,7 +809,7 @@
     // "Explores" subtitle.
     function bindScrollReveal(el) {
       if (!el) return;
-      const FROM = [194, 194, 194], TO = [17, 17, 17];
+      const FROM = [171, 171, 171], TO = [17, 17, 17];
       const RAMP = 18, EASE = 0.14;
 
       const chars = [];
@@ -869,7 +870,7 @@
     (function () {
       const closing = document.querySelector(".dap-closing");
       if (!closing) return;
-      const FROM = [194, 194, 194], TO = [17, 17, 17];
+      const FROM = [171, 171, 171], TO = [17, 17, 17];
       const RAMP = 18, EASE = 0.14;
 
       const chars = [];
