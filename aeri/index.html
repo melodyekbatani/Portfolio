@@ -20,7 +20,7 @@
   <meta name="twitter:title" content="Aeri — Melody Ekbatani">
   <meta name="twitter:description" content="AI-powered diabetes management with AR integration and smart signal detection.">
   <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=3">
-  <link rel="stylesheet" href="../style.css?v=70">
+  <link rel="stylesheet" href="../style.css?v=86">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
     /* ─── Aeri case study — same template as Sembli ─────────── */
@@ -152,7 +152,7 @@
       width: 100%; height: 100%;
       object-fit: cover;
       display: block;
-      border-radius: 0;
+      border-radius: var(--radius);
     }
     .cs-figure figcaption {
       display: flex;
@@ -251,7 +251,7 @@
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-widest);
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--muted);
       margin-bottom: 14px;
     }
@@ -278,7 +278,7 @@
       color: var(--ink);
       background: var(--bg-subtle);
       padding: 8px 14px;
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       line-height: 1;
     }
     .cs-tools {
@@ -347,7 +347,7 @@
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-widest);
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--muted);
       margin-bottom: 24px;
     }
@@ -492,7 +492,7 @@
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-wider);
-      text-transform: uppercase;
+      text-transform: none;
       color: #fff;
       position: relative;
       align-self: flex-start;
@@ -547,7 +547,7 @@
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-wider);
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--muted);
       text-decoration: none;
       position: relative;
@@ -727,12 +727,12 @@
     <a href="/#work" class="t-small" data-nav="work" data-open-work-link>Work</a>
     <a href="/about" class="t-small">About</a>
     <a href="/explore" class="t-small">Explore</a>
-    <a href="../Melody-Ekbatani.pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
+    <a href="../Melody-Ekbatani.pdf" class="t-small" target="_blank" rel="noreferrer">Resume</a>
   </nav>
 
   <div class="cs-shell">
 
-    <aside class="cs-toc" aria-label="Contents">
+    <aside class="cs-toc" data-seam aria-label="Contents">
       <a href="#overview">Overview</a>
       <a href="#problem">Problem</a>
       <a href="#solution">Solution</a>
@@ -1085,24 +1085,15 @@
       <h2 class="page-footer-title">Let's Work</h2>
       <div class="page-footer-grid">
         <div class="page-footer-column">
-          <p class="page-footer-heading">Find me</p>
           <div class="page-footer-links">
-            <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer" class="t-small page-footer-link">LinkedIn <i class="ph ph-arrow-up-right"></i></a>
-            <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer" class="t-small page-footer-link">Github <i class="ph ph-arrow-up-right"></i></a>
-            <a href="/Melody-Ekbatani.pdf" target="_blank" rel="noreferrer" class="t-small page-footer-link">Resume <i class="ph ph-arrow-up-right"></i></a>
-          </div>
-        </div>
-        <div class="page-footer-column">
-          <p class="page-footer-heading">What Guides My Work</p>
-          <div class="page-footer-links">
-            <p>Innovation</p>
-                <p>Entrepreneurship</p>
-                <p>Creativity</p>
+            <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer" class="t-small page-footer-link"><span class="link-text">LinkedIn</span></a>
+            <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer" class="t-small page-footer-link"><span class="link-text">GitHub</span></a>
+            <a href="/Melody-Ekbatani.pdf" target="_blank" rel="noreferrer" class="t-small page-footer-link"><span class="link-text">Resume</span></a>
           </div>
         </div>
         <div class="page-footer-message">
           <p>Designing through clarity, storytelling, and moments of delight.</p>
-          <a href="mailto:melodyekbatani@gmail.com" class="t-small page-footer-email" rel="noreferrer">melodyekbatani@gmail.com <i class="ph ph-arrow-up-right"></i></a>
+          <a href="mailto:melodyekbatani@gmail.com" class="t-small page-footer-email" rel="noreferrer"><span class="link-text">melodyekbatani@gmail.com</span></a>
         </div>
       </div>
       <div class="page-footer-meta"></div>
@@ -1267,5 +1258,6 @@
     })();
   </script>
   <script src="../nav.js?v=2" defer></script>
+  <script src="../seam.js?v=1" defer></script>
 </body>
 </html>

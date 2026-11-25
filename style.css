@@ -58,8 +58,16 @@
 
   /* Sizing */
   --dot-size:     10px;
-  --radius:       0;     /* inner — applied to media (images, videos) */
-  --radius-lg:    0;     /* outer — applied to containers wrapping media (nested-radius rule) */
+  --radius-sm:    2px;   /* chips, small controls */
+  --radius:       4px;   /* inner — applied to media (images, videos) */
+  --radius-lg:    6px;   /* outer — containers / framed media (nested-radius rule: outer ≥ inner) */
+  --radius-pill:  999px; /* pills, cursor label */
+
+  /* Media edge — even hairline ring so light media (e.g. Loam's cream)
+     still has a defined edge on white. No shadow, no heavier bottom. */
+  --edge-media:        rgba(17,17,17,0.07);   /* inner ring */
+  --edge-media-bottom: rgba(17,17,17,0.07);
+  --edge-media-outer:  rgba(17,17,17,0.05);   /* outer ring */
 
   /* Motion */
   --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
@@ -143,7 +151,7 @@ body {
   align-items: center;
   gap: 12px;
   padding: 10px 18px 10px 12px;
-  border-radius: 0;
+  border-radius: var(--radius-pill);
   border: 0;
   background: var(--bg);
   color: var(--ink);
@@ -176,7 +184,7 @@ body {
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
+  text-transform: none;
   white-space: nowrap;
 }
 
@@ -236,7 +244,7 @@ a {
   font-size: var(--fs-small);
   font-weight: var(--fw-regular);
   letter-spacing: var(--ls-wider);
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 1.2;
   color: var(--ink);
 }
@@ -280,7 +288,7 @@ nav a {
   font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.02em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--ink);
   position: relative;
   padding: 4px 0;
@@ -362,7 +370,7 @@ nav a.active {
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 1.3;
   color: var(--ink);
   display: inline-flex;
@@ -885,7 +893,7 @@ nav a.active {
   background: var(--ink);
   color: #fff;            /* override .t-small's --ink — inverted vs work page */
   text-decoration: none;
-  border-radius: 0;
+  border-radius: var(--radius-pill);
 }
 /* Draw-in underline on hover, matching the work-page live link. */
 .cs-hero-cta::after {
@@ -1003,7 +1011,7 @@ nav a.active {
   font-size: var(--fs-small);
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-wider);
-  text-transform: uppercase;
+  text-transform: none;
   pointer-events: none;
   z-index: 2;
 }
@@ -1113,7 +1121,7 @@ nav a.active {
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--muted);
   white-space: nowrap;
   line-height: 1;
@@ -1177,7 +1185,7 @@ nav a.active {
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--muted);
   display: block;
 }
@@ -1260,7 +1268,7 @@ nav a.active {
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.09em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--muted);
   border: 0.5px solid var(--rule);
   padding: 3px 8px;
@@ -1335,7 +1343,7 @@ footer {
   font-size: var(--fs-small);
   font-weight: var(--fw-regular);
   letter-spacing: var(--ls-wider);
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 1.2;
   padding: 4px 0;             /* match .page-footer-link so both columns have the same rhythm */
   margin: 0;
@@ -1870,7 +1878,7 @@ body.nav-open .nav-overlay {
   font-size: var(--fs-small);
   font-weight: var(--fw-regular);
   letter-spacing: var(--ls-wider);
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--ink);
   text-decoration: none;
   line-height: 1;
@@ -1914,3 +1922,673 @@ body.nav-open .nav-overlay-list a:nth-child(6) { transition-delay: 330ms; }
     overflow: hidden;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Nov 2026 refresh
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Label type: small + bold, sentence case ───────────────
+   Replaces the small uppercase / wide-tracked labels. Nav links
+   (30px) are left as-is. */
+:root {
+  --fw-label:   600;
+  --ls-label:   -0.005em;
+}
+
+.t-small,
+.t-label,
+.hero-links a,
+.tag,
+.project-cursor-label,
+.cs-see-also-label,
+.cs-see-also-tag,
+.page-footer-links p {
+  text-transform: none;
+  font-weight: var(--fw-label);
+  letter-spacing: var(--ls-label);
+}
+.tag { font-size: 12px; }
+
+/* ─── Work grid: no cards — media sits on white, framed by the radius token ─── */
+.work-grid .project-featured,
+.work-grid .project-secondary,
+.work-grid .project-secondary.project-secondary-reverse {
+  background: transparent;
+  padding: 0;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: auto;
+  border-radius: 0;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.work-grid .project-featured::before,
+.work-grid .project-secondary::before { display: none; }
+
+.work-grid .project-secondary-visual,
+.work-grid .project-featured-image {
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.work-grid .project-secondary-image {
+  height: auto;
+  aspect-ratio: 16 / 9;            /* every project frame the same height (videos are 16:9; Loam loses ~1.5% of cream each side) */
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-subtle);
+  display: block;
+}
+.work-grid .project-secondary-image img,
+.work-grid .project-secondary-image video,
+.work-grid .project-featured-image img,
+.work-grid .project-featured-image video {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  border-radius: 0;               /* the frame clips; avoids a double edge */
+  transform-origin: center;
+}
+.work-grid .project-secondary:hover .project-secondary-image img,
+.work-grid .project-secondary:hover .project-secondary-image video {
+  transform: scale(1.03);
+}
+
+/* Title / copy / tags sit under the media, always visible */
+.work-grid .project-featured-footer,
+.work-grid .project-secondary-meta {
+  position: static;
+  opacity: 1;
+  transform: none;
+  padding: 0;
+  pointer-events: auto;
+}
+.work-grid .project-featured .project-title,
+.work-grid .project-secondary-title,
+.work-grid .project-featured-meta .tag,
+.work-grid .project-secondary-tags .tag {
+  color: var(--ink);
+}
+.work-grid .project-featured-copy .t-body,
+.work-grid .project-secondary-copy {
+  color: var(--ink-soft);
+}
+.work-grid { row-gap: 72px; column-gap: 24px; align-items: start; }
+
+@media (max-width: 768px) {
+  .work-grid { row-gap: 48px; padding: 0 var(--pad-page-sm); }
+  .work-grid .project-featured,
+  .work-grid .project-secondary,
+  .work-grid .project-secondary.project-secondary-reverse {
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    gap: 14px;
+  }
+  .work-grid .project-secondary-image img,
+  .work-grid .project-secondary-image video { max-width: none; max-height: none; }
+  .work-grid .project-featured-meta .tags,
+  .work-grid .project-secondary-tags {
+    position: static !important;
+    margin-top: 10px !important;
+  }
+  :root { --radius: 3px; --radius-lg: 5px; }
+}
+
+/* Hero thumb picks up the same frame */
+.hero-thumb-media {
+  border-radius: var(--radius-lg);
+}
+.hero-thumb-media video,
+.hero-thumb-media img { border-radius: 0; }
+
+/* ─── Work panel: moving pixelated gradient on white ─────── */
+.work-pixels {
+  position: absolute;
+  left: -6%;
+  width: 112%;              /* overhang so the blur doesn't fade at the sides */
+  bottom: calc(100% - 72px);   /* = OVERLAP in the script */
+  height: 160px;               /* reaches ~70px above the edge — softens the seam without washing out the hero */
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(16px);       /* turns the drawn wave into a soft gradient */
+}
+@media (max-width: 768px) {
+  .work-pixels { height: 140px; filter: blur(12px); }
+}
+.work-panel-inner {
+  position: relative;
+  z-index: 1;
+}
+.work-panel { overflow-x: clip; }   /* contain the gradient's side overhang, keep its upward spill */
+
+/* ─── Hero links: medium weight, hairline underline that fills on hover ─── */
+.hero-links {
+  gap: 10px;
+}
+.hero-links a {
+  font-size: 16px;
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.01em;
+  gap: 8px;
+}
+.hero-links a::after { display: none; }
+.hero-links a .link-text {
+  padding-bottom: 3px;
+  background:
+    linear-gradient(var(--ink), var(--ink)) 0 100% / 0 1px no-repeat,
+    linear-gradient(var(--rule), var(--rule)) 0 100% / 100% 1px no-repeat;
+  transition: background-size 380ms var(--ease-out, ease);
+}
+.hero-links a:hover .link-text,
+.hero-links a:focus-visible .link-text {
+  background-size: 100% 1px, 100% 1px;
+}
+.hero-links a i {
+  font-size: 13px;
+  color: var(--muted);
+  transition: transform 280ms var(--ease-out, ease), color 200ms ease;
+}
+.hero-links a:hover i,
+.hero-links a:focus-visible i {
+  color: var(--ink);
+  transform: translate(2px, -2px);
+}
+
+/* ─── Project meta: title + grey subline left, pill tags right ─── */
+:root { --ink-muted: #6e6e6e; --chip-bg: #f2f2f2; }
+
+.work-grid .project-featured-footer,
+.work-grid .project-secondary-meta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: 24px;
+  row-gap: 6px;
+  align-items: start;
+}
+.work-grid .project-featured .project-title,
+.work-grid .project-secondary-title {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  font-size: 22px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--ink);
+}
+.work-grid .project-secondary-copy,
+.work-grid .project-featured-copy,
+.work-grid .project-featured-copy .t-body {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--ink-muted);
+  width: auto;
+  max-width: 52ch;
+  padding: 0;
+}
+.work-grid .project-featured-meta .tags,
+.work-grid .project-secondary-tags {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  justify-self: end;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 0;
+}
+.work-grid .project-featured-meta .tag,
+.work-grid .project-secondary-tags .tag {
+  font-size: 14px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0;
+  color: var(--ink-muted);
+  background: var(--chip-bg);
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Narrow: tags drop under the description, left-aligned */
+@media (max-width: 1100px) {
+  .work-grid .project-featured-footer,
+  .work-grid .project-secondary-meta {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  .work-grid .project-featured-meta .tags,
+  .work-grid .project-secondary-tags {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+    justify-self: start !important;
+    justify-content: flex-start !important;
+    margin-top: 8px !important;
+  }
+}
+@media (max-width: 768px) {
+  .work-grid .project-featured .project-title,
+  .work-grid .project-secondary-title { font-size: 20px; }
+  .work-grid .project-secondary-copy,
+  .work-grid .project-featured-copy { font-size: 15px; }
+  .work-grid .project-featured-meta .tag,
+  .work-grid .project-secondary-tags .tag { font-size: 13px; padding: 5px 12px; }
+}
+
+/* ─── Tag chips: light glass (replaces flat grey) ─── */
+.work-grid .project-featured-meta .tag,
+.work-grid .project-secondary-tags .tag {
+  color: var(--ink-soft);
+  background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(242,244,248,0.70) 100%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+          backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(17, 17, 17, 0.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),   /* top highlight */
+    inset 0 -1px 0 rgba(17, 17, 17, 0.03),     /* faint bottom edge */
+    0 1px 2px rgba(17, 17, 17, 0.04),
+    0 6px 14px -8px rgba(17, 17, 17, 0.12);    /* soft lift */
+  padding: 5px 13px;                           /* -1px each side for the border */
+}
+
+/* Media always first, text underneath — regardless of HTML order */
+.work-grid .project-secondary-visual,
+.work-grid .project-featured-image { order: 0 !important; }
+.work-grid .project-secondary-meta,
+.work-grid .project-featured-footer { order: 1 !important; }
+
+/* Tags read as labels, not buttons: flat glass, no lift, no hover */
+.work-grid .project-featured-meta .tag,
+.work-grid .project-secondary-tags .tag {
+  font-size: 13px;
+  padding: 4px 11px;
+  color: var(--ink-muted);
+  background: linear-gradient(180deg, rgba(246,247,250,0.75) 0%, rgba(240,242,246,0.55) 100%);
+  border: 1px solid rgba(17, 17, 17, 0.04);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  cursor: inherit;
+  transition: none;
+}
+.work-grid .project-featured-meta .tag:hover,
+.work-grid .project-secondary-tags .tag:hover {
+  color: var(--ink-muted);
+  border-color: rgba(17, 17, 17, 0.04);
+}
+.work-grid .project-featured-meta .tags,
+.work-grid .project-secondary-tags { gap: 6px; }
+@media (max-width: 768px) {
+  .work-grid .project-featured-meta .tag,
+  .work-grid .project-secondary-tags .tag { font-size: 12px; padding: 3px 10px; }
+}
+
+/* Per-card media zoom — set --media-zoom on the <article> (e.g. Parameter
+   1.035 to crop baked-in edge lines, Adaptive Intelligence 1.3 to bring the
+   UI forward). Uses `scale` so it stacks with the hover `transform`. */
+.work-grid .project-secondary-image video,
+.work-grid .project-secondary-image img {
+  scale: var(--media-zoom, 1);
+}
+
+/* ─── Framed media: hairline edge instead of a shadow ─── */
+.work-grid .project-secondary-image,
+.hero-thumb-media,
+.cs-figure-media,
+.cs-hero-media,
+.cs-next-media,
+.cs-feature-split-media {
+  position: relative;
+  border-radius: var(--radius-lg);
+}
+.work-grid .project-secondary-image::after,
+.hero-thumb-media::after,
+.cs-figure-media::after,
+.cs-hero-media::after,
+.cs-next-media::after,
+.cs-feature-split-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--edge-media);
+  border-bottom-color: var(--edge-media-bottom);
+  pointer-events: none;
+  z-index: 2;
+}
+.cs-figure-media img,
+.cs-figure-media video,
+.cs-hero-media img,
+.cs-hero-media video,
+.cs-next-media img,
+.cs-next-media video,
+.cs-feature-split-media img,
+.cs-feature-split-media video {
+  border-radius: 0;   /* the frame clips — avoids a double edge */
+}
+.cs-hero-media,
+.cs-next-media,
+.cs-feature-split-media { overflow: hidden; }
+
+/* ─── Text links (hero + footer): one shared style ───
+   Medium weight, sentence case, hairline underline that fills on hover,
+   muted arrow that nudges up-right. */
+.hero-links a,
+.page-footer-links a.page-footer-link,
+a.page-footer-email {
+  font-size: 16px;
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.01em;
+  text-transform: none;
+  line-height: 1.3;
+  color: var(--ink);
+  gap: 8px;
+}
+.page-footer-link::after,
+.page-footer-email::after { display: none; }
+.page-footer-links a .link-text,
+a.page-footer-email .link-text {
+  padding-bottom: 3px;
+  background:
+    linear-gradient(var(--ink), var(--ink)) 0 100% / 0 1px no-repeat,
+    linear-gradient(var(--rule), var(--rule)) 0 100% / 100% 1px no-repeat;
+  transition: background-size 380ms var(--ease-out, ease);
+}
+.page-footer-links a:hover .link-text,
+.page-footer-links a:focus-visible .link-text,
+a.page-footer-email:hover .link-text,
+a.page-footer-email:focus-visible .link-text {
+  background-size: 100% 1px, 100% 1px;
+}
+.page-footer-links a i,
+a.page-footer-email i {
+  font-size: 13px;
+  color: var(--muted);
+  transition: transform 280ms var(--ease-out, ease), color 200ms ease;
+}
+.page-footer-links a:hover i,
+.page-footer-links a:focus-visible i,
+a.page-footer-email:hover i,
+a.page-footer-email:focus-visible i {
+  color: var(--ink);
+  transform: translate(2px, -2px);
+}
+/* Footer values column — same size/rhythm as the links, but plain text */
+.page-footer-links p {
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  letter-spacing: -0.01em;
+  text-transform: none;
+  line-height: 1.3;
+  color: var(--ink-muted);
+}
+
+/* Text links: no arrow — the underline is enough affordance */
+.hero-links a i,
+.page-footer-links a.page-footer-link i,
+a.page-footer-email i { display: none; }
+
+/* Text links v2: no underline. Soft grey at rest; on hover the text goes
+   to ink and a faint highlight fades in behind it. */
+.hero-links a .link-text,
+.page-footer-links a .link-text,
+a.page-footer-email .link-text {
+  background: none;
+  padding-bottom: 0;
+}
+.hero-links a,
+.page-footer-links a.page-footer-link,
+a.page-footer-email {
+  position: relative;
+  color: var(--ink-soft);
+  transition: color 200ms ease;
+}
+.hero-links a::before,
+.page-footer-links a.page-footer-link::before,
+a.page-footer-email::before {
+  content: '';
+  position: absolute;
+  inset: 0 -8px;
+  border-radius: var(--radius);
+  background: rgba(17, 17, 17, 0.05);
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 220ms ease, transform 320ms var(--ease-out, ease);
+  pointer-events: none;
+  z-index: -1;
+}
+.hero-links a:hover,
+.hero-links a:focus-visible,
+.page-footer-links a.page-footer-link:hover,
+.page-footer-links a.page-footer-link:focus-visible,
+a.page-footer-email:hover,
+a.page-footer-email:focus-visible {
+  color: var(--ink);
+}
+.hero-links a:hover::before,
+.hero-links a:focus-visible::before,
+.page-footer-links a.page-footer-link:hover::before,
+.page-footer-links a.page-footer-link:focus-visible::before,
+a.page-footer-email:hover::before,
+a.page-footer-email:focus-visible::before {
+  opacity: 1;
+  transform: scale(1);
+}
+.hero-links a,
+.page-footer-links a.page-footer-link,
+a.page-footer-email { isolation: isolate; }
+
+/* ─── Footer: two columns (Find me · message); links in one row ─── */
+.page-footer-grid { grid-template-columns: 1fr 1.45fr; }
+.page-footer-column .page-footer-links {
+  flex-direction: column;     /* desktop: stacked */
+  align-items: flex-start;
+  gap: 10px;
+}
+@media (max-width: 1100px) {
+  .page-footer-grid { grid-template-columns: 1fr 1.2fr; }
+}
+@media (max-width: 768px) {
+  .page-footer-grid { grid-template-columns: 1fr; }
+  .page-footer-column .page-footer-links { flex-direction: row; flex-wrap: wrap; align-items: center; column-gap: 20px; row-gap: 8px; }
+}
+
+/* Tags: lighter text */
+.work-grid .project-featured-meta .tag,
+.work-grid .project-secondary-tags .tag,
+.work-grid .project-featured-meta .tag:hover,
+.work-grid .project-secondary-tags .tag:hover {
+  color: #8c8c8c;
+}
+
+/* Mobile hero: shorter bio, no "A glimpse of my work" label */
+@media (max-width: 768px) {
+  .hero-bio-more,
+  .hero-thumb-trigger { display: none; }
+}
+
+/* Framed media edge: two light-grey hairlines (no shadow).
+   Inner ring drawn over the media, outer ring just outside the frame. */
+.work-grid .project-secondary-image,
+.hero-thumb-media,
+.cs-figure-media,
+.cs-hero-media,
+.cs-next-media,
+.cs-feature-split-media {
+  outline: 0.5px solid var(--edge-media-outer);
+  outline-offset: 0;
+}
+.work-grid .project-secondary-image::after,
+.hero-thumb-media::after,
+.cs-figure-media::after,
+.cs-hero-media::after,
+.cs-next-media::after,
+.cs-feature-split-media::after {
+  display: block;
+  border: 0.5px solid var(--edge-media);
+}
+
+/* ─── Project hover label: small frosted-glass pill ───
+   No dot, no arrow. Sits just below-right of the pointer, fades + scales in. */
+.project-cursor {
+  gap: 0;
+  padding: 7px 13px;
+  margin: 18px 0 0 16px;            /* offset from the pointer tip */
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+          backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  outline: 0.5px solid rgba(17, 17, 17, 0.06);
+  color: var(--ink);
+  scale: 0.92;
+  transition: opacity 180ms ease, scale 260ms var(--ease-out, ease);
+}
+.project-cursor.is-visible { scale: 1; }
+.project-cursor-dot,
+.project-cursor-icon { display: none; }
+.project-cursor-label {
+  font-size: 13px;
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.005em;
+  text-transform: none;
+  line-height: 1.2;
+}
+
+/* Hero thumb frame: no black backing (it darkened the edges), lighter rings */
+.hero-thumb-media {
+  background-color: var(--bg-subtle);
+  outline-color: rgba(17, 17, 17, 0.03);
+}
+.hero-thumb-media::after { border-color: rgba(17, 17, 17, 0.045); border-width: 0.5px; }
+
+/* Mobile hero: lift the content off the bottom edge so the Work panel's
+   rising gradient doesn't wash over the thumbnail. */
+@media (max-width: 768px) {
+  .hero { padding-bottom: 36px; }
+}
+
+/* Desktop footer: message + email first, links column second */
+@media (min-width: 769px) {
+  .page-footer-grid { grid-template-columns: 1.45fr 1fr; }
+  .page-footer-message { order: 1; }
+  .page-footer-column  { order: 2; }
+}
+
+/* Mobile footer: no "Find me" heading; order = message → links → email */
+@media (max-width: 768px) {
+  .page-footer-grid { gap: 0; }
+  .page-footer-message { display: contents; }
+  .page-footer-message p { order: 1; margin-bottom: 28px; }
+  .page-footer-column  { order: 2; }
+  .page-footer-email   { order: 3; margin-top: 2px; }
+  .page-footer-column .page-footer-heading { display: none; }
+}
+
+/* Mobile: Work description fits on two lines */
+@media (max-width: 768px) {
+  .work-description { font-size: 16px; line-height: 1.4; text-wrap: balance; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Site-wide pattern: no uppercase anywhere.
+   `body` prefix beats the per-page <style> blocks (same selectors,
+   loaded later) without !important.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Labels / eyebrows: small, bold, sentence case */
+body .cs-meta-block .label,
+body .cs-kicker,
+body .cs-subheading,
+body .cs-meta-item h3,
+body .cs-impacts-sub,
+body .cs-next-project-label,
+body .cs-see-also-label,
+body .cs-quote cite,
+body .about-item-date,
+body .life-caption-sub,
+body .dap-eyebrow,
+body .explore-hint,
+body .project-locked-overlay {
+  text-transform: none;
+  letter-spacing: var(--ls-label);
+  font-weight: var(--fw-label);
+}
+body .cs-meta-block .label,
+body .cs-kicker,
+body .cs-subheading,
+body .cs-meta-item h3,
+body .cs-next-project-label { color: var(--ink); }
+
+/* Text links: medium, sentence case, no underline */
+body .cs-next-cta,
+body .cs-next-project-link,
+body .about-hero-bio a.bio-link,
+body .explore-meta .cta,
+body .cs-see-also-tag,
+body .nav-overlay-list a,
+body .cs-live-link,
+body .cs-hero-cta {
+  text-transform: none;
+  letter-spacing: -0.01em;
+  font-weight: var(--fw-medium);
+}
+
+/* Case-study section nav: new type only — original draw-in underline
+   interaction (defined per page) is untouched. */
+body .cs-toc a {
+  font-size: 15px;
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--muted);                 /* lighter at rest … */
+}
+body .cs-toc a:hover,
+body .cs-toc a.is-active {
+  color: var(--ink);                   /* … so hover / active read clearly dark */
+  -webkit-text-stroke: 0.35px currentColor;  /* bolder without shifting layout */
+}
+body .cs-toc a::after { display: none; }      /* no underline — weight + colour carry state */
+
+/* ─── Seam fade (shared pattern, see seam.js) ───
+   Soft white wave on the top edge of any [data-seam] element. */
+.seam-fade {
+  position: absolute;
+  left: -6%;
+  width: 112%;
+  bottom: calc(100% - 24px);   /* = OVERLAP in seam.js */
+  height: 64px;                /* reaches ~40px above the edge */
+  pointer-events: none;
+  filter: blur(10px);
+  z-index: -1;
+}
+[data-seam] { overflow-x: clip; overflow-y: visible; }
+body .cs-toc[data-seam] { isolation: isolate; }
+
+/* Show/hide helpers */
+.only-mobile { display: none; }
+@media (max-width: 768px) {
+  .only-desktop { display: none; }
+  .only-mobile { display: inline; }
+}
+
+/* Mobile: no Work description */
+@media (max-width: 768px) {
+  .work-description { display: none; }
+}
+
+/* Desktop Work intro: description sits under the heading */
+.work-intro { flex-direction: column; gap: 16px; }
+.work-intro-title,
+.work-intro-copy { flex: none; width: 100%; }
+.work-intro-spacer { display: none; }

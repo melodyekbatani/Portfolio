@@ -107,8 +107,11 @@ All sizes use `clamp()` for responsive scaling. Token shape: `--fs-<role>`.
 | Token | Value | Purpose |
 |---|---|---|
 | `--dot-size` | `10px` | Indicator dots in nav + hero-links + cursor |
-| `--radius` | `4px` | Inner corner radius — applied to all `<img>` and `<video>` elements globally |
-| `--radius-lg` | `8px` | Outer corner radius — applied to containers wrapping media (e.g. the work-grid dark boxes). Follows the nested-radius rule: outer ≥ inner. |
+| `--radius-sm` | `2px` | Chips and small controls |
+| `--radius` | `4px` (3px mobile) | Inner corner radius — applied to all `<img>` and `<video>` elements globally |
+| `--radius-lg` | `6px` (5px mobile) | Outer corner radius — framed media (work-grid thumbnails, hero thumb). Follows the nested-radius rule: outer ≥ inner. |
+| `--radius-pill` | `999px` | Pills — project cursor label, CTA buttons |
+| `--edge-media` / `--edge-media-outer` | ink 7% / 5% | Framed media edge: two light-grey 0.5px hairlines (1 device px on retina) — inner ring over the media, outer ring (outline) just outside — matching the hover pill’s hairline. No shadow. |
 
 ---
 
@@ -211,7 +214,43 @@ Honest list of values still hardcoded in `style.css`. These are candidates for t
 - Project-secondary `gap: 48px`
 - Page-footer `gap: 48px`, `margin-bottom: 4.5rem` on title
 - Project bottom padding `10rem` (could be `--project-pad-b`)
-- Cursor `border-radius: 0` (intentional square)
+- Cursor label uses `--radius-pill`
 - Cs-see-also gap `40px`, thumb height `100px`
 
 If you find yourself editing any of these in two places, that's the signal to lift them into `:root`.
+
+### Project meta (home work grid)
+
+| Element | Size | Weight | Colour |
+|---|---|---|---|
+| Title | 22px (20px mobile) | 700, -0.015em | `--ink` |
+| Subline | 17px (15px mobile), lh 1.4 | 400 | `--ink-muted` `#6e6e6e` |
+| Tag chip | 13px (12px mobile) | 500 | `#8c8c8c` on flat light glass (#f6f7fa→#f0f2f6, 4% hairline, inset top highlight, no shadow, no hover); `--radius-pill`. Reads as a label, not a button. |
+
+### Text links
+
+Used for the hero contact links and the footer "Find me" / email links (`.link-text` span wraps the label).
+
+- 16px, weight 500, -0.01em, sentence case, `--ink-soft` at rest
+- No underline. On hover: text → `--ink`, and a 5%-ink highlight (`--radius`, 8px side bleed) fades + scales in behind the label
+- No arrow icon — the underline alone carries the affordance
+
+### Project hover label
+
+Follows the pointer over project media. Frosted-glass pill: 72% white, 16px backdrop blur, white 55% border + 6% ink hairline, `--radius-pill`. 13px / 500 sentence case `--ink`. Offset 16px right / 18px down from the pointer; fades and scales in (0.92 → 1). No dot, no arrow, no shadow. Hidden on mobile.
+
+### Icons
+
+No arrow icons anywhere (nav, links, CTAs, hover label). Links carry their affordance through colour/hover state only.
+
+### Casing
+
+No uppercase anywhere on the site. Small labels/eyebrows (case-study meta labels, kickers, dates) use the label style: sentence case, weight 600, `--ls-label`. Text links and CTAs: sentence case, weight 500. Case-study and About links keep their draw-in underline hover.
+
+### Case-study section nav (`.cs-toc`)
+
+15px / 500 sentence case, `--muted` at rest. Hover and the active section: text → `--ink`, emboldened with a 0.35px text-stroke (no layout shift). No underline.
+
+### Seam fade
+
+The soft white wave gradient used wherever content scrolls under a fixed edge: the homepage Work panel's top edge, and the case-study section nav (`.cs-toc`). Add `data-seam` to the element and load `seam.js`; it inserts a blurred white canvas with a slow, even wave along the top (sized in real px so phones see a gentle slice; static under reduced motion).

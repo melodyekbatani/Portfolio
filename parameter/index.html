@@ -20,7 +20,7 @@
   <meta name="twitter:title" content="Parameter — Melody Ekbatani">
   <meta name="twitter:description" content="Secure AI health app that transforms complex personal health data into clear insights.">
   <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=3">
-  <link rel="stylesheet" href="../style.css?v=70">
+  <link rel="stylesheet" href="../style.css?v=87">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
 
@@ -108,7 +108,7 @@
       object-fit: cover;
       object-position: center;
       display: block;
-      border-radius: 0;
+      border-radius: var(--radius);
     }
 
     .cs-figure figcaption {
@@ -169,7 +169,7 @@
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-widest);
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--muted);
       margin-bottom: 24px;
       display: block;
@@ -193,7 +193,7 @@
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-widest);
       line-height: 1.2;
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--muted);
       margin-bottom: 24px;
       display: block;
@@ -252,7 +252,7 @@
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-widest);
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--muted);
       margin-bottom: 14px;
     }
@@ -286,7 +286,7 @@
       color: var(--ink);
       background: var(--bg-subtle);
       padding: 8px 14px;
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       line-height: 1;
     }
 
@@ -297,7 +297,7 @@
       align-items: center;
       justify-content: center;
       background: #000000;
-      border-radius: 8px;
+      border-radius: var(--radius);
       overflow: hidden;
     }
 
@@ -306,7 +306,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      border-radius: 0;
+      border-radius: var(--radius);
     }
 
     /* ─── Problem band ───────────────────────────────────────── */
@@ -474,7 +474,7 @@
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-widest);
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--muted);
       margin-top: 32px;
     }
@@ -586,7 +586,7 @@
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-widest);
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--muted);
       font-style: normal;
     }
@@ -675,7 +675,7 @@
       font-size: 14px;
       font-weight: 400;
       letter-spacing: 0.06em;
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--muted);
     }
 
@@ -691,7 +691,7 @@
       font-size: 14px;
       font-weight: 500;
       letter-spacing: 0.06em;
-      text-transform: uppercase;
+      text-transform: none;
     }
 
     /* ─── Next project card (matches Adaptive Intelligence template) ─── */
@@ -739,7 +739,7 @@
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-wider);
-      text-transform: uppercase;
+      text-transform: none;
       color: #fff;
       position: relative;
       align-self: flex-start;
@@ -828,7 +828,7 @@
       font-size: var(--fs-small);
       font-weight: var(--fw-regular);
       letter-spacing: var(--ls-wider);
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--muted);
       text-decoration: none;
       position: relative;
@@ -937,9 +937,7 @@
 <body>
 
   <div class="project-cursor" aria-hidden="true">
-    <span class="project-cursor-dot"></span>
     <span class="project-cursor-label">Open Link</span>
-    <i class="ph ph-arrow-up-right project-cursor-icon"></i>
   </div>
 
   <nav>
@@ -948,7 +946,7 @@
     <a href="/#work" class="t-small" data-nav="work" data-open-work-link>Work</a>
     <a href="/about" class="t-small">About</a>
     <a href="/explore" class="t-small">Explore</a>
-    <a href="../Melody-Ekbatani.pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
+    <a href="../Melody-Ekbatani.pdf" class="t-small" target="_blank" rel="noreferrer">Resume</a>
   </nav>
 
   <div class="cs-panel">
@@ -992,7 +990,7 @@
 
     <div class="cs-layout">
 
-      <aside class="cs-toc" aria-label="Contents">
+      <aside class="cs-toc" data-seam aria-label="Contents">
         <a href="#overview">Overview</a>
         <a href="#problem">Problem</a>
         <a href="#solution">Solution</a>
@@ -1310,24 +1308,15 @@
         <h2 class="page-footer-title">Let's Work</h2>
         <div class="page-footer-grid">
           <div class="page-footer-column">
-            <p class="page-footer-heading">Find me</p>
             <div class="page-footer-links">
-              <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer" class="t-small page-footer-link">LinkedIn <i class="ph ph-arrow-up-right"></i></a>
-              <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer" class="t-small page-footer-link">Github <i class="ph ph-arrow-up-right"></i></a>
-              <a href="/Melody-Ekbatani.pdf" target="_blank" rel="noreferrer" class="t-small page-footer-link">Resume <i class="ph ph-arrow-up-right"></i></a>
-            </div>
-          </div>
-          <div class="page-footer-column">
-            <p class="page-footer-heading">What Guides My Work</p>
-            <div class="page-footer-links">
-              <p>Innovation</p>
-                <p>Entrepreneurship</p>
-                <p>Creativity</p>
+              <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer" class="t-small page-footer-link"><span class="link-text">LinkedIn</span></a>
+              <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer" class="t-small page-footer-link"><span class="link-text">GitHub</span></a>
+              <a href="/Melody-Ekbatani.pdf" target="_blank" rel="noreferrer" class="t-small page-footer-link"><span class="link-text">Resume</span></a>
             </div>
           </div>
           <div class="page-footer-message">
             <p>Designing through clarity, storytelling, and moments of delight.</p>
-            <a href="mailto:melodyekbatani@gmail.com" class="t-small page-footer-email" rel="noreferrer">melodyekbatani@gmail.com <i class="ph ph-arrow-up-right"></i></a>
+            <a href="mailto:melodyekbatani@gmail.com" class="t-small page-footer-email" rel="noreferrer"><span class="link-text">melodyekbatani@gmail.com</span></a>
           </div>
         </div>
         <div class="page-footer-meta"></div>
@@ -1409,5 +1398,6 @@
   </script>
 
   <script src="../nav.js?v=2" defer></script>
+  <script src="../seam.js?v=1" defer></script>
 </body>
 </html>

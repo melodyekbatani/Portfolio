@@ -20,15 +20,13 @@
   <meta name="twitter:title" content="Melody Ekbatani">
   <meta name="twitter:description" content="Product designer shipping clear, considered experiences across emerging interaction models and AI systems. Bringing a background in brand, architecture, and design innovation.">
   <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=3">
-  <link rel="stylesheet" href="style.css?v=70">
+  <link rel="stylesheet" href="style.css?v=107">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 </head>
 <body>
 
   <div class="project-cursor" aria-hidden="true">
-    <span class="project-cursor-dot"></span>
     <span class="project-cursor-label">View Project</span>
-    <i class="ph ph-arrow-up-right project-cursor-icon"></i>
   </div>
 
   <nav>
@@ -37,7 +35,7 @@
     <a href="#work" class="t-small" data-nav="work" data-open-work>Work</a>
     <a href="about" class="t-small">About</a>
     <a href="explore" class="t-small">Explore</a>
-    <a href="Melody-Ekbatani.pdf" class="t-small" target="_blank" rel="noreferrer">Resume <i class="ph ph-arrow-up-right"></i></a>
+    <a href="Melody-Ekbatani.pdf" class="t-small" target="_blank" rel="noreferrer">Resume</a>
   </nav>
 
   <main class="rail">
@@ -52,14 +50,14 @@
 
         <div class="hero-bio">
           <p class="t-small">Get to know me</p>
-          <p class="t-body">Product designer shipping clear, considered experiences across emerging interaction models and AI systems. Bringing a background in brand, architecture, and design innovation.</p>
+          <p class="t-body">Product designer shipping clear, considered experiences. Currently at Shopify.</p>
           <div class="hero-links">
             <span class="hero-links-indicator" aria-hidden="true"></span>
             <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" class="t-small">
-              Connect on linkedin <i class="ph ph-arrow-up-right"></i>
+              <span class="link-text">Connect on LinkedIn</span>
             </a>
             <a href="mailto:melodyekbatani@gmail.com" class="t-small">
-              melodyekbatani@gmail.com <i class="ph ph-arrow-up-right"></i>
+              <span class="link-text">melodyekbatani@gmail.com</span>
             </a>
           </div>
         </div>
@@ -77,38 +75,19 @@
     </section>
 
     <section class="work-panel" id="work">
+      <canvas class="work-pixels" aria-hidden="true"></canvas>
       <div class="work-panel-inner">
         <div class="work-intro">
           <div class="work-intro-title">
             <h1 class="work-heading">Work</h1>
           </div>
           <div class="work-intro-copy">
-            <p class="t-body work-description">Selected projects spanning UX/UI and AI-driven system design, exploring how I build intuitive experiences around everyday interactions.</p>
+            <p class="t-body work-description"><span class="only-desktop">Selected projects spanning UX/UI and AI-driven system design, exploring how I build intuitive experiences around everyday interactions.</span></p>
           </div>
           <div class="work-intro-spacer" aria-hidden="true"></div>
         </div>
 
         <div class="work-grid">
-
-        <!-- Loam: video left, text right -->
-        <article class="project-secondary project-secondary-reverse" style="cursor: pointer; --card-bg: url('Home Page/Background images /Loam - cover.png');" onclick="window.location.href='/loam/'">
-          <div class="project-secondary-visual">
-            <div class="project-secondary-image" data-project-hover="View Loam" data-preview="loam/3 - Intro graphic.webp">
-              <video autoplay muted loop playsinline preload="none" poster="Home Page/stills/loam.jpg?v=4">
-                <source src="Home Page/loam.mp4" type="video/mp4">
-              </video>
-            </div>
-          </div>
-
-          <div class="project-secondary-meta">
-            <h3 class="project-secondary-title"><a href="/loam/" style="text-decoration: none; color: inherit;">Loam</a></h3>
-            <p class="t-body project-secondary-copy">Shipped marketplace for 300+ sustainable vendors, designed end-to-end.</p>
-            <div class="tags project-secondary-tags">
-              <span class="tag">Client Project</span>
-              <span class="tag">Founding Collaboration</span>
-            </div>
-          </div>
-        </article>
 
         <!-- Aeri: image left, text right (now 1-of-2-cols, no longer featured) -->
         <article class="project-secondary" style="cursor: pointer; --card-bg: url('Home Page/Background images /Aeri - cover.png');" onclick="window.location.href='/aeri/'">
@@ -131,7 +110,7 @@
         </article>
 
         <!-- Adaptive Intelligence: video left, text right -->
-        <article class="project-secondary project-secondary-reverse" style="cursor: pointer; --card-bg: url('Home Page/Background images /Gemini - cover.png');" onclick="window.location.href='/adaptive-intelligence/'">
+        <article class="project-secondary project-secondary-reverse" style="cursor: pointer; --media-zoom: 1.3; --card-bg: url('Home Page/Background images /Gemini - cover.png');" onclick="window.location.href='/adaptive-intelligence/'">
           <div class="project-secondary-visual">
             <div class="project-secondary-image" data-project-hover="View Adaptive Intelligence" data-preview="adaptive-intelligence/15.mp4" data-preview-type="video">
               <video autoplay muted loop playsinline preload="none" poster="Home Page/stills/Google Gemini.jpg?v=4" data-still-time="3.8" data-play-from-still>
@@ -170,8 +149,28 @@
           </div>
         </article>
 
+        <!-- Loam: video left, text right -->
+        <article class="project-secondary project-secondary-reverse" style="cursor: pointer; --card-bg: url('Home Page/Background images /Loam - cover.png');" onclick="window.location.href='/loam/'">
+          <div class="project-secondary-visual">
+            <div class="project-secondary-image" data-project-hover="View Loam" data-preview="loam/3 - Intro graphic.webp">
+              <video autoplay muted loop playsinline preload="none" poster="Home Page/stills/loam.jpg?v=4">
+                <source src="Home Page/loam.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+
+          <div class="project-secondary-meta">
+            <h3 class="project-secondary-title"><a href="/loam/" style="text-decoration: none; color: inherit;">Loam</a></h3>
+            <p class="t-body project-secondary-copy">Shipped marketplace for 300+ sustainable vendors, designed end-to-end.</p>
+            <div class="tags project-secondary-tags">
+              <span class="tag">Client Project</span>
+              <span class="tag">Founding Collaboration</span>
+            </div>
+          </div>
+        </article>
+
         <!-- Parameter: text left, video right -->
-        <article class="project-secondary" style="cursor: pointer; --card-bg: url('Home Page/Background images /Parameter - cover.png');" onclick="window.location.href='/parameter/'">
+        <article class="project-secondary" style="cursor: pointer; --media-zoom: 1.035; --card-bg: url('Home Page/Background images /Parameter - cover.png');" onclick="window.location.href='/parameter/'">
           <div class="project-secondary-meta">
             <h3 class="project-secondary-title"><a href="/parameter/" style="text-decoration:none;color:inherit;">Parameter</a></h3>
             <p class="t-body project-secondary-copy">Secure AI health app that transforms complex personal health data into clear insights.</p>
@@ -210,6 +209,7 @@
           </div>
         </article>
 
+
         </div><!-- /.work-grid -->
 
         <footer class="page-footer page-footer-work">
@@ -217,26 +217,17 @@
 
           <div class="page-footer-grid">
             <div class="page-footer-column">
-              <p class="page-footer-heading">Find me</p>
               <div class="page-footer-links">
-                <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer" class="t-small page-footer-link">LinkedIn <i class="ph ph-arrow-up-right"></i></a>
-                <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer" class="t-small page-footer-link">Github <i class="ph ph-arrow-up-right"></i></a>
-                <a href="/Melody-Ekbatani.pdf" target="_blank" rel="noreferrer" class="t-small page-footer-link">Resume <i class="ph ph-arrow-up-right"></i></a>
+                <a href="https://www.linkedin.com/in/melody-ekbatani/" target="_blank" rel="noreferrer" class="t-small page-footer-link"><span class="link-text">LinkedIn</span></a>
+                <a href="https://github.com/melodyekbatani" target="_blank" rel="noreferrer" class="t-small page-footer-link"><span class="link-text">GitHub</span></a>
+                <a href="/Melody-Ekbatani.pdf" target="_blank" rel="noreferrer" class="t-small page-footer-link"><span class="link-text">Resume</span></a>
               </div>
             </div>
 
-            <div class="page-footer-column">
-              <p class="page-footer-heading">What Guides My Work</p>
-              <div class="page-footer-links">
-                <p>Innovation</p>
-                <p>Entrepreneurship</p>
-                <p>Creativity</p>
-              </div>
-            </div>
 
             <div class="page-footer-message">
               <p>Designing through clarity, storytelling, and moments of delight.</p>
-              <a href="mailto:melodyekbatani@gmail.com" class="t-small page-footer-email" rel="noreferrer">melodyekbatani@gmail.com <i class="ph ph-arrow-up-right"></i></a>
+              <a href="mailto:melodyekbatani@gmail.com" class="t-small page-footer-email" rel="noreferrer"><span class="link-text">melodyekbatani@gmail.com</span></a>
             </div>
           </div>
 
@@ -453,6 +444,10 @@
         if (!desktop.matches) return;
         workGrid.querySelectorAll("video").forEach((v) => {
           v.removeAttribute("autoplay");
+          // preload="none" never fires loadedmetadata, so the seek to the
+          // still frame never ran and the frame could render blank. Load
+          // metadata up front so every card lands on its still frame.
+          if (v.preload === "none") { v.preload = "metadata"; v.load(); }
           seekToStill(v);
         });
       }
@@ -518,6 +513,81 @@
 
   </script>
 
+  <script>
+    // Work panel seam — a soft white gradient rising off the panel's top
+    // edge. The top is a soft, even wave that swells
+    // up when the panel arrives, then drifts slowly.
+    (function () {
+      const canvas = document.querySelector(".work-pixels");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const SCALE = 0.5;                     // draw at half-res; it's blurred anyway
+      const OVERLAP = 72;                    // px the canvas extends into the panel (matches CSS)
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let W = 0, H = 0, raf = 0, visible = false, rise = reduce ? 1 : 0, last = 0;
+
+      function resize() {
+        W = Math.max(1, Math.round(canvas.offsetWidth * SCALE));
+        H = Math.max(1, Math.round(canvas.offsetHeight * SCALE));
+        canvas.width = W;
+        canvas.height = H;
+        draw(performance.now());
+      }
+
+      function draw(t) {
+        const s = t / 1000;
+        const ease = 1 - Math.pow(1 - rise, 3);          // easeOutCubic for the swell
+        // Solid floor: always covers the overlap + blur falloff, so the
+        // panel's hard edge is never exposed. Only the wave above it animates.
+        const floor = (OVERLAP + 24) * SCALE;
+        const room = H - floor;
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, H - floor, W, floor);
+        ctx.beginPath();
+        ctx.moveTo(0, H - floor + 1);
+        const steps = 64;
+        // Wave is sized in real pixels (one full pattern ≈ 1400px), so a phone
+        // shows a gentle slice of it instead of the whole pattern squeezed in.
+        const span = canvas.offsetWidth / 1400;
+        const amp = canvas.offsetWidth < 768 ? 0.45 : 1;
+        for (let k = 0; k <= steps; k++) {
+          const u = k / steps;
+          const x = u * span;
+          const wave =
+            0.55 + amp * (
+              0.20 * Math.sin(x * 5.2 + s * 0.45) +
+              0.12 * Math.sin(x * 11.0 - s * 0.7 + 1.3) +
+              0.08 * Math.sin(x * 2.1 + s * 0.25 + 2.4));
+          ctx.lineTo(u * W, H - floor - Math.max(0, wave) * room * ease);
+        }
+        ctx.lineTo(W, H - floor + 1);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      function loop(t) {
+        const dt = last ? (t - last) / 1000 : 0;
+        last = t;
+        if (rise < 1) rise = Math.min(1, rise + dt / 1.4);   // 1.4s swell
+        draw(t);
+        raf = requestAnimationFrame(loop);
+      }
+
+      new ResizeObserver(resize).observe(canvas);
+      resize();
+
+      if (reduce) return;
+      new IntersectionObserver((entries) => {
+        const now = entries[0].isIntersecting;
+        if (now && !visible) rise = 0;                          // replay the swell on each arrival
+        visible = now;
+        cancelAnimationFrame(raf);
+        last = 0;
+        if (visible) raf = requestAnimationFrame(loop);
+      }).observe(canvas);
+    })();
+  </script>
   <script src="nav.js" defer></script>
 </body>
 </html>
