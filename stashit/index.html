@@ -12,15 +12,15 @@
   <meta name="description" content="Reflective e-commerce tool helping users collect, organize and revisit fashion inspo.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Melody Ekbatani">
-  <meta property="og:title" content="Stash It — Melody Ekbatani">
+  <meta property="og:title" content="Stash It | Melody Ekbatani">
   <meta property="og:description" content="Reflective e-commerce tool helping users collect, organize and revisit fashion inspo.">
   <meta property="og:image" content="https://melodyekbatani.com/share-card.png?v=3">
   <meta property="og:url" content="https://melodyekbatani.com/stashit/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Stash It — Melody Ekbatani">
+  <meta name="twitter:title" content="Stash It | Melody Ekbatani">
   <meta name="twitter:description" content="Reflective e-commerce tool helping users collect, organize and revisit fashion inspo.">
   <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=3">
-  <link rel="stylesheet" href="../style.css?v=86">
+  <link rel="stylesheet" href="../style.css?v=158">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
     /* ─── Stash It case study — shared case-study template ──── */
@@ -584,7 +584,7 @@
       justify-content: space-between;
       gap: 40px;
       padding: 0 var(--pad-page);
-      height: var(--nav-h);
+      height: var(--toc-h);
       background: var(--bg);
       transform: translateY(0);
       transition: transform var(--t-slow) var(--ease-out), opacity var(--t-base) var(--ease-out);
@@ -625,7 +625,7 @@
       .cs-toc { display: none; }
     }
     @media (max-width: 720px) {
-      :root { --cs-rhythm: 80px; --cs-rhythm-sm: 48px; }
+      :root { --cs-rhythm: 52px; --cs-rhythm-sm: 36px; }
       .cs-page { padding: 0 var(--pad-page-sm); }
       .cs-hero { flex-direction: column; gap: 16px; padding: 24px 0 8px; }
       .cs-overview { gap: 48px; }
@@ -787,13 +787,12 @@
 
   <div class="cs-shell">
 
-    <aside class="cs-toc" data-seam aria-label="Contents">
+    <aside class="cs-toc" aria-label="Contents">
       <a href="#overview">Overview</a>
       <a href="#research">Research</a>
       <a href="#problem">Problem</a>
       <a href="#process">Process</a>
       <a href="#solution">Solution</a>
-      <a href="#next-steps">Next Steps</a>
     </aside>
 
     <article class="cs-page">
@@ -858,7 +857,7 @@
           <span class="cs-kicker">Overview</span>
           <h2 class="cs-overview-h">One home for scattered style inspiration</h2>
           <p>Stash It is a platform for tracking style inspiration by connecting screenshots, carts, and social feeds into a single, structured space.</p>
-          <p>Instead of leaving taste spread across open tabs, saved posts, and abandoned carts, the system preserves evolving intent over time, supporting long, non-linear decisions about what to keep, curate, and eventually buy.</p>
+          <p>Rather than leaving taste spread across tabs, saved posts, and abandoned carts, it preserves evolving intent, supporting the long, non-linear decision of what to keep, curate, and eventually buy.</p>
         </div>
       </section>
 
@@ -868,13 +867,13 @@
         <h2>How taste gets stored, and lost</h2>
 
         <span class="cs-sub">Early insights</span>
-        <p>I began by studying how people save and revisit desired items: carts, open tabs, screenshots, and saved posts. In Fashion Ecologies (2023), Kate Fletcher describes fashion's shift from local, interdependent cultures to a dispersed global system. Building on this, I define style fragmentation as the decentralization of how we collect and organize taste. Fragmentation is no longer just about breaking things apart; in today's e-commerce landscape, it describes a systemic condition shaping how style is stored, discovered, and remembered.</p>
+        <p>I studied how people save and revisit items: carts, tabs, screenshots, saved posts. In Fashion Ecologies (2023), Kate Fletcher traces fashion's shift from local cultures to a dispersed global system. I call the parallel in e-commerce style fragmentation: the decentralization of how we collect and organize taste, and a condition shaping how style is stored, discovered, and remembered.</p>
 
         <span class="cs-sub">Market research</span>
-        <p>Commerce platforms specialize in either transaction or discovery. As a result, inspiration and purchase occur across disconnected systems, forcing users to manage their own continuity.</p>
+        <p>Commerce platforms specialize in transaction or discovery, so inspiration and purchase live in disconnected systems and users manage their own continuity.</p>
 
         <span class="cs-sub">Research signals</span>
-        <p>Users often use carts as a way to research and remember items, not as a commitment to buy. Higher-priced items tend to stay in consideration longer. Many users care more about understanding their taste than receiving recommendations. Over time, algorithms can make discovery feel repetitive and impersonal.</p>
+        <p>Carts get used for research and memory, not commitment. Higher-priced items stay in consideration longer. Most people care more about understanding their taste than getting recommendations, and algorithmic discovery turns repetitive over time.</p>
 
         <span class="cs-sub">Synthesis</span>
         <p>To better understand the market, I compiled my research into the following areas.</p>
@@ -888,7 +887,7 @@
         <div class="cs-feature-split-copy">
           <span class="cs-kicker">Competitor Audit</span>
           <h2>Discovery and transaction live apart</h2>
-          <p>Tools like Honey and Klarna optimize for price or flexible payments, not for holding and revisiting taste over time. Across the landscape, discovery and purchase stay split, leaving room for a platform built around persistent intent.</p>
+          <p>Honey and Klarna optimize for price and payment, not for holding taste over time. Discovery and purchase stay split, leaving room for a platform built around persistent intent.</p>
         </div>
       </div>
 
@@ -899,7 +898,7 @@
         <p>To better understand the market, I compiled my research into the following areas.</p>
 
         <span class="cs-sub">How might we</span>
-        <p>The architecture prioritizes persistence over transactional speed. Rather than optimizing for isolated purchases, the system is designed to preserve evolving user intent across time. Inspiration, organization, and checkout exist within a continuous framework that supports long, non-linear decision-making and durable tracking across boards.</p>
+        <p>The architecture prioritizes persistence over transactional speed. Inspiration, organization, and checkout sit in one continuous framework built for long, non-linear decisions and durable tracking across boards.</p>
       </section>
 
       <!-- PROCESS -->
@@ -911,10 +910,10 @@
         <p>The architecture prioritizes persistence over transactional speed. Inspiration, organization, and checkout exist within a continuous framework that supports long, non-linear decision-making and durable tracking across boards.</p>
 
         <span class="cs-sub">Sketches</span>
-        <p>Sketches were used to quickly explore layout, hierarchy, and interaction ideas before moving into higher fidelity. This phase focused on helping clarify core flows and surface assumptions early.</p>
+        <p>Sketches to explore layout, hierarchy, and interaction before higher fidelity, clarifying core flows and surfacing assumptions early.</p>
 
         <span class="cs-sub">Brand styles</span>
-        <p>Typography, color, and layout decisions were grounded in core product values and user context, creating a consistent but flexible visual system designed to scale across features and states. Imagery operates as functional infrastructure, used selectively to guide attention, communicate abstract concepts, and reinforce narrative without competing with usability. The image system pairs branded, user, and product content into a cohesive editorial language, supported by AI-generated visuals to maintain continuity across the experience.</p>
+        <p>Typography, color, and layout grew from the product's values into a system flexible enough to scale across features and states. Imagery works as infrastructure, guiding attention and carrying abstract ideas without competing with usability, and pairing branded, user, and product content into one editorial language, with AI-generated visuals filling the gaps.</p>
       </section>
 
       <div class="cs-media-grid-2">
@@ -930,7 +929,7 @@
 
       <section class="cs-section cs-block">
         <span class="cs-sub">Lo-fi prototypes</span>
-        <p>With the architecture and flows mapped, I moved into lo-fi prototypes to pressure-test the core ideas. Each explored a different way people might collect and revisit style, and informal usability testing and peer reviews surfaced the friction points and opportunities that shaped the next round.</p>
+        <p>Lo-fi prototypes pressure-tested the core ideas, each exploring a different way to collect and revisit style. Informal testing and peer review surfaced the friction that shaped the next round.</p>
       </section>
 
       <div class="cs-lofi-grid">
@@ -961,7 +960,7 @@
       <section id="solution" class="cs-section cs-block">
         <span class="cs-kicker">Solution</span>
         <h2>One place to save, anything, from anywhere</h2>
-        <p>A single place to save products from anywhere online. Items are captured quickly and organized visually, replacing scattered screenshots, notes, and open tabs with a clear, structured system.</p>
+        <p>One place to save products from anywhere online, captured quickly, organized visually, replacing scattered screenshots and open tabs.</p>
       </section>
 
       <figure class="cs-figure">
@@ -971,7 +970,7 @@
 
       <section class="cs-section cs-block">
         <h2>Built for how people actually decide</h2>
-        <p>The experience supports different usage styles without requiring configuration. Users can casually save items, actively curate collections, or return only when ready to decide.</p>
+        <p>No configuration required: save casually, curate actively, or return only when ready to decide.</p>
       </section>
 
       <figure class="cs-figure">
@@ -983,16 +982,7 @@
       <section class="cs-section cs-block">
         <span class="cs-kicker">Outcomes</span>
         <h2>A cohesive, scalable foundation</h2>
-        <p>A cohesive, end-to-end product experience that clearly communicates value while remaining flexible for future iteration. The system brings together research insights, interaction design, and brand expression into a unified whole. The final prototype demonstrates a scalable foundation, validated through testing and collaboration, and is positioned to evolve alongside user needs.</p>
-      </section>
-
-      <!-- NEXT STEPS -->
-      <section id="next-steps" class="cs-section cs-block">
-        <span class="cs-kicker">Future Development</span>
-        <h2>Next steps</h2>
-        <p>Add automated product integration to make it easy to pull in items and content directly from e-commerce sites.</p>
-        <p>Expand sharing features by building collaboration tools and a more interactive style feed.</p>
-        <p>Build out save-from-camera-roll so users can upload and organize items they already have.</p>
+        <p>An end-to-end product that communicates its value and stays flexible for what comes next, bringing research, interaction design, and brand into one whole. The prototype is a scalable foundation, validated through testing.</p>
       </section>
 
     </article>
@@ -1002,11 +992,11 @@
       <a class="cs-next" href="/aeri/">
         <div class="cs-next-text">
           <h3 class="cs-next-title">Aeri</h3>
-          <p class="cs-next-desc">AI-powered preventative care contact lens for diabetes with AR integration.</p>
+          <p class="cs-next-desc">AI-powered diabetes management with AR integration and smart signal detection.</p>
           <span class="cs-next-cta">See next project</span>
         </div>
         <div class="cs-next-media">
-          <video autoplay muted loop playsinline preload="none" data-play-from-still poster="../Home Page/stills/Aeri Video.jpg?v=2">
+          <video autoplay muted loop playsinline preload="none" data-play-from-still poster="../Home Page/stills/Aeri Video.jpg?v=5">
             <source src="../Home Page/Aeri Video.mp4" type="video/mp4">
           </video>
         </div>
@@ -1190,6 +1180,5 @@
     })();
   </script>
   <script src="../nav.js?v=2" defer></script>
-  <script src="../seam.js?v=1" defer></script>
 </body>
 </html>

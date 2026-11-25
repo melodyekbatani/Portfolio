@@ -12,15 +12,15 @@
   <meta name="description" content="Sembli turns scattered AI tools into reusable creative workflows through guided discovery.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Melody Ekbatani">
-  <meta property="og:title" content="Sembli — Melody Ekbatani">
+  <meta property="og:title" content="Sembli | Melody Ekbatani">
   <meta property="og:description" content="Sembli turns scattered AI tools into reusable creative workflows through guided discovery.">
   <meta property="og:image" content="https://melodyekbatani.com/share-card.png?v=3">
   <meta property="og:url" content="https://melodyekbatani.com/sembli/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sembli — Melody Ekbatani">
+  <meta name="twitter:title" content="Sembli | Melody Ekbatani">
   <meta name="twitter:description" content="Sembli turns scattered AI tools into reusable creative workflows through guided discovery.">
   <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=3">
-  <link rel="stylesheet" href="../style.css?v=86">
+  <link rel="stylesheet" href="../style.css?v=158">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
     /* ─── Sembli case study ──────────────────────────────────
@@ -540,7 +540,7 @@
       justify-content: space-between;
       gap: 40px;
       padding: 0 var(--pad-page);
-      height: var(--nav-h);
+      height: var(--toc-h);
       background: var(--bg);
       transform: translateY(0);
       transition: transform var(--t-slow) var(--ease-out), opacity var(--t-base) var(--ease-out);
@@ -583,7 +583,7 @@
       .cs-toc { display: none; }
     }
     @media (max-width: 720px) {
-      :root { --cs-rhythm: 80px; --cs-rhythm-sm: 48px; }
+      :root { --cs-rhythm: 52px; --cs-rhythm-sm: 36px; }
       .cs-page { padding: 0 var(--pad-page-sm); }
       .cs-topbar { padding: 24px var(--pad-page-sm) 0; }
       .cs-hero { flex-direction: column; gap: 16px; padding: 24px 0 8px; }
@@ -644,7 +644,7 @@
 
   <div class="cs-shell">
 
-    <aside class="cs-toc" data-seam aria-label="Contents">
+    <aside class="cs-toc" aria-label="Contents">
       <a href="#overview">Overview</a>
       <a href="#research">Research</a>
       <a href="#design">Design</a>
@@ -676,7 +676,7 @@
 
       <div class="cs-media-grid-2">
         <figure class="cs-figure">
-          <div class="cs-figure-media"><video  src="../Home Page/Sembli.mp4" playsinline muted autoplay loop preload="none" poster="../Home Page/stills/Sembli.jpg?v=4"></video></div>
+          <div class="cs-figure-media"><video  src="../Home Page/Sembli.mp4" playsinline muted autoplay loop preload="none" poster="../Home Page/stills/Sembli.jpg?v=5"></video></div>
           <figcaption><span class="num">Fig 1.1</span><span>Sembli: a live workspace that turns tool overload into repeatable creative workflows.</span></figcaption>
         </figure>
         <figure class="cs-figure">
@@ -729,8 +729,8 @@
         <div class="cs-overview-copy">
           <span class="cs-kicker">Overview</span>
           <h2 class="cs-overview-h">An AI-native product, designed and built end to end</h2>
-          <p>Sembli turns scattered AI tools into reusable workflows. You set a goal, compare the tools that get you there, and save the result as a workflow you can return to and share. It also helps you discover new tools, compare pricing, and start from prebuilt assemblies instead of a blank page.</p>
-          <p>I owned all of it: product strategy, UX/UI, the visual identity, and the working build. That includes the OpenAI and Gemini APIs wired in underneath. It began as my capstone. It's the project where I owned the whole stack, not just the screens.</p>
+          <p>Sembli turns scattered AI tools into reusable workflows: set a goal, compare the tools that get you there, save the result to return to and share. Plus discovery, pricing comparison, and prebuilt assemblies instead of a blank page.</p>
+          <p>I owned all of it: strategy, UX/UI, identity, and the working build with the OpenAI and Gemini APIs wired in. It began as my capstone, and it's where I owned the whole stack, not just the screens.</p>
         </div>
       </section>
 
@@ -738,39 +738,39 @@
       <section id="research" class="cs-section cs-block">
         <span class="cs-kicker">Research</span>
         <h2>The problem was never a lack of tools</h2>
-        <p>The number of AI tools keeps growing, but using them across a single piece of work stays fragmented. Every tool is its own tab, subscription, and prompt. Deciding what to use, when, and how to combine it is left entirely to the user. They have to research the product, compare the pricing, guess at what pairs with what, and rebuild the process from scratch each time.</p>
-        <p>It lands hardest on designers and students, freelancers and creators, early-stage founders, and non-technical people. They want to build with AI without becoming full-time tool researchers to do it.</p>
+        <p>The tools keep multiplying, but using them across one piece of work stays fragmented. Every tool is its own tab, subscription, and prompt. What to use, when, and how to combine it is left entirely to the user, rebuilt from scratch each time.</p>
+        <p>It lands hardest on designers, students, freelancers, and early-stage founders: people who want to build with AI without becoming full-time tool researchers.</p>
 
         <span class="cs-sub">Starting wide</span>
-        <p>Sembli began as open-ended exploration around AI, creativity, and where product experiences are heading. I mapped a wide range of directions. One pattern kept resurfacing on my ideation boards: people were surrounded by tools but had no system for deciding what to use, when, and how to combine them. That observation became the project.</p>
+        <p>Open-ended exploration around AI, creativity, and where product experiences are heading. One pattern kept resurfacing: people were surrounded by tools but had no system for combining them. That became the project.</p>
 
         <span class="cs-sub">Writing the PRD</span>
-        <p>To pressure-test the idea, I wrote a product requirements doc covering the problem, audience, and core experience. It forced a fuzzy concept into three clear priorities: assemble, compare, and save workflows.</p>
+        <p>A PRD covering problem, audience, and core experience forced a fuzzy concept into three priorities: assemble, compare, save.</p>
       </section>
 
       <!-- DESIGN -->
       <section id="design" class="cs-section cs-block">
         <span class="cs-kicker">Design</span>
         <h2>From "which tool?" to "what process am I building?"</h2>
-        <p>The reframe is the whole product. Instead of optimizing "What tool should I use?", Sembli helps you answer "What process am I trying to build?" From there it works as a lightweight workflow builder: start from a goal, get a suggested stack or browse a prebuilt assembly, compare on price and fit, and save the workflow to reuse.</p>
+        <p>The reframe is the whole product: not "what tool should I use?" but "what process am I building?" From there it's a lightweight workflow builder: start from a goal, get a stack or browse an assembly, compare on price and fit, save to reuse.</p>
 
         <span class="cs-sub">Designing the core flow, and building the AI under it</span>
-        <p>The heart is the prompt-to-stack flow: describe what you're making, set preferences like budget, and get back a workflow organized by task stage, such as research, copy, editing, and distribution. I built that generation with the OpenAI and Gemini APIs wired directly into the product, so the stack is assembled for you, not just browsed. I didn't only design this part. I developed it.</p>
+        <p>Describe what you're making, set a budget, and get back a workflow organized by stage: research, copy, editing, distribution. I built that generation on the OpenAI and Gemini APIs, so the stack is assembled for you, not just browsed. I didn't only design this part; I developed it.</p>
 
         <span class="cs-sub">Choosing the structure</span>
-        <p>I prototyped several directions before committing: tool marketplaces, workflow cards, standalone stack builders, saved libraries, and isolated pricing tools. Each did one thing well and broke on the rest. A marketplace helped you find tools but left you to assemble them. A builder assumed you already knew what you wanted. The version that worked combined both, pairing the discoverability of a directory with the guidance of a workflow builder.</p>
+        <p>Marketplaces, workflow cards, standalone builders, saved libraries, pricing tools. Each did one thing well and broke on the rest. A marketplace found tools but left you to assemble them; a builder assumed you knew what you wanted. The version that worked pairs a directory's discoverability with a builder's guidance.</p>
 
         <span class="cs-sub">Organizing the system</span>
-        <p>I structured Sembli into four areas: Home, Discover, Assemblies, and Saved. Together they hold the full arc: find a tool, build a repeatable system, and return to a saved workflow when the task comes back.</p>
+        <p>Four areas hold the full arc: Home, Discover, Assemblies, and Saved. Find a tool, build a repeatable system, return to it when the task comes back.</p>
       </section>
 
       <!-- DESIGN: Stack Builder -->
       <section class="cs-section cs-block">
         <h2>The Stack Builder is the product idea, made usable</h2>
-        <p>The Stack Builder is the clearest expression of the concept. Tools are grouped into workflow stages, and you can compare, swap, and reshape any part of the stack. It's the moment a pile of tools becomes a process you can run again.</p>
+        <p>Tools grouped into workflow stages, each one comparable, swappable, reshapable. It's the moment a pile of tools becomes a process you can run again.</p>
 
         <span class="cs-sub">Making budget visible</span>
-        <p>Cost drives most real tool decisions, but it's usually buried across separate pricing pages and subscriptions. I pulled budget into the workflow itself, through pricing filters, a running cost summary, and side-by-side comparisons. You choose on function and spend at the same time, before committing to anything.</p>
+        <p>Cost drives most real tool decisions but sits buried across separate pricing pages. I pulled budget into the workflow with filters, a running cost summary, and side-by-side comparison, so you choose on function and spend at once.</p>
       </section>
 
       <figure class="cs-figure">
@@ -781,24 +781,24 @@
       <!-- DESIGN: Brand -->
       <section class="cs-section cs-block">
         <h2>Brand identity</h2>
-        <p>The identity grew straight from the product idea of assembling scattered pieces into something useful. A playful mascot, bright accent graphics, and a name that suggests combining and building give Sembli personality without burying the clarity of the system underneath.</p>
+        <p>The identity grew from the product idea: assembling scattered pieces into something useful. A playful mascot, bright accents, and a name that suggests building. Personality without burying the system's clarity.</p>
       </section>
 
       <!-- SOLUTION -->
       <section id="solution" class="cs-section cs-block">
         <span class="cs-kicker">Solution</span>
         <h2>Discovery and a workflow builder, in one product</h2>
-        <p>The final experience combines goal-led discovery, tool exploration, prebuilt assemblies, the Stack Builder, and saved workflows. It treats AI tools as parts of a larger process, not a list to pick from.</p>
+        <p>Goal-led discovery, tool exploration, prebuilt assemblies, the Stack Builder, saved workflows. AI tools as parts of a process, not a list to pick from.</p>
 
         <span class="cs-sub">Constraints and decisions</span>
-        <p>The constant tension was guidance versus freedom. Too much structure and it becomes a rigid template. Too little and it's just another directory. So I put the intelligence into the assembly itself: a goal goes in, an organized stack comes out, and everything stays swappable. Building that generation on the OpenAI and Gemini APIs is what made the guidance real, not just a static list.</p>
+        <p>Guidance versus freedom: too much structure is a rigid template, too little is another directory. I put the intelligence into the assembly: a goal in, an organized stack out, everything swappable. Real LLM generation is what made the guidance more than a static list.</p>
       </section>
 
       <!-- OUTCOMES -->
       <section id="outcomes" class="cs-section cs-block">
         <span class="cs-kicker">Outcomes</span>
         <h2>A shipped product, with the AI built in</h2>
-        <p>Sembli is live at sembli.us. It catalogs 250 AI tools. It ships 70 prebuilt, vetted workflows, so no one starts from a blank page. And it runs goal-to-stack generation through the OpenAI and Gemini APIs. It's a working product, not a prototype. It's also the project where I designed and built the whole thing myself.</p>
+        <p>Live at sembli.us: 250 cataloged AI tools, 70 prebuilt vetted workflows, and goal-to-stack generation running on the OpenAI and Gemini APIs. A working product, not a prototype, and one I designed and built myself.</p>
       </section>
 
       <!-- REFLECTION -->
@@ -808,15 +808,15 @@
         <div class="cs-reflections">
           <div class="item">
             <h3>Owning the whole stack</h3>
-            <p>Sembli is the project where I went past the screens, into strategy, brand, and the build, including the AI integration. Wiring real LLM APIs into my own product changed how I design AI features. Now I know what's cheap, hard, or possible underneath the interface.</p>
+            <p>Wiring real LLM APIs into my own product changed how I design AI features. I know what's cheap, hard, or possible underneath the interface now.</p>
           </div>
           <div class="item">
             <h3>Structure over tools</h3>
-            <p>The product was never the catalog. It's the system that turns a catalog into a process. The strongest direction only appeared once I stopped trying to pick a single pattern and combined discovery with guided assembly.</p>
+            <p>The product was never the catalog. It's the system that turns a catalog into a process. That direction only appeared once I stopped picking a single pattern.</p>
           </div>
           <div class="item">
             <h3>Designing for approachable complexity</h3>
-            <p>The real work was making something complex feel light: a playful brand, clear interfaces, and budget made visible. The system reduces overwhelm instead of adding to it. That balance is what I'm proudest of here.</p>
+            <p>The real work was making something complex feel light, so the system reduces overwhelm instead of adding to it.</p>
           </div>
         </div>
       </section>
@@ -832,7 +832,7 @@
           <span class="cs-next-cta">See next project</span>
         </div>
         <div class="cs-next-media">
-          <video autoplay muted loop playsinline preload="none" data-play-from-still poster="../Home Page/stills/Aeri Video.jpg?v=4">
+          <video autoplay muted loop playsinline preload="none" data-play-from-still poster="../Home Page/stills/Aeri Video.jpg?v=5">
             <source src="../Home Page/Aeri Video.mp4" type="video/mp4">
           </video>
         </div>
@@ -922,6 +922,5 @@
     })();
   </script>
   <script src="../nav.js?v=2" defer></script>
-  <script src="../seam.js?v=1" defer></script>
 </body>
 </html>

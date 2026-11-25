@@ -9,7 +9,7 @@
   --ink:          #111111;
   --ink-soft:     #46535f;
   --ink-faint:    #5a6470;
-  --muted:        #AAAAAA;
+  --muted:        #767676;   /* lightest grey that passes WCAG AA on white (4.5:1) */
   --rule:         #DFDFDF;
   --rule-soft:    rgba(17, 17, 17, 0.10);
   --rule-medium:  rgba(17, 17, 17, 0.15);
@@ -28,8 +28,9 @@
   --fs-lead:      clamp(20px, 2.7vw, 34px);   /* large lead paragraph (medium wt, -0.03em) */
   --fs-h1:        clamp(32px, 4vw, 52px);
   --fs-h2:        clamp(18px, 2vw, 24px);
-  --fs-nav:       30px;
+  --fs-nav:       20px;
   --fs-body:      18px;
+  --fs-body-sm:   16px;  /* long intro paragraphs (hero bio) */
   --fs-small:     14px;
   --fs-micro:     12px;
   --fs-nano:      10px;
@@ -51,7 +52,8 @@
   /* Layout */
   --pad-page:     40px;
   --pad-page-sm:  20px;
-  --nav-h:        72px;
+  --nav-h:        46px;
+  --toc-h:        38px;   /* case-study bottom section nav (13px type, no pill) */
   --sidebar-w:    200px;
   --section-pad:  clamp(60px, 8vw, 120px);
   --project-pad-b: 10rem;
@@ -72,6 +74,17 @@
   /* Motion */
   --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
   --ease-emil:    cubic-bezier(.2, .7, .2, 1);
+  --ease-soft:    cubic-bezier(0.16, 1, 0.3, 1);   /* long, unhurried settle */
+
+  /* ─── Bubble → glass ───
+     One motion, shared by every glass surface on the site: a small round
+     bubble inflates outward from the centre until it becomes the full pill.
+     Only the glass moves — type is revealed by the clip, never scaled,
+     faded or distorted. Drive it by transitioning clip-path between these
+     two values. */
+  --bubble-seed:  inset(calc(50% - 10px) calc(50% - 10px) round 999px);
+  --bubble-full:  inset(0 0 0 0 round 999px);
+  --bubble-dur:   540ms;
   --t-fast:       140ms;
   --t-base:       220ms;
   --t-slow:       360ms;
@@ -285,29 +298,79 @@ nav {
 .nav-indicator { display: none; }
 
 nav a {
-  font-size: 30px;
+  font-size: var(--fs-nav);
   font-weight: 500;
   letter-spacing: 0.02em;
   text-transform: none;
   color: var(--ink);
   position: relative;
-  padding: 4px 0;
+  padding: 0;
+  /* own stacking context so the hover bubble (::before, z-index:-1) sits
+     behind the text but still above the nav's own background */
+  isolation: isolate;
 }
 
+/* ─── Nav: the pill IS the state ───
+   One idea, used consistently. The current page wears the pill; hovering any
+   link brings the same pill in, and a single slow light sweep crosses it —
+   the only "extra" on hover. No underlines. */
+nav a::before {
+  content: '';
+  position: absolute;
+  inset: -7px -14px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.90) 0%,
+    rgba(247,248,250,0.70) 55%,
+    rgba(238,240,243,0.62) 100%);
+  border: 1px solid rgba(17, 17, 17, 0.09);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  z-index: -1;
+  /* bubble → glass; the text above it never moves */
+  opacity: 0;
+  clip-path: var(--bubble-seed);
+  transition:
+    opacity   200ms var(--ease-soft),
+    clip-path var(--bubble-dur) var(--ease-soft);
+}
+
+/* current page: the glass is simply there */
+nav a.active::before { opacity: 1; clip-path: var(--bubble-full); }
+
+/* hover / focus: the bubble inflates into the glass */
+nav a:hover::before,
+nav a:focus-visible::before { opacity: 1; clip-path: var(--bubble-full); }
+
+/* the extra: one unhurried specular sweep across the glass */
 nav a::after {
   content: '';
   position: absolute;
-  left: 0;
-  bottom: 2px;
-  width: 0;
-  height: 1px;
-  background: currentColor;
-  transition: width 300ms ease;
+  inset: -7px -14px;
+  border-radius: var(--radius-pill);
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg,
+    rgba(255,255,255,0) 38%,
+    rgba(255,255,255,0.85) 50%,
+    rgba(255,255,255,0) 62%);
+  background-size: 260% 100%;
+  background-position: 150% 0;
+}
+nav a:hover::after,
+nav a:focus-visible::after {
+  opacity: 1;
+  animation: navSheen 1100ms var(--ease-soft) both;
+}
+@keyframes navSheen {
+  from { background-position: 150% 0; }
+  to   { background-position: -60% 0; }
 }
 
-nav a:hover::after,
-nav a.active::after {
-  width: 100%;
+@media (prefers-reduced-motion: reduce) {
+  /* no inflate — the glass just appears */
+  nav a::before { transition: opacity 240ms ease; clip-path: var(--bubble-full); }
+  nav a::after  { display: none; }
 }
 
 nav a.active {
@@ -336,7 +399,7 @@ nav a.active {
   grid-template-columns: 1fr 1fr 1fr;
   align-items: stretch;
   gap: 56px;
-  padding: 40px var(--pad-page) 64px;
+  padding: 40px var(--pad-page) 124px;
 }
 
 .hero-year {
@@ -2051,14 +2114,14 @@ body.nav-open .nav-overlay-list a:nth-child(6) { transition-delay: 330ms; }
   position: absolute;
   left: -6%;
   width: 112%;              /* overhang so the blur doesn't fade at the sides */
-  bottom: calc(100% - 72px);   /* = OVERLAP in the script */
-  height: 160px;               /* reaches ~70px above the edge — softens the seam without washing out the hero */
+  bottom: calc(100% - 60px);   /* = OVERLAP in the script */
+  height: 110px;               /* reaches ~50px above the panel edge (+16px blur); hero padding-bottom must exceed that */
   z-index: 0;
   pointer-events: none;
   filter: blur(16px);       /* turns the drawn wave into a soft gradient */
 }
 @media (max-width: 768px) {
-  .work-pixels { height: 140px; filter: blur(12px); }
+  .work-pixels { height: 95px; filter: blur(12px); }
 }
 .work-panel-inner {
   position: relative;
@@ -2079,8 +2142,9 @@ body.nav-open .nav-overlay-list a:nth-child(6) { transition-delay: 330ms; }
 .hero-links a::after { display: none; }
 .hero-links a .link-text {
   padding-bottom: 3px;
+  /* same hairline weight as the nav underline, not a hard black rule */
   background:
-    linear-gradient(var(--ink), var(--ink)) 0 100% / 0 1px no-repeat,
+    linear-gradient(rgba(17,17,17,0.42), rgba(17,17,17,0.42)) 0 100% / 0 1px no-repeat,
     linear-gradient(var(--rule), var(--rule)) 0 100% / 100% 1px no-repeat;
   transition: background-size 380ms var(--ease-out, ease);
 }
@@ -2230,7 +2294,7 @@ body.nav-open .nav-overlay-list a:nth-child(6) { transition-delay: 330ms; }
 .work-grid .project-secondary-tags { gap: 6px; }
 @media (max-width: 768px) {
   .work-grid .project-featured-meta .tag,
-  .work-grid .project-secondary-tags .tag { font-size: 12px; padding: 3px 10px; }
+  .work-grid .project-secondary-tags .tag { font-size: 12px; padding: 4px 12px; }
 }
 
 /* Per-card media zoom — set --media-zoom on the <article> (e.g. Parameter
@@ -2299,8 +2363,9 @@ a.page-footer-email {
 .page-footer-links a .link-text,
 a.page-footer-email .link-text {
   padding-bottom: 3px;
+  /* same hairline weight as the nav underline, not a hard black rule */
   background:
-    linear-gradient(var(--ink), var(--ink)) 0 100% / 0 1px no-repeat,
+    linear-gradient(rgba(17,17,17,0.42), rgba(17,17,17,0.42)) 0 100% / 0 1px no-repeat,
     linear-gradient(var(--rule), var(--rule)) 0 100% / 100% 1px no-repeat;
   transition: background-size 380ms var(--ease-out, ease);
 }
@@ -2353,17 +2418,25 @@ a.page-footer-email {
   color: var(--ink-soft);
   transition: color 200ms ease;
 }
+/* Same glass pill and bubble entrance as the nav, at link scale. */
 .hero-links a::before,
 .page-footer-links a.page-footer-link::before,
 a.page-footer-email::before {
   content: '';
   position: absolute;
-  inset: 0 -8px;
-  border-radius: var(--radius);
-  background: rgba(17, 17, 17, 0.05);
+  inset: -5px -12px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.90) 0%,
+    rgba(247,248,250,0.70) 55%,
+    rgba(238,240,243,0.62) 100%);
+  border: 1px solid rgba(17, 17, 17, 0.09);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   opacity: 0;
-  transform: scale(0.94);
-  transition: opacity 220ms ease, transform 320ms var(--ease-out, ease);
+  clip-path: var(--bubble-seed);
+  transition:
+    opacity   200ms var(--ease-soft),
+    clip-path var(--bubble-dur) var(--ease-soft);
   pointer-events: none;
   z-index: -1;
 }
@@ -2382,7 +2455,15 @@ a.page-footer-email:focus-visible {
 a.page-footer-email:hover::before,
 a.page-footer-email:focus-visible::before {
   opacity: 1;
-  transform: scale(1);
+  clip-path: var(--bubble-full);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-links a::before,
+  .page-footer-links a.page-footer-link::before,
+  a.page-footer-email::before {
+    transition: opacity 200ms ease;
+    clip-path: var(--bubble-full);
+  }
 }
 .hero-links a,
 .page-footer-links a.page-footer-link,
@@ -2592,3 +2673,196 @@ body .cs-toc[data-seam] { isolation: isolate; }
 .work-intro-title,
 .work-intro-copy { flex: none; width: 100%; }
 .work-intro-spacer { display: none; }
+
+/* Top nav: short, even, static fade under its bottom edge */
+nav { box-shadow: none; }
+nav::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 28px;
+  /* eased (not linear) fall-off — no visible band where content starts */
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,1)    0%,
+    rgba(255,255,255,0.97) 10%,
+    rgba(255,255,255,0.91) 20%,
+    rgba(255,255,255,0.82) 30%,
+    rgba(255,255,255,0.70) 40%,
+    rgba(255,255,255,0.56) 50%,
+    rgba(255,255,255,0.42) 60%,
+    rgba(255,255,255,0.28) 70%,
+    rgba(255,255,255,0.16) 80%,
+    rgba(255,255,255,0.07) 90%,
+    rgba(255,255,255,0)    100%);
+  pointer-events: none;
+}
+
+
+/* ─── Accessibility: WCAG AA contrast (≥ 4.5:1 for small text) ─── */
+/* Tag chips: #6b6b6b on the chip fill ≈ 5.0:1 (was #8c8c8c ≈ 3.2:1) */
+/* Aqua-era glossy capsule: lit top half, bevel, hairline edge */
+.work-grid .project-featured-meta .tag,
+.work-grid .project-secondary-tags .tag,
+.work-grid .project-featured-meta .tag:hover,
+.work-grid .project-secondary-tags .tag:hover {
+  color: #5c6670;
+  padding: 5px 13px;   /* proportioned like the nav pill: more side than top */
+  letter-spacing: -0.005em;
+  /* gentle top-light, no mid-gloss break — reads as a label, not a button */
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.90) 0%,
+    rgba(247,248,250,0.70) 55%,
+    rgba(238,240,243,0.62) 100%);
+  border: 1px solid rgba(17,17,17,0.09);
+  /* inset only — no outer lift, so nothing reads as pressable */
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+}
+/* Hover label: same surface language as the tag chips — gentle top-light,
+   hairline edge, inset highlight, no outer lift. Opaque enough that ink text
+   holds ≥ 13:1 over any image. */
+.project-cursor {
+  padding: 8px 17px;   /* matches the nav pill's balance: more side than top */
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.95) 0%,
+    rgba(250,251,252,0.90) 55%,
+    rgba(243,245,247,0.88) 100%);
+  border: 1px solid rgba(17,17,17,0.09);
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+  color: #3f4750;
+}
+/* Case-study section nav at rest: #767676 ≈ 4.5:1 on white (was #aaa ≈ 2.3:1) */
+body .cs-toc a { color: #767676; }
+
+/* ─── Hover label: same bubble → glass as the nav ───
+   A small bubble inflates into the pill and the word is simply revealed by
+   the clip — no fade, no scale, nothing done to the type itself. */
+.project-cursor {
+  scale: 1;
+  clip-path: var(--bubble-seed);
+  transition:
+    opacity   200ms var(--ease-soft),
+    clip-path var(--bubble-dur) var(--ease-soft);
+}
+.project-cursor.is-visible { clip-path: var(--bubble-full); }
+
+@media (prefers-reduced-motion: reduce) {
+  .project-cursor { transition: opacity 180ms ease; clip-path: none; }
+}
+
+/* ─── Hero bio ───
+   18px crowded the three-line paragraph; --fs-body-sm holds the measure
+   without reading small. Spacing between the lines comes from .hero-bio's
+   flex `gap` alone — no per-paragraph margins, so the rhythm stays even. */
+.hero-bio .t-body {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body);
+}
+.hero-bio-now {
+  color: var(--ink);
+}
+
+
+/* ─── Case-study section nav: short, even, static fade above it ───
+   The animated seam wave smeared ~40px of white above this bar, which read
+   as extra height and never looked even at this scale. Same eased, static
+   gradient as nav::before, mirrored upward. */
+body .cs-toc::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 24px;
+  background: linear-gradient(to top,
+    rgba(255,255,255,1)    0%,
+    rgba(255,255,255,0.97) 10%,
+    rgba(255,255,255,0.91) 20%,
+    rgba(255,255,255,0.82) 30%,
+    rgba(255,255,255,0.70) 40%,
+    rgba(255,255,255,0.56) 50%,
+    rgba(255,255,255,0.42) 60%,
+    rgba(255,255,255,0.28) 70%,
+    rgba(255,255,255,0.16) 80%,
+    rgba(255,255,255,0.07) 90%,
+    rgba(255,255,255,0)    100%);
+  pointer-events: none;
+}
+body .cs-toc a { font-size: 13px; padding: 0; }
+
+/* ─── Competitor grid (case studies): keep products whole ───
+   Lives here rather than in a page's inline <style> so it is cache-busted
+   with the stylesheet and cannot lose to the base `object-fit: cover`. */
+.cs-media-grid-5 .cs-figure-media img,
+.cs-page .cs-media-grid-5 .cs-figure-media img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  padding: 14px;
+}
+
+/* A section that is only a kicker + heading should sit close to the media it
+   introduces, not a full --cs-rhythm away from it. */
+.cs-page > .cs-title-only { margin-bottom: calc(var(--cs-rhythm) * -0.6); }
+
+/* Media stack running straight into the Overview meta grid: a full
+   --cs-rhythm reads as a hole, since the figcaption already supplies
+   breathing room above. */
+.cs-page > .cs-stack + .cs-overview,
+.cs-page > .cs-figure + .cs-overview {
+  margin-top: calc(var(--cs-rhythm) * -0.5);
+}
+/* Meta blocks sit closer together than page-level sections. */
+.cs-overview .cs-meta-col { row-gap: 32px; }
+
+/* Meta chips (Skills / Tools) read as a plain list, not tappable controls —
+   the grey fill made them look like buttons. In style.css so it is
+   cache-busted and outranks the per-page inline rule. */
+body .cs-chips { gap: 6px 18px; }
+body .cs-chips .chip {
+  background: none;
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  color: var(--ink);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-loose);
+}
+/* One size across the whole overview meta block: values, team list, and
+   chips. --fs-body (18px) reads oversized for short meta lines. */
+body .cs-meta-block .value,
+body .cs-meta-block ul,
+body .cs-chips .chip {
+  font-size: var(--fs-body-sm);
+}
+
+/* Meta labels sit closer to the value they name (was 14px). */
+body .cs-meta-block .label { margin-bottom: 7px; }
+
+/* Kicker sits close to the heading it introduces (was 24px) — they are one
+   unit, not two stacked blocks. */
+body .cs-kicker { margin-bottom: 10px; }
+
+/* ─── Mobile ─── */
+@media (max-width: 1100px) {
+  /* Both white fades are desktop devices: the Work seam wave assumes the
+     panel rises over a fixed hero, and the nav fade assumes an opaque nav
+     bar. On narrow screens they just lay a blurred band across whatever
+     happens to be underneath. */
+  .work-pixels { display: none; }
+  nav::before { display: none; }
+}
+@media (max-width: 768px) {
+
+  /* Figure captions are desktop-only reference marks; on a phone they break
+     the run of images without adding much. */
+  .cs-figure figcaption { display: none; }
+
+  /* --lh-body (1.5) is set for wide measures; on a ~30ch phone column the
+     lines sit too far apart. */
+  .cs-block p,
+  .cs-overview-copy p,
+  .cs-feature .copy p { line-height: 1.38; }
+}

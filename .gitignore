@@ -1,2 +1,5 @@
 .DS_Store
 serve.py
+
+# Local poster backups from regenerating stills
+Home Page/stills/.bak/

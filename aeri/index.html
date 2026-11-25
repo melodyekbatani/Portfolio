@@ -12,15 +12,15 @@
   <meta name="description" content="AI-powered diabetes management with AR integration and smart signal detection.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Melody Ekbatani">
-  <meta property="og:title" content="Aeri — Melody Ekbatani">
+  <meta property="og:title" content="Aeri | Melody Ekbatani">
   <meta property="og:description" content="AI-powered diabetes management with AR integration and smart signal detection.">
   <meta property="og:image" content="https://melodyekbatani.com/share-card.png?v=3">
   <meta property="og:url" content="https://melodyekbatani.com/aeri/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Aeri — Melody Ekbatani">
+  <meta name="twitter:title" content="Aeri | Melody Ekbatani">
   <meta name="twitter:description" content="AI-powered diabetes management with AR integration and smart signal detection.">
   <meta name="twitter:image" content="https://melodyekbatani.com/share-card.png?v=3">
-  <link rel="stylesheet" href="../style.css?v=86">
+  <link rel="stylesheet" href="../style.css?v=158">
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
   <style>
     /* ─── Aeri case study — same template as Sembli ─────────── */
@@ -195,16 +195,25 @@
     }
     .cs-media-grid-2 .cs-figure-media { aspect-ratio: 16 / 9; }
     .cs-media-grid-3 .cs-figure-media { aspect-ratio: 1 / 1; }
-    .cs-media-grid-5 .cs-figure-media { aspect-ratio: 1 / 1; }
+    /* Short tiles, products centred so the five read as one straight row. */
+    .cs-media-grid-5 .cs-figure-media {
+      aspect-ratio: 5 / 3;
+      place-items: center;
+    }
     /* Competitor product shots often ship with a hard white background.
        Multiply blend drops the white into the tile so all five read
        as the same grey card. The grid itself also takes the tile
        colour so the gap between items reads as a single gray strip. */
     .cs-media-grid-5 { background: var(--bg-thumb); }
-    .cs-media-grid-5 .cs-figure-media img { mix-blend-mode: multiply; }
-    /* The FreeStyle Libre image runs larger than the rest, pull it in. */
-    .cs-media-grid-5 .cs-figure-media img[src*="Competitor Research 4"] {
-      transform: scale(0.78);
+    /* Sources are roughly square, so `contain` is what keeps each product
+       whole; `cover` crops the bottom off every one of them. Declared after
+       the blend rule so nothing upstream reinstates the crop. */
+    .cs-media-grid-5 .cs-figure-media img {
+      mix-blend-mode: multiply;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 14px;
     }
     /* Tall variant for grids that should run portrait (e.g. the
        three-feature video grid in the Solution section). */
@@ -533,7 +542,7 @@
       justify-content: space-between;
       gap: 40px;
       padding: 0 var(--pad-page);
-      height: var(--nav-h);
+      height: var(--toc-h);
       background: var(--bg);
       transform: translateY(0);
       transition: transform var(--t-slow) var(--ease-out), opacity var(--t-base) var(--ease-out);
@@ -574,7 +583,7 @@
       .cs-toc { display: none; }
     }
     @media (max-width: 720px) {
-      :root { --cs-rhythm: 80px; --cs-rhythm-sm: 48px; }
+      :root { --cs-rhythm: 52px; --cs-rhythm-sm: 36px; }
       .cs-page { padding: 0 var(--pad-page-sm); }
       .cs-hero { flex-direction: column; gap: 16px; padding: 24px 0 8px; }
       .cs-overview { gap: 48px; }
@@ -732,12 +741,11 @@
 
   <div class="cs-shell">
 
-    <aside class="cs-toc" data-seam aria-label="Contents">
+    <aside class="cs-toc" aria-label="Contents">
       <a href="#overview">Overview</a>
       <a href="#problem">Problem</a>
       <a href="#solution">Solution</a>
       <a href="#research">Research</a>
-      <a href="#next-steps">Next Steps</a>
       <a href="#learnings">Key Takeaways</a>
     </aside>
 
@@ -787,7 +795,7 @@
           </div>
           <div class="cs-meta-block">
             <span class="label">Role</span>
-            <div class="value">Product Designer — product strategy, user research, visual design and AI integration</div>
+            <div class="value">Product Designer: product strategy, user research, visual design and AI integration</div>
           </div>
           <div class="cs-meta-block">
             <span class="label">Team</span>
@@ -802,7 +810,6 @@
               <span class="chip">UX/UI</span>
               <span class="chip">Product Strategy</span>
               <span class="chip">User Research</span>
-              <span class="chip">Visual Design</span>
               <span class="chip">AI Integration</span>
             </div>
           </div>
@@ -810,12 +817,9 @@
             <span class="label">Tools</span>
             <div class="cs-chips">
               <span class="chip">Figma</span>
-              <span class="chip">Gemini</span>
               <span class="chip">Claude</span>
-              <span class="chip">Perplexity</span>
-              <span class="chip">OpenAI</span>
+              <span class="chip">Gemini</span>
               <span class="chip">Midjourney</span>
-              <span class="chip">Lovable</span>
               <span class="chip">After Effects</span>
             </div>
           </div>
@@ -824,8 +828,7 @@
         <div class="cs-overview-copy">
           <span class="cs-kicker">Overview</span>
           <h2 class="cs-overview-h">What if diabetes care could become more preventative?</h2>
-          <p>Aeri was created for the Parsons x University of Arizona 24-hour AI Hackathon. It is an AI-powered preventative care concept designed for people managing Type 2 diabetes.</p>
-          <p>The project explores a more proactive alternative to today's reactive health tools by helping users anticipate changes earlier. Aeri combines continuous sensing, predictive AI, and an augmented reality interface to deliver clearer, more actionable guidance throughout the day.</p>
+          <p>Built in 24 hours for the Parsons x University of Arizona AI Hackathon: a preventative care concept for people managing Type 2 diabetes. It pairs continuous sensing, predictive AI, and an AR interface to turn readings into guidance people can act on.</p>
         </div>
       </section>
 
@@ -833,24 +836,10 @@
       <section id="problem" class="cs-section cs-block">
         <span class="cs-kicker">Problem</span>
         <h2>Diabetes treatments today are reactive</h2>
-        <p>Health tools provide constant data, but diabetes management still depends heavily on the individual. Users must interpret readings, track patterns, and repeatedly check devices throughout the day.</p>
-        <p>With sensors that require routine replacement, care becomes a cycle of monitoring, maintenance, and reaction. This revealed an opportunity for a more preventative and supportive experience.</p>
+        <p>Health tools produce constant data, but the interpreting still falls to the individual: reading numbers, tracking patterns, checking devices through the day. With sensors that need routine replacement, care becomes a cycle of monitoring, maintenance, and reaction.</p>
 
         <span class="cs-sub">A growing global health reality</span>
-        <p>More than 1 in 10 adults worldwide are living with diabetes (International Diabetes Federation). Its scale reflects a growing need for tools that better support the ongoing decisions, adjustments, and mental effort of daily care. Managing diabetes is not limited to isolated moments of checking a number. It is shaped by repeated choices around food, activity, sleep, stress, and routine, all of which can influence glucose levels throughout the day.</p>
-        <p>As a result, care often becomes a continuous process of monitoring, interpreting, and responding. This creates an opportunity to design tools that do more than report data by offering guidance that feels more supportive, timely, and easier to live with.</p>
-      </section>
-
-      <!-- SOLUTION -->
-      <section id="solution" class="cs-section cs-block">
-        <span class="cs-kicker">Solution</span>
-        <h2>Shifting toward proactive care</h2>
-        <p>We set out to design a system that helps people act before issues intensify. We focused on the management of Type 2 diabetes approaching the problem through earlier awareness, clearer guidance, and more confident decision-making.</p>
-        <p>Our solution, Aeri, is an AI-powered preventative care concept that utilizes an AR-integrated contact lens to help users anticipate changes earlier throughout the day.</p>
-
-        <span class="cs-sub">A more supportive experience</span>
-        <p>Aeri's core experience is built around four connected parts: live interventions, daily overviews, metric breakdowns, and user controls. Together, they make health insights more useful, timely, and actionable.</p>
-        <p>User controls also give people more choice over what is surfaced, how prominently it appears, and when they are notified.</p>
+        <p>More than 1 in 10 adults worldwide live with diabetes (International Diabetes Federation). It is shaped less by isolated readings than by repeated choices around food, activity, sleep, and stress, which is where a tool can do more than report numbers.</p>
       </section>
 
       <figure class="cs-figure">
@@ -858,9 +847,19 @@
         <figcaption><span class="num">Fig 2.0</span><span>Aeri's ambient interface meets users in everyday environments.</span></figcaption>
       </figure>
 
+      <!-- SOLUTION -->
+      <section id="solution" class="cs-section cs-block">
+        <span class="cs-kicker">Solution</span>
+        <h2>Shifting toward proactive care</h2>
+        <p>Aeri is an AI-powered preventative care concept for Type 2 diabetes. An AR-integrated contact lens surfaces changes earlier, so people can act before issues intensify.</p>
+
+        <span class="cs-sub">A more supportive experience</span>
+        <p>Four connected parts carry the experience: live interventions, daily overviews, metric breakdowns, and user controls. The last gives people say over what is surfaced, how prominently, and when.</p>
+      </section>
+
       <section class="cs-section cs-block">
         <h2>Structured across 3 integrated layers</h2>
-        <p>Each layer plays a distinct role. A continuous glucose biosensor reads metabolic signals beneath the skin, an AR smart lens delivers guidance directly in the user's field of view, and an AI-integrated interface turns that data into clear, timely recommendations. Together they form a closed loop that moves from sensing, to insight, to action.</p>
+        <p>A biosensor reads metabolic signals beneath the skin, an AR lens delivers guidance in the user's field of view, and an AI interface turns the data into recommendations, a closed loop from sensing to insight to action.</p>
       </section>
 
       <div class="cs-media-grid-3 tall">
@@ -882,11 +881,10 @@
       <section id="research" class="cs-section cs-block">
         <span class="cs-kicker">Market Research</span>
         <h2>Revealing the gap</h2>
-        <p>Conversations and user interviews point to a system that interrupts daily life rather than supporting it: frequent sensor failures, constant replacements, and the need to repeatedly check numbers create frustration and fatigue. Instead of feeling supported, many feel tethered to their devices, managing alerts, troubleshooting issues, and trying to make sense of inconsistent readings.</p>
+        <p>Interviews describe a system that interrupts daily life rather than supporting it. Sensor failures, constant replacements, and inconsistent readings leave people tethered to their devices, managing alerts instead of their health.</p>
 
         <span class="cs-sub">Tracking diabetes data isn't easy</span>
-        <p>Across the category, products have improved in sensing accuracy, connectivity, and real-time display. However, reliability issues, short sensor lifecycles, and fragmented device ecosystems continue to introduce friction.</p>
-        <p>As conditions become more complex, the operational overhead increases highlighting an opportunity to reduce system friction and create a more seamless experience that requires less active management from the user.</p>
+        <p>Sensing accuracy and connectivity have improved across the category, but short sensor lifecycles and fragmented ecosystems still add friction, and that overhead grows as conditions get more complex.</p>
       </section>
 
       <figure class="cs-figure">
@@ -910,7 +908,7 @@
         <figcaption><span class="num">Fig 3.2</span><span>A scan of today's diabetes and metabolic tracking landscape, from wearables to dedicated CGMs.</span></figcaption>
       </figure>
 
-      <section class="cs-block">
+      <section class="cs-block cs-title-only">
         <span class="cs-kicker">Iteration</span>
         <h2>Translating ideas into a working vision</h2>
       </section>
@@ -944,16 +942,6 @@
         </div>
       </div>
 
-      <!-- NEXT STEPS -->
-      <section id="next-steps" class="cs-section cs-block">
-        <span class="cs-kicker">Future Development</span>
-        <h2>Next Steps</h2>
-        <p>Further evaluate the biomedical feasibility of the sensing approach and underlying hardware.</p>
-        <p>Refine predictive modeling with clinical datasets to improve accuracy and reliability.</p>
-        <p>Test AR guidance interactions in real-world contexts to validate usability and behavior.</p>
-        <p>Expand user research with individuals managing Type 2 diabetes to ground the system in lived experience.</p>
-      </section>
-
       <!-- KEY TAKEAWAYS -->
       <section id="learnings" class="cs-section cs-block">
         <span class="cs-kicker">Reflection</span>
@@ -964,15 +952,15 @@
         <div class="cs-reflections">
           <div class="item">
             <h3>Working through a 24-hour sprint</h3>
-            <p>Working in a collaborative sprint setting reinforced the importance of aligning early, defining roles quickly, and a shared understanding of the concept.</p>
+            <p>A sprint rewards aligning early and defining roles fast.</p>
           </div>
           <div class="item">
             <h3>Working with AI</h3>
-            <p>I learned to use AI as a tool to accelerate exploration and production, while staying intentional in directing and refining outputs. Strong results came from guiding, editing, and curating rather than relying on it passively.</p>
+            <p>AI accelerated exploration, but strong results came from guiding and curating it, not relying on it passively.</p>
           </div>
           <div class="item">
             <h3>Working with complex systems</h3>
-            <p>I learned how to simplify a complex system under time pressure by focusing on what is most relevant to the user. This meant prioritizing clarity over completeness and translating technical logic into understandable moments of guidance.</p>
+            <p>Simplifying under pressure meant choosing clarity over completeness, and turning technical logic into moments of guidance.</p>
           </div>
         </div>
       </section>
@@ -1070,11 +1058,11 @@
       <a class="cs-next" href="/adaptive-intelligence/">
         <div class="cs-next-text">
           <h3 class="cs-next-title">Adaptive Intelligence</h3>
-          <p class="cs-next-desc">Designing how Google Gemini guides researchers through complex inquiry, end to end.</p>
+          <p class="cs-next-desc">Sustainability feature integration for Google Gemini that reduces redundant AI compute.</p>
           <span class="cs-next-cta">See next project</span>
         </div>
         <div class="cs-next-media">
-          <video autoplay muted loop playsinline preload="none" data-still-time="3.8" data-play-from-still poster="../Home Page/stills/Google Gemini.jpg?v=2">
+          <video autoplay muted loop playsinline preload="none" data-still-time="3.8" data-play-from-still poster="../Home Page/stills/Google Gemini.jpg?v=5">
             <source src="../Home Page/Google Gemini.mp4" type="video/mp4">
           </video>
         </div>
@@ -1258,6 +1246,5 @@
     })();
   </script>
   <script src="../nav.js?v=2" defer></script>
-  <script src="../seam.js?v=1" defer></script>
 </body>
 </html>

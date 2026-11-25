@@ -16,7 +16,7 @@ This is the source of truth for tokens, typography, spacing, and components used
 | `--ink` | `#111111` | Primary text, indicators, borders on dark accents |
 | `--ink-soft` | `#46535f` | Secondary text in modals/captions |
 | `--ink-faint` | `#5a6470` | Tertiary text, meta labels in modals |
-| `--muted` | `#AAAAAA` | Labels, tag text, captions |
+| `--muted` | `#767676` | Labels, tag text, captions |
 | `--rule` | `#DFDFDF` | Borders on tags, dividers |
 | `--rule-soft` | `rgba(17,17,17,0.10)` | Faint horizontal rules (see-also lists) |
 | `--rule-medium` | `rgba(17,17,17,0.15)` | Slightly stronger rules |
@@ -51,6 +51,7 @@ All sizes use `clamp()` for responsive scaling. Token shape: `--fs-<role>`.
 | `--fs-h1` | `clamp(32px, 4vw, 52px)` | `.t-h1` |
 | `--fs-h2` | `clamp(18px, 2vw, 24px)` | `.t-h2` |
 | `--fs-nav` | `30px` | Nav links |
+| `--fs-body-sm` | `16px` | Long intro paragraphs (hero bio) |
 | `--fs-body` | `18px` | Body copy (`.t-body`) |
 | `--fs-small` | `14px` | Small labels (`.t-small`), nav metadata |
 | `--fs-micro` | `12px` | Tag labels in featured/secondary projects |
@@ -91,7 +92,8 @@ All sizes use `clamp()` for responsive scaling. Token shape: `--fs-<role>`.
 |---|---|---|
 | `--pad-page` | `40px` | Default left/right page padding (desktop) |
 | `--pad-page-sm` | `20px` | Mobile left/right padding (≤768px) |
-| `--nav-h` | `72px` | Fixed nav height (also drives scroll offsets) |
+| `--nav-h` | `46px` | Fixed top nav height; drives hero/shell padding and all scroll offsets. Sized to the nav type plus pill padding. |
+| `--toc-h` | `32px` | Case-study bottom section nav. Shorter than the top bar because it holds 13px type and no pill. |
 | `--sidebar-w` | `200px` | Reserved (sidebar not currently used) |
 | `--section-pad` | `clamp(60px, 8vw, 120px)` | Vertical padding inside .cta / large sections |
 | `--project-pad-b` | `10rem` | Bottom padding between project cards |
@@ -99,6 +101,8 @@ All sizes use `clamp()` for responsive scaling. Token shape: `--fs-<role>`.
 **Page width rhythm:** nothing is capped at a max-width — sections fill the viewport and use `padding: 0 var(--pad-page)`. To narrow the design, set `max-width` on `.rail` or specific panels.
 
 **Vertical rhythm:** large gaps (e.g. between hero and work) come from `padding-bottom` on the upper section, not margin. This keeps each block self-contained.
+
+**Stacked text blocks:** spacing between sibling paragraphs comes from the parent's flex `gap`, never per-paragraph `margin`. A one-off margin on top of a gap produces two different end-of-sentence spacings in the same block. `.hero-bio` is the reference: `display: flex; flex-direction: column; gap: 14px`, and every child — label, bio paragraph, the "currently" line — inherits that one value.
 
 ---
 
@@ -210,7 +214,7 @@ These are the named patterns currently in use. When you tweak a class, the token
 
 Honest list of values still hardcoded in `style.css`. These are candidates for tokenization if they ever need to change in more than one place:
 
-- Hero `gap: 56px` and `padding: 40px 40px 64px`
+- Hero `gap: 56px` and `padding: 40px 40px 124px` — the bottom value must stay greater than the Work wave's reach (`.work-pixels` height minus its 60px overlap, plus the 16px blur), or the wave washes over the hero contact links
 - Project-secondary `gap: 48px`
 - Page-footer `gap: 48px`, `margin-bottom: 4.5rem` on title
 - Project bottom padding `10rem` (could be `--project-pad-b`)
@@ -225,7 +229,7 @@ If you find yourself editing any of these in two places, that's the signal to li
 |---|---|---|---|
 | Title | 22px (20px mobile) | 700, -0.015em | `--ink` |
 | Subline | 17px (15px mobile), lh 1.4 | 400 | `--ink-muted` `#6e6e6e` |
-| Tag chip | 13px (12px mobile) | 500 | `#8c8c8c` on flat light glass (#f6f7fa→#f0f2f6, 4% hairline, inset top highlight, no shadow, no hover); `--radius-pill`. Reads as a label, not a button. |
+| Tag chip | 13px (12px mobile) | 500 | `#5c6670` on light glass (top-light gradient, 9% hairline, inset top highlight, no outer shadow, no hover); `--radius-pill`; padding `5px 13px` (`4px 12px` mobile) — proportioned like the nav pill, more side than top. Reads as a label, not a button. |
 
 ### Text links
 
@@ -237,7 +241,7 @@ Used for the hero contact links and the footer "Find me" / email links (`.link-t
 
 ### Project hover label
 
-Follows the pointer over project media. Frosted-glass pill: 72% white, 16px backdrop blur, white 55% border + 6% ink hairline, `--radius-pill`. 13px / 500 sentence case `--ink`. Offset 16px right / 18px down from the pointer; fades and scales in (0.92 → 1). No dot, no arrow, no shadow. Hidden on mobile.
+Follows the pointer over project media. Frosted-glass pill: 86% white (keeps ink text ≥13:1 over any image), 16px backdrop blur, white 55% border + 6% ink hairline, `--radius-pill`. 13px / 500 sentence case `--ink`. Offset 16px right / 18px down from the pointer; fades and scales in (0.92 → 1). No dot, no arrow, no shadow. Hidden on mobile.
 
 ### Icons
 
@@ -245,12 +249,34 @@ No arrow icons anywhere (nav, links, CTAs, hover label). Links carry their affor
 
 ### Casing
 
+No em dashes anywhere in copy. Use a comma, colon, or full stop instead.
+
 No uppercase anywhere on the site. Small labels/eyebrows (case-study meta labels, kickers, dates) use the label style: sentence case, weight 600, `--ls-label`. Text links and CTAs: sentence case, weight 500. Case-study and About links keep their draw-in underline hover.
 
 ### Case-study section nav (`.cs-toc`)
 
-15px / 500 sentence case, `--muted` at rest. Hover and the active section: text → `--ink`, emboldened with a 0.35px text-stroke (no layout shift). No underline.
+13px / 500 sentence case, `#767676` at rest (4.5:1, WCAG AA). Hover and the active section: text → `--ink`, emboldened with a 0.35px text-stroke (no layout shift). No underline.
+
+### Bubble → glass
+
+The single motion shared by every glass surface on the site: a small round bubble inflates outward from the centre until it becomes the full pill. Driven by transitioning `clip-path` between two tokens — `--bubble-seed` (a 20px circle at the centre) and `--bubble-full` (the whole pill) — over `--bubble-dur` (540ms) on `--ease-soft` (`cubic-bezier(0.16, 1, 0.3, 1)`, a long unhurried settle).
+
+Only the glass moves. Type is *revealed by the clip* — never scaled, faded, or distorted. Applied to the top nav pill (`nav a::before`) and the project hover label (`.project-cursor`). Any new button-like glass surface should use these tokens rather than inventing its own entrance.
+
+Under reduced motion the glass simply appears at `--bubble-full`.
+
+### Nav states
+
+The pill *is* the state. The current page wears the glass permanently; hovering or focusing any link inflates the same glass in. The only hover extra is one slow specular sweep (`nav a::after`, 1100ms, left to right). No underlines anywhere in the nav.
 
 ### Seam fade
 
-The soft white wave gradient used wherever content scrolls under a fixed edge: the homepage Work panel's top edge, and the case-study section nav (`.cs-toc`). Add `data-seam` to the element and load `seam.js`; it inserts a blurred white canvas with a slow, even wave along the top (sized in real px so phones see a gentle slice; static under reduced motion).
+The soft white wave gradient used where content scrolls under a fixed edge: the homepage Work panel's top edge. Not used on the case-study section nav — at that scale the wave smeared ~40px of white above the bar and never read as even, so `.cs-toc` uses the same short static fade as `nav::before`, mirrored upward. Add `data-seam` (top edge) or `data-seam="down"` (bottom edge) and load `seam.js`; it inserts a blurred white canvas with a slow, even wave along the top (sized in real px so phones see a gentle slice; static under reduced motion).
+
+### Top nav fade
+
+The fixed top nav has a short, even, static fade under it (`nav::before`): 28px eased gradient (ease-out stops) from white to transparent. No animation.
+
+### Contrast
+
+All text meets WCAG AA (4.5:1 for text under 18px). Lightest allowed grey for small text on white: `#767676`. Tag chips use `#6b6b6b` on their light fill.
