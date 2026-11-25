@@ -2660,9 +2660,31 @@ body .cs-toc a::after { display: none; }      /* no underline — weight + colou
 .work-intro-copy { flex: none; width: 100%; }
 .work-intro-spacer { display: none; }
 
-/* Top nav sits on its own solid background; no fade below it. A white
-   gradient reads as a grey smear the moment dark media scrolls under. */
+/* ─── Top nav fade ───
+   Short, even, static gradient under the nav's bottom edge so content
+   dissolves into it rather than hitting a hard line. Kept shallow (20px)
+   and eased so it stays subtle where dark media scrolls underneath. */
 nav { box-shadow: none; }
+nav::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 20px;
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,1)    0%,
+    rgba(255,255,255,0.96) 12%,
+    rgba(255,255,255,0.88) 24%,
+    rgba(255,255,255,0.76) 36%,
+    rgba(255,255,255,0.60) 48%,
+    rgba(255,255,255,0.44) 60%,
+    rgba(255,255,255,0.28) 72%,
+    rgba(255,255,255,0.14) 84%,
+    rgba(255,255,255,0.05) 93%,
+    rgba(255,255,255,0)    100%);
+  pointer-events: none;
+}
 
 
 /* ─── Accessibility: WCAG AA contrast (≥ 4.5:1 for small text) ─── */
