@@ -2832,6 +2832,11 @@ body .cs-meta-block .label { margin-bottom: 7px; }
 body .cs-kicker { margin-bottom: 10px; }
 
 /* ─── Mobile ─── */
+@media (max-width: 768px) {
+  /* The mobile nav is transparent (burger only), so a white fade under it
+     has no bar to dissolve from and just floats a band over the content. */
+  nav::before { display: none; }
+}
 @media (max-width: 1100px) {
   /* The Work seam wave assumes the panel rises over a fixed hero; on
      narrow screens it just lays a blurred band across whatever is under it. */
