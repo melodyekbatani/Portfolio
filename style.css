@@ -2641,20 +2641,6 @@ body .cs-toc a.is-active {
 }
 body .cs-toc a::after { display: none; }      /* no underline — weight + colour carry state */
 
-/* ─── Seam fade (shared pattern, see seam.js) ───
-   Soft white wave on the top edge of any [data-seam] element. */
-.seam-fade {
-  position: absolute;
-  left: -6%;
-  width: 112%;
-  bottom: calc(100% - 24px);   /* = OVERLAP in seam.js */
-  height: 64px;                /* reaches ~40px above the edge */
-  pointer-events: none;
-  filter: blur(10px);
-  z-index: -1;
-}
-[data-seam] { overflow-x: clip; overflow-y: visible; }
-body .cs-toc[data-seam] { isolation: isolate; }
 
 /* Show/hide helpers */
 .only-mobile { display: none; }
@@ -2674,30 +2660,9 @@ body .cs-toc[data-seam] { isolation: isolate; }
 .work-intro-copy { flex: none; width: 100%; }
 .work-intro-spacer { display: none; }
 
-/* Top nav: short, even, static fade under its bottom edge */
+/* Top nav sits on its own solid background; no fade below it. A white
+   gradient reads as a grey smear the moment dark media scrolls under. */
 nav { box-shadow: none; }
-nav::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 100%;
-  height: 28px;
-  /* eased (not linear) fall-off — no visible band where content starts */
-  background: linear-gradient(to bottom,
-    rgba(255,255,255,1)    0%,
-    rgba(255,255,255,0.97) 10%,
-    rgba(255,255,255,0.91) 20%,
-    rgba(255,255,255,0.82) 30%,
-    rgba(255,255,255,0.70) 40%,
-    rgba(255,255,255,0.56) 50%,
-    rgba(255,255,255,0.42) 60%,
-    rgba(255,255,255,0.28) 70%,
-    rgba(255,255,255,0.16) 80%,
-    rgba(255,255,255,0.07) 90%,
-    rgba(255,255,255,0)    100%);
-  pointer-events: none;
-}
 
 
 /* ─── Accessibility: WCAG AA contrast (≥ 4.5:1 for small text) ─── */
@@ -2767,8 +2732,8 @@ body .cs-toc a { color: #767676; }
 
 /* ─── Case-study section nav: short, even, static fade above it ───
    The animated seam wave smeared ~40px of white above this bar, which read
-   as extra height and never looked even at this scale. Same eased, static
-   gradient as nav::before, mirrored upward. */
+   as extra height and never looked even at this scale. The bar itself is
+   hidden below 1100px, so this fade never reaches mobile. */
 body .cs-toc::before {
   content: '';
   position: absolute;
@@ -2847,12 +2812,9 @@ body .cs-kicker { margin-bottom: 10px; }
 
 /* ─── Mobile ─── */
 @media (max-width: 1100px) {
-  /* Both white fades are desktop devices: the Work seam wave assumes the
-     panel rises over a fixed hero, and the nav fade assumes an opaque nav
-     bar. On narrow screens they just lay a blurred band across whatever
-     happens to be underneath. */
+  /* The Work seam wave assumes the panel rises over a fixed hero; on
+     narrow screens it just lays a blurred band across whatever is under it. */
   .work-pixels { display: none; }
-  nav::before { display: none; }
 }
 @media (max-width: 768px) {
 
@@ -2865,4 +2827,44 @@ body .cs-kicker { margin-bottom: 10px; }
   .cs-block p,
   .cs-overview-copy p,
   .cs-feature .copy p { line-height: 1.38; }
+}
+
+/* ─── "See next project": the glass pill, on a dark card ───
+   Was white text on a hard underline, which belonged to the old link
+   style. Same recipe as the nav pill, tinted for a dark ground so the
+   glass stays legible. */
+body .cs-next-cta {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  isolation: isolate;
+  padding: 8px 17px;
+  border-radius: var(--radius-pill);
+  color: #fff;
+  padding-bottom: 8px;      /* overrides the old underline offset */
+}
+body .cs-next-cta::after { display: none; }   /* drop the underline */
+body .cs-next-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.20) 0%,
+    rgba(255,255,255,0.12) 55%,
+    rgba(255,255,255,0.08) 100%);
+  border: 1px solid rgba(255,255,255,0.28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.30);
+  opacity: 1;
+  clip-path: var(--bubble-full);
+  transition: background 260ms var(--ease-soft), border-color 260ms var(--ease-soft);
+}
+.cs-next:hover .cs-next-cta::before,
+.cs-next:focus-visible .cs-next-cta::before {
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.32) 0%,
+    rgba(255,255,255,0.22) 55%,
+    rgba(255,255,255,0.16) 100%);
+  border-color: rgba(255,255,255,0.42);
 }
